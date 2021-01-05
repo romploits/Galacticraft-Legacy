@@ -433,10 +433,10 @@ public class TileEntityGasLiquefier extends TileBaseElectricBlockWithInventory i
     public int getAirProducts()
     {
         WorldProvider WP = this.world.provider;
-        if (WP instanceof WorldProviderSpace)
+        if (WP instanceof IGalacticraftWorldProvider)
         {
             int result = 0;
-            ArrayList<EnumAtmosphericGas> atmos = ((WorldProviderSpace) WP).getCelestialBody().atmosphere.composition;
+            ArrayList<EnumAtmosphericGas> atmos = ((IGalacticraftWorldProvider) WP).getCelestialBody().atmosphere.composition;
             if (atmos.size() > 0)
             {
                 result = this.getIdFromName(atmos.get(0).name().toLowerCase()) + 1;
