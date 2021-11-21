@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.mars.blocks;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.ISortableBlock;
 import micdoodle8.mods.galacticraft.core.items.IShiftDescription;
@@ -32,19 +36,15 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class BlockCavernousVine extends Block implements IShearable, IShiftDescription, ISortableBlock
 {
+
     public static final PropertyEnum<EnumVineType> VINE_TYPE = PropertyEnum.create("vinetype", EnumVineType.class);
 
     public enum EnumVineType implements IStringSerializable
     {
-        VINE_0(0, "vine_0"),
-        VINE_1(1, "vine_1"),
-        VINE_2(2, "vine_2");
+
+        VINE_0(0, "vine_0"), VINE_1(1, "vine_1"), VINE_2(2, "vine_2");
 
         private final int meta;
         private final String name;
@@ -61,6 +61,7 @@ public class BlockCavernousVine extends Block implements IShearable, IShiftDescr
         }
 
         private final static EnumVineType[] values = values();
+
         public static EnumVineType byMetadata(int meta)
         {
             return values[meta % values.length];
@@ -79,7 +80,7 @@ public class BlockCavernousVine extends Block implements IShearable, IShiftDescr
         this.setLightLevel(1.0F);
         this.setTickRandomly(true);
         this.setSoundType(SoundType.PLANT);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
@@ -118,7 +119,7 @@ public class BlockCavernousVine extends Block implements IShearable, IShiftDescr
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         if (entityIn instanceof EntityLivingBase)
         {
@@ -142,7 +143,7 @@ public class BlockCavernousVine extends Block implements IShearable, IShiftDescr
 
     @SideOnly(Side.CLIENT)
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -278,7 +279,7 @@ public class BlockCavernousVine extends Block implements IShearable, IShiftDescr
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override
@@ -289,7 +290,7 @@ public class BlockCavernousVine extends Block implements IShearable, IShiftDescr
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.CUTOUT;
     }

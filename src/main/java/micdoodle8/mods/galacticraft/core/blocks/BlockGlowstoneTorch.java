@@ -4,6 +4,7 @@ import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.IShiftDescription;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -28,13 +29,13 @@ public class BlockGlowstoneTorch extends BlockTorchBase implements IShiftDescrip
         super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
         this.setTickRandomly(true);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
         this.setLightLevel(0.85F);
         this.setSoundType(SoundType.WOOD);
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -77,8 +78,7 @@ public class BlockGlowstoneTorch extends BlockTorchBase implements IShiftDescrip
         if (!this.checkForDrop(worldIn, pos, state))
         {
             return;
-        }
-        else
+        } else
         {
             EnumFacing enumfacing = state.getValue(FACING);
             EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
@@ -88,8 +88,7 @@ public class BlockGlowstoneTorch extends BlockTorchBase implements IShiftDescrip
             if (enumfacing$axis.isHorizontal() && !worldIn.isSideSolid(pos.offset(enumfacing1), enumfacing, true))
             {
                 flag = true;
-            }
-            else if (enumfacing$axis.isVertical() && !this.canPlaceOn(worldIn, pos.offset(enumfacing1)))
+            } else if (enumfacing$axis.isVertical() && !this.canPlaceOn(worldIn, pos.offset(enumfacing1)))
             {
                 flag = true;
             }
@@ -113,40 +112,9 @@ public class BlockGlowstoneTorch extends BlockTorchBase implements IShiftDescrip
         }
     }
 
-//    @Override
-//    public RayTraceResult collisionRayTrace(World worldIn, BlockPos pos, Vec3d start, Vec3d end)
-//    {
-//        int l = getMetaFromState(worldIn.getBlockState(pos)) & 7;
-//        float f = 0.15F;
-//
-//        if (l == 1)
-//        {
-//            this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
-//        }
-//        else if (l == 2)
-//        {
-//            this.setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
-//        }
-//        else if (l == 3)
-//        {
-//            this.setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
-//        }
-//        else if (l == 4)
-//        {
-//            this.setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
-//        }
-//        else
-//        {
-//            f = 0.1F;
-//            this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.6F, 0.5F + f);
-//        }
-//
-//        return super.collisionRayTrace(worldIn, pos, start, end);
-//    }
-
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.CUTOUT;
     }
@@ -154,13 +122,14 @@ public class BlockGlowstoneTorch extends BlockTorchBase implements IShiftDescrip
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] { FACING });
+        return new BlockStateContainer(this, new IProperty[]
+        {FACING});
     }
 
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override

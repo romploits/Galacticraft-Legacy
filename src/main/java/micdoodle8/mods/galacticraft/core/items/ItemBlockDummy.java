@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.core.items;
 
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemBlock;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBlockDummy extends ItemBlock
 {
+
     public ItemBlockDummy(Block block)
     {
         super(block);
@@ -38,39 +40,39 @@ public class ItemBlockDummy extends ItemBlock
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getTranslationKey(ItemStack itemstack)
     {
         int metadata = itemstack.getItemDamage();
         String blockName = "";
 
         switch (metadata)
         {
-        case 1:
-            blockName = "spaceStationBase";
-            break;
-        case 2:
-            blockName = "launchPad";
-            break;
-        case 3:
-            blockName = "nasaWorkbench";
-            break;
-        case 4:
-            blockName = "solar";
-            break;
-        case 5:
-            blockName = "cryogenicChamber";
-            break;
-        default:
-            blockName = null;
-            break;
+            case 1:
+                blockName = "spaceStationBase";
+                break;
+            case 2:
+                blockName = "launchPad";
+                break;
+            case 3:
+                blockName = "nasaWorkbench";
+                break;
+            case 4:
+                blockName = "solar";
+                break;
+            case 5:
+                blockName = "cryogenicChamber";
+                break;
+            default:
+                blockName = null;
+                break;
         }
 
-        return this.getBlock().getUnlocalizedName() + "." + blockName;
+        return this.getBlock().getTranslationKey() + "." + blockName;
     }
 
     @Override
-    public String getUnlocalizedName()
+    public String getTranslationKey()
     {
-        return this.getBlock().getUnlocalizedName() + ".0";
+        return this.getBlock().getTranslationKey() + ".0";
     }
 }

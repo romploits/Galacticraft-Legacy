@@ -13,11 +13,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAtmosphericValve extends Item implements ISortableItem
 {
+
     public ItemAtmosphericValve(String assetName)
     {
         super();
         this.setMaxDamage(0);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
         this.setMaxStackSize(64);
     }
 

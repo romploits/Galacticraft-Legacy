@@ -26,6 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockSolarArrayModule extends BlockAdvanced implements IShiftDescription, IPartialSealableBlock, ISortableBlock, ITileEntityProvider
 {
+
     protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0, 0.375, 0.0, 1.0, 0.625, 1.0);
 
     public BlockSolarArrayModule(String assetName)
@@ -33,7 +34,7 @@ public class BlockSolarArrayModule extends BlockAdvanced implements IShiftDescri
         super(Material.IRON);
         this.setHardness(2.5F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
@@ -61,50 +62,9 @@ public class BlockSolarArrayModule extends BlockAdvanced implements IShiftDescri
         return new TileEntitySolarArrayModule();
     }
 
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-    {
-        super.onBlockAdded(worldIn, pos, state);
-
-        if (!worldIn.isRemote)
-        {
-//            boolean added = false;
-//            for (EnumFacing facing : EnumFacing.HORIZONTALS)
-//            {
-//                TileEntity tile = worldIn.getTileEntity(pos.offset(facing));
-//                if (tile instanceof TileEntitySolarArrayController)
-//                {
-//                    ((TileEntitySolarArrayController) tile).addArrayModule(pos);
-//                    added = true;
-//                    break;
-//                }
-//            }
-//            if (!added)
-//            {
-//
-//            }
-//            List<TileEntitySolarArrayController> controllers = Lists.newArrayList();
-//            for (TileEntity tile : worldIn.loadedTileEntityList)
-//            {
-//                if (tile instanceof TileEntitySolarArrayController)
-//                {
-//                    BlockPos diff = tile.getPos().subtract(pos);
-//                    if (Math.abs(diff.getX()) <= 16 && Math.abs(diff.getY()) <= 16 && Math.abs(diff.getZ()) <= 16)
-//                    {
-//                        controllers.add((TileEntitySolarArrayController) tile);
-//                    }
-//                }
-//            }
-//            for (TileEntitySolarArrayController controller : controllers)
-//            {
-//                controller.updateConnected(pos, controllers);
-//            }
-        }
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -112,7 +72,7 @@ public class BlockSolarArrayModule extends BlockAdvanced implements IShiftDescri
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override

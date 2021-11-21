@@ -8,6 +8,7 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityFuelLoader;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -28,6 +29,7 @@ import net.minecraft.world.World;
 
 public class BlockFuelLoader extends BlockAdvancedTile implements IShiftDescription, ISortableBlock
 {
+
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     public static IMachineSidesProperties MACHINESIDES_RENDERTYPE = IMachineSidesProperties.TWOFACES_HORIZ;
     public static final PropertyEnum SIDES = MACHINESIDES_RENDERTYPE.asProperty;
@@ -37,11 +39,11 @@ public class BlockFuelLoader extends BlockAdvancedTile implements IShiftDescript
         super(Material.ROCK);
         this.setHardness(1.0F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -63,21 +65,21 @@ public class BlockFuelLoader extends BlockAdvancedTile implements IShiftDescript
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         final int angle = MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-        worldIn.setBlockState(pos, state.withProperty(FACING, EnumFacing.getHorizontal(angle).getOpposite()), 3);
+        worldIn.setBlockState(pos, state.withProperty(FACING, EnumFacing.byHorizontalIndex(angle).getOpposite()), 3);
         WorldUtil.markAdjacentPadForUpdate(worldIn, pos);
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state)
     {
-        super.onBlockDestroyedByPlayer(worldIn, pos, state);
+        super.onPlayerDestroy(worldIn, pos, state);
         WorldUtil.markAdjacentPadForUpdate(worldIn, pos);
     }
 
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override
@@ -89,7 +91,7 @@ public class BlockFuelLoader extends BlockAdvancedTile implements IShiftDescript
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
+        EnumFacing enumfacing = EnumFacing.byHorizontalIndex(meta);
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
@@ -118,14 +120,14 @@ public class BlockFuelLoader extends BlockAdvancedTile implements IShiftDescript
     {
         return EnumSortCategoryBlock.MACHINE;
     }
-    
+
     @Override
     public boolean onSneakUseWrench(World world, BlockPos pos, EntityPlayer entityPlayer, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof IMachineSides)
         {
-            ((IMachineSides)tile).nextSideConfiguration(tile);
+            ((IMachineSides) tile).nextSideConfiguration(tile);
             return true;
         }
         return false;

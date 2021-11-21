@@ -6,6 +6,7 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTank;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.FluidUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -32,6 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockFluidTank extends Block implements IShiftDescription, ISortableBlock, ITileEntityProvider
 {
+
     public static final PropertyBool UP = PropertyBool.create("up");
     public static final PropertyBool DOWN = PropertyBool.create("down");
     private static final AxisAlignedBB BOUNDS = new AxisAlignedBB(0.05F, 0.0F, 0.05F, 0.95F, 1.0F, 0.95F);
@@ -42,7 +44,7 @@ public class BlockFluidTank extends Block implements IShiftDescription, ISortabl
         this.setHardness(3.0F);
         this.setResistance(8.0F);
         this.setSoundType(SoundType.GLASS);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
@@ -64,14 +66,14 @@ public class BlockFluidTank extends Block implements IShiftDescription, ISortabl
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.CUTOUT;
     }
@@ -103,7 +105,7 @@ public class BlockFluidTank extends Block implements IShiftDescription, ISortabl
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override
@@ -144,33 +146,6 @@ public class BlockFluidTank extends Block implements IShiftDescription, ISortabl
         return new TileEntityFluidTank();
     }
 
-//    @Override
-//    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-//    {
-//        this.setBlockBounds((float) BOUNDS.minX, (float) BOUNDS.minY, (float) BOUNDS.minZ, (float) BOUNDS.maxX, (float) BOUNDS.maxY, (float) BOUNDS.maxZ);
-//    }
-//
-//    @Override
-//    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
-//    {
-//        this.setBlockBoundsBasedOnState(worldIn, pos);
-//        super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-//    }
-//
-//    @Override
-//    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-//    {
-//        this.setBlockBoundsBasedOnState(worldIn, pos);
-//        return super.getCollisionBoundingBox(worldIn, pos, state);
-//    }
-//
-//    @Override
-//    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos)
-//    {
-//        this.setBlockBoundsBasedOnState(worldIn, pos);
-//        return super.getSelectedBoundingBox(worldIn, pos);
-//    }
-
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
     {
@@ -181,7 +156,7 @@ public class BlockFluidTank extends Block implements IShiftDescription, ISortabl
 
         if (hand == EnumHand.OFF_HAND)
         {
-        	return false;
+            return false;
         }
 
         ItemStack current = playerIn.inventory.getCurrentItem();
@@ -198,12 +173,12 @@ public class BlockFluidTank extends Block implements IShiftDescription, ISortabl
                 FluidActionResult forgeResult = FluidUtil.interactWithFluidHandler(current, tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null), playerIn);
                 if (forgeResult.isSuccess())
                 {
-                	playerIn.inventory.setInventorySlotContents(slot, forgeResult.result);
-            		if (playerIn.inventoryContainer != null)
-            		{
-            			playerIn.inventoryContainer.detectAndSendChanges();
-            		}
-            		return true;
+                    playerIn.inventory.setInventorySlotContents(slot, forgeResult.result);
+                    if (playerIn.inventoryContainer != null)
+                    {
+                        playerIn.inventoryContainer.detectAndSendChanges();
+                    }
+                    return true;
                 }
 
                 return false;

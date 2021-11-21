@@ -15,13 +15,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemKeyVenus extends Item implements IKeyItem, ISortableItem
 {
+
     public ItemKeyVenus(String name)
     {
         super();
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
     }
 
     @SideOnly(Side.CLIENT)
@@ -32,7 +33,7 @@ public class ItemKeyVenus extends Item implements IKeyItem, ISortableItem
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack)
+    public String getTranslationKey(ItemStack itemStack)
     {
         return "item.key.t3";
     }

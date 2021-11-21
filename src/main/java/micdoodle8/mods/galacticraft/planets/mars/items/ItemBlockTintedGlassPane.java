@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBlockTintedGlassPane extends ItemBlock
 {
+
     public ItemBlockTintedGlassPane(Block block)
     {
         super(block);
@@ -24,17 +25,16 @@ public class ItemBlockTintedGlassPane extends ItemBlock
         return damage;
     }
 
-    /*@Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int par1)
-    {
-        return this.getBlock().getIcon(0, par1);
-    }*/
+    /*
+     * @Override
+     * @SideOnly(Side.CLIENT) public IIcon getIconFromDamage(int par1) { return
+     * this.getBlock().getIcon(0, par1); }
+     */
 
     @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getTranslationKey(ItemStack itemstack)
     {
-        return this.getBlock().getUnlocalizedName() + "." + ItemDye.DYE_COLORS[~itemstack.getItemDamage() & 15];
+        return this.getBlock().getTranslationKey() + "." + ItemDye.DYE_COLORS[~itemstack.getItemDamage() & 15];
     }
 
     @Override
@@ -45,8 +45,8 @@ public class ItemBlockTintedGlassPane extends ItemBlock
     }
 
     @Override
-    public String getUnlocalizedName()
+    public String getTranslationKey()
     {
-        return this.getBlock().getUnlocalizedName() + ".0";
+        return this.getBlock().getTranslationKey() + ".0";
     }
 }

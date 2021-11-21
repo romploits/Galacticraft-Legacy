@@ -1,17 +1,31 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
-import com.google.common.collect.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-import java.util.*;
-
 /**
+ * This will eventually be completely reworked and implemented differently
+ * It is still safe to depend and make calls to this class.
+ * 
  * Credits to KingLemming and CovertJaguar, since this is based on the
  * Liquid/Fluid API
  */
+@Deprecated
 public class GalaxyRegistry
 {
+
     static int maxSolarSystemID = 0;
     static int maxPlanetID = 0;
     static int maxMoonID = 0;
@@ -140,7 +154,7 @@ public class GalaxyRegistry
     {
         for (Planet planet : GalaxyRegistry.planets.values())
         {
-            if (planet.getUnlocalizedName().equals(unlocalizedName))
+            if (planet.getTranslationKey().equals(unlocalizedName))
             {
                 return planet;
             }
@@ -148,7 +162,7 @@ public class GalaxyRegistry
 
         for (Moon moon : GalaxyRegistry.moons.values())
         {
-            if (moon.getUnlocalizedName().equals(unlocalizedName))
+            if (moon.getTranslationKey().equals(unlocalizedName))
             {
                 return moon;
             }
@@ -270,7 +284,8 @@ public class GalaxyRegistry
     }
 
     /**
-     * Returns a read-only map containing Satellite Names and their associated Satellite.
+     * Returns a read-only map containing Satellite Names and their associated
+     * Satellite.
      */
     public static Map<String, Satellite> getRegisteredSatellites()
     {
@@ -278,7 +293,8 @@ public class GalaxyRegistry
     }
 
     /**
-     * Returns a read-only map containing Satellite Names and their associated IDs.
+     * Returns a read-only map containing Satellite Names and their associated
+     * IDs.
      */
     public static Map<String, Integer> getRegisteredSatelliteIDs()
     {
@@ -307,6 +323,7 @@ public class GalaxyRegistry
 
     public static class SolarSystemRegisterEvent extends Event
     {
+
         public final String solarSystemName;
         public final int solarSystemID;
 
@@ -319,6 +336,7 @@ public class GalaxyRegistry
 
     public static class PlanetRegisterEvent extends Event
     {
+
         public final String planetName;
         public final int planetID;
 
@@ -331,6 +349,7 @@ public class GalaxyRegistry
 
     public static class MoonRegisterEvent extends Event
     {
+
         public final String moonName;
         public final int moonID;
 
@@ -343,6 +362,7 @@ public class GalaxyRegistry
 
     public static class SatelliteRegisterEvent extends Event
     {
+
         public final String satelliteName;
         public final int satelliteID;
 

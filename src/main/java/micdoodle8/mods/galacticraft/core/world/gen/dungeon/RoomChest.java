@@ -40,7 +40,7 @@ public class RoomChest extends RoomEmpty
                 ResourceLocation chesttype = RoomTreasure.MOONCHEST;
                 if (worldIn.provider instanceof IGalacticraftWorldProvider)
                 {
-                    chesttype = ((IGalacticraftWorldProvider)worldIn.provider).getDungeonChestType();
+                    chesttype = ((IGalacticraftWorldProvider) worldIn.provider).getDungeonChestType();
                 }
                 chest.setLootTable(chesttype, rand.nextLong());
             }

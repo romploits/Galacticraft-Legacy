@@ -26,17 +26,18 @@ import java.util.Random;
 
 public class BlockSpout extends Block implements ISortableBlock, ITileEntityProvider
 {
+
     public BlockSpout(String assetName)
     {
         super(Material.ROCK);
         this.blockHardness = 4.5F;
         this.blockResistance = 2.5F;
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }

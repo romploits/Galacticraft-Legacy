@@ -4,10 +4,11 @@ import net.minecraft.block.BlockNetherWart;
 
 public class BlockSpaceWart extends BlockNetherWart
 {
+
     public BlockSpaceWart(String assetName)
     {
         super();
         this.setTickRandomly(false);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 }

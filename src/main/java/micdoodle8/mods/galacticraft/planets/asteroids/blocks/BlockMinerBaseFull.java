@@ -6,7 +6,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,12 +27,13 @@ import java.util.Random;
 
 public class BlockMinerBaseFull extends BlockTileGC
 {
+
     public BlockMinerBaseFull(String assetName)
     {
         super(Material.ROCK);
         this.blockHardness = 3.0F;
         this.setResistance(35F);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
         this.setSoundType(SoundType.METAL);
     }
 
@@ -74,24 +74,8 @@ public class BlockMinerBaseFull extends BlockTileGC
     }
 
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand)
-    {
-        return this.getStateFromMeta(0);
-        //TODO
-        //return this.getMetadataFromAngle(world, x, y, z, side);
-    }
-
-    @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
     {
-        //TODO
-        /*
-    	if (this.getMetadataFromAngle(world, x, y, z, side) != -1)
-        {
-            return true;
-        }
-    	 */
-
         return true;
     }
 
@@ -115,8 +99,7 @@ public class BlockMinerBaseFull extends BlockTileGC
         if (tileEntity instanceof TileEntityMinerBase)
         {
             return ((TileEntityMinerBase) tileEntity).onActivated(playerIn);
-        }
-        else
+        } else
         {
             return false;
         }
@@ -155,7 +138,7 @@ public class BlockMinerBaseFull extends BlockTileGC
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.CUTOUT;
     }

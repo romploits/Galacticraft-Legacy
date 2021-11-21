@@ -8,6 +8,7 @@ import micdoodle8.mods.galacticraft.core.entities.EntityBuggy;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -20,7 +21,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -32,11 +37,11 @@ import javax.annotation.Nullable;
 
 public class ItemBuggy extends Item implements IHoldableItem, ISortableItem
 {
+
     public ItemBuggy(String assetName)
     {
         super();
-        this.setUnlocalizedName(assetName);
-        //this.setTextureName("arrow");
+        this.setTranslationKey(assetName);
         this.setMaxStackSize(1);
     }
 
@@ -83,19 +88,19 @@ public class ItemBuggy extends Item implements IHoldableItem, ISortableItem
         final float var18 = var15 * var16;
         final float var20 = var14 * var16;
         final double var21 = 5.0D;
-        final Vec3d var23 = var13.addVector(var18 * var21, var17 * var21, var20 * var21);
+        final Vec3d var23 = var13.add(var18 * var21, var17 * var21, var20 * var21);
         final RayTraceResult var24 = worldIn.rayTraceBlocks(var13, var23, true);
 
         if (var24 == null)
         {
             return new ActionResult<>(EnumActionResult.PASS, itemstack);
-        }
-        else
+        } else
         {
             final Vec3d var25 = playerIn.getLook(var4);
             boolean var26 = false;
             final float var27 = 1.0F;
-            final List<?> var28 = worldIn.getEntitiesWithinAABBExcludingEntity(playerIn, playerIn.getEntityBoundingBox().grow(var25.x * var21, var25.y * var21, var25.z * var21).expand(var27, var27, var27));
+            final List<?> var28 =
+                worldIn.getEntitiesWithinAABBExcludingEntity(playerIn, playerIn.getEntityBoundingBox().grow(var25.x * var21, var25.y * var21, var25.z * var21).expand(var27, var27, var27));
             int var29;
 
             for (var29 = 0; var29 < var28.size(); ++var29)
@@ -117,8 +122,7 @@ public class ItemBuggy extends Item implements IHoldableItem, ISortableItem
             if (var26)
             {
                 return new ActionResult<>(EnumActionResult.PASS, itemstack);
-            }
-            else
+            } else
             {
                 if (var24.typeOfHit == RayTraceResult.Type.BLOCK)
                 {

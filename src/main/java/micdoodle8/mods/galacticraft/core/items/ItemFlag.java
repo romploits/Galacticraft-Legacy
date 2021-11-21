@@ -8,6 +8,7 @@ import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,6 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemFlag extends Item implements IHoldableItemCustom, ISortableItem
 {
+
     public int placeProgress;
 
     public ItemFlag(String assetName)
@@ -37,8 +39,8 @@ public class ItemFlag extends Item implements IHoldableItemCustom, ISortableItem
         super();
         this.setMaxDamage(0);
         this.setMaxStackSize(1);
-        this.setUnlocalizedName(assetName);
-        //this.setTextureName("arrow");
+        this.setTranslationKey(assetName);
+        // this.setTextureName("arrow");
     }
 
     @Override
@@ -86,8 +88,7 @@ public class ItemFlag extends Item implements IHoldableItemCustom, ISortableItem
                     flag.setOwner(PlayerUtil.getName(player));
                     worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundType.METAL.getBreakSound(), SoundCategory.BLOCKS, SoundType.METAL.getVolume(), SoundType.METAL.getPitch() + 2.0F);
                     placed = true;
-                }
-                else
+                } else
                 {
                     entity.sendMessage(new TextComponentString(GCCoreUtil.translate("gui.flag.already_placed")));
                 }
@@ -145,16 +146,15 @@ public class ItemFlag extends Item implements IHoldableItemCustom, ISortableItem
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack)
+    public String getTranslationKey(ItemStack itemStack)
     {
         return "item.flag";
     }
 
-    /*@Override
-    public IIcon getIconFromDamage(int damage)
-    {
-        return super.getIconFromDamage(damage);
-    }*/
+    /*
+     * @Override public IIcon getIconFromDamage(int damage) { return
+     * super.getIconFromDamage(damage); }
+     */
 
     @Override
     public boolean shouldHoldLeftHandUp(EntityPlayer player)

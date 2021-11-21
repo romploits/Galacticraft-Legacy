@@ -26,12 +26,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockCreeperEgg extends BlockDragonEgg implements IShiftDescription, ISortableBlock
 {
+
     protected static final AxisAlignedBB DRAGON_EGG_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 1.0D, 0.9375D);
 
     public BlockCreeperEgg(String assetName)
     {
         super();
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class BlockCreeperEgg extends BlockDragonEgg implements IShiftDescription
 
     @SideOnly(Side.CLIENT)
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -96,7 +97,7 @@ public class BlockCreeperEgg extends BlockDragonEgg implements IShiftDescription
         }
 
         world.setBlockToAir(pos);
-        this.onBlockDestroyedByExplosion(world, pos, explosion);
+        this.onExplosionDestroy(world, pos, explosion);
     }
 
     @Override
@@ -105,7 +106,7 @@ public class BlockCreeperEgg extends BlockDragonEgg implements IShiftDescription
         return false;
     }
 
-    //Can only be harvested with a Sticky Desh Pickaxe
+    // Can only be harvested with a Sticky Desh Pickaxe
     @Override
     public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player)
     {
@@ -125,13 +126,14 @@ public class BlockCreeperEgg extends BlockDragonEgg implements IShiftDescription
         {
             return 0.2F;
         }
-        return super.getPlayerRelativeBlockHardness(state, player, worldIn, pos);
+
+        return state.getPlayerRelativeBlockHardness(player, worldIn, pos);
     }
 
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override

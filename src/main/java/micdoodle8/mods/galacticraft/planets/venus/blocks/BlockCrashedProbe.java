@@ -56,12 +56,12 @@ public class BlockCrashedProbe extends BlockTileGC implements ISortableBlock, IT
         this.blockResistance = 2.5F;
         this.setSoundType(SoundType.METAL);
         this.setTickRandomly(true);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -98,7 +98,7 @@ public class BlockCrashedProbe extends BlockTileGC implements ISortableBlock, IT
     {
         final TileEntity tile = worldIn.getTileEntity(pos);
 
-        if (tile instanceof TileEntityCrashedProbe && ((TileEntityCrashedProbe)tile).getDropCore())
+        if (tile instanceof TileEntityCrashedProbe && ((TileEntityCrashedProbe) tile).getDropCore())
         {
             spawnItem(worldIn, pos);
         }
@@ -106,7 +106,7 @@ public class BlockCrashedProbe extends BlockTileGC implements ISortableBlock, IT
         super.breakBlock(worldIn, pos, state);
     }
 
-    //Drops a Radioisotope Core as well as the Crashed Probe block
+    // Drops a Radioisotope Core as well as the Crashed Probe block
     private void spawnItem(World worldIn, BlockPos pos)
     {
         final float f = 0.7F;
@@ -118,19 +118,19 @@ public class BlockCrashedProbe extends BlockTileGC implements ISortableBlock, IT
         entityitem.setDefaultPickupDelay();
         worldIn.spawnEntity(entityitem);
     }
-    
-        @Override
+
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         int angle = MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-        int change = EnumFacing.getHorizontal(angle).getOpposite().getHorizontalIndex();
+        int change = EnumFacing.byHorizontalIndex(angle).getOpposite().getHorizontalIndex();
         worldIn.setBlockState(pos, getStateFromMeta(change), 3);
     }
-    
+
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(meta % 4);
+        EnumFacing enumfacing = EnumFacing.byHorizontalIndex(meta % 4);
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
@@ -145,7 +145,7 @@ public class BlockCrashedProbe extends BlockTileGC implements ISortableBlock, IT
     {
         return new BlockStateContainer(this, FACING);
     }
-    
+
     @Override
     public boolean isOpaqueCube(IBlockState state)
     {

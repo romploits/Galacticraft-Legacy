@@ -1,11 +1,13 @@
 package micdoodle8.mods.galacticraft.core.items;
 
 import micdoodle8.mods.galacticraft.core.blocks.BlockOxygenCompressor;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class ItemBlockOxygenCompressor extends ItemBlockDesc
 {
+
     public ItemBlockOxygenCompressor(Block block)
     {
         super(block);
@@ -20,25 +22,24 @@ public class ItemBlockOxygenCompressor extends ItemBlockDesc
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getTranslationKey(ItemStack itemstack)
     {
         int metadata = 0;
 
         if (itemstack.getItemDamage() >= BlockOxygenCompressor.OXYGEN_DECOMPRESSOR_METADATA)
         {
             metadata = 1;
-        }
-        else if (itemstack.getItemDamage() >= BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA)
+        } else if (itemstack.getItemDamage() >= BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA)
         {
             metadata = 0;
         }
 
-        return this.getBlock().getUnlocalizedName() + "." + metadata;
+        return this.getBlock().getTranslationKey() + "." + metadata;
     }
 
     @Override
-    public String getUnlocalizedName()
+    public String getTranslationKey()
     {
-        return this.getBlock().getUnlocalizedName() + ".0";
+        return this.getBlock().getTranslationKey() + ".0";
     }
 }

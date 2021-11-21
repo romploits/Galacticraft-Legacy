@@ -4,6 +4,7 @@ import micdoodle8.mods.galacticraft.api.item.IKeyItem;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -14,13 +15,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemKey extends Item implements IKeyItem, ISortableItem
 {
+
     public ItemKey(String assetName)
     {
         super();
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
@@ -30,9 +32,9 @@ public class ItemKey extends Item implements IKeyItem, ISortableItem
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack)
+    public String getTranslationKey(ItemStack itemStack)
     {
-        return this.getUnlocalizedName() + ".t1";
+        return this.getTranslationKey() + ".t1";
     }
 
     @Override

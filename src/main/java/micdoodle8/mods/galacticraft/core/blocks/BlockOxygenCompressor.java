@@ -6,6 +6,7 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenCompressor;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDecompressor;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -27,6 +28,7 @@ import net.minecraft.world.World;
 
 public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDescription, ISortableBlock
 {
+
     public static final int OXYGEN_COMPRESSOR_METADATA = 0;
     public static final int OXYGEN_DECOMPRESSOR_METADATA = 4;
 
@@ -35,8 +37,8 @@ public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDe
 
     public enum EnumCompressorType implements IStringSerializable
     {
-        COMPRESSOR(0, "compressor"),
-        DECOMPRESSOR(1, "decompressor");
+
+        COMPRESSOR(0, "compressor"), DECOMPRESSOR(1, "decompressor");
 
         private final int meta;
         private final String name;
@@ -53,6 +55,7 @@ public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDe
         }
 
         private final static EnumCompressorType[] values = values();
+
         public static EnumCompressorType byMetadata(int meta)
         {
             return values[meta % values.length];
@@ -70,11 +73,11 @@ public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDe
         super(Material.ROCK);
         this.setHardness(1.0F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -93,12 +96,10 @@ public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDe
         if (metadata >= BlockOxygenCompressor.OXYGEN_DECOMPRESSOR_METADATA)
         {
             return new TileEntityOxygenDecompressor();
-        }
-        else if (metadata >= BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA)
+        } else if (metadata >= BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA)
         {
             return new TileEntityOxygenCompressor();
-        }
-        else
+        } else
         {
             return null;
         }
@@ -108,13 +109,12 @@ public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDe
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         final int angle = MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-        int change = EnumFacing.getHorizontal(angle).getOpposite().getHorizontalIndex();
+        int change = EnumFacing.byHorizontalIndex(angle).getOpposite().getHorizontalIndex();
 
         if (stack.getItemDamage() >= BlockOxygenCompressor.OXYGEN_DECOMPRESSOR_METADATA)
         {
             change += BlockOxygenCompressor.OXYGEN_DECOMPRESSOR_METADATA;
-        }
-        else if (stack.getItemDamage() >= BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA)
+        } else if (stack.getItemDamage() >= BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA)
         {
             change += BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA;
         }
@@ -136,12 +136,10 @@ public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDe
         if (metadata >= BlockOxygenCompressor.OXYGEN_DECOMPRESSOR_METADATA)
         {
             return BlockOxygenCompressor.OXYGEN_DECOMPRESSOR_METADATA;
-        }
-        else if (metadata >= BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA)
+        } else if (metadata >= BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA)
         {
             return BlockOxygenCompressor.OXYGEN_COMPRESSOR_METADATA;
-        }
-        else
+        } else
         {
             return 0;
         }
@@ -152,10 +150,10 @@ public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDe
     {
         switch (meta)
         {
-        case OXYGEN_COMPRESSOR_METADATA:
-            return GCCoreUtil.translate("tile.oxygen_compressor.description");
-        case OXYGEN_DECOMPRESSOR_METADATA:
-            return GCCoreUtil.translate("tile.oxygen_decompressor.description");
+            case OXYGEN_COMPRESSOR_METADATA:
+                return GCCoreUtil.translate("tile.oxygen_compressor.description");
+            case OXYGEN_DECOMPRESSOR_METADATA:
+                return GCCoreUtil.translate("tile.oxygen_decompressor.description");
         }
         return "";
     }
@@ -169,7 +167,7 @@ public class BlockOxygenCompressor extends BlockAdvancedTile implements IShiftDe
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(meta % 4);
+        EnumFacing enumfacing = EnumFacing.byHorizontalIndex(meta % 4);
         EnumCompressorType type = EnumCompressorType.byMetadata((int) Math.floor(meta / 4.0));
         return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(TYPE, type);
     }

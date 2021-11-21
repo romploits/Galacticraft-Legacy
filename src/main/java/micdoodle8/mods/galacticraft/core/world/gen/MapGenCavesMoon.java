@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class MapGenCavesMoon extends MapGenBaseMeta
 {
+
     public static final int BREAK_THROUGH_CHANCE = 25; // 1 in n chance
 
     protected void generateLargeCaveNode(long par1, int par3, int par4, ChunkPrimer primer, double par6, double par8, double par10)
@@ -58,8 +59,7 @@ public class MapGenCavesMoon extends MapGenBaseMeta
             if (flag1)
             {
                 par14 *= 0.92F;
-            }
-            else
+            } else
             {
                 par14 *= 0.7F;
             }
@@ -129,7 +129,6 @@ public class MapGenCavesMoon extends MapGenBaseMeta
                         i3 = 16;
                     }
 
-                    final boolean flag2 = false;
                     int j3;
                     for (j3 = l1; j3 < i2; ++j3)
                     {
@@ -173,11 +172,10 @@ public class MapGenCavesMoon extends MapGenBaseMeta
                                             IBlockState state = primer.getBlockState(localX, localY, localZ);
                                             if (state.getBlock() == testBlock)
                                             {
-                                                int meta = state.getBlock().getMetaFromState(state); 
+                                                int meta = state.getBlock().getMetaFromState(state);
                                                 if (meta == 3 || meta == 4 || meta == 5)
                                                 {
                                                     primer.setBlockState(localX, localY, localZ, Blocks.AIR.getDefaultState());
-//                                                    blockIdArray[coords] = Blocks.AIR;
                                                 }
                                             }
                                         }

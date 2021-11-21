@@ -22,14 +22,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBasicVenus extends ItemDesc implements ISortableItem
 {
-    public static String[] names = { "shield_controller", "ingot_lead", "radioisotope_core", "thermal_fabric", "solar_dust", "solar_module_2", "thin_solar_wafer" };
+
+    public static String[] names =
+    {"shield_controller", "ingot_lead", "radioisotope_core", "thermal_fabric", "solar_dust", "solar_module_2", "thin_solar_wafer"};
 
     public ItemBasicVenus(String name)
     {
         super();
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
     }
 
     @SideOnly(Side.CLIENT)
@@ -59,7 +61,7 @@ public class ItemBasicVenus extends ItemDesc implements ISortableItem
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack par1ItemStack)
+    public String getTranslationKey(ItemStack par1ItemStack)
     {
         if (names.length > par1ItemStack.getItemDamage())
         {
@@ -80,12 +82,12 @@ public class ItemBasicVenus extends ItemDesc implements ISortableItem
     {
         switch (meta)
         {
-        case 0:
-            return EnumSortCategoryItem.GEAR;
-        case 1:
-            return EnumSortCategoryItem.INGOT;
-        default:
-            return EnumSortCategoryItem.GENERAL;
+            case 0:
+                return EnumSortCategoryItem.GEAR;
+            case 1:
+                return EnumSortCategoryItem.INGOT;
+            default:
+                return EnumSortCategoryItem.GENERAL;
         }
     }
 

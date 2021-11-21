@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.core.network;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.dimension.SpaceRace;
 import micdoodle8.mods.galacticraft.core.dimension.SpaceRaceManager;
@@ -11,7 +10,11 @@ import micdoodle8.mods.galacticraft.core.dimension.WorldProviderSpaceStation;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.tick.TickHandlerClient;
-import micdoodle8.mods.galacticraft.core.util.*;
+import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
+import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+import micdoodle8.mods.galacticraft.core.util.GCLog;
+import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
+import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.EnumConnectionState;
@@ -20,15 +23,14 @@ import net.minecraft.network.INetHandler;
 import net.minecraft.network.Packet;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ServerConnectionFromClientEvent;
-
 import org.apache.logging.log4j.LogManager;
 
 public class ConnectionEvents
 {
+
     private static boolean clientConnected = false;
 
     static
@@ -52,18 +54,11 @@ public class ConnectionEvents
             String s = direction + " packet " + packetClass + " is already known to ID " + bimap.inverse().get(packetClass);
             LogManager.getLogger().fatal(s);
             throw new IllegalArgumentException(s);
-        }
-        else
+        } else
         {
             bimap.put(Integer.valueOf(bimap.size()), packetClass);
             return EnumConnectionState.PLAY;
         }
-    }
-
-    @SubscribeEvent
-    public void onPlayerLogout(PlayerLoggedOutEvent event)
-    {
-        ChunkLoadingCallback.onPlayerLogout(event.player);
     }
 
     @SubscribeEvent
@@ -76,11 +71,12 @@ public class ConnectionEvents
             EntityPlayerMP thePlayer = (EntityPlayerMP) event.player;
             GCPlayerStats stats = GCPlayerStats.get(thePlayer);
             SpaceStationWorldData.checkAllStations(thePlayer, stats);
-            GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_UPDATE_SPACESTATION_CLIENT_ID, GCCoreUtil.getDimensionID(thePlayer.world), new Object[] { WorldUtil.spaceStationDataToString(stats.getSpaceStationDimensionData()) }), thePlayer);
+            GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_UPDATE_SPACESTATION_CLIENT_ID, GCCoreUtil.getDimensionID(thePlayer.world), new Object[]
+            {WorldUtil.spaceStationDataToString(stats.getSpaceStationDimensionData())}), thePlayer);
             SpaceRace raceForPlayer = SpaceRaceManager.getSpaceRaceFromPlayer(PlayerUtil.getName(thePlayer));
             if (raceForPlayer != null)
             {
-                SpaceRaceManager.sendSpaceRaceData(thePlayer.mcServer, thePlayer, raceForPlayer);
+                SpaceRaceManager.sendSpaceRaceData(thePlayer.server, thePlayer, raceForPlayer);
             }
         }
 

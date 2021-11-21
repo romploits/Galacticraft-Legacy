@@ -38,6 +38,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockBeamReceiver extends BlockTileGC implements IShiftDescription, ISortableBlock
 {
+
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
     protected static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0.3F, 0.3F, 0.3F, 0.7F, 1.0F, 0.7F);
     protected static final AxisAlignedBB DOWN_AABB = new AxisAlignedBB(0.2F, 0.0F, 0.2F, 0.8F, 0.42F, 0.8F);
@@ -49,7 +50,7 @@ public class BlockBeamReceiver extends BlockTileGC implements IShiftDescription,
     public BlockBeamReceiver(String assetName)
     {
         super(Material.IRON);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
         this.setSoundType(SoundType.METAL);
     }
 
@@ -58,25 +59,25 @@ public class BlockBeamReceiver extends BlockTileGC implements IShiftDescription,
     {
         switch (state.getValue(FACING))
         {
-        case UP:
-            return UP_AABB;
-        case DOWN:
-            return DOWN_AABB;
-        case EAST:
-            return EAST_AABB;
-        case WEST:
-            return WEST_AABB;
-        case SOUTH:
-            return SOUTH_AABB;
-        default:
-        case NORTH:
-            return NORTH_AABB;
+            case UP:
+                return UP_AABB;
+            case DOWN:
+                return DOWN_AABB;
+            case EAST:
+                return EAST_AABB;
+            case WEST:
+                return WEST_AABB;
+            case SOUTH:
+                return SOUTH_AABB;
+            default:
+            case NORTH:
+                return NORTH_AABB;
         }
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -85,20 +86,19 @@ public class BlockBeamReceiver extends BlockTileGC implements IShiftDescription,
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
         int oldMeta = getMetaFromState(worldIn.getBlockState(pos));
-        int meta = this.getMetadataFromAngle(worldIn, pos, EnumFacing.getFront(oldMeta).getOpposite());
+        int meta = this.getMetadataFromAngle(worldIn, pos, EnumFacing.byIndex(oldMeta).getOpposite());
 
         if (meta == -1)
         {
             worldIn.destroyBlock(pos, true);
-        }
-        else if (meta != oldMeta)
+        } else if (meta != oldMeta)
         {
             worldIn.setBlockState(pos, getStateFromMeta(meta), 3);
             TileEntity thisTile = worldIn.getTileEntity(pos);
             if (thisTile instanceof TileEntityBeamReceiver)
             {
                 TileEntityBeamReceiver thisReceiver = (TileEntityBeamReceiver) thisTile;
-                thisReceiver.setFacing(EnumFacing.getFront(meta));
+                thisReceiver.setFacing(EnumFacing.byIndex(meta));
                 thisReceiver.invalidateReflector();
                 thisReceiver.initiateReflector();
             }
@@ -113,65 +113,22 @@ public class BlockBeamReceiver extends BlockTileGC implements IShiftDescription,
         TileEntity thisTile = world.getTileEntity(pos);
         if (thisTile instanceof TileEntityBeamReceiver)
         {
-            ((TileEntityBeamReceiver) thisTile).setFacing(EnumFacing.getFront(getMetaFromState(state)));
+            ((TileEntityBeamReceiver) thisTile).setFacing(EnumFacing.byIndex(getMetaFromState(state)));
         }
     }
-
-//    @Override
-//    public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos)
-//    {
-//        int meta = getMetaFromState(world.getBlockState(pos));
-//
-//        if (meta != -1)
-//        {
-//            EnumFacing dir = EnumFacing.getFront(meta);
-//
-//            switch (dir)
-//            {
-//            case UP:
-//                this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 1.0F, 0.7F);
-//                break;
-//            case DOWN:
-//                this.setBlockBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.42F, 0.8F);
-//                break;
-//            case EAST:
-//                this.setBlockBounds(0.58F, 0.2F, 0.2F, 1.0F, 0.8F, 0.8F);
-//                break;
-//            case WEST:
-//                this.setBlockBounds(0.0F, 0.2F, 0.2F, 0.42F, 0.8F, 0.8F);
-//                break;
-//            case NORTH:
-//                this.setBlockBounds(0.2F, 0.2F, 0.0F, 0.8F, 0.8F, 0.42F);
-//                break;
-//            case SOUTH:
-//                this.setBlockBounds(0.2F, 0.2F, 0.58F, 0.8F, 0.8F, 1.0F);
-//                break;
-//            default:
-//                break;
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
-//    {
-//        this.setBlockBoundsBasedOnState(worldIn, pos);
-//        super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-//    }
 
     private int getMetadataFromAngle(World world, BlockPos pos, EnumFacing side)
     {
         EnumFacing direction = side.getOpposite();
 
-        TileEntity tileAt = world.getTileEntity(pos.add(direction.getFrontOffsetX(), direction.getFrontOffsetY(), direction.getFrontOffsetZ()));
+        TileEntity tileAt = world.getTileEntity(pos.add(direction.getXOffset(), direction.getYOffset(), direction.getZOffset()));
 
         if (tileAt instanceof EnergyStorageTile)
         {
             if (((EnergyStorageTile) tileAt).getModeFromDirection(direction.getOpposite()) != null)
             {
                 return direction.ordinal();
-            }
-            else
+            } else
             {
                 return -1;
             }
@@ -188,7 +145,7 @@ public class BlockBeamReceiver extends BlockTileGC implements IShiftDescription,
             {
                 continue;
             }
-            tileAt = world.getTileEntity(pos.add(adjacentDir.getFrontOffsetX(), adjacentDir.getFrontOffsetY(), adjacentDir.getFrontOffsetZ()));
+            tileAt = world.getTileEntity(pos.add(adjacentDir.getXOffset(), adjacentDir.getYOffset(), adjacentDir.getZOffset()));
 
             if (tileAt instanceof IConductor)
             {
@@ -296,7 +253,7 @@ public class BlockBeamReceiver extends BlockTileGC implements IShiftDescription,
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override
@@ -308,7 +265,7 @@ public class BlockBeamReceiver extends BlockTileGC implements IShiftDescription,
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 

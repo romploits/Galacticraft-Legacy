@@ -7,17 +7,18 @@ import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -30,6 +31,7 @@ import java.util.Random;
 
 public class SkyProviderOverworld extends IRenderHandler
 {
+
     private static final ResourceLocation moonTexture = new ResourceLocation("textures/environment/moon_phases.png");
     private static final ResourceLocation sunTexture = new ResourceLocation("textures/environment/sun.png");
 
@@ -40,8 +42,7 @@ public class SkyProviderOverworld extends IRenderHandler
         try
         {
             optifinePresent = Launch.classLoader.getClassBytes("CustomColorizer") != null;
-        }
-        catch (final Exception e)
+        } catch (final Exception e)
         {
         }
     }
@@ -126,7 +127,8 @@ public class SkyProviderOverworld extends IRenderHandler
     {
         if (!ClientProxyCore.overworldTextureRequestSent)
         {
-            GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(PacketSimple.EnumSimplePacket.S_REQUEST_OVERWORLD_IMAGE, GCCoreUtil.getDimensionID(mc.world), new Object[] {}));
+            GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(PacketSimple.EnumSimplePacket.S_REQUEST_OVERWORLD_IMAGE, GCCoreUtil.getDimensionID(mc.world), new Object[]
+            {}));
             ClientProxyCore.overworldTextureRequestSent = true;
         }
 
@@ -158,8 +160,7 @@ public class SkyProviderOverworld extends IRenderHandler
                 GL11.glLoadIdentity();
 
                 mc.entityRenderer.orientCamera(partialTicks);
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -265,46 +266,29 @@ public class SkyProviderOverworld extends IRenderHandler
         GL11.glRotatef(this.minecraft.world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
         double playerHeight = this.minecraft.player.posY;
 
-        //Draw stars
+        // Draw stars
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         float threshold;
         Vec3d vec = TransformerHooks.getFogColorHook(this.minecraft.world);
-        threshold = Math.max(0.1F, (float) vec.lengthVector() - 0.1F);
+        threshold = Math.max(0.1F, (float) vec.length() - 0.1F);
         float var20 = ((float) playerHeight - Constants.OVERWORLD_SKYPROVIDER_STARTHEIGHT) / 1000.0F;
         var20 = MathHelper.sqrt(var20);
         float bright1 = Math.min(0.9F, var20 * 3);
-//        float bright2 = Math.min(0.85F, var20 * 2.5F);
-//        float bright3 = Math.min(0.8F, var20 * 2);
-//        float bright4 = Math.min(0.75F, var20 * 1.5F);
-//        float bright5 = Math.min(0.7F, var20 * 0.75F);
+
         if (bright1 > threshold)
         {
             GL11.glColor4f(bright1, bright1, bright1, 1.0F);
             GL11.glCallList(this.starGLCallList);
         }
-//        if (bright2 > threshold)
-//        {
-//	        GL11.glColor4f(bright2, bright2, bright2, 1.0F);
-//	        GL11.glCallList(this.starGLCallList + 1);
-//        }
-//        if (bright3 > threshold)
-//        {
-//	        GL11.glColor4f(bright3, bright3, bright3, 1.0F);
-        GL11.glCallList(this.starGLCallList + 2);
-//        }
-//        if (bright4 > threshold)
-//        {
-//	        GL11.glColor4f(bright4, bright4, bright4, 1.0F);
-        GL11.glCallList(this.starGLCallList + 3);
-//        }
-//        if (bright5 > threshold)
-//        {
-//	        GL11.glColor4f(bright5, bright5, bright5, 1.0F);
-        GL11.glCallList(this.starGLCallList + 4);
-//        }
 
-        //Draw sun
+        GL11.glCallList(this.starGLCallList + 2);
+
+        GL11.glCallList(this.starGLCallList + 3);
+
+        GL11.glCallList(this.starGLCallList + 4);
+
+        // Draw sun
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         r = 30.0F;
@@ -317,7 +301,7 @@ public class SkyProviderOverworld extends IRenderHandler
         worldRenderer.pos(-r, 100.0D, r).tex(0.0D, 1.0D).endVertex();
         var23.draw();
 
-        //Draw moon
+        // Draw moon
         r = 40.0F;
         this.minecraft.renderEngine.bindTexture(SkyProviderOverworld.moonTexture);
         float sinphi = this.minecraft.world.getMoonPhase();
@@ -343,7 +327,7 @@ public class SkyProviderOverworld extends IRenderHandler
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glColor3f(0.0F, 0.0F, 0.0F);
 
-        //TODO get exact height figure here
+        // TODO get exact height figure here
         double var25 = playerHeight - 64;
 
         if (var25 > this.minecraft.gameSettings.renderDistanceChunks * 16)
@@ -359,11 +343,7 @@ public class SkyProviderOverworld extends IRenderHandler
             scale = Math.max(scale, 0.2F);
             GL11.glScalef(scale, 1.0F, scale);
             GL11.glTranslatef(0.0F, -(float) mc.player.posY, 0.0F);
-//	        if (ClientProxyCore.overworldTextureLocal != null)
-//	        {
-//	            GL11.glBindTexture(GL11.GL_TEXTURE_2D, ClientProxyCore.overworldTextureLocal.getGlTextureId());
-//	        }
-//	        else
+
             {
                 this.minecraft.renderEngine.bindTexture(this.planetToRender);
             }
@@ -373,8 +353,6 @@ public class SkyProviderOverworld extends IRenderHandler
             GL11.glColor4f(sinth, sinth, sinth, 1.0F);
             worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
-//	        float zoomIn = (1F - (float) var25 / 768F) / 5.86F;
-//	        if (zoomIn < 0F) zoomIn = 0F;
             double zoomIn = 0.0D;
             double cornerB = 1.0 - zoomIn;
             worldRenderer.pos(-size, 0, size).tex(zoomIn, cornerB).endVertex();
@@ -410,8 +388,7 @@ public class SkyProviderOverworld extends IRenderHandler
                 GL11.glLoadIdentity();
 
                 mc.entityRenderer.orientCamera(partialTicks);
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }

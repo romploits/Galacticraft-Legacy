@@ -7,6 +7,7 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityCargoUnloader;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -30,10 +31,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescription, ISortableBlock
 {
+
     private enum EnumLoaderType implements IStringSerializable
     {
-        CARGO_LOADER(METADATA_CARGO_LOADER, "cargo_loader"),
-        CARGO_UNLOADER(METADATA_CARGO_UNLOADER, "cargo_unloader");
+
+        CARGO_LOADER(METADATA_CARGO_LOADER, "cargo_loader"), CARGO_UNLOADER(METADATA_CARGO_UNLOADER, "cargo_unloader");
 
         private final int meta;
         private final String name;
@@ -67,7 +69,7 @@ public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescrip
         super(Material.ROCK);
         this.setHardness(1.0F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @SideOnly(Side.CLIENT)
@@ -79,7 +81,7 @@ public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescrip
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -96,8 +98,7 @@ public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescrip
             if (tileEntity instanceof TileEntityCargoLoader)
             {
                 ((TileEntityCargoLoader) tileEntity).checkForCargoEntity();
-            }
-            else if (tileEntity instanceof TileEntityCargoUnloader)
+            } else if (tileEntity instanceof TileEntityCargoUnloader)
             {
                 ((TileEntityCargoUnloader) tileEntity).checkForCargoEntity();
             }
@@ -117,8 +118,7 @@ public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescrip
         if (state.getValue(TYPE) == EnumLoaderType.CARGO_LOADER)
         {
             return new TileEntityCargoLoader();
-        }
-        else
+        } else
         {
             return new TileEntityCargoUnloader();
         }
@@ -128,7 +128,7 @@ public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescrip
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         final int angle = MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-//        int change = EnumFacing.getHorizontal(angle).getOpposite().getHorizontalIndex();
+//        int change = EnumFacing.byHorizontalIndex(angle).getOpposite().getHorizontalIndex();
 //
 //        if (stack.getItemDamage() >= METADATA_CARGO_UNLOADER)
 //        {
@@ -139,14 +139,14 @@ public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescrip
 //            change += METADATA_CARGO_LOADER;
 //        }
 
-        worldIn.setBlockState(pos, state.withProperty(FACING, EnumFacing.getHorizontal(angle).getOpposite()), 3);
+        worldIn.setBlockState(pos, state.withProperty(FACING, EnumFacing.byHorizontalIndex(angle).getOpposite()), 3);
         WorldUtil.markAdjacentPadForUpdate(worldIn, pos);
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state)
     {
-        super.onBlockDestroyedByPlayer(worldIn, pos, state);
+        super.onPlayerDestroy(worldIn, pos, state);
         WorldUtil.markAdjacentPadForUpdate(worldIn, pos);
     }
 
@@ -161,10 +161,10 @@ public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescrip
     {
         switch (meta)
         {
-        case METADATA_CARGO_LOADER:
-            return GCCoreUtil.translate("tile.cargo_loader.description");
-        case METADATA_CARGO_UNLOADER:
-            return GCCoreUtil.translate("tile.cargo_unloader.description");
+            case METADATA_CARGO_LOADER:
+                return GCCoreUtil.translate("tile.cargo_loader.description");
+            case METADATA_CARGO_UNLOADER:
+                return GCCoreUtil.translate("tile.cargo_unloader.description");
         }
         return "";
     }
@@ -178,7 +178,7 @@ public class BlockCargoLoader extends BlockAdvancedTile implements IShiftDescrip
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(meta % 4);
+        EnumFacing enumfacing = EnumFacing.byHorizontalIndex(meta % 4);
         EnumLoaderType type = meta >= METADATA_CARGO_UNLOADER ? EnumLoaderType.CARGO_UNLOADER : EnumLoaderType.CARGO_LOADER;
 
         return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(TYPE, type);

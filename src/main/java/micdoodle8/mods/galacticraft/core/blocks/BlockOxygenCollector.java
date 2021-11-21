@@ -6,6 +6,7 @@ import micdoodle8.mods.galacticraft.core.items.IShiftDescription;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenCollector;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -28,6 +29,7 @@ import java.util.Random;
 
 public class BlockOxygenCollector extends BlockAdvancedTile implements IShiftDescription, ISortableBlock
 {
+
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public BlockOxygenCollector(String assetName)
@@ -35,11 +37,11 @@ public class BlockOxygenCollector extends BlockAdvancedTile implements IShiftDes
         super(Material.ROCK);
         this.setHardness(1.0F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -61,7 +63,7 @@ public class BlockOxygenCollector extends BlockAdvancedTile implements IShiftDes
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         final int angle = MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-        int change = EnumFacing.getHorizontal(angle).getOpposite().getHorizontalIndex();
+        int change = EnumFacing.byHorizontalIndex(angle).getOpposite().getHorizontalIndex();
         worldIn.setBlockState(pos, getStateFromMeta(change), 3);
     }
 
@@ -93,14 +95,14 @@ public class BlockOxygenCollector extends BlockAdvancedTile implements IShiftDes
                     {
                         x2 = pos.getX() + 0.5D + 0.25D * dir;
                         mX = rand.nextFloat() * 2.0F * dir;
-                    }
-                    else
+                    } else
                     {
                         z2 = pos.getZ() + 0.5D + 0.25D * dir;
                         mZ = rand.nextFloat() * 2.0F * dir;
                     }
 
-                    GalacticraftCore.proxy.spawnParticle("oxygen", new Vector3(x2, y2, z2), new Vector3(mX, mY, mZ), new Object[] { new Vector3(0.7D, 0.7D, 1.0D) });
+                    GalacticraftCore.proxy.spawnParticle("oxygen", new Vector3(x2, y2, z2), new Vector3(mX, mY, mZ), new Object[]
+                    {new Vector3(0.7D, 0.7D, 1.0D)});
                 }
             }
         }
@@ -109,7 +111,7 @@ public class BlockOxygenCollector extends BlockAdvancedTile implements IShiftDes
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override
@@ -121,7 +123,7 @@ public class BlockOxygenCollector extends BlockAdvancedTile implements IShiftDes
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
+        EnumFacing enumfacing = EnumFacing.byHorizontalIndex(meta);
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 

@@ -3,12 +3,17 @@ package micdoodle8.mods.galacticraft.planets.venus;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
-import micdoodle8.mods.galacticraft.planets.venus.items.*;
+import micdoodle8.mods.galacticraft.planets.venus.items.ItemBasicVenus;
+import micdoodle8.mods.galacticraft.planets.venus.items.ItemBatteryAtomic;
+import micdoodle8.mods.galacticraft.planets.venus.items.ItemKeyVenus;
+import micdoodle8.mods.galacticraft.planets.venus.items.ItemThermalPaddingTier2;
+import micdoodle8.mods.galacticraft.planets.venus.items.ItemVolcanicPickaxe;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class VenusItems
 {
+
     public static Item thermalPaddingTier2;
     public static Item basicItem;
     public static Item volcanicPickaxe;
@@ -27,11 +32,6 @@ public class VenusItems
         VenusItems.atomicBattery = new ItemBatteryAtomic("atomic_battery");
 
         VenusItems.registerItems();
-        VenusItems.registerHarvestLevels();
-    }
-
-    public static void registerHarvestLevels()
-    {
     }
 
     private static void registerItems()
@@ -45,7 +45,7 @@ public class VenusItems
 
     public static void registerItem(Item item)
     {
-        String name = item.getUnlocalizedName().substring(5);
+        String name = item.getTranslationKey().substring(5);
         GCCoreUtil.registerGalacticraftItem(name, item);
         GalacticraftCore.itemListTrue.add(item);
         item.setRegistryName(name);

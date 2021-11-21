@@ -22,7 +22,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemThermalPadding extends Item implements IItemThermal, ISortableItem
 {
-    public static String[] names = { "thermal_helm", "thermal_chestplate", "thermal_leggings", "thermal_boots", "thermal_helm0", "thermal_chestplate0", "thermal_leggings0", "thermal_boots0" };
+
+    public static String[] names =
+    {"thermal_helm", "thermal_chestplate", "thermal_leggings", "thermal_boots", "thermal_helm0", "thermal_chestplate0", "thermal_leggings0", "thermal_boots0"};
 
     public ItemThermalPadding(String assetName)
     {
@@ -30,7 +32,7 @@ public class ItemThermalPadding extends Item implements IItemThermal, ISortableI
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
         this.setMaxStackSize(1);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
@@ -60,7 +62,7 @@ public class ItemThermalPadding extends Item implements IItemThermal, ISortableI
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack par1ItemStack)
+    public String getTranslationKey(ItemStack par1ItemStack)
     {
         if (names.length > par1ItemStack.getItemDamage())
         {
@@ -114,24 +116,21 @@ public class ItemThermalPadding extends Item implements IItemThermal, ISortableI
                     stats.getExtendedInventory().setInventorySlotContents(6, itemStack.copy());
                     itemStack.setCount(0);
                 }
-            }
-            else if (itemStack.getItemDamage() == 1)
+            } else if (itemStack.getItemDamage() == 1)
             {
                 if (gear1.isEmpty())
                 {
                     stats.getExtendedInventory().setInventorySlotContents(7, itemStack.copy());
                     itemStack.setCount(0);
                 }
-            }
-            else if (itemStack.getItemDamage() == 2)
+            } else if (itemStack.getItemDamage() == 2)
             {
                 if (gear2.isEmpty())
                 {
                     stats.getExtendedInventory().setInventorySlotContents(8, itemStack.copy());
                     itemStack.setCount(0);
                 }
-            }
-            else if (itemStack.getItemDamage() == 3)
+            } else if (itemStack.getItemDamage() == 3)
             {
                 if (gear3.isEmpty())
                 {

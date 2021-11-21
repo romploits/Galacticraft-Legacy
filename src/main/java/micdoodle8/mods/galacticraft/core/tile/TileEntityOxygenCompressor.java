@@ -1,10 +1,13 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.item.IItemOxygenSupply;
 import micdoodle8.mods.galacticraft.core.blocks.BlockOxygenCompressor;
 import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
 import micdoodle8.mods.galacticraft.core.items.ItemOxygenTank;
 import micdoodle8.mods.galacticraft.core.util.FluidUtil;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -14,6 +17,7 @@ import java.util.EnumSet;
 
 public class TileEntityOxygenCompressor extends TileEntityOxygen
 {
+
     public static final int TANK_TRANSFER_SPEED = 2;
     private boolean usingEnergy = false;
 
@@ -75,7 +79,8 @@ public class TileEntityOxygenCompressor extends TileEntityOxygen
     @Override
     public int[] getSlotsForFace(EnumFacing side)
     {
-        return new int[] { 0, 1, 2 };
+        return new int[]
+        {0, 1, 2};
     }
 
     @Override
@@ -85,14 +90,14 @@ public class TileEntityOxygenCompressor extends TileEntityOxygen
         {
             switch (slotID)
             {
-            case 0:
-                return itemstack.getItemDamage() > 1;
-            case 1:
-                return ItemElectricBase.isElectricItemCharged(itemstack);
-            case 2:
-                return itemstack.getItemDamage() < itemstack.getItem().getMaxDamage();
-            default:
-                return false;
+                case 0:
+                    return itemstack.getItemDamage() > 1;
+                case 1:
+                    return ItemElectricBase.isElectricItemCharged(itemstack);
+                case 2:
+                    return itemstack.getItemDamage() < itemstack.getItem().getMaxDamage();
+                default:
+                    return false;
             }
         }
         return false;
@@ -103,14 +108,14 @@ public class TileEntityOxygenCompressor extends TileEntityOxygen
     {
         switch (slotID)
         {
-        case 0:
-            return itemstack.getItem() instanceof ItemOxygenTank && itemstack.getItemDamage() == 0;
-        case 1:
-            return ItemElectricBase.isElectricItemEmpty(itemstack);
-        case 2:
-            return FluidUtil.isEmptyContainer(itemstack);
-        default:
-            return false;
+            case 0:
+                return itemstack.getItem() instanceof ItemOxygenTank && itemstack.getItemDamage() == 0;
+            case 1:
+                return ItemElectricBase.isElectricItemEmpty(itemstack);
+            case 2:
+                return FluidUtil.isEmptyContainer(itemstack);
+            default:
+                return false;
         }
     }
 
@@ -119,12 +124,12 @@ public class TileEntityOxygenCompressor extends TileEntityOxygen
     {
         switch (slotID)
         {
-        case 0:
-            return itemstack.getItem() instanceof ItemOxygenTank;
-        case 1:
-            return ItemElectricBase.isElectricItem(itemstack.getItem());
-        case 2:
-            return itemstack.getItem() instanceof IItemOxygenSupply;
+            case 0:
+                return itemstack.getItem() instanceof ItemOxygenTank;
+            case 1:
+                return ItemElectricBase.isElectricItem(itemstack.getItem());
+            case 2:
+                return itemstack.getItem() instanceof IItemOxygenSupply;
         }
 
         return false;
@@ -137,9 +142,9 @@ public class TileEntityOxygenCompressor extends TileEntityOxygen
     }
 
     @Override
-    public EnumFacing getFront()
+    public EnumFacing byIndex()
     {
-        IBlockState state = this.world.getBlockState(getPos()); 
+        IBlockState state = this.world.getBlockState(getPos());
         if (state.getBlock() instanceof BlockOxygenCompressor)
         {
             return state.getValue(BlockOxygenCompressor.FACING).rotateY();
@@ -150,7 +155,7 @@ public class TileEntityOxygenCompressor extends TileEntityOxygen
     @Override
     public EnumFacing getElectricInputDirection()
     {
-        return getFront();
+        return this.byIndex();
     }
 
     @Override
@@ -175,5 +180,14 @@ public class TileEntityOxygenCompressor extends TileEntityOxygen
     public EnumSet<EnumFacing> getOxygenOutputDirections()
     {
         return EnumSet.noneOf(EnumFacing.class);
+    }
+    
+    @Override
+    @Deprecated
+    @ForRemoval(deadline = "4.1.0")
+    @ReplaceWith("byIndex()")
+    public EnumFacing getFront()
+    {
+        return this.byIndex();
     }
 }

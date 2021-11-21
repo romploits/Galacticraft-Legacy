@@ -28,12 +28,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockBeamReflector extends BlockTileGC implements IShiftDescription, ISortableBlock
 {
+
     protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.8, 0.75);
 
     public BlockBeamReflector(String assetName)
     {
         super(Material.IRON);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
         this.setSoundType(SoundType.METAL);
     }
 
@@ -45,7 +46,7 @@ public class BlockBeamReflector extends BlockTileGC implements IShiftDescription
 
     @SideOnly(Side.CLIENT)
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -73,19 +74,6 @@ public class BlockBeamReflector extends BlockTileGC implements IShiftDescription
     {
         return EnumBlockRenderType.INVISIBLE;
     }
-
-//    @Override
-//    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-//    {
-//        this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.8F, 0.75F);
-//    }
-//
-//    @Override
-//    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
-//    {
-//        this.setBlockBoundsBasedOnState(worldIn, pos);
-//        super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-//    }
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state)
@@ -116,7 +104,7 @@ public class BlockBeamReflector extends BlockTileGC implements IShiftDescription
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override

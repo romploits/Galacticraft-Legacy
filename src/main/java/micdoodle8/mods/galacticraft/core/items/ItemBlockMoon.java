@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.core.items;
 
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBlockMoon extends ItemBlockDesc
 {
+
     public ItemBlockMoon(Block block)
     {
         super(block);
@@ -30,62 +32,62 @@ public class ItemBlockMoon extends ItemBlockDesc
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getTranslationKey(ItemStack itemstack)
     {
         String name;
 
         switch (itemstack.getItemDamage())
         {
-        case 0:
-        {
-            name = "coppermoon";
-            break;
-        }
-        case 1:
-        {
-            name = "tinmoon";
-            break;
-        }
-        case 2:
-        {
-            name = "cheesestone";
-            break;
-        }
-        case 3:
-        {
-            name = "moondirt";
-            break;
-        }
-        case 4:
-        {
-            name = "moonstone";
-            break;
-        }
-        case 5:
-        {
-            name = "moongrass";
-            break;
-        }
-        case 6:
-        {
-            name = "sapphiremoon";
-            break;
-        }
-        case 14:
-        {
-            name = "bricks";
-            break;
-        }
-        default:
-            name = "null";
+            case 0:
+            {
+                name = "coppermoon";
+                break;
+            }
+            case 1:
+            {
+                name = "tinmoon";
+                break;
+            }
+            case 2:
+            {
+                name = "cheesestone";
+                break;
+            }
+            case 3:
+            {
+                name = "moondirt";
+                break;
+            }
+            case 4:
+            {
+                name = "moonstone";
+                break;
+            }
+            case 5:
+            {
+                name = "moongrass";
+                break;
+            }
+            case 6:
+            {
+                name = "sapphiremoon";
+                break;
+            }
+            case 14:
+            {
+                name = "bricks";
+                break;
+            }
+            default:
+                name = "null";
         }
 
-        return this.getBlock().getUnlocalizedName() + "." + name;
+        return this.getBlock().getTranslationKey() + "." + name;
     }
 
     @Override
-    public String getUnlocalizedName()
+    public String getTranslationKey()
     {
-        return this.getBlock().getUnlocalizedName() + ".0";
+        return this.getBlock().getTranslationKey() + ".0";
     }
 }

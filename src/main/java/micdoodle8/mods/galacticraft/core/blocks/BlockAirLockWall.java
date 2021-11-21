@@ -3,6 +3,7 @@ package micdoodle8.mods.galacticraft.core.blocks;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.SoundType;
@@ -24,6 +25,7 @@ import java.util.Random;
 
 public class BlockAirLockWall extends BlockBreakable implements IPartialSealableBlock, ISortableBlock
 {
+
     public static final PropertyEnum<EnumAirLockSealConnection> CONNECTION_TYPE = PropertyEnum.create("connection", EnumAirLockSealConnection.class);
     protected static final AxisAlignedBB AABB_X = new AxisAlignedBB(0.25, 0.0, 0.0, 0.75, 1.0, 1.0);
     protected static final AxisAlignedBB AABB_Z = new AxisAlignedBB(0.0, 0.0, 0.25, 1.0, 1.0, 0.75);
@@ -31,9 +33,8 @@ public class BlockAirLockWall extends BlockBreakable implements IPartialSealable
 
     public enum EnumAirLockSealConnection implements IStringSerializable
     {
-        X("x"),
-        Z("z"),
-        FLAT("flat");
+
+        X("x"), Z("z"), FLAT("flat");
 
         private final String name;
 
@@ -55,7 +56,7 @@ public class BlockAirLockWall extends BlockBreakable implements IPartialSealable
         this.setTickRandomly(true);
         this.setHardness(1000.0F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
@@ -63,47 +64,15 @@ public class BlockAirLockWall extends BlockBreakable implements IPartialSealable
     {
         switch (getConnection(source, pos))
         {
-        case X:
-            return AABB_X;
-        case Z:
-            return AABB_Z;
-        default:
-        case FLAT:
-            return AABB_FLAT;
+            case X:
+                return AABB_X;
+            case Z:
+                return AABB_Z;
+            default:
+            case FLAT:
+                return AABB_FLAT;
         }
     }
-
-//    @Override
-//    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-//    {
-//        this.setBlockBoundsBasedOnState(worldIn, pos);
-//        return super.getCollisionBoundingBox(worldIn, pos, state);
-//    }
-//
-//    @Override
-//    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos)
-//    {
-//        this.setBlockBoundsBasedOnState(worldIn, pos);
-//        return super.getSelectedBoundingBox(worldIn, pos);
-//    }
-//
-//    @Override
-//    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-//    {
-//        switch (getConnection(worldIn, pos))
-//        {
-//        case FLAT:
-//            this.setBlockBounds(0.0F, 0.25F, 0.0F, 1.0F, 0.75F, 1.0F);
-//            break;
-//        case X:
-//            this.setBlockBounds(0.25F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
-//            break;
-//        case Z:
-//            this.setBlockBounds(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 0.75F);
-//            break;
-//        }
-//    }
-
 
     @Override
     public boolean isOpaqueCube(IBlockState state)
@@ -179,8 +148,7 @@ public class BlockAirLockWall extends BlockBreakable implements IPartialSealable
         if (idXMin != frameID && idXMax != frameID && idXMin != sealID && idXMax != sealID)
         {
             connection = EnumAirLockSealConnection.X;
-        }
-        else
+        } else
         {
             int adjacentCount = 0;
 
@@ -197,8 +165,7 @@ public class BlockAirLockWall extends BlockBreakable implements IPartialSealable
             if (adjacentCount == 4)
             {
                 connection = EnumAirLockSealConnection.FLAT;
-            }
-            else
+            } else
             {
                 connection = EnumAirLockSealConnection.Z;
             }

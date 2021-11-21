@@ -9,6 +9,7 @@ import java.util.Random;
 
 public abstract class DirectionalPieceVenus extends PieceVenus
 {
+
     private EnumFacing direction;
 
     public DirectionalPieceVenus()
@@ -46,9 +47,8 @@ public abstract class DirectionalPieceVenus extends PieceVenus
 
         if (tagCompound.hasKey("direction"))
         {
-            this.direction = EnumFacing.getFront(tagCompound.getInteger("direction"));
-        }
-        else
+            this.direction = EnumFacing.byIndex(tagCompound.getInteger("direction"));
+        } else
         {
             this.direction = EnumFacing.NORTH;
         }
@@ -66,8 +66,9 @@ public abstract class DirectionalPieceVenus extends PieceVenus
         int randDir = rand.nextInt(3);
         do
         {
-            randomDir = EnumFacing.getHorizontal((getDirection().getOpposite().getHorizontalIndex() + 1 + randDir) % 4);
-            StructureBoundingBox extension = getExtension(randomDir, this.configuration.getHallwayLengthMin() + rand.nextInt(this.configuration.getHallwayLengthMax() - this.configuration.getHallwayLengthMin()), 5);
+            randomDir = EnumFacing.byHorizontalIndex((getDirection().getOpposite().getHorizontalIndex() + 1 + randDir) % 4);
+            StructureBoundingBox extension =
+                getExtension(randomDir, this.configuration.getHallwayLengthMin() + rand.nextInt(this.configuration.getHallwayLengthMax() - this.configuration.getHallwayLengthMin()), 5);
             blockX = extension.minX;
             blockZ = extension.minZ;
             sizeX = extension.maxX - extension.minX;
@@ -75,8 +76,7 @@ public abstract class DirectionalPieceVenus extends PieceVenus
             valid = !startPiece.checkIntersection(extension);
             attempts--;
             randDir++;
-        }
-        while (!valid && attempts > 0);
+        } while (!valid && attempts > 0);
 
         if (!valid)
         {

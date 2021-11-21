@@ -18,6 +18,7 @@ import java.util.Random;
 
 public class RoomTreasure extends SizedPiece
 {
+
     public static ResourceLocation MOONCHEST = new ResourceLocation(Constants.ASSET_PREFIX, "dungeon_tier_1");
     public static final ResourceLocation TABLE_TIER_1_DUNGEON = LootTableList.register(MOONCHEST);
 
@@ -60,14 +61,12 @@ public class RoomTreasure extends SizedPiece
                                 if (getDirection() == EnumFacing.SOUTH && k == 0)
                                 {
                                     placeBlock = false;
-                                }
-                                else if (getDirection() == EnumFacing.NORTH && k == this.sizeZ)
+                                } else if (getDirection() == EnumFacing.NORTH && k == this.sizeZ)
                                 {
                                     placeBlock = false;
                                 }
                             }
-                        }
-                        else
+                        } else
                         {
                             int start = (this.boundingBox.maxZ - this.boundingBox.minZ) / 2 - 1;
                             int end = (this.boundingBox.maxZ - this.boundingBox.minZ) / 2 + 1;
@@ -76,8 +75,7 @@ public class RoomTreasure extends SizedPiece
                                 if (getDirection() == EnumFacing.EAST && i == 0)
                                 {
                                     placeBlock = false;
-                                }
-                                else if (getDirection() == EnumFacing.WEST && i == this.sizeX)
+                                } else if (getDirection() == EnumFacing.WEST && i == this.sizeX)
                                 {
                                     placeBlock = false;
                                 }
@@ -86,17 +84,14 @@ public class RoomTreasure extends SizedPiece
                         if (placeBlock)
                         {
                             this.setBlockState(worldIn, this.configuration.getBrickBlock(), i, j, k, chunkBox);
-                        }
-                        else
+                        } else
                         {
                             this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), i, j, k, chunkBox);
                         }
-                    }
-                    else if ((i == 1 && k == 1) || (i == 1 && k == this.sizeZ - 1) || (i == this.sizeX - 1 && k == 1) || (i == this.sizeX - 1 && k == this.sizeZ - 1))
+                    } else if ((i == 1 && k == 1) || (i == 1 && k == this.sizeZ - 1) || (i == this.sizeX - 1 && k == 1) || (i == this.sizeX - 1 && k == this.sizeZ - 1))
                     {
                         this.setBlockState(worldIn, Blocks.GLOWSTONE.getDefaultState(), i, j, k, chunkBox);
-                    }
-                    else if (i == this.sizeX / 2 && j == 1 && k == this.sizeZ / 2)
+                    } else if (i == this.sizeX / 2 && j == 1 && k == this.sizeZ / 2)
                     {
                         BlockPos blockpos = new BlockPos(this.getXWithOffset(i, k), this.getYWithOffset(j), this.getZWithOffset(i, k));
                         if (chunkBox.isVecInside(blockpos))
@@ -108,13 +103,12 @@ public class RoomTreasure extends SizedPiece
                                 ResourceLocation chesttype = TABLE_TIER_1_DUNGEON;
                                 if (worldIn.provider instanceof IGalacticraftWorldProvider)
                                 {
-                                    chesttype = ((IGalacticraftWorldProvider)worldIn.provider).getDungeonChestType();
+                                    chesttype = ((IGalacticraftWorldProvider) worldIn.provider).getDungeonChestType();
                                 }
                                 treasureChest.setLootTable(chesttype, random.nextLong());
                             }
                         }
-                    }
-                    else
+                    } else
                     {
                         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), i, j, k, chunkBox);
                     }

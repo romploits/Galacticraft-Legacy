@@ -1,7 +1,11 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
+
 public class Star extends CelestialBody
 {
+
     protected SolarSystem parentSolarSystem = null;
 
     public Star(String planetName)
@@ -21,7 +25,7 @@ public class Star extends CelestialBody
     }
 
     @Override
-    public String getUnlocalizedNamePrefix()
+    public String getTranslationKeyPrefix()
     {
         return "star";
     }
@@ -30,5 +34,14 @@ public class Star extends CelestialBody
     {
         this.parentSolarSystem = galaxy;
         return this;
+    }
+    
+    @Override
+    @Deprecated
+    @ForRemoval(deadline = "4.1.0")
+    @ReplaceWith("getTranslationKeyPrefix()")
+    public String getUnlocalizedNamePrefix()
+    {
+        return getTranslationKeyPrefix();
     }
 }

@@ -23,6 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBlockMachine extends ItemBlockDesc
 {
+
     public ItemBlockMachine(Block block)
     {
         super(block);
@@ -41,7 +42,7 @@ public class ItemBlockMachine extends ItemBlockDesc
     {
         int metaAt = itemStack.getItemDamage();
 
-        //If it is a Cryogenic Chamber, check the space
+        // If it is a Cryogenic Chamber, check the space
         if (metaAt == BlockMachineMars.CRYOGENIC_CHAMBER_METADATA)
         {
             for (int y = 0; y < 3; y++)
@@ -54,7 +55,8 @@ public class ItemBlockMachine extends ItemBlockDesc
                     {
                         if (world.isRemote)
                         {
-                            FMLClientHandler.instance().getClient().ingameGUI.setOverlayMessage(new TextComponentString(GCCoreUtil.translate("gui.warning.noroom")).setStyle(new Style().setColor(TextFormatting.RED)).getFormattedText(), false);
+                            FMLClientHandler.instance().getClient().ingameGUI
+                                .setOverlayMessage(new TextComponentString(GCCoreUtil.translate("gui.warning.noroom")).setStyle(new Style().setColor(TextFormatting.RED)).getFormattedText(), false);
                         }
                         return false;
                     }
@@ -65,7 +67,7 @@ public class ItemBlockMachine extends ItemBlockDesc
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getTranslationKey(ItemStack itemstack)
     {
         int index = 0;
         int typenum = itemstack.getItemDamage() & 12;
@@ -75,18 +77,16 @@ public class ItemBlockMachine extends ItemBlockDesc
             if (typenum == BlockMachineMars.LAUNCH_CONTROLLER_METADATA)
             {
                 index = 2;
-            }
-            else if (typenum == BlockMachineMars.CRYOGENIC_CHAMBER_METADATA)
+            } else if (typenum == BlockMachineMars.CRYOGENIC_CHAMBER_METADATA)
             {
                 index = 1;
             }
-        }
-        else if (this.getBlock() == MarsBlocks.machineT2)
+        } else if (this.getBlock() == MarsBlocks.machineT2)
         {
-            return ((BlockMachineBase) MarsBlocks.machineT2).getUnlocalizedName(typenum);
+            return ((BlockMachineBase) MarsBlocks.machineT2).getTranslationKey(typenum);
         }
 
-        return this.getBlock().getUnlocalizedName() + "." + index;
+        return this.getBlock().getTranslationKey() + "." + index;
     }
 
     @Override
@@ -97,8 +97,8 @@ public class ItemBlockMachine extends ItemBlockDesc
     }
 
     @Override
-    public String getUnlocalizedName()
+    public String getTranslationKey()
     {
-        return this.getBlock().getUnlocalizedName() + ".0";
+        return this.getBlock().getTranslationKey() + ".0";
     }
 }

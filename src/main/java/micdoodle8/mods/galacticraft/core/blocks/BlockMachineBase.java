@@ -6,6 +6,7 @@ import micdoodle8.mods.galacticraft.core.items.IShiftDescription;
 import micdoodle8.mods.galacticraft.core.tile.IMachineSides;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
@@ -26,7 +27,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class BlockMachineBase extends BlockTileGC implements IShiftDescription, ISortableBlock
 {
-    public static final int METADATA_MASK = 0x0c; //Used to select the machine type from metadata
+
+    public static final int METADATA_MASK = 0x0c; // Used to select the machine
+                                                  // type from metadata
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     protected EnumMachineBase[] types;
     protected EnumMachineBase typeBase;
@@ -36,7 +39,7 @@ public abstract class BlockMachineBase extends BlockTileGC implements IShiftDesc
         super(GCBlocks.machine);
         this.setHardness(1.0F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
         this.initialiseTypes();
     }
 
@@ -44,7 +47,7 @@ public abstract class BlockMachineBase extends BlockTileGC implements IShiftDesc
 
     @Override
     @SideOnly(Side.CLIENT)
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -55,7 +58,7 @@ public abstract class BlockMachineBase extends BlockTileGC implements IShiftDesc
         int metadata = getMetaFromState(state);
 
         final int angle = MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-        int change = EnumFacing.getHorizontal(angle).getOpposite().getHorizontalIndex();
+        int change = EnumFacing.byHorizontalIndex(angle).getOpposite().getHorizontalIndex();
 
         worldIn.setBlockState(pos, this.getStateFromMeta((metadata & BlockMachineBase.METADATA_MASK) + change), 3);
     }
@@ -73,19 +76,19 @@ public abstract class BlockMachineBase extends BlockTileGC implements IShiftDesc
 
         return true;
     }
-    
+
     @Override
     public boolean onSneakUseWrench(World world, BlockPos pos, EntityPlayer entityPlayer, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof IMachineSides)
         {
-            ((IMachineSides)tile).nextSideConfiguration(tile);
+            ((IMachineSides) tile).nextSideConfiguration(tile);
             return true;
         }
         return false;
     }
-   
+
     @Override
     public TileEntity createTileEntity(World world, IBlockState state)
     {
@@ -93,17 +96,17 @@ public abstract class BlockMachineBase extends BlockTileGC implements IShiftDesc
         EnumMachineBase type = typeBase.fromMetadata(meta);
         return type.tileConstructor();
     }
-   
+
     @Override
     public int damageDropped(IBlockState state)
     {
         return getMetaFromState(state) & BlockMachineBase.METADATA_MASK;
     }
 
-    public String getUnlocalizedName(int meta)
+    public String getTranslationKey(int meta)
     {
         EnumMachineBase type = typeBase.fromMetadata(meta);
-        return type.getUnlocalizedName();
+        return type.getTranslationKey();
     }
 
     @Override
@@ -119,7 +122,7 @@ public abstract class BlockMachineBase extends BlockTileGC implements IShiftDesc
         return true;
     }
 
-    public static EnumFacing getFront(IBlockState state)
+    public static EnumFacing byIndex(IBlockState state)
     {
         if (state.getBlock() instanceof BlockMachineBase)
         {
@@ -143,13 +146,14 @@ public abstract class BlockMachineBase extends BlockTileGC implements IShiftDesc
 
     public interface EnumMachineBase<T extends Enum<T> & IStringSerializable>
     {
+
         int getMetadata();
 
         EnumMachineBase fromMetadata(int meta);
 
         String getShiftDescriptionKey();
 
-        String getUnlocalizedName();
+        String getTranslationKey();
 
         TileEntity tileConstructor();
     }

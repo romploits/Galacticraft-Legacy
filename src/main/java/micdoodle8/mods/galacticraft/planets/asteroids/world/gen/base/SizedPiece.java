@@ -9,6 +9,7 @@ import java.util.Random;
 
 public abstract class SizedPiece extends Piece
 {
+
     protected EnumFacing direction;
     protected int sizeX;
     protected int sizeY;
@@ -59,9 +60,8 @@ public abstract class SizedPiece extends Piece
 
         if (tagCompound.hasKey("dir"))
         {
-            this.direction = EnumFacing.getFront(tagCompound.getInteger("dir"));
-        }
-        else
+            this.direction = EnumFacing.byIndex(tagCompound.getInteger("dir"));
+        } else
         {
             this.direction = EnumFacing.NORTH;
         }
@@ -88,8 +88,7 @@ public abstract class SizedPiece extends Piece
         if (this.getCoordBaseMode() == null)
         {
             return x;
-        }
-        else
+        } else
         {
             switch (this.getCoordBaseMode())
             {
@@ -113,8 +112,7 @@ public abstract class SizedPiece extends Piece
         if (this.getCoordBaseMode() == null)
         {
             return z;
-        }
-        else
+        } else
         {
             switch (this.getCoordBaseMode())
             {
@@ -132,7 +130,7 @@ public abstract class SizedPiece extends Piece
         }
     }
 
-    //Unused currently
+    // Unused currently
     public Piece getDoorway(Random rand, BaseStart startPiece, int maxAttempts, boolean small)
     {
         EnumFacing randomDir;
@@ -145,7 +143,7 @@ public abstract class SizedPiece extends Piece
         do
         {
             int randDir = rand.nextInt(4);
-            randomDir = EnumFacing.getHorizontal((randDir == getDirection().getOpposite().getHorizontalIndex() ? randDir + 1 : randDir) % 4);
+            randomDir = EnumFacing.byHorizontalIndex((randDir == getDirection().getOpposite().getHorizontalIndex() ? randDir + 1 : randDir) % 4);
             StructureBoundingBox extension = getExtension(randomDir, 1, 3);
             blockX = extension.minX;
             blockZ = extension.minZ;
@@ -153,8 +151,7 @@ public abstract class SizedPiece extends Piece
             sizeZ = extension.maxZ - extension.minZ;
             valid = true;
             attempts--;
-        }
-        while (!valid && attempts > 0);
+        } while (!valid && attempts > 0);
 
         if (!valid)
         {

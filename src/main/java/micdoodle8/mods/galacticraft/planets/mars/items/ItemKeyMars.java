@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemKeyMars extends Item implements IKeyItem, ISortableItem
 {
+
     public ItemKeyMars()
     {
         super();
@@ -31,7 +32,7 @@ public class ItemKeyMars extends Item implements IKeyItem, ISortableItem
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack)
+    public String getTranslationKey(ItemStack itemStack)
     {
         return "item.key.t2";
     }

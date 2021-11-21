@@ -5,6 +5,7 @@ import micdoodle8.mods.galacticraft.core.items.IShiftDescription;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDetector;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -22,14 +23,15 @@ import net.minecraft.world.World;
 
 public class BlockOxygenDetector extends BlockContainer implements ITileEntityProvider, IShiftDescription, ISortableBlock
 {
+
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
-    
+
     public BlockOxygenDetector(String assetName)
     {
         super(Material.IRON);
         this.setHardness(1.0F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class BlockOxygenDetector extends BlockContainer implements ITileEntityPr
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -55,8 +57,7 @@ public class BlockOxygenDetector extends BlockContainer implements ITileEntityPr
         if (valid)
         {
             worldIn.setBlockState(pos, getStateFromMeta(1), 3);
-        }
-        else
+        } else
         {
             worldIn.setBlockState(pos, getStateFromMeta(0), 3);
         }
@@ -95,7 +96,7 @@ public class BlockOxygenDetector extends BlockContainer implements ITileEntityPr
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override

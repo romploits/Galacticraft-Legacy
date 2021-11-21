@@ -28,6 +28,7 @@ import java.util.List;
 @SideOnly(Side.CLIENT)
 public class GuiMethaneSynthesizer extends GuiContainerGC
 {
+
     private static final ResourceLocation refineryTexture = new ResourceLocation(GalacticraftPlanets.ASSET_PREFIX, "textures/gui/methane_synthesizer.png");
 
     private static final ResourceLocation gasTextures = new ResourceLocation(GalacticraftPlanets.ASSET_PREFIX, "textures/gui/gases_methane_oxygen_nitrogen.png");
@@ -36,10 +37,14 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
 
     private GuiButton buttonDisable;
 
-    private GuiElementInfoRegion fuelTankRegion = new GuiElementInfoRegion((this.width - this.xSize) / 2 + 153, (this.height - this.ySize) / 2 + 28, 16, 38, new ArrayList<String>(), this.width, this.height, this);
-    private GuiElementInfoRegion gasTankRegion = new GuiElementInfoRegion((this.width - this.xSize) / 2 + 7, (this.height - this.ySize) / 2 + 28, 16, 38, new ArrayList<String>(), this.width, this.height, this);
-    private GuiElementInfoRegion gasTank2Region = new GuiElementInfoRegion((this.width - this.xSize) / 2 + 7, (this.height - this.ySize) / 2 + 28, 16, 20, new ArrayList<String>(), this.width, this.height, this);
-    private GuiElementInfoRegion electricInfoRegion = new GuiElementInfoRegion((this.width - this.xSize) / 2 + 62, (this.height - this.ySize) / 2 + 16, 56, 9, new ArrayList<String>(), this.width, this.height, this);
+    private GuiElementInfoRegion fuelTankRegion =
+        new GuiElementInfoRegion((this.width - this.xSize) / 2 + 153, (this.height - this.ySize) / 2 + 28, 16, 38, new ArrayList<String>(), this.width, this.height, this);
+    private GuiElementInfoRegion gasTankRegion =
+        new GuiElementInfoRegion((this.width - this.xSize) / 2 + 7, (this.height - this.ySize) / 2 + 28, 16, 38, new ArrayList<String>(), this.width, this.height, this);
+    private GuiElementInfoRegion gasTank2Region =
+        new GuiElementInfoRegion((this.width - this.xSize) / 2 + 7, (this.height - this.ySize) / 2 + 28, 16, 20, new ArrayList<String>(), this.width, this.height, this);
+    private GuiElementInfoRegion electricInfoRegion =
+        new GuiElementInfoRegion((this.width - this.xSize) / 2 + 62, (this.height - this.ySize) / 2 + 16, 56, 9, new ArrayList<String>(), this.width, this.height, this);
 
     public GuiMethaneSynthesizer(InventoryPlayer par1InventoryPlayer, TileEntityMethaneSynthesizer tileEntity)
     {
@@ -75,7 +80,6 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
         List<String> carbonSlotDesc = new ArrayList<String>();
         carbonSlotDesc.add(GCCoreUtil.translate("gui.carbon_slot.desc.0"));
         this.infoRegions.add(new GuiElementInfoRegion(edgeLeft + 27, edgeTop + 53, 18, 18, carbonSlotDesc, this.width, this.height, this));
-
 
         this.fuelTankRegion.xPosition = edgeLeft + 153;
         this.fuelTankRegion.yPosition = edgeTop + 28;
@@ -120,9 +124,10 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
     {
         switch (par1GuiButton.id)
         {
-        case 0:
-            GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(EnumSimplePacket.S_UPDATE_DISABLEABLE_BUTTON, GCCoreUtil.getDimensionID(this.tileEntity.getWorld()), new Object[] { this.tileEntity.getPos(), 0 }));
-            break;
+            case 0:
+                GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(EnumSimplePacket.S_UPDATE_DISABLEABLE_BUTTON, GCCoreUtil.getDimensionID(this.tileEntity.getWorld()), new Object[]
+                {this.tileEntity.getPos(), 0}));
+                break;
         }
     }
 
@@ -135,29 +140,23 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
 
         if (RedstoneUtil.isBlockReceivingRedstone(this.tileEntity.getWorld(), this.tileEntity.getPos()))
         {
-        	displayText = EnumColor.RED + GCCoreUtil.translate("gui.status.off.name");
-        }
-        else if (!this.tileEntity.hasEnoughEnergyToRun)
+            displayText = EnumColor.RED + GCCoreUtil.translate("gui.status.off.name");
+        } else if (!this.tileEntity.hasEnoughEnergyToRun)
         {
             displayText = EnumColor.RED + GCCoreUtil.translate("gui.message.low_energy.name");
-        }
-        else if ((this.tileEntity.processTicks > -8 || this.tileEntity.canProcess()))
+        } else if ((this.tileEntity.processTicks > -8 || this.tileEntity.canProcess()))
         {
             displayText = EnumColor.BRIGHT_GREEN + GCCoreUtil.translate("gui.status.processing.name");
-        }
-        else if (this.tileEntity.gasTank.getFluid() == null || this.tileEntity.gasTank.getFluidAmount() == 0)
+        } else if (this.tileEntity.gasTank.getFluid() == null || this.tileEntity.gasTank.getFluidAmount() == 0)
         {
             displayText = EnumColor.RED + GCCoreUtil.translate("gui.status.nogas.name");
-        }
-        else if (this.tileEntity.gasTank.getFluidAmount() > 0 && this.tileEntity.disabled)
+        } else if (this.tileEntity.gasTank.getFluidAmount() > 0 && this.tileEntity.disabled)
         {
             displayText = EnumColor.ORANGE + GCCoreUtil.translate("gui.status.ready.name");
-        }
-        else if (this.tileEntity.liquidTank.getFluidAmount() == this.tileEntity.liquidTank.getCapacity())
+        } else if (this.tileEntity.liquidTank.getFluidAmount() == this.tileEntity.liquidTank.getCapacity())
         {
             displayText = EnumColor.RED + GCCoreUtil.translate("gui.status.tankfull.name");
-        }
-        else
+        } else
         {
             displayText = EnumColor.RED + GCCoreUtil.translate("gui.status.needs_carbon.name");
         }
@@ -166,8 +165,6 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
         this.buttonDisable.displayString = this.tileEntity.processTicks <= -8 ? GCCoreUtil.translate("gui.button.liquefy.name") : GCCoreUtil.translate("gui.button.liquefy_stop.name");
         this.fontRenderer.drawString(GCCoreUtil.translate("gui.message.status.name") + ":", 72, 45 + 23 + yOffset, 4210752);
         this.fontRenderer.drawString(displayText, 75, 45 + 33 + yOffset, 4210752);
-        //		this.fontRenderer.drawString(ElectricityDisplay.getDisplay(this.tileEntity.ueWattsPerTick * 20, ElectricUnit.WATT), 72, 56 + 23 + yOffset, 4210752);
-        //		this.fontRenderer.drawString(ElectricityDisplay.getDisplay(this.tileEntity.getVoltage(), ElectricUnit.VOLTAGE), 72, 68 + 23 + yOffset, 4210752);
         this.fontRenderer.drawString(GCCoreUtil.translate("container.inventory"), 8, this.ySize - 118 + 2 + 23, 4210752);
     }
 
@@ -214,8 +211,7 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
                 gasname = GCCoreUtil.translate(gasTankContents.getFluid().getUnlocalizedName());
             }
             gasTankDesc.add("(" + gasname + ")");
-        }
-        else
+        } else
         {
             gasTankDesc.add(" ");
         }
@@ -236,8 +232,7 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
                 gasname = GCCoreUtil.translate(gasTankContents.getFluid().getUnlocalizedName());
             }
             gasTankDesc.add("(" + gasname + ")");
-        }
-        else
+        } else
         {
             gasTankDesc.add(" ");
         }
@@ -257,8 +252,7 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
                 gasname = GCCoreUtil.translate(gasTankContents.getFluid().getUnlocalizedName());
             }
             fuelTankDesc.add("(" + gasname + ")");
-        }
-        else
+        } else
         {
             fuelTankDesc.add(" ");
         }
@@ -269,7 +263,6 @@ public class GuiMethaneSynthesizer extends GuiContainerGC
 
         List<String> electricityDesc = new ArrayList<String>();
         electricityDesc.add(GCCoreUtil.translate("gui.energy_storage.desc.0"));
-//		electricityDesc.add(EnumColor.YELLOW + GCCoreUtil.translate("gui.energy_storage.desc.1") + ((int) Math.floor(this.tileEntity.getEnergyStoredGC()) + " / " + (int) Math.floor(this.tileEntity.getMaxEnergyStoredGC())));
         EnergyDisplayHelper.getEnergyDisplayTooltip(this.tileEntity.getEnergyStoredGC(), this.tileEntity.getMaxEnergyStoredGC(), electricityDesc);
         this.electricInfoRegion.tooltipStrings = electricityDesc;
     }

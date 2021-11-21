@@ -2,6 +2,8 @@ package micdoodle8.mods.galacticraft.planets.mars.tile;
 
 import mekanism.api.gas.Gas;
 import mekanism.api.gas.GasStack;
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.tile.IDisableableMachine;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IOxygenReceiver;
@@ -35,24 +37,25 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory implements ISidedInventory, IDisableableMachine, IFluidHandlerWrapper, IOxygenStorage, IOxygenReceiver
 {
+
     private final int tankCapacity = 4000;
 
-    @NetworkedField(targetSide = Side.CLIENT)
-    public FluidTank waterTank = new FluidTank(this.tankCapacity);
-    @NetworkedField(targetSide = Side.CLIENT)
-    public FluidTank liquidTank = new FluidTank(this.tankCapacity);
-    @NetworkedField(targetSide = Side.CLIENT)
-    public FluidTank liquidTank2 = new FluidTank(this.tankCapacity);
+    @NetworkedField(targetSide = Side.CLIENT) public FluidTank waterTank = new FluidTank(this.tankCapacity);
+    @NetworkedField(targetSide = Side.CLIENT) public FluidTank liquidTank = new FluidTank(this.tankCapacity);
+    @NetworkedField(targetSide = Side.CLIENT) public FluidTank liquidTank2 = new FluidTank(this.tankCapacity);
 
     public int processTimeRequired = 3;
-    @NetworkedField(targetSide = Side.CLIENT)
-    public int processTicks = 0;
+    @NetworkedField(targetSide = Side.CLIENT) public int processTicks = 0;
 
     public TileEntityElectrolyzer()
     {
@@ -69,9 +72,9 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
             return true;
 
         if (EnergyUtil.checkMekGasHandler(capability))
-        	return true;
-       
-        return super.hasCapability(capability, facing);  
+            return true;
+
+        return super.hasCapability(capability, facing);
     }
 
     @Override
@@ -79,7 +82,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
     {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
         {
-            return (T) new FluidHandlerWrapper(this, facing);
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new FluidHandlerWrapper(this, facing));
         }
 
         if (EnergyUtil.checkMekGasHandler(capability))
@@ -103,13 +106,14 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
                 FluidUtil.loadFromContainer(waterTank, FluidRegistry.WATER, this.getInventory(), 1, liquid.amount);
             }
 
-            //Only drain with atmospheric valve
+            // Only drain with atmospheric valve
             checkFluidTankTransfer(2, this.liquidTank);
             checkFluidTankTransfer(3, this.liquidTank2);
 
             if (this.hasEnoughEnergyToRun && this.canProcess())
             {
-                //50% extra speed boost for Tier 2 machine if powered by Tier 2 power
+                // 50% extra speed boost for Tier 2 machine if powered by Tier 2
+                // power
                 if (this.tierGC == 2)
                 {
                     this.processTimeRequired = Math.max(1, 4 - this.poweredByTierGC);
@@ -118,8 +122,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
                 if (this.processTicks == 0)
                 {
                     this.processTicks = this.processTimeRequired;
-                }
-                else
+                } else
                 {
                     if (--this.processTicks <= 0)
                     {
@@ -127,8 +130,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
                         this.processTicks = this.canProcess() ? this.processTimeRequired : 0;
                     }
                 }
-            }
-            else
+            } else
             {
                 this.processTicks = 0;
             }
@@ -140,7 +142,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
 
     private void doElectrolysis()
     {
-        //Can't be called if the gasTank fluid is null
+        // Can't be called if the gasTank fluid is null
         final int waterAmount = this.waterTank.getFluid().amount;
         if (waterAmount == 0)
         {
@@ -263,7 +265,8 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
     @Override
     public int[] getSlotsForFace(EnumFacing side)
     {
-        return new int[] { 0, 1 };
+        return new int[]
+        {0, 1};
     }
 
     @Override
@@ -273,12 +276,12 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
         {
             switch (slotID)
             {
-            case 0:
-                return ItemElectricBase.isElectricItemCharged(itemstack);
-            case 1:
-                return itemstack.getItem() == Items.WATER_BUCKET;
-            default:
-                return false;
+                case 0:
+                    return ItemElectricBase.isElectricItemCharged(itemstack);
+                case 1:
+                    return itemstack.getItem() == Items.WATER_BUCKET;
+                default:
+                    return false;
             }
         }
         return false;
@@ -291,12 +294,12 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
         {
             switch (slotID)
             {
-            case 0:
-                return ItemElectricBase.isElectricItemEmpty(itemstack);
-            case 1:
-                return itemstack.getItem() == Items.BUCKET;
-            default:
-                return false;
+                case 0:
+                    return ItemElectricBase.isElectricItemEmpty(itemstack);
+                case 1:
+                    return itemstack.getItem() == Items.BUCKET;
+                default:
+                    return false;
             }
         }
         return false;
@@ -308,10 +311,10 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
         Item item = itemstack.getItem();
         switch (slotID)
         {
-        case 0:
-            return ItemElectricBase.isElectricItem(item);
-        case 1:
-            return item == Items.BUCKET || item == Items.WATER_BUCKET;
+            case 0:
+                return ItemElectricBase.isElectricItem(item);
+            case 1:
+                return item == Items.BUCKET || item == Items.WATER_BUCKET;
         }
 
         return false;
@@ -391,9 +394,9 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
     @Override
     public boolean canFill(EnumFacing from, Fluid fluid)
     {
-        if (from == this.getFront().rotateY())
+        if (from == this.byIndex().rotateY())
         {
-            //Can fill with water
+            // Can fill with water
             return fluid == null || fluid.getName().equals(FluidRegistry.WATER.getName());
         }
 
@@ -416,19 +419,21 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
     @Override
     public FluidTankInfo[] getTankInfo(EnumFacing from)
     {
-        FluidTankInfo[] tankInfo = new FluidTankInfo[] {};
+        FluidTankInfo[] tankInfo = new FluidTankInfo[]
+        {};
 
-        if (from == this.getFront().rotateY())
+        if (from == this.byIndex().rotateY())
         {
-            tankInfo = new FluidTankInfo[] { new FluidTankInfo(this.waterTank) };
-        }
-        else if (from == this.getHydrogenOutputDirection())
+            tankInfo = new FluidTankInfo[]
+            {new FluidTankInfo(this.waterTank)};
+        } else if (from == this.getHydrogenOutputDirection())
         {
-            tankInfo = new FluidTankInfo[] { new FluidTankInfo(this.liquidTank2) };
-        }
-        else if (from == this.getOxygenOutputDirection())
+            tankInfo = new FluidTankInfo[]
+            {new FluidTankInfo(this.liquidTank2)};
+        } else if (from == this.getOxygenOutputDirection())
         {
-            tankInfo = new FluidTankInfo[] { new FluidTankInfo(this.liquidTank) };
+            tankInfo = new FluidTankInfo[]
+            {new FluidTankInfo(this.liquidTank)};
         }
 
         return tankInfo;
@@ -460,8 +465,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
             int amountH = Math.min(8, this.liquidTank2.getFluidAmount());
             amountH = this.liquidTank2.drain(amountH, doTransfer).amount;
             return new GasStack((Gas) EnergyConfigHandler.gasHydrogen, amountH);
-        }
-        else if (from == this.getOxygenOutputDirection() && this.liquidTank.getFluid() != null)
+        } else if (from == this.getOxygenOutputDirection() && this.liquidTank.getFluid() != null)
         {
             int amountO = Math.min(8, this.liquidTank.getFluidAmount());
             amountO = this.liquidTank.drain(amountO, doTransfer).amount;
@@ -488,8 +492,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
         if (from == this.getHydrogenOutputDirection())
         {
             return type.getName().equals("hydrogen");
-        }
-        else if (from == this.getOxygenOutputDirection())
+        } else if (from == this.getOxygenOutputDirection())
         {
             return type.getName().equals("oxygen");
         }
@@ -502,8 +505,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
         if (from == this.getHydrogenOutputDirection())
         {
             return true;
-        }
-        else if (from == this.getOxygenOutputDirection())
+        } else if (from == this.getOxygenOutputDirection())
         {
             return true;
         }
@@ -535,12 +537,12 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
 
     private EnumFacing getOxygenOutputDirection()
     {
-        return this.getFront().getOpposite();
+        return this.byIndex().getOpposite();
     }
 
     private EnumFacing getHydrogenOutputDirection()
     {
-        return this.getFront().rotateYCCW();
+        return this.byIndex().rotateYCCW();
     }
 
     private boolean produceOxygen(EnumFacing outputDirection)
@@ -563,8 +565,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
                     this.drawOxygen(usedGas, true);
                     return true;
                 }
-            }
-            else if (outputTile instanceof IOxygenReceiver)
+            } else if (outputTile instanceof IOxygenReceiver)
             {
                 float requestedOxygen = ((IOxygenReceiver) outputTile).getOxygenRequest(outputDirection.getOpposite());
 
@@ -618,8 +619,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
                     this.drawHydrogen(usedGas, true);
                     return true;
                 }
-            }
-            else if (outputTile instanceof TileEntityMethaneSynthesizer)
+            } else if (outputTile instanceof TileEntityMethaneSynthesizer)
             {
                 float requestedHydrogen = ((TileEntityMethaneSynthesizer) outputTile).getHydrogenRequest(outputDirection.getOpposite());
 
@@ -738,7 +738,7 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
 
         if (type == NetworkType.FLUID)
         {
-            return this.getOxygenOutputDirection() == direction || this.getHydrogenOutputDirection() == direction || direction == this.getFront().rotateY();
+            return this.getOxygenOutputDirection() == direction || this.getHydrogenOutputDirection() == direction || direction == this.byIndex().rotateY();
         }
 
         if (type == NetworkType.POWER)
@@ -750,13 +750,22 @@ public class TileEntityElectrolyzer extends TileBaseElectricBlockWithInventory i
     }
 
     @Override
+    public EnumFacing byIndex()
+    {
+        IBlockState state = this.world.getBlockState(getPos());
+        if (state.getBlock() instanceof BlockMachineMarsT2)
+        {
+            return state.getValue(BlockMachineMarsT2.FACING);
+        }
+        return EnumFacing.NORTH;
+    }
+    
+    @Override
+    @Deprecated
+    @ForRemoval(deadline = "4.1.0")
+    @ReplaceWith("byIndex()")
     public EnumFacing getFront()
     {
-    	IBlockState state = this.world.getBlockState(getPos()); 
-    	if (state.getBlock() instanceof BlockMachineMarsT2)
-    	{
-    		return state.getValue(BlockMachineMarsT2.FACING);
-    	}
-    	return EnumFacing.NORTH;
+        return this.byIndex();
     }
 }

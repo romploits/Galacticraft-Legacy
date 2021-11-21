@@ -1,10 +1,13 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.core.blocks.BlockOxygenCompressor;
 import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
 import micdoodle8.mods.galacticraft.core.inventory.IInventoryDefaults;
 import micdoodle8.mods.galacticraft.core.items.ItemCanisterOxygenInfinite;
 import micdoodle8.mods.galacticraft.core.items.ItemOxygenTank;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -15,6 +18,7 @@ import java.util.EnumSet;
 
 public class TileEntityOxygenDecompressor extends TileEntityOxygen implements IInventoryDefaults, ISidedInventory
 {
+
     public static final int OUTPUT_PER_TICK = 100;
     private boolean usingEnergy = false;
 
@@ -41,8 +45,7 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
                     tank1.setItemDamage(tank1.getItemDamage() + 1);
                     this.receiveOxygen(1, true);
                     this.usingEnergy = true;
-                }
-                else if (tank1.getItem() instanceof ItemCanisterOxygenInfinite)
+                } else if (tank1.getItem() instanceof ItemCanisterOxygenInfinite)
                 {
                     this.receiveOxygen(1, true);
                     this.usingEnergy = true;
@@ -64,7 +67,8 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
     @Override
     public int[] getSlotsForFace(EnumFacing side)
     {
-        return new int[] { 0, 1 };
+        return new int[]
+        {0, 1};
     }
 
     @Override
@@ -74,12 +78,12 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
         {
             switch (slotID)
             {
-            case 0:
-                return itemstack.getItemDamage() < itemstack.getMaxDamage();
-            case 1:
-                return ItemElectricBase.isElectricItemCharged(itemstack);
-            default:
-                return false;
+                case 0:
+                    return itemstack.getItemDamage() < itemstack.getMaxDamage();
+                case 1:
+                    return ItemElectricBase.isElectricItemCharged(itemstack);
+                default:
+                    return false;
             }
         }
         return false;
@@ -92,12 +96,12 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
         {
             switch (slotID)
             {
-            case 0:
-                return itemstack.getItemDamage() == itemstack.getMaxDamage();
-            case 1:
-                return ItemElectricBase.isElectricItemEmpty(itemstack);
-            default:
-                return false;
+                case 0:
+                    return itemstack.getItemDamage() == itemstack.getMaxDamage();
+                case 1:
+                    return ItemElectricBase.isElectricItemEmpty(itemstack);
+                default:
+                    return false;
             }
         }
         return false;
@@ -108,10 +112,10 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
     {
         switch (slotID)
         {
-        case 0:
-            return itemstack.getItem() instanceof ItemOxygenTank;
-        case 1:
-            return ItemElectricBase.isElectricItem(itemstack.getItem());
+            case 0:
+                return itemstack.getItem() instanceof ItemOxygenTank;
+            case 1:
+                return ItemElectricBase.isElectricItem(itemstack.getItem());
         }
 
         return false;
@@ -124,9 +128,9 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
     }
 
     @Override
-    public EnumFacing getFront()
+    public EnumFacing byIndex()
     {
-        IBlockState state = this.world.getBlockState(getPos()); 
+        IBlockState state = this.world.getBlockState(getPos());
         if (state.getBlock() instanceof BlockOxygenCompressor)
         {
             return state.getValue(BlockOxygenCompressor.FACING).rotateY();
@@ -137,7 +141,7 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
     @Override
     public EnumFacing getElectricInputDirection()
     {
-        return getFront();
+        return this.byIndex();
     }
 
     @Override
@@ -179,5 +183,14 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
     public int getOxygenProvide(EnumFacing direction)
     {
         return this.getOxygenOutputDirections().contains(direction) ? Math.min(TileEntityOxygenDecompressor.OUTPUT_PER_TICK, this.getOxygenStored()) : 0;
+    }
+    
+    @Override
+    @Deprecated
+    @ForRemoval(deadline = "4.1.0")
+    @ReplaceWith("byIndex()")
+    public EnumFacing getFront()
+    {
+        return this.byIndex();
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GalacticraftStateMapper extends StateMapperBase
 {
+
     public static final GalacticraftStateMapper INSTANCE = new GalacticraftStateMapper();
 
     public static String getPropertyString(IBlockState state)
@@ -19,7 +20,7 @@ public class GalacticraftStateMapper extends StateMapperBase
     protected ModelResourceLocation getModelResourceLocation(IBlockState state)
     {
         ResourceLocation loc = Block.REGISTRY.getNameForObject(state.getBlock());
-        loc = new ResourceLocation(loc.getResourceDomain().replace("|", ""), loc.getResourcePath());
+        loc = new ResourceLocation(loc.getNamespace().replace("|", ""), loc.getPath());
         return new ModelResourceLocation(loc, getPropertyString(state));
     }
 }

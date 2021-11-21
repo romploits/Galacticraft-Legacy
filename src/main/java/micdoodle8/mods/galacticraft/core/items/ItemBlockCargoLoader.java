@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemBlockCargoLoader extends ItemBlockDesc
 {
+
     public ItemBlockCargoLoader(Block block)
     {
         super(block);
@@ -13,20 +14,19 @@ public class ItemBlockCargoLoader extends ItemBlockDesc
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack par1ItemStack)
+    public String getTranslationKey(ItemStack par1ItemStack)
     {
         String name = "";
 
         if (par1ItemStack.getItemDamage() < 4)
         {
             name = "loader";
-        }
-        else
+        } else
         {
             name = "unloader";
         }
 
-        return this.getBlock().getUnlocalizedName() + "." + name;
+        return this.getBlock().getTranslationKey() + "." + name;
     }
 
     @Override

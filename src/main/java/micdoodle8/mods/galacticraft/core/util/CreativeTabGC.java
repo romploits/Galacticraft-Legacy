@@ -11,6 +11,7 @@ import java.util.Comparator;
 
 public class CreativeTabGC extends CreativeTabs
 {
+
     private ItemStack itemForTab;
     private Comparator<ItemStack> tabSorter;
 
@@ -23,7 +24,7 @@ public class CreativeTabGC extends CreativeTabs
 
     @Override
     @SideOnly(Side.CLIENT)
-    public ItemStack getTabIconItem()
+    public ItemStack createIcon()
     {
         return this.itemForTab;
     }
@@ -35,7 +36,7 @@ public class CreativeTabGC extends CreativeTabs
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String getTranslatedTabLabel()
+    public String getTranslationKey()
     {
         return "item_group." + this.getTabLabel();
     }
@@ -46,7 +47,8 @@ public class CreativeTabGC extends CreativeTabs
         super.displayAllRelevantItems(list);
         if (this.tabSorter != null)
         {
-            try {
+            try
+            {
                 Collections.sort(list, tabSorter);
             } catch (Exception e)
             {

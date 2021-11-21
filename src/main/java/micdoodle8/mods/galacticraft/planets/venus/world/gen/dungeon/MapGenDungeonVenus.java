@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class MapGenDungeonVenus extends MapGenStructure
 {
+
     private static boolean initialized;
     private DungeonConfigurationVenus configuration;
 
@@ -22,8 +23,7 @@ public class MapGenDungeonVenus extends MapGenStructure
         try
         {
             MapGenDungeonVenus.initiateStructures();
-        }
-        catch (Throwable e)
+        } catch (Throwable e)
         {
 
         }
@@ -81,8 +81,6 @@ public class MapGenDungeonVenus extends MapGenStructure
 
     public static class Start extends StructureStart
     {
-        private DungeonConfigurationVenus configuration;
-
         public Start()
         {
         }
@@ -90,7 +88,6 @@ public class MapGenDungeonVenus extends MapGenStructure
         public Start(World worldIn, Random rand, int chunkX, int chunkZ, DungeonConfigurationVenus configuration)
         {
             super(chunkX, chunkZ);
-            this.configuration = configuration;
             DungeonStartVenus startPiece = new DungeonStartVenus(worldIn, configuration, rand, (chunkX << 4) + 2, (chunkZ << 4) + 2);
             startPiece.buildComponent(startPiece, this.components, rand);
             List<StructureComponent> list = startPiece.attachedComponents;

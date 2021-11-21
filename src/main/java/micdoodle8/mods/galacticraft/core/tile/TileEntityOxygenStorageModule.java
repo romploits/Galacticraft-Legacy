@@ -1,10 +1,13 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.item.IItemOxygenSupply;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMachine2;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMachineBase;
 import micdoodle8.mods.galacticraft.core.inventory.IInventoryDefaults;
 import micdoodle8.mods.galacticraft.core.util.FluidUtil;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -21,6 +24,7 @@ import java.util.Set;
 
 public class TileEntityOxygenStorageModule extends TileEntityOxygen implements IInventoryDefaults, ISidedInventory, IMachineSides
 {
+
     public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
     public int scaledOxygenLevel;
     private int lastScaledOxygenLevel;
@@ -65,7 +69,7 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
 
         this.lastScaledOxygenLevel = this.scaledOxygenLevel;
 
-        this.produceOxygen(getFront().rotateY().getOpposite());
+        this.produceOxygen(byIndex().rotateY().getOpposite());
 
         // if (!this.world.isRemote)
         // {
@@ -113,14 +117,14 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
     {
         super.readFromNBT(nbt);
 
-        this.readMachineSidesFromNBT(nbt);  //Needed by IMachineSides
+        this.readMachineSidesFromNBT(nbt); // Needed by IMachineSides
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-        this.addMachineSidesToNBT(nbt);  //Needed by IMachineSides
+        this.addMachineSidesToNBT(nbt); // Needed by IMachineSides
         return nbt;
     }
 
@@ -173,9 +177,9 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
     }
 
     @Override
-    public EnumFacing getFront()
+    public EnumFacing byIndex()
     {
-        return BlockMachineBase.getFront(this.world.getBlockState(getPos())); 
+        return BlockMachineBase.byIndex(this.world.getBlockState(getPos()));
     }
 
     @Override
@@ -184,11 +188,12 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
         return slotID == 0 && itemstack != null && itemstack.getItem() instanceof IItemOxygenSupply;
     }
 
-    //ISidedInventory
+    // ISidedInventory
     @Override
     public int[] getSlotsForFace(EnumFacing side)
     {
-        return new int[] { 0 };
+        return new int[]
+        {0};
     }
 
     @Override
@@ -211,7 +216,7 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
         return false;
     }
 
-    //IFluidHandler methods - to allow this to accept Liquid Oxygen
+    // IFluidHandler methods - to allow this to accept Liquid Oxygen
     @Override
     public boolean canDrain(EnumFacing from, Fluid fluid)
     {
@@ -276,21 +281,21 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
         EnumFacing dir;
         switch (this.getSide(MachineSide.ELECTRIC_IN))
         {
-        case REAR:
-            dir = getFront().getOpposite();
-            break;
-        case TOP:
-            dir = EnumFacing.UP;
-            break;
-        case BOTTOM:
-            dir = EnumFacing.DOWN;
-            break;
-        case RIGHT:
-            dir = getFront().rotateYCCW();
-            break;
-        case LEFT:
-        default:
-            dir = getFront().rotateY();
+            case REAR:
+                dir = byIndex().getOpposite();
+                break;
+            case TOP:
+                dir = EnumFacing.UP;
+                break;
+            case BOTTOM:
+                dir = EnumFacing.DOWN;
+                break;
+            case RIGHT:
+                dir = byIndex().rotateYCCW();
+                break;
+            case LEFT:
+            default:
+                dir = byIndex().rotateY();
         }
         return EnumSet.of(dir);
     }
@@ -301,39 +306,42 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
         EnumFacing dir;
         switch (this.getSide(MachineSide.PIPE_OUT))
         {
-        case REAR:
-            dir = getFront().getOpposite();
-            break;
-        case TOP:
-            dir = EnumFacing.UP;
-            break;
-        case BOTTOM:
-            dir = EnumFacing.DOWN;
-            break;
-        case LEFT:
-            dir = getFront().rotateY();
-            break;
-        case RIGHT:
-        default:
-            dir = getFront().rotateYCCW();
+            case REAR:
+                dir = byIndex().getOpposite();
+                break;
+            case TOP:
+                dir = EnumFacing.UP;
+                break;
+            case BOTTOM:
+                dir = EnumFacing.DOWN;
+                break;
+            case LEFT:
+                dir = byIndex().rotateY();
+                break;
+            case RIGHT:
+            default:
+                dir = byIndex().rotateYCCW();
         }
         return EnumSet.of(dir);
     }
 
-    //------------------
-    //Added these methods and field to implement IMachineSides properly 
-    //------------------
+    // ------------------
+    // Added these methods and field to implement IMachineSides properly
+    // ------------------
     @Override
     public MachineSide[] listConfigurableSides()
     {
-        //Have to use Electric_In for compatibility with other BlockMachine2, as all use same blockstate
-        return new MachineSide[] { MachineSide.ELECTRIC_IN, MachineSide.PIPE_OUT };
+        // Have to use Electric_In for compatibility with other BlockMachine2,
+        // as all use same blockstate
+        return new MachineSide[]
+        {MachineSide.ELECTRIC_IN, MachineSide.PIPE_OUT};
     }
 
     @Override
     public Face[] listDefaultFaces()
     {
-        return new Face[] { Face.LEFT, Face.RIGHT };
+        return new Face[]
+        {Face.LEFT, Face.RIGHT};
     }
 
     private MachineSidePack[] machineSides;
@@ -354,17 +362,26 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
     {
         this.machineSides = new MachineSidePack[length];
     }
-    
+
     @Override
     public void onLoad()
     {
         this.clientOnLoad();
     }
-    
+
     @Override
     public IMachineSidesProperties getConfigurationType()
     {
         return BlockMachine2.MACHINESIDES_RENDERTYPE;
     }
-    //------------------END OF IMachineSides implementation
+    // ------------------END OF IMachineSides implementation
+    
+    @Override
+    @Deprecated
+    @ForRemoval(deadline = "4.1.0")
+    @ReplaceWith("byIndex()")
+    public EnumFacing getFront()
+    {
+        return this.byIndex();
+    }
 }

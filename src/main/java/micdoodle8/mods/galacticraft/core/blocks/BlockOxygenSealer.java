@@ -7,6 +7,7 @@ import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenSealer;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -26,6 +27,7 @@ import net.minecraft.world.World;
 
 public class BlockOxygenSealer extends BlockAdvancedTile implements IShiftDescription, ISortableBlock
 {
+
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public BlockOxygenSealer(String assetName)
@@ -33,11 +35,11 @@ public class BlockOxygenSealer extends BlockAdvancedTile implements IShiftDescri
         super(Material.ROCK);
         this.setHardness(1.0F);
         this.setSoundType(SoundType.METAL);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -53,7 +55,7 @@ public class BlockOxygenSealer extends BlockAdvancedTile implements IShiftDescri
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         final int angle = MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-        worldIn.setBlockState(pos, getStateFromMeta(EnumFacing.getHorizontal(angle).getOpposite().getHorizontalIndex()), 3);
+        worldIn.setBlockState(pos, getStateFromMeta(EnumFacing.byHorizontalIndex(angle).getOpposite().getHorizontalIndex()), 3);
     }
 
     @Override
@@ -65,7 +67,8 @@ public class BlockOxygenSealer extends BlockAdvancedTile implements IShiftDescri
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        //Run a sealer check if needed and if not picked up by BlockBreathableAir.onNeighborBlockChange()
+        // Run a sealer check if needed and if not picked up by
+        // BlockBreathableAir.onNeighborBlockChange()
         BlockPos ventSide = pos.up(1);
         Block testBlock = worldIn.getBlockState(ventSide).getBlock();
         if (testBlock == GCBlocks.breatheableAir || testBlock == GCBlocks.brightBreatheableAir)
@@ -79,7 +82,7 @@ public class BlockOxygenSealer extends BlockAdvancedTile implements IShiftDescri
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override
@@ -91,7 +94,7 @@ public class BlockOxygenSealer extends BlockAdvancedTile implements IShiftDescri
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
+        EnumFacing enumfacing = EnumFacing.byHorizontalIndex(meta);
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 

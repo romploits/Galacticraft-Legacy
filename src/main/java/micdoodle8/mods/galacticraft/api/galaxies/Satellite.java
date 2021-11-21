@@ -1,9 +1,12 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import net.minecraft.world.WorldProvider;
 
 public class Satellite extends CelestialBody implements IChildBody
 {
+
     protected Planet parentCelestialBody = null;
     protected int dimensionIdStatic = 0;
 
@@ -28,7 +31,8 @@ public class Satellite extends CelestialBody implements IChildBody
     @Deprecated
     public CelestialBody setDimensionInfo(int providerId, Class<? extends WorldProvider> providerClass, boolean autoRegister)
     {
-        // Since satellites need a static ID, the subclass method will not work correctly.
+        // Since satellites need a static ID, the subclass method will not work
+        // correctly.
         throw new UnsupportedOperationException("Satellite registered using an outdated method (setDimensionInfo)! Tell Galacticraft addon authors to update to the latest API.");
     }
 
@@ -37,7 +41,8 @@ public class Satellite extends CelestialBody implements IChildBody
         this.dimensionID = providerIdDynamic;
         this.dimensionIdStatic = providerIdStatic;
         this.providerClass = providerClass;
-        this.autoRegisterDimension = false; // Addons need to register satellites manually
+        this.autoRegisterDimension = false; // Addons need to register
+                                            // satellites manually
         this.isReachable = true;
         return this;
     }
@@ -49,7 +54,7 @@ public class Satellite extends CelestialBody implements IChildBody
     }
 
     @Override
-    public String getUnlocalizedNamePrefix()
+    public String getTranslationKeyPrefix()
     {
         return "satellite";
     }
@@ -57,5 +62,14 @@ public class Satellite extends CelestialBody implements IChildBody
     public int getDimensionIdStatic()
     {
         return dimensionIdStatic;
+    }
+    
+    @Override
+    @Deprecated
+    @ForRemoval(deadline = "4.1.0")
+    @ReplaceWith("getTranslationKeyPrefix()")
+    public String getUnlocalizedNamePrefix()
+    {
+        return getTranslationKeyPrefix();
     }
 }

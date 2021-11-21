@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import micdoodle8.mods.galacticraft.core.items.ISortableItem;
 import micdoodle8.mods.galacticraft.core.items.ItemCanisterGeneric;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
@@ -10,10 +14,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 public class ItemCanisterMethane extends ItemCanisterGeneric implements ISortableItem
 {
 //    protected IIcon[] icons = new IIcon[7];
@@ -22,21 +22,19 @@ public class ItemCanisterMethane extends ItemCanisterGeneric implements ISortabl
     {
         super(assetName);
         this.setAllowedFluid("methane");
-        //this.setTextureName(GalacticraftPlanets.TEXTURE_PREFIX + assetName);
+        // this.setTextureName(GalacticraftPlanets.TEXTURE_PREFIX + assetName);
     }
 
-    /*@Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister)
-    {
-        for (int i = 0; i < this.icons.length; i++)
-        {
-            this.icons[i] = iconRegister.registerIcon(this.getIconString() + "_" + i);
-        }
-    }*/
+    /*
+     * @Override
+     * @SideOnly(Side.CLIENT) public void registerIcons(IIconRegister
+     * iconRegister) { for (int i = 0; i < this.icons.length; i++) {
+     * this.icons[i] = iconRegister.registerIcon(this.getIconString() + "_" +
+     * i); } }
+     */
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack)
+    public String getTranslationKey(ItemStack itemStack)
     {
         if (itemStack.getMaxDamage() - itemStack.getItemDamage() == 0)
         {
@@ -51,18 +49,12 @@ public class ItemCanisterMethane extends ItemCanisterGeneric implements ISortabl
         return "item.methane_canister_partial";
     }
 
-    /*@Override
-    public IIcon getIconFromDamage(int par1)
-    {
-        final int damage = 6 * par1 / this.getMaxDamage();
-
-        if (this.icons.length > damage)
-        {
-            return this.icons[this.icons.length - damage - 1];
-        }
-
-        return super.getIconFromDamage(damage);
-    }*/
+    /*
+     * @Override public IIcon getIconFromDamage(int par1) { final int damage = 6
+     * * par1 / this.getMaxDamage(); if (this.icons.length > damage) { return
+     * this.icons[this.icons.length - damage - 1]; } return
+     * super.getIconFromDamage(damage); }
+     */
 
     @Override
     @SideOnly(Side.CLIENT)

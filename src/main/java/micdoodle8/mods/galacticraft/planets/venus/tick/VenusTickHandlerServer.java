@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.tick;
 
 import com.google.common.collect.Lists;
+
 import micdoodle8.mods.galacticraft.planets.venus.tile.SolarModuleNetwork;
 import micdoodle8.mods.galacticraft.planets.venus.tile.TileEntitySolarTransmitter;
 import net.minecraft.server.MinecraftServer;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class VenusTickHandlerServer
 {
+
     private static List<SolarModuleNetwork> solarModuleNetworks = Lists.newArrayList();
     public static LinkedList<TileEntitySolarTransmitter> solarTransmitterUpdates = new LinkedList<>();
 
@@ -32,7 +34,7 @@ public class VenusTickHandlerServer
     public void onServerTick(TickEvent.ServerTickEvent event)
     {
         MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
-        //Prevent issues when clients switch to LAN servers
+        // Prevent issues when clients switch to LAN servers
         if (server == null)
         {
             return;
@@ -42,11 +44,7 @@ public class VenusTickHandlerServer
         {
             for (SolarModuleNetwork network : new ArrayList<>(solarModuleNetworks))
             {
-                if (!network.getTransmitters().isEmpty())
-                {
-//                    network.tickEnd();
-                }
-                else
+                if (network.getTransmitters().isEmpty())
                 {
                     solarModuleNetworks.remove(network);
                 }

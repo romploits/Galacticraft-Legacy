@@ -4,6 +4,7 @@ import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.wrappers.ModelTransformWrapper;
+
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -14,6 +15,7 @@ import javax.vecmath.Vector3f;
 
 public class ItemModelRocket extends ModelTransformWrapper
 {
+
     public ItemModelRocket(IBakedModel modelToWrap)
     {
         super(modelToWrap);

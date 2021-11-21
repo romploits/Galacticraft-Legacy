@@ -1,5 +1,8 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.blocks;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.ISortableBlock;
@@ -30,31 +33,29 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class BlockIceAsteroids extends BlockBreakable implements ISortableBlock
 {
+
     public BlockIceAsteroids(String assetName)
     {
         super(Material.ICE, false);
         this.slipperiness = 0.98F;
         this.setTickRandomly(true);
         this.setHardness(0.5F);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
         this.setSoundType(SoundType.GLASS);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.TRANSLUCENT;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -75,8 +76,7 @@ public class BlockIceAsteroids extends BlockBreakable implements ISortableBlock
             {
                 Block.spawnAsEntity(worldIn, pos, is);
             }
-        }
-        else
+        } else
         {
             if (worldIn.provider.getDimension() == -1 || worldIn.provider instanceof IGalacticraftWorldProvider)
             {
@@ -121,7 +121,7 @@ public class BlockIceAsteroids extends BlockBreakable implements ISortableBlock
     }
 
     @Override
-    public EnumPushReaction getMobilityFlag(IBlockState state)
+    public EnumPushReaction getPushReaction(IBlockState state)
     {
         return EnumPushReaction.NORMAL;
     }

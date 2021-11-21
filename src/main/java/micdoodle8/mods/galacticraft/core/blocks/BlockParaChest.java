@@ -5,6 +5,7 @@ import micdoodle8.mods.galacticraft.core.items.IShiftDescription;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityParaChest;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -38,6 +39,7 @@ import java.util.Random;
 
 public class BlockParaChest extends BlockContainer implements ITileEntityProvider, IShiftDescription, ISortableBlock
 {
+
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
     protected static final AxisAlignedBB NOT_CONNECTED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.875D, 0.9375D);
@@ -48,7 +50,7 @@ public class BlockParaChest extends BlockContainer implements ITileEntityProvide
         this.setHardness(3.0F);
         this.setSoundType(SoundType.WOOD);
 //        this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
-        this.setUnlocalizedName(assetName);
+        this.setTranslationKey(assetName);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
@@ -71,7 +73,7 @@ public class BlockParaChest extends BlockContainer implements ITileEntityProvide
     }
 
     @Override
-    public CreativeTabs getCreativeTabToDisplayOn()
+    public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
     }
@@ -106,8 +108,7 @@ public class BlockParaChest extends BlockContainer implements ITileEntityProvide
         if (worldIn.isRemote)
         {
             return true;
-        }
-        else
+        } else
         {
             IInventory iinventory = this.getInventory(worldIn, pos);
 
@@ -180,16 +181,13 @@ public class BlockParaChest extends BlockContainer implements ITileEntityProvide
         if (object == null)
         {
             return null;
-        }
-        else if (par1World.isSideSolid(pos.offset(EnumFacing.UP), EnumFacing.DOWN))
+        } else if (par1World.isSideSolid(pos.offset(EnumFacing.UP), EnumFacing.DOWN))
         {
             return null;
-        }
-        else if (BlockParaChest.isOcelotBlockingChest(par1World, pos))
+        } else if (BlockParaChest.isOcelotBlockingChest(par1World, pos))
         {
             return null;
-        }
-        else
+        } else
         {
             return (IInventory) object;
         }
@@ -197,7 +195,8 @@ public class BlockParaChest extends BlockContainer implements ITileEntityProvide
 
     public static boolean isOcelotBlockingChest(World par0World, BlockPos pos)
     {
-        Iterator<?> iterator = par0World.getEntitiesWithinAABB(EntityOcelot.class, new AxisAlignedBB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1)).iterator();
+        Iterator<?> iterator =
+            par0World.getEntitiesWithinAABB(EntityOcelot.class, new AxisAlignedBB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1)).iterator();
         EntityOcelot entityocelot;
 
         do
@@ -208,8 +207,7 @@ public class BlockParaChest extends BlockContainer implements ITileEntityProvide
             }
 
             entityocelot = (EntityOcelot) iterator.next();
-        }
-        while (!entityocelot.isSitting());
+        } while (!entityocelot.isSitting());
 
         return true;
     }
@@ -223,7 +221,7 @@ public class BlockParaChest extends BlockContainer implements ITileEntityProvide
     @Override
     public String getShiftDescription(int meta)
     {
-        return GCCoreUtil.translate(this.getUnlocalizedName() + ".description");
+        return GCCoreUtil.translate(this.getTranslationKey() + ".description");
     }
 
     @Override
@@ -235,7 +233,7 @@ public class BlockParaChest extends BlockContainer implements ITileEntityProvide
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y)
         {

@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.core.world.gen.dungeon;
 
 import com.google.common.collect.Lists;
+
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import net.minecraft.util.math.BlockPos;
@@ -15,6 +16,7 @@ import java.util.Random;
 
 public class MapGenDungeon extends MapGenStructure
 {
+
     private static boolean initialized;
     private DungeonConfiguration configuration;
 
@@ -23,8 +25,7 @@ public class MapGenDungeon extends MapGenStructure
         try
         {
             MapGenDungeon.initiateStructures();
-        }
-        catch (Throwable e)
+        } catch (Throwable e)
         {
 
         }
@@ -64,7 +65,8 @@ public class MapGenDungeon extends MapGenStructure
     {
         long dungeonPos = getDungeonPosForCoords(this.world, chunkX, chunkZ, ((IGalacticraftWorldProvider) this.world.provider).getDungeonSpacing());
         int i = (int) (dungeonPos >> 32);
-        int j = (int) dungeonPos;  //Java automatically gives the 32 least significant bits
+        int j = (int) dungeonPos; // Java automatically gives the 32 least
+                                  // significant bits
         return i == chunkX && j == chunkZ;
     }
 
@@ -83,7 +85,7 @@ public class MapGenDungeon extends MapGenStructure
 
         int k = chunkX / numChunks;
         int l = chunkZ / numChunks;
-        long seed = (long)k * 341873128712L + (long)l * 132897987541L + world.getWorldInfo().getSeed() + (long)(10387340 + world.provider.getDimension());
+        long seed = (long) k * 341873128712L + (long) l * 132897987541L + world.getWorldInfo().getSeed() + (long) (10387340 + world.provider.getDimension());
         Random random = new Random();
         random.setSeed(seed);
         k = k * numChunks + random.nextInt(numChunks);
@@ -92,19 +94,21 @@ public class MapGenDungeon extends MapGenStructure
     }
 
     /**
-     * This returns an angle between 0 and 360 degrees.  0 degrees means due North from the current (x, z) position
-     * Only provides meaningful results in worlds with dungeon generation using this class!
+     * This returns an angle between 0 and 360 degrees. 0 degrees means due
+     * North from the current (x, z) position Only provides meaningful results
+     * in worlds with dungeon generation using this class!
      */
     public static float directionToNearestDungeon(World world, double xpos, double zpos)
     {
         int spacing = ((IGalacticraftWorldProvider) world.provider).getDungeonSpacing();
-        if (spacing == 0) return 0F;
+        if (spacing == 0)
+            return 0F;
         int x = MathHelper.floor(xpos);
         int z = MathHelper.floor(zpos);
         int quadrantX = x % spacing;
         int quadrantZ = z % spacing;
-        int searchOffsetX = quadrantX / (spacing / 2);  //0 or 1
-        int searchOffsetZ = quadrantZ / (spacing / 2);  //0 or 1
+        int searchOffsetX = quadrantX / (spacing / 2); // 0 or 1
+        int searchOffsetZ = quadrantZ / (spacing / 2); // 0 or 1
         double nearestX = 0;
         double nearestZ = 0;
         double nearestDistance = Double.MAX_VALUE;
@@ -114,7 +118,9 @@ public class MapGenDungeon extends MapGenStructure
             {
                 long dungeonPos = getDungeonPosForCoords(world, (x + cx * spacing) / 16, (z + cz * spacing) / 16, spacing);
                 int i = 2 + (((int) (dungeonPos >> 32)) << 4);
-                int j = 2 + (((int) dungeonPos) << 4);  //Java automatically gives the 32 least significant bits
+                int j = 2 + (((int) dungeonPos) << 4); // Java automatically
+                                                       // gives the 32 least
+                                                       // significant bits
                 double oX = i - xpos;
                 double oZ = j - zpos;
                 double distanceSq = oX * oX + oZ * oZ;
@@ -144,6 +150,7 @@ public class MapGenDungeon extends MapGenStructure
 
     public static class Start extends StructureStart
     {
+
         private DungeonConfiguration configuration;
         DungeonStart startPiece;
 
@@ -180,8 +187,7 @@ public class MapGenDungeon extends MapGenStructure
             try
             {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            }
-            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
             {
                 ex.printStackTrace();
             }
@@ -197,6 +203,7 @@ public class MapGenDungeon extends MapGenStructure
 
     public static class DungeonGenPanel extends JPanel
     {
+
         DungeonGenPanel(List<StructureBoundingBox> componentBounds)
         {
             int absMinX = Integer.MAX_VALUE;
@@ -224,7 +231,8 @@ public class MapGenDungeon extends MapGenStructure
             }
             setLayout(new GridLayout(absMaxX - absMinX, absMaxZ - absMinZ, 0, 0));
 
-            Color[] colors = new Color[]{Color.GREEN, Color.BLUE, Color.RED, Color.MAGENTA};
+            Color[] colors = new Color[]
+            {Color.GREEN, Color.BLUE, Color.RED, Color.MAGENTA};
             List<List<JPanel>> cells = Lists.newArrayList();
             for (int row = 0; row < absMaxX - absMinX; row++)
             {
@@ -233,6 +241,7 @@ public class MapGenDungeon extends MapGenStructure
                 {
                     JPanel cell = new JPanel()
                     {
+
                         @Override
                         public Dimension getPreferredSize()
                         {

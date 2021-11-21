@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import micdoodle8.mods.galacticraft.api.entity.IRocketType.EnumRocketType;
 import micdoodle8.mods.galacticraft.api.item.IHoldableItem;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
@@ -32,20 +36,17 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 public class ItemTier3Rocket extends Item implements IHoldableItem, ISortableItem
 {
+
     public ItemTier3Rocket(String assetName)
     {
         super();
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
         this.setMaxStackSize(1);
-        this.setUnlocalizedName(assetName);
-        //this.setTextureName("arrow");
+        this.setTranslationKey(assetName);
+        // this.setTextureName("arrow");
     }
 
     @Override
@@ -72,8 +73,7 @@ public class ItemTier3Rocket extends Item implements IHoldableItem, ISortableIte
         if (worldIn.isRemote)
         {
             return EnumActionResult.PASS;
-        }
-        else
+        } else
         {
             float centerX = -1;
             float centerY = -1;
@@ -119,8 +119,7 @@ public class ItemTier3Rocket extends Item implements IHoldableItem, ISortableIte
                     stack.shrink(1);
                 }
                 return EnumActionResult.SUCCESS;
-            }
-            else
+            } else
             {
                 return EnumActionResult.PASS;
             }
@@ -148,8 +147,7 @@ public class ItemTier3Rocket extends Item implements IHoldableItem, ISortableIte
         if (par1ItemStack.getItemDamage() < 10)
         {
             type = EnumRocketType.values()[par1ItemStack.getItemDamage()];
-        }
-        else
+        } else
         {
             type = EnumRocketType.values()[par1ItemStack.getItemDamage() - 10];
         }
@@ -172,9 +170,9 @@ public class ItemTier3Rocket extends Item implements IHoldableItem, ISortableIte
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack par1ItemStack)
+    public String getTranslationKey(ItemStack par1ItemStack)
     {
-        return super.getUnlocalizedName(par1ItemStack) + ".t3Rocket";
+        return super.getTranslationKey(par1ItemStack) + ".t3Rocket";
     }
 
     @Override
@@ -203,15 +201,14 @@ public class ItemTier3Rocket extends Item implements IHoldableItem, ISortableIte
 
     public static boolean placeRocketOnPad(ItemStack stack, World worldIn, TileEntity tile, float centerX, float centerY, float centerZ)
     {
-        //Check whether there is already a rocket on the pad
+        // Check whether there is already a rocket on the pad
         if (tile instanceof TileEntityLandingPad)
         {
             if (((TileEntityLandingPad) tile).getDockedEntity() != null)
             {
                 return false;
             }
-        }
-        else
+        } else
         {
             return false;
         }
@@ -225,12 +222,11 @@ public class ItemTier3Rocket extends Item implements IHoldableItem, ISortableIte
         if (rocket.getType().getPreFueled())
         {
             rocket.fuelTank.fill(new FluidStack(GCFluids.fluidFuel, rocket.getMaxFuel()), true);
-        }
-        else if (stack.hasTagCompound() && stack.getTagCompound().hasKey("RocketFuel"))
+        } else if (stack.hasTagCompound() && stack.getTagCompound().hasKey("RocketFuel"))
         {
             rocket.fuelTank.fill(new FluidStack(GCFluids.fluidFuel, stack.getTagCompound().getInteger("RocketFuel")), true);
         }
-        
+
         return true;
     }
 }
