@@ -75,6 +75,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDesert;
@@ -94,6 +95,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.event.world.ChunkEvent.Load;
 import net.minecraftforge.event.world.WorldEvent.Save;
@@ -129,23 +131,20 @@ public class EventHandlerGC
     }
 
     @SubscribeEvent
-    public void onRocketLaunch(EntitySpaceshipBase.RocketLaunchEvent event)
-    {
-//        if (!event.getEntity().world.isRemote && event.getEntity().world.provider.dimensionId == 0)
-//        {
-//            if (event.rocket.riddenByEntity instanceof EntityPlayerMP)
-//            {
-//                TickHandlerServer.playersRequestingMapData.add((EntityPlayerMP) event.rocket.riddenByEntity);
-//            }
-//        }
-    }
-
-    @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent event)
     {
         if (event.getModID().equals(Constants.MOD_ID_CORE))
         {
             ConfigManagerCore.syncConfig(false);
+        }
+    }
+    
+    @SubscribeEvent
+    public void onPortalSpawn(BlockEvent.PortalSpawnEvent event)
+    {
+        WorldProvider provider = event.getWorld().provider;
+        if(provider instanceof IGalacticraftWorldProvider) {
+            event.setCanceled(true);
         }
     }
 
