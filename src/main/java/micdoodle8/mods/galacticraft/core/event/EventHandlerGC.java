@@ -144,8 +144,8 @@ public class EventHandlerGC
     {
         WorldProvider provider = event.getWorld().provider;
         if(provider instanceof IGalacticraftWorldProvider) {
-            event.setCanceled(true);
-        }
+			e.setCanceled(!((IGalacticraftWorldProvider)provider).netherPortalsOperational());
+		}
     }
 
     @SubscribeEvent
