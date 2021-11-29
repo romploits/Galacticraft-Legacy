@@ -1,8 +1,7 @@
 package micdoodle8.mods.galacticraft.core.world.gen;
 
+import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
-import micdoodle8.mods.galacticraft.api.world.DataBuilder;
-import micdoodle8.mods.galacticraft.api.world.DataBuilder.BiomeData;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSpider;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedZombie;
 import net.minecraft.world.biome.Biome;
@@ -11,7 +10,7 @@ import net.minecraftforge.common.BiomeDictionary;
 public class BiomeOrbit extends BiomeGenBaseGC
 {
 
-    public static final Biome space = new BiomeOrbit(new DataBuilder("Space").build());
+    public static final Biome space = new BiomeOrbit(BiomeData.builder().biomeName("Space").build());
 
     private BiomeOrbit(BiomeData properties)
     {

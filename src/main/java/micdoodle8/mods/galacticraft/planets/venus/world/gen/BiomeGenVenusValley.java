@@ -1,8 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen;
 
-import java.util.Random;
-
-import micdoodle8.mods.galacticraft.api.world.DataBuilder.BiomeData;
+import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.planets.venus.VenusBlocks;
 import micdoodle8.mods.galacticraft.planets.venus.blocks.BlockBasicVenus;
 import net.minecraft.block.material.Material;
@@ -12,6 +10,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.BiomeDictionary;
+
+import java.util.Random;
 
 public class BiomeGenVenusValley extends BiomeVenus
 {

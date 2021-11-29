@@ -1,10 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.world.gen;
 
-import java.util.LinkedList;
-
+import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
-import micdoodle8.mods.galacticraft.api.world.DataBuilder;
-import micdoodle8.mods.galacticraft.api.world.DataBuilder.BiomeData;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedCreeper;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedEnderman;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSkeleton;
@@ -14,10 +11,12 @@ import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 
+import java.util.LinkedList;
+
 public class BiomeAsteroids extends BiomeGenBaseGC
 {
 
-    public static final Biome asteroid = new BiomeAsteroids(new DataBuilder("Asteroids").build());
+    public static final Biome asteroid = new BiomeAsteroids(BiomeData.builder().biomeName("Asteroids").build());
 
     private BiomeAsteroids(BiomeData properties)
     {

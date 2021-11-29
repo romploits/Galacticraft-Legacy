@@ -1,6 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.world.gen;
 
-import micdoodle8.mods.galacticraft.api.world.DataBuilder.BiomeData;
+import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 
