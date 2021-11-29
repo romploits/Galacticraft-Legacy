@@ -3,6 +3,7 @@ package micdoodle8.mods.galacticraft.core.blocks;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConductor;
 import micdoodle8.mods.galacticraft.api.transmission.tile.INetworkConnection;
+
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.tile.TileCableIC2Sealed;
@@ -34,6 +35,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -458,7 +460,7 @@ public class BlockEnclosed extends Block implements IPartialSealableBlock, ITile
                         Method get = network.getClass().getMethod("get");
                         Object manager = get.invoke(network);
                         Method sendMethod = CompatibilityManager.classIc2ClassicNetworkManager.getMethod("sendInitialData", EntityPlayerMP.class, TileEntity.class);
-                        sendMethod.invoke(manager, (EntityPlayerMP) placer, te);
+                        sendMethod.invoke(manager, placer, te);
                     } else
                     {
                         INetworkManager manager = null;
@@ -487,7 +489,7 @@ public class BlockEnclosed extends Block implements IPartialSealableBlock, ITile
     @Override
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumEnclosedBlockType) state.getValue(TYPE)).getMeta();
+        return state.getValue(TYPE).getMeta();
     }
 
     @Override

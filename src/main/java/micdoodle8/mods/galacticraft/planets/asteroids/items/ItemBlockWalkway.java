@@ -1,9 +1,5 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.items;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
@@ -15,6 +11,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class ItemBlockWalkway extends ItemBlockDesc
 {

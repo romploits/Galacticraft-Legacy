@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.energy;
 
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 

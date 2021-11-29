@@ -9,7 +9,7 @@ public interface IHoldableItem
 {
 
     /**
-     * Self-explanatory. <p/> Use player.inventory.getCurrentItem() to get the
+     * Self-explanatory. <p> Use player.inventory.getCurrentItem() to get the
      * itemstack
      *
      * @param player the player holding the item
@@ -18,7 +18,7 @@ public interface IHoldableItem
     boolean shouldHoldLeftHandUp(EntityPlayer player);
 
     /**
-     * Self-explanatory. <p/> Use player.inventory.getCurrentItem() to get the
+     * Self-explanatory. <p> Use player.inventory.getCurrentItem() to get the
      * itemstack
      *
      * @param player the player holding the item
@@ -27,7 +27,7 @@ public interface IHoldableItem
     boolean shouldHoldRightHandUp(EntityPlayer player);
 
     /**
-     * Used to determine if player should crouch while holding this item. <p/>
+     * Used to determine if player should crouch while holding this item. <p>
      * Use player.inventory.getCurrentItem() to get the itemstack
      *
      * @param player the player holding the item

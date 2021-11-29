@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import mekanism.api.gas.Gas;
+import mekanism.api.gas.GasStack;
 import micdoodle8.mods.galacticraft.api.tile.IColorable;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.grid.IGridNetwork;
@@ -11,11 +13,8 @@ import micdoodle8.mods.galacticraft.core.blocks.BlockFluidPipe;
 import micdoodle8.mods.galacticraft.core.energy.EnergyUtil;
 import micdoodle8.mods.galacticraft.core.fluid.FluidNetwork;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
-import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.FluidHandlerWrapper;
-import micdoodle8.mods.miccore.Annotations;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
@@ -30,11 +29,9 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import mekanism.api.gas.Gas;
-import mekanism.api.gas.GasStack;
 
 public class TileEntityFluidPipe extends TileEntityFluidTransmitter implements IColorable
 {
@@ -93,13 +90,6 @@ public class TileEntityFluidPipe extends TileEntityFluidTransmitter implements I
 
         return false;
     }
-
-//    @Override
-//    public boolean canUpdate()
-//    {
-//        return this.world == null || !this.world.isRemote;
-//
-//    }
 
     @Override
     public double getPacketRange()
@@ -328,7 +318,7 @@ public class TileEntityFluidPipe extends TileEntityFluidTransmitter implements I
     }
 
     @Override
-    @Annotations.RuntimeInterface(clazz = "mekanism.api.gas.IGasHandler", modID = CompatibilityManager.modidMekanism)
+    @Optional.Method(modid = "mekanism")
     public int receiveGas(EnumFacing side, GasStack stack, boolean doTransfer)
     {
         String mekGas = stack.getGas().getName();
@@ -351,42 +341,42 @@ public class TileEntityFluidPipe extends TileEntityFluidTransmitter implements I
     }
 
     @Override
-    @Annotations.RuntimeInterface(clazz = "mekanism.api.gas.IGasHandler", modID = CompatibilityManager.modidMekanism)
+    @Optional.Method(modid = "mekanism")
     public int receiveGas(EnumFacing side, GasStack stack)
     {
         return this.receiveGas(side, stack, true);
     }
 
     @Override
-    @Annotations.RuntimeInterface(clazz = "mekanism.api.gas.IGasHandler", modID = CompatibilityManager.modidMekanism)
+    @Optional.Method(modid = "mekanism")
     public GasStack drawGas(EnumFacing side, int amount, boolean doTransfer)
     {
         return null;
     }
 
     @Override
-    @Annotations.RuntimeInterface(clazz = "mekanism.api.gas.IGasHandler", modID = CompatibilityManager.modidMekanism)
+    @Optional.Method(modid = "mekanism")
     public GasStack drawGas(EnumFacing side, int amount)
     {
         return null;
     }
 
     @Override
-    @Annotations.RuntimeInterface(clazz = "mekanism.api.gas.IGasHandler", modID = CompatibilityManager.modidMekanism)
+    @Optional.Method(modid = "mekanism")
     public boolean canReceiveGas(EnumFacing side, Gas type)
     {
         return type.getName().equals("oxygen") || type.getName().equals("hydrogen");
     }
 
     @Override
-    @Annotations.RuntimeInterface(clazz = "mekanism.api.gas.IGasHandler", modID = CompatibilityManager.modidMekanism)
+    @Optional.Method(modid = "mekanism")
     public boolean canDrawGas(EnumFacing side, Gas type)
     {
         return false;
     }
 
     @Override
-    @Annotations.RuntimeInterface(clazz = "mekanism.api.gas.ITubeConnection", modID = CompatibilityManager.modidMekanism)
+    @Optional.Method(modid = "mekanism")
     public boolean canTubeConnect(EnumFacing side)
     {
         return false;

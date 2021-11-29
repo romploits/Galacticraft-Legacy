@@ -1,15 +1,17 @@
 package micdoodle8.mods.galacticraft.api.tile;
 
-import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 /***
  * Sends basic tile load configuration data e.g. facing (if not obtainable from
@@ -23,18 +25,22 @@ public interface ITileClientUpdates
     /**
      * The supplied data array of ints ALWAYS has length 4. You don't have to
      * use all of them!
+     *
+     * @param data the data
      */
     void buildDataPacket(int[] data);
 
     /**
      * The supplied data list has 4 ints of data to use at positions 1 through
      * 4.
+     *
+     * @param data the data
      */
     @SideOnly(Side.CLIENT)
     void updateClient(List<Object> data);
 
     /**
-     * Implement validate() in the tile and call this!
+     * Implement validate() in the tile and call this!.
      */
     default void clientOnLoad()
     {
@@ -51,6 +57,8 @@ public interface ITileClientUpdates
      * than 4 ints of data. (If overriding this you must override all other
      * methods in ITileClientUpdates as well ... in which case, why are you
      * using it?)
+     *
+     * @param player the player
      */
     default void sendUpdateToClient(EntityPlayerMP player)
     {
@@ -61,7 +69,7 @@ public interface ITileClientUpdates
     }
 
     /**
-     * Used to push updates out to clients
+     * Used to push updates out to clients.
      */
     default void updateAllInDimension()
     {

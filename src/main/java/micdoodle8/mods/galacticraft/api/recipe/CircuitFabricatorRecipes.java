@@ -1,11 +1,12 @@
 package micdoodle8.mods.galacticraft.api.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CircuitFabricatorRecipes
 {
@@ -18,7 +19,7 @@ public class CircuitFabricatorRecipes
     /**
      * Input list must be array with 5 elements matching the 5 slots in the
      * machine. Use null if no item is used in the slot. Use a List<ItemStack>
-     * for Oredicted ingredients. <p/> 0: Diamond 1: Silicon 2: Silicon 3:
+     * for Oredicted ingredients. <p> 0: Diamond 1: Silicon 2: Silicon 3:
      * Redstone dust 4: Recipe item
      *
      * @param output ItemStack

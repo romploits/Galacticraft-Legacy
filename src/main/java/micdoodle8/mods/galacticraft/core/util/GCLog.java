@@ -17,7 +17,11 @@ public class GCLog
     public static void info(String message)
     {
         log.info(message);
-
+    }
+    
+    public static void info(String message, Object... args)
+    {
+        log.info(message, args);
     }
 
     public static void error(String message)

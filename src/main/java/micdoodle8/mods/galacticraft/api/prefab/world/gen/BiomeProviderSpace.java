@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Do not include this prefab class in your released mod download. <p/> This
+ * Do not include this prefab class in your released mod download. <p> This
  * chunk manager is used for single-biome dimensions, which is common on basic
  * planets.
  */

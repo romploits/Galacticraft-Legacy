@@ -1,11 +1,13 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
-import java.util.Locale;
-
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
+
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
+
 import net.minecraft.util.text.translation.I18n;
+
+import java.util.Locale;
 
 public class SolarSystem
 {

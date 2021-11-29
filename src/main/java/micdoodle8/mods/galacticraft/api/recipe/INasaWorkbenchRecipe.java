@@ -1,11 +1,11 @@
 package micdoodle8.mods.galacticraft.api.recipe;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+
 import java.util.HashMap;
 
 import javax.annotation.Nonnull;
-
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 
 public interface INasaWorkbenchRecipe
 {

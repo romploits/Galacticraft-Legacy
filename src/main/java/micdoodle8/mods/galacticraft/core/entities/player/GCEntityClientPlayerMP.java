@@ -9,8 +9,8 @@ import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.EventHandlerClient;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.CapeUtil;
+import micdoodle8.mods.galacticraft.core.util.CapeUtil.CapeResource;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -35,6 +35,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GCEntityClientPlayerMP extends EntityPlayerSP
 {
@@ -164,11 +165,11 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
                 }
                 // -----------END CUSTOM
 
-                this.pushOutOfBlocks(this.posX - (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double) this.width * 0.35D);
-                this.pushOutOfBlocks(this.posX - (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double) this.width * 0.35D);
-                this.pushOutOfBlocks(this.posX + (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double) this.width * 0.35D);
-                this.pushOutOfBlocks(this.posX + (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double) this.width * 0.35D);
-                boolean flag4 = (float) this.getFoodStats().getFoodLevel() > 6.0F || this.capabilities.allowFlying;
+                this.pushOutOfBlocks(this.posX - this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + this.width * 0.35D);
+                this.pushOutOfBlocks(this.posX - this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - this.width * 0.35D);
+                this.pushOutOfBlocks(this.posX + this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - this.width * 0.35D);
+                this.pushOutOfBlocks(this.posX + this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + this.width * 0.35D);
+                boolean flag4 = this.getFoodStats().getFoodLevel() > 6.0F || this.capabilities.allowFlying;
 
                 if (this.onGround && !flag1 && !flag2 && this.movementInput.moveForward >= 0.8F && !this.isSprinting() && flag4 && !this.isHandActive() && !this.isPotionActive(MobEffects.BLINDNESS))
                 {
@@ -199,12 +200,12 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
                 {
                     if (this.movementInput.sneak)
                     {
-                        this.motionY -= (double) (this.capabilities.getFlySpeed() * 3.0F);
+                        this.motionY -= this.capabilities.getFlySpeed() * 3.0F;
                     }
 
                     if (this.movementInput.jump)
                     {
-                        this.motionY += (double) (this.capabilities.getFlySpeed() * 3.0F);
+                        this.motionY += this.capabilities.getFlySpeed() * 3.0F;
                     }
                 }
 
@@ -233,12 +234,12 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
                 // from: EntityLivingBase
                 if (this.newPosRotationIncrements > 0)
                 {
-                    double d0 = this.posX + (this.interpTargetX - this.posX) / (double) this.newPosRotationIncrements;
-                    double d1 = this.posY + (this.interpTargetY - this.posY) / (double) this.newPosRotationIncrements;
-                    double d2 = this.posZ + (this.interpTargetZ - this.posZ) / (double) this.newPosRotationIncrements;
-                    double d3 = MathHelper.wrapDegrees(this.interpTargetYaw - (double) this.rotationYaw);
-                    this.rotationYaw = (float) ((double) this.rotationYaw + d3 / (double) this.newPosRotationIncrements);
-                    this.rotationPitch = (float) ((double) this.rotationPitch + (this.interpTargetPitch - (double) this.rotationPitch) / (double) this.newPosRotationIncrements);
+                    double d0 = this.posX + (this.interpTargetX - this.posX) / this.newPosRotationIncrements;
+                    double d1 = this.posY + (this.interpTargetY - this.posY) / this.newPosRotationIncrements;
+                    double d2 = this.posZ + (this.interpTargetZ - this.posZ) / this.newPosRotationIncrements;
+                    double d3 = MathHelper.wrapDegrees(this.interpTargetYaw - this.rotationYaw);
+                    this.rotationYaw = (float) (this.rotationYaw + d3 / this.newPosRotationIncrements);
+                    this.rotationPitch = (float) (this.rotationPitch + (this.interpTargetPitch - this.rotationPitch) / this.newPosRotationIncrements);
                     --this.newPosRotationIncrements;
                     this.setPosition(d0, d1, d2);
                     this.setRotation(this.rotationYaw, this.rotationPitch);
@@ -344,7 +345,7 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
 
                     for (int i = 0; i < list.size(); ++i)
                     {
-                        Entity entity = (Entity) list.get(i);
+                        Entity entity = list.get(i);
 
                         if (!entity.isDead)
                         {
@@ -420,7 +421,6 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
                 {
                     return false;
                 }
-                // if (stats.freefallHandler.testFreefall(this)) return false;
                 if (stats.isInFreefall() || stats.getFreefallHandler().onWall)
                 {
                     this.sneakLast = false;
@@ -487,24 +487,6 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
     {
         return ClientProxyCore.playerClientHandler.getBedOrientationInDegrees(this, super.getBedOrientationInDegrees());
     }
-//
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public void setVelocity(double xx, double yy, double zz)
-//    {
-//    	if (this.world.provider instanceof WorldProviderOrbit)
-//    	{
-//    		((WorldProviderOrbit)this.world.provider).setVelocityClient(this, xx, yy, zz);
-//    	}
-//    	super.setVelocity(xx, yy, zz);
-//    }
-//
-
-    /*
-     * @Override public void setInPortal() { if (!(this.world.provider
-     * instanceof IGalacticraftWorldProvider)) { super.setInPortal(); } } TODO
-     * Fix disable of portal
-     */
 
     @Override
     public ResourceLocation getLocationCape()
@@ -521,10 +503,10 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
         if (!this.checkedCape)
         {
             NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-            String cape = CapeUtil.instance().getCape(networkplayerinfo.getGameProfile().getId().toString().replace("-", ""));
-            if (!cape.equalsIgnoreCase("none"))
+            Optional<CapeResource> gCape = CapeUtil.getCape(networkplayerinfo.getGameProfile().getId().toString().replace("-", ""));
+            if (gCape.isPresent())
             {
-                this.galacticraftCape = new ResourceLocation(Constants.MOD_ID_CORE, "textures/misc/capes/cape_" + cape + ".png");
+                this.galacticraftCape = gCape.get();
             }
             this.checkedCape = true;
         }
@@ -541,10 +523,10 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
     @SideOnly(Side.CLIENT)
     public int getBrightnessForRender()
     {
-        double height = this.posY + (double) this.getEyeHeight();
-        if (height > 255D)
-            height = 255D;
-        BlockPos blockpos = new BlockPos(this.posX, height, this.posZ);
+        double offset = this.posY + this.getEyeHeight();
+        if (offset > 255D)
+            offset = 255D;
+        BlockPos blockpos = new BlockPos(this.posX, offset, this.posZ);
         return this.world.isBlockLoaded(blockpos) ? this.world.getCombinedLight(blockpos, 0) : 0;
     }
 }

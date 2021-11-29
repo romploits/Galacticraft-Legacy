@@ -1,18 +1,21 @@
 package micdoodle8.mods.galacticraft.api.recipe;
 
-import java.util.ArrayList;
-
 import micdoodle8.mods.galacticraft.api.recipe.SchematicEvent.FlipPage;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicEvent.Unlock;
+
 import micdoodle8.mods.galacticraft.core.util.GCLog;
+
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
 
 public class SchematicRegistry
 {

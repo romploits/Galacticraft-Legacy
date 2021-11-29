@@ -1,5 +1,22 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
+
+import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
+import micdoodle8.mods.galacticraft.api.world.AtmosphereInfo;
+import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
+import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
+import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
+import micdoodle8.mods.galacticraft.api.world.IMobSpawnBiome;
+
+import net.minecraft.block.Block;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.WorldProvider;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.SpawnListEntry;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -7,20 +24,6 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import micdoodle8.mods.galacticraft.annotations.ForRemoval;
-import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
-import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
-import micdoodle8.mods.galacticraft.api.world.AtmosphereInfo;
-import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
-import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
-import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
-import micdoodle8.mods.galacticraft.api.world.IMobSpawnBiome;
-import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.WorldProvider;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.SpawnListEntry;
 
 public abstract class CelestialBody implements Comparable<CelestialBody>
 {
@@ -83,7 +86,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     }
 
     /**
-     * Used for rendering planet's location on the map. <p/> Value of 2.0F would
+     * Used for rendering planet's location on the map. <p> Value of 2.0F would
      * result in the planet being rendered twice as large as earth.
      *
      * @return Size of the planet/moon relative to earth.
@@ -94,7 +97,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     }
 
     /**
-     * Used for rendering planet's location on the map. <p/> Value of 2.0F would
+     * Used for rendering planet's location on the map. <p> Value of 2.0F would
      * result in an ellipse with twice the radius of the overworld.
      *
      * @return Distance from the center of the map relative to earth.
@@ -105,9 +108,9 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     }
 
     /**
-     * Used for rendering planet's location on the map. <p/> Value of 1π would
+     * Used for rendering planet's location on the map. <p> Value of 1π would
      * result in the planet being rendered directly accross from the original
-     * position <p/> Value of 2π is a full rotation and therefore would be
+     * position <p> Value of 2π is a full rotation and therefore would be
      * rendered at the same spot as the original position
      *
      * @return Phase shift of planet for planet's revolution around the sun.
@@ -119,7 +122,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
 
     /**
      * Multiplier for length of time relative to earth that this planet takes to
-     * orbit fully. <p/> Value of 2.0F would result in the planet rotating twice
+     * orbit fully. <p> Value of 2.0F would result in the planet rotating twice
      * as slow (and therefore take twice as long) as the earth takes to revolve
      * around the sun.
      *

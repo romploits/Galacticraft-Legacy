@@ -1,10 +1,11 @@
 package micdoodle8.mods.galacticraft.api.world;
 
+import net.minecraft.world.biome.Biome.BiomeProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 
 @Builder
 @Data
@@ -23,8 +24,6 @@ public class BiomeData
     @Builder.Default private boolean enableRain = false;
     private String baseBiomeRegName;
 
-    
-    
     public BiomeProperties toBiomeProperties()
     {
         BiomeProperties biomeProperties = new BiomeProperties(biomeName)

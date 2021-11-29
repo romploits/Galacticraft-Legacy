@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import java.util.Random;
 
 /**
- * Event is thrown when a chunk is populated on planets. <p/> If you're adding
+ * Event is thrown when a chunk is populated on planets. <p> If you're adding
  * your own dimensions, make sure you post these two events to the forge event
  * bus when decorating your planet/moon
  */

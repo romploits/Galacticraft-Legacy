@@ -1,15 +1,13 @@
 package micdoodle8.mods.galacticraft.api.prefab.world.gen;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
+
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.JavaUtil;
+
 import net.minecraft.command.CommandTime;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -22,8 +20,13 @@ import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.IChunkGenerator;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 
 public abstract class WorldProviderSpace extends WorldProvider implements IGalacticraftWorldProvider
 {
@@ -73,7 +76,7 @@ public abstract class WorldProviderSpace extends WorldProvider implements IGalac
     public abstract boolean hasSunset();
 
     /**
-     * The length of day in this dimension <p/> Default: 24000
+     * The length of day in this dimension <p> Default: 24000
      */
     public abstract long getDayLength();
 

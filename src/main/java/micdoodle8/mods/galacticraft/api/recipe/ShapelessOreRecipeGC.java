@@ -1,11 +1,7 @@
 package micdoodle8.mods.galacticraft.api.recipe;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -13,8 +9,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ShapelessOreRecipeGC extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe> implements IRecipeUpdatable
 {

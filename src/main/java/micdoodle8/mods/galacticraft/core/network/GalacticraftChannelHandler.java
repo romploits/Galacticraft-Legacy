@@ -58,7 +58,7 @@ public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<
     }
 
     /**
-     * Send this message to everyone. <p/> Adapted from CPW's code in
+     * Send this message to everyone. <p> Adapted from CPW's code in
      * cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper
      *
      * @param message The message to send
@@ -70,7 +70,7 @@ public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<
     }
 
     /**
-     * Send this message to the specified player. <p/> Adapted from CPW's code
+     * Send this message to the specified player. <p> Adapted from CPW's code
      * in cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper
      *
      * @param message The message to send
@@ -84,7 +84,7 @@ public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<
     }
 
     /**
-     * Send this message to everyone within a certain range of a point. <p/>
+     * Send this message to everyone within a certain range of a point. <p>
      * Adapted from CPW's code in
      * cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper
      *
@@ -108,7 +108,7 @@ public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<
     }
 
     /**
-     * Send this message to everyone within the supplied dimension. <p/> Adapted
+     * Send this message to everyone within the supplied dimension. <p> Adapted
      * from CPW's code in
      * cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper
      *
@@ -130,7 +130,7 @@ public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<
     }
 
     /**
-     * Send this message to the server. <p/> Adapted from CPW's code in
+     * Send this message to the server. <p> Adapted from CPW's code in
      * cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper
      *
      * @param message The message to send

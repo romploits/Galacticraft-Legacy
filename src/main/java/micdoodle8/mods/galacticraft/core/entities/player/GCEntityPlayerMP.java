@@ -81,10 +81,4 @@ public class GCEntityPlayerMP extends EntityPlayerMP
     {
         return GalacticraftCore.proxy.player.isSpectator(this) || super.isSpectator();
     }
-
-    /*
-     * @Override public void setInPortal() { if (!(this.world.provider
-     * instanceof IGalacticraftWorldProvider)) { super.setInPortal(); } } TODO
-     * Fix disable of portal
-     */
 }

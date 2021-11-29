@@ -2,10 +2,11 @@ package micdoodle8.mods.galacticraft.api.prefab.world.gen;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import java.util.Random;
 
 /**
- * Do not include this prefab class in your released mod download. <p/> This is
+ * Do not include this prefab class in your released mod download. <p> This is
  * a base class for World Gen such as caves. Override and generate features in
  * recursiveGenerate
  */

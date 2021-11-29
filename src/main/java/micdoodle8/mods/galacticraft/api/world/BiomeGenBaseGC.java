@@ -1,14 +1,14 @@
 package micdoodle8.mods.galacticraft.api.world;
 
-import java.util.LinkedList;
-
-import micdoodle8.mods.galacticraft.api.world.DataBuilder.BiomeData;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.util.ASMUtil;
+
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAmbientCreature;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.world.biome.Biome;
+
+import java.util.LinkedList;
 
 /**
  * This extension of BiomeGenBase contains the default initialiseMobLists()
@@ -21,16 +21,16 @@ public abstract class BiomeGenBaseGC extends Biome implements IMobSpawnBiome
 
     protected BiomeGenBaseGC(BiomeData data)
     {
-        super(data);
-        this.setRegistryName(data.biomeName);
+        super(data.toBiomeProperties());
+        this.setRegistryName(data.getBiomeName());
         GalacticraftCore.biomesList.add(this);
         this.isAdaptiveBiome = false;
     }
 
     protected BiomeGenBaseGC(BiomeData data, boolean adaptive)
     {
-        super(data);
-        this.setRegistryName(data.biomeName);
+        super(data.toBiomeProperties());
+        this.setRegistryName(data.getBiomeName());
         this.isAdaptiveBiome = adaptive;
     }
     

@@ -1,7 +1,5 @@
 package micdoodle8.mods.galacticraft.api.world;
 
-import java.lang.reflect.Method;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -9,6 +7,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
+
+import java.lang.reflect.Method;
 
 public class OxygenHooks
 {

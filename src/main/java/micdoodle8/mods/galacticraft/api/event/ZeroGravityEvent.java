@@ -2,11 +2,12 @@ package micdoodle8.mods.galacticraft.api.event;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.WorldProvider;
+
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 /**
- * Entity Living zero gravity events. <p/> Cancel the event to disable zero
+ * Entity Living zero gravity events. <p> Cancel the event to disable zero
  * gravity effects on this entity If Zero Gravity is disabled, the entity will
  * fall under dimension-set gravity (probably very low!)
  */
