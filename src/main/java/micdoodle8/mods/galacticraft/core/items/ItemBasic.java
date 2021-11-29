@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
@@ -29,7 +30,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemBasic extends Item implements ISortableItem
+public class ItemBasic extends Item implements ISortableItem, GCRarity
 {
 
     public static final String[] names =
@@ -39,28 +40,18 @@ public class ItemBasic extends Item implements ISortableItem
     public static final int WAFER_BASIC = 13;
     public static final int WAFER_ADVANCED = 14;
 
-//    protected IIcon[] icons = new IIcon[ItemBasic.names.length];
-
     public ItemBasic(String assetName)
     {
         super();
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
         this.setTranslationKey(assetName);
-        // this.setTextureName(Constants.TEXTURE_PREFIX + assetName);
     }
 
     @Override
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

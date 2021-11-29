@@ -1,41 +1,29 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.ISortableItem;
-import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemArmorAsteroids extends ItemArmor implements ISortableItem
+public class ItemArmorAsteroids extends ItemArmor implements ISortableItem, GCRarity
 {
 
     public ItemArmorAsteroids(EntityEquipmentSlot armorIndex, String assetSuffix)
     {
         super(AsteroidsItems.ARMOR_TITANIUM, 0, armorIndex);
         this.setTranslationKey("titanium_" + assetSuffix);
-        // this.setTextureName(GalacticraftPlanets.TEXTURE_PREFIX + "titanium_"
-        // + assetSuffix);
     }
 
     @Override
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 
 import net.minecraft.block.Block;
@@ -9,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBlockDummy extends ItemBlock
+public class ItemBlockDummy extends ItemBlock implements GCRarity
 {
 
     public ItemBlockDummy(Block block)
@@ -19,24 +20,10 @@ public class ItemBlockDummy extends ItemBlock
         this.setHasSubtypes(true);
     }
 
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public IIcon getIconFromDamage(int par1)
-//    {
-//        return this.getBlock().getIcon(0, par1);
-//    }
-
     @Override
     public int getMetadata(int damage)
     {
         return damage;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

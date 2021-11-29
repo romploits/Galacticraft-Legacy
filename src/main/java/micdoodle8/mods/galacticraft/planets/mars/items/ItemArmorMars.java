@@ -1,20 +1,19 @@
 package micdoodle8.mods.galacticraft.planets.mars.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.ISortableItem;
-import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemArmorMars extends ItemArmor implements ISortableItem
+public class ItemArmorMars extends ItemArmor implements ISortableItem, GCRarity
 {
 
     private final ArmorMaterial material;
@@ -24,12 +23,6 @@ public class ItemArmorMars extends ItemArmor implements ISortableItem
         super(par2EnumArmorMaterial, par3, par4);
         this.material = par2EnumArmorMaterial;
     }
-
-    /*
-     * @Override public Item setTranslationKey(String par1Str) { //
-     * super.setTextureName(par1Str); super.setTranslationKey(par1Str); return
-     * this; }
-     */
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
@@ -56,13 +49,6 @@ public class ItemArmorMars extends ItemArmor implements ISortableItem
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

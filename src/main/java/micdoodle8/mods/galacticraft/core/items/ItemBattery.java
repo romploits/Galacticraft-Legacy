@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
@@ -11,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBattery extends ItemElectricBase implements ISortableItem
+public class ItemBattery extends ItemElectricBase implements ISortableItem, GCRarity
 {
 
     public ItemBattery(String assetName)
@@ -19,20 +20,12 @@ public class ItemBattery extends ItemElectricBase implements ISortableItem
         super();
         this.setMaxStackSize(4);
         this.setTranslationKey(assetName);
-        // this.setTextureName(Constants.TEXTURE_PREFIX + assetName);
     }
 
     @Override
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

@@ -1,11 +1,11 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.EntityMeteorChunk;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -28,7 +28,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemMeteorChunk extends Item implements ISortableItem
+public class ItemMeteorChunk extends Item implements ISortableItem, GCRarity
 {
 
     public static final String[] names =
@@ -44,7 +44,6 @@ public class ItemMeteorChunk extends Item implements ISortableItem
         this.maxStackSize = 16;
         this.setCreativeTab(CreativeTabs.MATERIALS);
         this.setTranslationKey(assetName);
-        // this.setTextureName("arrow");
     }
 
     @Override
@@ -125,13 +124,6 @@ public class ItemMeteorChunk extends Item implements ISortableItem
 
             tooltip.add(GCCoreUtil.translate("item.hot_description.name") + " " + burnTime + GCCoreUtil.translate("gui.seconds"));
         }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

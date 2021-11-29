@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicItem;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
 import micdoodle8.mods.galacticraft.core.Constants;
@@ -10,7 +11,6 @@ import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,7 +31,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemSchematic extends ItemHangingEntity implements ISchematicItem, ISortableItem
+public class ItemSchematic extends ItemHangingEntity implements ISchematicItem, ISortableItem, GCRarity
 {
 
     public ItemSchematic(String assetName)
@@ -59,13 +59,6 @@ public class ItemSchematic extends ItemHangingEntity implements ISchematicItem, 
                 list.add(new ItemStack(this, 1, i));
             }
         }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

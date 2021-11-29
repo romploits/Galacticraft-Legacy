@@ -1,11 +1,11 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemOxygenTank extends Item implements ISortableItem, IClickableItem
+public class ItemOxygenTank extends Item implements ISortableItem, IClickableItem, GCRarity
 {
 
     public ItemOxygenTank(int tier, String assetName)
@@ -34,7 +34,6 @@ public class ItemOxygenTank extends Item implements ISortableItem, IClickableIte
         this.setMaxStackSize(1);
         this.setMaxDamage(tier * 900);
         this.setTranslationKey(assetName);
-//        this.setTextureName(Constants.TEXTURE_PREFIX + assetName);
         this.setNoRepair();
     }
 
@@ -59,13 +58,6 @@ public class ItemOxygenTank extends Item implements ISortableItem, IClickableIte
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.item.IKeyItem;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.ISortableItem;
@@ -13,7 +14,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemKeyMars extends Item implements IKeyItem, ISortableItem
+public class ItemKeyMars extends Item implements IKeyItem, ISortableItem, GCRarity
 {
 
     public ItemKeyMars()
@@ -35,13 +36,6 @@ public class ItemKeyMars extends Item implements IKeyItem, ISortableItem
     public String getTranslationKey(ItemStack itemStack)
     {
         return "item.key.t2";
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

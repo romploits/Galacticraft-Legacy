@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 
@@ -10,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBlockCheese extends ItemBlockDesc
+public class ItemBlockCheese extends ItemBlockDesc implements GCRarity
 {
 
     public ItemBlockCheese(Block par2Block)
@@ -29,12 +30,5 @@ public class ItemBlockCheese extends ItemBlockDesc
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftBlocksTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 }

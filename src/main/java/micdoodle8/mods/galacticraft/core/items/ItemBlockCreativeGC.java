@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
@@ -17,19 +18,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemBlockCreativeGC extends ItemBlock
+public class ItemBlockCreativeGC extends ItemBlock implements GCRarity
 {
 
     public ItemBlockCreativeGC(Block block)
     {
         super(block);
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

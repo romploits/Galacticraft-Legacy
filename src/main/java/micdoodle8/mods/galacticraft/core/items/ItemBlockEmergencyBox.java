@@ -1,9 +1,10 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockEmergencyBox extends ItemBlockDesc
+public class ItemBlockEmergencyBox extends ItemBlockDesc implements GCRarity
 {
 
     public ItemBlockEmergencyBox(Block block)

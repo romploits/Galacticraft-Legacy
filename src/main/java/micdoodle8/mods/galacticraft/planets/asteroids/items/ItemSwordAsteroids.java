@@ -1,10 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.items;
 
 import com.google.common.collect.Multimap;
-
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.ISortableItem;
-import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,15 +11,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemSwordAsteroids extends ItemSword implements ISortableItem
+public class ItemSwordAsteroids extends ItemSword implements ISortableItem, GCRarity
 {
 
     private double attackDamageD;
@@ -30,7 +26,6 @@ public class ItemSwordAsteroids extends ItemSword implements ISortableItem
         super(AsteroidsItems.TOOL_TITANIUM);
         this.setTranslationKey(assetName);
         this.attackDamageD = 9.0D;
-        // this.setTextureName(GalacticraftPlanets.TEXTURE_PREFIX + assetName);
     }
 
     @Override
@@ -43,13 +38,6 @@ public class ItemSwordAsteroids extends ItemSword implements ISortableItem
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

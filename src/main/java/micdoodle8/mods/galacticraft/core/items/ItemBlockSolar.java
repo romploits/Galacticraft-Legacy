@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.blocks.BlockSolar;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 
@@ -9,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBlockSolar extends ItemBlockDesc
+public class ItemBlockSolar extends ItemBlockDesc implements GCRarity
 {
 
     public ItemBlockSolar(Block block)
@@ -27,13 +28,6 @@ public class ItemBlockSolar extends ItemBlockDesc
         String name = BlockSolar.EnumSolarType.values()[index].getName();
 
         return this.getBlock().getTranslationKey() + "." + name;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

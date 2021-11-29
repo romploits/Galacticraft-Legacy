@@ -1,12 +1,12 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.gui.GuiIdsCore;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +24,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemPreLaunchChecklist extends Item implements ISortableItem
+public class ItemPreLaunchChecklist extends Item implements ISortableItem, GCRarity
 {
 
     public ItemPreLaunchChecklist(String assetName)
@@ -32,7 +32,6 @@ public class ItemPreLaunchChecklist extends Item implements ISortableItem
         super();
         this.setTranslationKey(assetName);
         this.setMaxStackSize(1);
-        // this.setTextureName(Constants.TEXTURE_PREFIX + assetName);
     }
 
     @Override
@@ -45,13 +44,6 @@ public class ItemPreLaunchChecklist extends Item implements ISortableItem
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

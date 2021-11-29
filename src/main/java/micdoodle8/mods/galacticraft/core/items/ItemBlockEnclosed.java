@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.blocks.BlockEnclosed;
 import micdoodle8.mods.galacticraft.core.blocks.BlockEnclosed.EnumEnclosedBlockType;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
@@ -25,7 +26,7 @@ import java.lang.reflect.Method;
 import appeng.api.AEApi;
 import appeng.api.util.AEColor;
 
-public class ItemBlockEnclosed extends ItemBlockDesc
+public class ItemBlockEnclosed extends ItemBlockDesc implements GCRarity
 {
 
     public ItemBlockEnclosed(Block block)
@@ -113,13 +114,6 @@ public class ItemBlockEnclosed extends ItemBlockDesc
         {
             return super.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
         }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override
