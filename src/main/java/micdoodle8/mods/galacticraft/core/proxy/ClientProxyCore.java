@@ -1,10 +1,10 @@
 package micdoodle8.mods.galacticraft.core.proxy;
 
+import api.player.client.ClientPlayerAPI;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
 import micdoodle8.mods.galacticraft.api.client.IItemMeshDefinitionCustom;
 import micdoodle8.mods.galacticraft.api.client.tabs.InventoryTabVanilla;
 import micdoodle8.mods.galacticraft.api.client.tabs.TabRegistry;
@@ -113,7 +113,6 @@ import micdoodle8.mods.galacticraft.core.wrappers.ModelTransformWrapper;
 import micdoodle8.mods.galacticraft.core.wrappers.PartialCanister;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -128,9 +127,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetHandler;
@@ -138,12 +135,13 @@ import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.resource.IResourceType;
+import net.minecraftforge.client.resource.ISelectiveResourceReloadListener;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -169,13 +167,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-import api.player.client.ClientPlayerAPI;
-
-public class ClientProxyCore extends CommonProxyCore implements IResourceManagerReloadListener
+public class ClientProxyCore extends CommonProxyCore implements ISelectiveResourceReloadListener
 {
 
     public static List<String> flagRequestsSent = new ArrayList<>();
@@ -192,7 +189,6 @@ public class ClientProxyCore extends CommonProxyCore implements IResourceManager
 
     public static HashMap<Integer, Integer> clientSpaceStationID = Maps.newHashMap();
     public static MusicTicker.MusicType MUSIC_TYPE_MARS;
-    public static EnumRarity galacticraftItem = EnumHelper.addRarity("GCRarity", TextFormatting.BLUE, "Space");
     public static InventoryExtended dummyInventory = new InventoryExtended();
     public static Map<Fluid, ResourceLocation> submergedTextures = Maps.newHashMap();
     public static IPlayerClient playerClientHandler = new PlayerClient();
@@ -303,7 +299,7 @@ public class ClientProxyCore extends CommonProxyCore implements IResourceManager
     }
 
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager)
+    public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate)
     {
         String lang = net.minecraft.client.Minecraft.getMinecraft().gameSettings.language;
         GCLog.debug("Reloading entity names for language " + lang);
