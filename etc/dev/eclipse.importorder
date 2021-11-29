@@ -1,5 +1,12 @@
 #Organize Import Order
-0=\#
-1=
-2=java
-3=javax
+#Mon Nov 29 00:47:41 CST 2021
+9=\#
+8=
+7=javax
+6=java
+5=minecraftforge
+4=minecraft
+3=micdoodle8.mods.galacticraft.planets
+2=micdoodle8.mods.galacticraft.core
+1=micdoodle8.mods.galacticraft.api
+0=micdoodle8.mods.galacticraft.annotations
