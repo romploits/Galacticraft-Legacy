@@ -1,10 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen;
 
-import java.util.Random;
-
+import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
-import micdoodle8.mods.galacticraft.api.world.DataBuilder;
-import micdoodle8.mods.galacticraft.api.world.DataBuilder.BiomeData;
 import micdoodle8.mods.galacticraft.planets.venus.VenusBlocks;
 import micdoodle8.mods.galacticraft.planets.venus.blocks.BlockBasicVenus;
 import net.minecraft.block.material.Material;
@@ -15,12 +12,14 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import java.util.Random;
+
 public class BiomeVenus extends BiomeGenBaseGC
 {
 
-    public static final Biome venusFlat = new BiomeGenFlatVenus(new DataBuilder("Venus Flat").baseHeight(0.5F).heightVariation(0.4F).temp(4.0F).build());
-    public static final Biome venusMountain = new BiomeGenVenusMountain(new DataBuilder("Venus Mountain").baseHeight(2.0F).heightVariation(1.0F).temp(4.0F).build());
-    public static final Biome venusValley = new BiomeGenVenusValley(new DataBuilder("Venus Valley").baseHeight(-0.4F).heightVariation(0.2F).temp(4.0F).build());
+    public static final Biome venusFlat = new BiomeGenFlatVenus(BiomeData.builder().biomeName("Venus Flat").baseHeight(0.5F).heightVariation(0.4F).temperature(4.0F).build());
+    public static final Biome venusMountain = new BiomeGenVenusMountain(BiomeData.builder().biomeName("Venus Mountain").baseHeight(2.0F).heightVariation(1.0F).temperature(4.0F).build());
+    public static final Biome venusValley = new BiomeGenVenusValley(BiomeData.builder().biomeName("Venus Valley").baseHeight(-0.4F).heightVariation(0.2F).temperature(4.0F).build());
 
     BiomeVenus(BiomeData properties)
     {
