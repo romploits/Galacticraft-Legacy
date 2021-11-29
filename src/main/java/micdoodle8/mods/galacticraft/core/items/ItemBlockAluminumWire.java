@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.blocks.BlockAluminumWire;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 
@@ -9,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBlockAluminumWire extends ItemBlockDesc
+public class ItemBlockAluminumWire extends ItemBlockDesc implements GCRarity
 {
 
     public ItemBlockAluminumWire(Block block)
@@ -19,24 +20,11 @@ public class ItemBlockAluminumWire extends ItemBlockDesc
         this.setHasSubtypes(true);
     }
 
-    /*
-     * @Override
-     * @SideOnly(Side.CLIENT) public IIcon getIconFromDamage(int par1) { return
-     * this.getBlock().getIcon(0, par1); }
-     */
-
     @Override
     public String getTranslationKey(ItemStack itemstack)
     {
         String name = BlockAluminumWire.EnumWireType.values()[itemstack.getItemDamage()].getName();
         return this.getBlock().getTranslationKey() + "." + name;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

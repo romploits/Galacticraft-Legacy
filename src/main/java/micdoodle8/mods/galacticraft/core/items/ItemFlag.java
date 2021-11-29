@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.item.IHoldableItemCustom;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -8,7 +9,6 @@ import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemFlag extends Item implements IHoldableItemCustom, ISortableItem
+public class ItemFlag extends Item implements IHoldableItemCustom, ISortableItem, GCRarity
 {
 
     public int placeProgress;
@@ -40,7 +40,6 @@ public class ItemFlag extends Item implements IHoldableItemCustom, ISortableItem
         this.setMaxDamage(0);
         this.setMaxStackSize(1);
         this.setTranslationKey(assetName);
-        // this.setTextureName("arrow");
     }
 
     @Override
@@ -139,22 +138,10 @@ public class ItemFlag extends Item implements IHoldableItemCustom, ISortableItem
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
-    }
-
-    @Override
     public String getTranslationKey(ItemStack itemStack)
     {
         return "item.flag";
     }
-
-    /*
-     * @Override public IIcon getIconFromDamage(int damage) { return
-     * super.getIconFromDamage(damage); }
-     */
 
     @Override
     public boolean shouldHoldLeftHandUp(EntityPlayer player)

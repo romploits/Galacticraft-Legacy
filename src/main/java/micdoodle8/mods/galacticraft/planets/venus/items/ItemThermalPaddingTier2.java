@@ -1,17 +1,16 @@
 package micdoodle8.mods.galacticraft.planets.venus.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.item.IItemThermal;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.items.ISortableItem;
-import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -26,7 +25,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemThermalPaddingTier2 extends Item implements IItemThermal, ISortableItem
+public class ItemThermalPaddingTier2 extends Item implements IItemThermal, ISortableItem, GCRarity
 {
 
     public static String[] names =
@@ -39,13 +38,6 @@ public class ItemThermalPaddingTier2 extends Item implements IItemThermal, ISort
         this.setHasSubtypes(true);
         this.setMaxStackSize(1);
         this.setTranslationKey(assetName);
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @SideOnly(Side.CLIENT)

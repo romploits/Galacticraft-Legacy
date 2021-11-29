@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.item.IItemOxygenSupply;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -8,7 +9,6 @@ import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +27,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemCanisterOxygenInfinite extends Item implements IItemOxygenSupply, ISortableItem
+public class ItemCanisterOxygenInfinite extends Item implements IItemOxygenSupply, ISortableItem, GCRarity
 {
 
     public ItemCanisterOxygenInfinite(String assetName)
@@ -59,14 +59,6 @@ public class ItemCanisterOxygenInfinite extends Item implements IItemOxygenSuppl
         tooltip.add(EnumColor.RED + GCCoreUtil.translate("gui.creative_only.desc"));
     }
 
-    /*
-     * @Override
-     * @SideOnly(Side.CLIENT) public void registerIcons(IIconRegister
-     * iconRegister) { this.itemIcon =
-     * iconRegister.registerIcon(Constants.TEXTURE_PREFIX +
-     * "oxygenCanisterInfinite"); }
-     */
-
     @Override
     public CreativeTabs getCreativeTab()
     {
@@ -93,13 +85,6 @@ public class ItemCanisterOxygenInfinite extends Item implements IItemOxygenSuppl
     public int getOxygenStored(ItemStack par1ItemStack)
     {
         return par1ItemStack.getMaxDamage();
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

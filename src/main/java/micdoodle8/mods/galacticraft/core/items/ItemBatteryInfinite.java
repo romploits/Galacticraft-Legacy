@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
@@ -20,7 +21,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemBatteryInfinite extends ItemElectricBase implements ISortableItem
+public class ItemBatteryInfinite extends ItemElectricBase implements ISortableItem, GCRarity
 {
 
     public ItemBatteryInfinite(String assetName)
@@ -51,13 +52,6 @@ public class ItemBatteryInfinite extends ItemElectricBase implements ISortableIt
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

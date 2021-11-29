@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 
 import net.minecraft.block.Block;
@@ -11,7 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBlockLandingPad extends ItemBlockDesc
+public class ItemBlockLandingPad extends ItemBlockDesc implements GCRarity
 {
 
     public ItemBlockLandingPad(Block block)
@@ -49,13 +50,6 @@ public class ItemBlockLandingPad extends ItemBlockDesc
         {
             ClientProxyCore.playerClientHandler.onBuild(5, (EntityPlayerSP) player);
         }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 
 import net.minecraft.block.Block;
@@ -9,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBlockWallGC extends ItemBlock
+public class ItemBlockWallGC extends ItemBlock implements GCRarity
 {
 
     private static final String[] types = new String[]
@@ -26,13 +27,6 @@ public class ItemBlockWallGC extends ItemBlock
     public int getMetadata(int meta)
     {
         return meta;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

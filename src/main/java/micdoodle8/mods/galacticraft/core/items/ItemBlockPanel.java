@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.blocks.BlockPanelLighting;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 
@@ -13,7 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemBlockPanel extends ItemBlockDesc
+public class ItemBlockPanel extends ItemBlockDesc implements GCRarity
 {
 
     public ItemBlockPanel(Block block)

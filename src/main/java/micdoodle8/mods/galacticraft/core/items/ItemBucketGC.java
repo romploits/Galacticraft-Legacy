@@ -1,10 +1,10 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.FluidUtil;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -29,25 +29,22 @@ import java.util.HashMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ItemBucketGC extends ItemBucket implements ISortableItem, ICapabilityProvider
+public class ItemBucketGC extends ItemBucket implements ISortableItem, ICapabilityProvider, GCRarity
 {
 
-//	private String texture_prefix;
     public Fluid accepts;
-    private static HashMap<String, ItemBucketGC> allFluids = new HashMap();
+    private static HashMap<String, ItemBucketGC> allFluids = new HashMap<>();
 
     public ItemBucketGC(Block block, Fluid fluid)
     {
         super(block);
         this.setContainerItem(Items.BUCKET);
         this.accepts = fluid;
-        // TODO - could be getNameFuzzy
         allFluids.put(fluid.getName(), this);
     }
 
     public static ItemBucketGC getBucketForFluid(Fluid fluid)
     {
-        // TODO - could be getNameFuzzy
         return allFluids.get(fluid.getName());
     }
 
@@ -76,13 +73,6 @@ public class ItemBucketGC extends ItemBucket implements ISortableItem, ICapabili
             return new ItemStack(Items.BUCKET);
         }
         return ItemStack.EMPTY;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

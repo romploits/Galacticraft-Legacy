@@ -1,29 +1,29 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.IRarity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemArmorGC extends ItemArmor implements ISortableItem
+public class ItemArmorGC extends ItemArmor implements ISortableItem, GCRarity
 {
 
     public ItemArmorGC(EntityEquipmentSlot armorIndex, String assetSuffix)
     {
         super(GCItems.ARMOR_STEEL, 0, armorIndex);
         this.setTranslationKey("steel_" + assetSuffix);
-        // this.setTextureName(Constants.TEXTURE_PREFIX + "steel_" +
-        // assetSuffix);
     }
 
     @Override
@@ -31,14 +31,7 @@ public class ItemArmorGC extends ItemArmor implements ISortableItem
     {
         return GalacticraftCore.galacticraftItemsTab;
     }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
-    }
-
+    
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
     {

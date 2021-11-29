@@ -17,16 +17,14 @@ import static net.minecraft.item.EnumDyeColor.SILVER;
 import static net.minecraft.item.EnumDyeColor.WHITE;
 import static net.minecraft.item.EnumDyeColor.YELLOW;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
-import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -34,10 +32,8 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemParaChute extends Item implements ISortableItem, IClickableItem
+public class ItemParaChute extends Item implements ISortableItem, IClickableItem, GCRarity
 {
 
     public static final String[] names =
@@ -58,8 +54,6 @@ public class ItemParaChute extends Item implements ISortableItem, IClickableItem
             "teal", // 14
             "yellow"}; // 15
 
-//    protected IIcon[] icons;
-
     public ItemParaChute(String assetName)
     {
         super();
@@ -67,7 +61,6 @@ public class ItemParaChute extends Item implements ISortableItem, IClickableItem
         this.setHasSubtypes(true);
         this.setMaxStackSize(1);
         this.setTranslationKey(assetName);
-        // this.setTextureName(Constants.TEXTURE_PREFIX + assetName);
     }
 
     @Override
@@ -100,69 +93,11 @@ public class ItemParaChute extends Item implements ISortableItem, IClickableItem
         return par1;
     }
 
-    /*
-     * @Override
-     * @SideOnly(Side.CLIENT) public void registerIcons(IIconRegister
-     * iconRegister) { int i = 0; this.icons = new
-     * IIcon[ItemParaChute.names.length]; for (String name :
-     * ItemParaChute.names) { this.icons[i++] =
-     * iconRegister.registerIcon(this.getIconString() + "_" + name); } }
-     */
-
     @Override
     public String getTranslationKey(ItemStack itemStack)
     {
         return this.getTranslationKey() + "_" + ItemParaChute.names[itemStack.getItemDamage()];
     }
-
-    /*
-     * @Override public IIcon getIconFromDamage(int damage) { if
-     * (this.icons.length > damage) { return this.icons[damage]; } return
-     * super.getIconFromDamage(damage); }
-     */
-
-    // @Override
-    // @SideOnly(Side.CLIENT)
-    // public int getIconFromDamage(int par1)
-    // {
-    // switch (par1)
-    // {
-    // case 0: // plain
-    // return 49;
-    // case 1: // black
-    // return 34;
-    // case 2: // blue
-    // return 46;
-    // case 3: // green
-    // return 44;
-    // case 4: // brown
-    // return 37;
-    // case 5: // dark blue
-    // return 38;
-    // case 6: // dark gray
-    // return 42;
-    // case 7: // dark green
-    // return 36;
-    // case 8: // gray
-    // return 41;
-    // case 9: // magenta
-    // return 47;
-    // case 10: // orange
-    // return 48;
-    // case 11: // pink
-    // return 43;
-    // case 12: // purple
-    // return 39;
-    // case 13: // red
-    // return 35;
-    // case 14: // teal
-    // return 40;
-    // case 15: // yellow
-    // return 45;
-    // }
-    //
-    // return 0;
-    // }
 
     public static EnumDyeColor getDyeEnumFromParachuteDamage(int damage)
     {
@@ -249,13 +184,6 @@ public class ItemParaChute extends Item implements ISortableItem, IClickableItem
     public static int getParachuteDamageValueFromDye(int meta)
     {
         return getParachuteDamageValueFromDyeEnum(EnumDyeColor.byDyeDamage(meta));
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

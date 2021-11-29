@@ -1,12 +1,12 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.JavaUtil;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumRarity;
@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public abstract class ItemCanisterGeneric extends ItemFluidContainer
+public abstract class ItemCanisterGeneric extends ItemFluidContainer implements GCRarity
 {
 
     public final static int EMPTY = Fluid.BUCKET_VOLUME + 1;
@@ -55,13 +55,6 @@ public abstract class ItemCanisterGeneric extends ItemFluidContainer
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt)
     {
         return new ItemCanisterGenericHandler(stack);
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

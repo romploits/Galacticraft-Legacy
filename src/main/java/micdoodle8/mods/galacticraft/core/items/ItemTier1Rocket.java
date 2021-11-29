@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.core.items;
 
 import micdoodle8.mods.galacticraft.api.entity.IRocketType.EnumRocketType;
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.item.IHoldableItem;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GCFluids;
@@ -11,7 +12,6 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityLandingPad;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -37,7 +37,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class ItemTier1Rocket extends Item implements IHoldableItem, ISortableItem
+public class ItemTier1Rocket extends Item implements IHoldableItem, ISortableItem, GCRarity
 {
 
     public ItemTier1Rocket(String assetName)
@@ -46,7 +46,6 @@ public class ItemTier1Rocket extends Item implements IHoldableItem, ISortableIte
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
         this.setMaxStackSize(1);
-        // this.setTextureName("arrow");
         this.setTranslationKey(assetName);
     }
 
@@ -160,13 +159,6 @@ public class ItemTier1Rocket extends Item implements IHoldableItem, ISortableIte
                 list.add(new ItemStack(this, 1, i));
             }
         }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override

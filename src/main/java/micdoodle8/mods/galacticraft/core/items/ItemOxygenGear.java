@@ -1,10 +1,10 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemOxygenGear extends Item implements ISortableItem, IClickableItem
+public class ItemOxygenGear extends Item implements ISortableItem, IClickableItem, GCRarity
 {
 
     public ItemOxygenGear(String assetName)
@@ -31,13 +31,6 @@ public class ItemOxygenGear extends Item implements ISortableItem, IClickableIte
     public CreativeTabs getCreativeTab()
     {
         return GalacticraftCore.galacticraftItemsTab;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack par1ItemStack)
-    {
-        return ClientProxyCore.galacticraftItem;
     }
 
     @Override
@@ -66,6 +59,7 @@ public class ItemOxygenGear extends Item implements ISortableItem, IClickableIte
         return new ActionResult<>(EnumActionResult.PASS, itemStack);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World worldIn, EntityPlayer player)
     {
         GCPlayerStats stats = GCPlayerStats.get(player);
