@@ -2,6 +2,7 @@ package micdoodle8.mods.galacticraft.api.galaxies;
 
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
+
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 
 public class Planet extends CelestialBody

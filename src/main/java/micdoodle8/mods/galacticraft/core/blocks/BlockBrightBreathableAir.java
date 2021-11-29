@@ -70,7 +70,7 @@ public class BlockBrightBreathableAir extends BlockAir
         // Do no check if replacing breatheableAir with a solid block, although
         // that could be dividing a sealed space
         {
-            OxygenPressureProtocol.onEdgeBlockUpdated((World) worldIn, pos);
+            OxygenPressureProtocol.onEdgeBlockUpdated(worldIn, pos);
         }
     }
 

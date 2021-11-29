@@ -1,17 +1,13 @@
 package micdoodle8.mods.galacticraft.core.energy.tile;
 
 import com.google.common.collect.Lists;
-
 import micdoodle8.mods.galacticraft.api.tile.IDisableableMachine;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConnector;
-import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.RedstoneUtil;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
-import micdoodle8.mods.miccore.Annotations.RuntimeInterface;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.EnumSet;
@@ -27,9 +24,6 @@ import java.util.List;
 
 public abstract class TileBaseElectricBlock extends TileBaseUniversalElectrical implements IDisableableMachine, IConnector
 {
-    // public int energyPerTick = 200;
-    // private final float ueMaxEnergy;
-
     @NetworkedField(targetSide = Side.CLIENT) public boolean disabled = false;
     @NetworkedField(targetSide = Side.CLIENT) public int disableCooldown = 0;
     @NetworkedField(targetSide = Side.CLIENT) public boolean hasEnoughEnergyToRun = false;
@@ -51,51 +45,10 @@ public abstract class TileBaseElectricBlock extends TileBaseUniversalElectrical 
 
     public abstract ItemStack getBatteryInSlot();
 
-    // public TileBaseElectricBlock()
-    // {
-    // this.storage.setMaxReceive(ueWattsPerTick);
-    // this.storage.setMaxExtract(0);
-    // this.storage.setCapacity(maxEnergy);
-    //// this.ueMaxEnergy = maxEnergy;
-    //// this.ueWattsPerTick = ueWattsPerTick;
-    //
-    // /*
-    // * if (PowerFramework.currentFramework != null) { this.bcPowerProvider =
-    // * new GCCoreLinkedPowerProvider(this);
-    // * this.bcPowerProvider.configure(20, 1, 10, 10, 1000); }
-    // */
-    // }
-
-    // @Override
-    // public float getMaxEnergyStored()
-    // {
-    // return this.ueMaxEnergy;
-    // }
-
     public int getScaledElecticalLevel(int i)
     {
         return (int) Math.floor(this.getEnergyStoredGC(null) * i / this.getMaxEnergyStoredGC(null));
-        // - this.ueWattsPerTick;
     }
-
-    // @Override
-    // public float getRequest(EnumFacing direction)
-    // {
-    // if (this.shouldPullEnergy())
-    // {
-    // return this.ueWattsPerTick * 2;
-    // }
-    // else
-    // {
-    // return 0;
-    // }
-    // }
-    //
-    // @Override
-    // public float getProvide(EnumFacing direction)
-    // {
-    // return 0;
-    // }
 
     @Override
     public void update()
@@ -188,26 +141,26 @@ public abstract class TileBaseElectricBlock extends TileBaseUniversalElectrical 
         return this.disabled;
     }
 
-    @RuntimeInterface(clazz = "ic2.api.tile.IWrenchable", modID = CompatibilityManager.modidIC2)
-    public EnumFacing getFacing(World world, BlockPos pos)
+    @Optional.Method(modid = "ic2")
+    public EnumFacing getFacing(World worldIn, BlockPos posIn)
     {
         return this.byIndex();
     }
 
-    @RuntimeInterface(clazz = "ic2.api.tile.IWrenchable", modID = CompatibilityManager.modidIC2)
-    public boolean setFacing(World world, BlockPos pos, EnumFacing newDirection, EntityPlayer player)
+    @Optional.Method(modid = "ic2")
+    public boolean setFacing(World worldIn, BlockPos posIn, EnumFacing newDirection, EntityPlayer player)
     {
         return false;
     }
 
-    @RuntimeInterface(clazz = "ic2.api.tile.IWrenchable", modID = CompatibilityManager.modidIC2)
-    public boolean wrenchCanRemove(World world, BlockPos pos, EntityPlayer player)
+    @Optional.Method(modid = "ic2")
+    public boolean wrenchCanRemove(World worldIn, BlockPos posIn, EntityPlayer player)
     {
         return false;
     }
 
-    @RuntimeInterface(clazz = "ic2.api.tile.IWrenchable", modID = CompatibilityManager.modidIC2)
-    public List<ItemStack> getWrenchDrops(World world, BlockPos pos, IBlockState state, TileEntity te, EntityPlayer player, int fortune)
+    @Optional.Method(modid = "ic2")
+    public List<ItemStack> getWrenchDrops(World worldIn, BlockPos posIn, IBlockState state, TileEntity te, EntityPlayer player, int fortune)
     {
         List<ItemStack> drops = Lists.newArrayList();
         drops.add(this.getBlockType().getPickBlock(state, null, this.world, this.getPos(), player));
@@ -225,6 +178,7 @@ public abstract class TileBaseElectricBlock extends TileBaseUniversalElectrical 
         return EnumSet.of(this.getElectricInputDirection());
     }
 
+    @Override
     public boolean isUsableByPlayer(EntityPlayer entityplayer)
     {
         return this.getWorld().getTileEntity(this.getPos()) == this && entityplayer.getDistanceSq(this.getPos().getX() + 0.5D, this.getPos().getY() + 0.5D, this.getPos().getZ() + 0.5D) <= 64.0D;

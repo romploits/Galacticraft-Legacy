@@ -26,7 +26,7 @@ public interface IDockable extends IFuelable, ICargoEntity
     void onPadDestroyed();
 
     /**
-     * Whether or not the fuel dock this entity is on is valid. <p/> Returning
+     * Whether or not the fuel dock this entity is on is valid. <p> Returning
      * false will not let setPad be called.
      */
     boolean isDockValid(IFuelDock dock);

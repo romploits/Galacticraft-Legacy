@@ -1,28 +1,30 @@
 package micdoodle8.mods.galacticraft.api.prefab.world.gen;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
+import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
-import micdoodle8.mods.galacticraft.api.world.DataBuilder;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
+
 import micdoodle8.mods.galacticraft.core.util.GCLog;
+
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
+
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class BiomeAdaptive extends BiomeGenBaseGC
 {
@@ -35,7 +37,7 @@ public class BiomeAdaptive extends BiomeGenBaseGC
 
     public BiomeAdaptive(int i, Biome biomeInitial)
     {
-        super(new DataBuilder("Outer Space" + (i == 0 ? "" : " " + i)).build());
+        super(BiomeData.builder().biomeName("Outer Space" + (i == 0 ? "" : " " + i)).build());
         this.index = i;
         this.biomeTrue = biomeInitial;
         this.decorator = this.createBiomeDecorator();

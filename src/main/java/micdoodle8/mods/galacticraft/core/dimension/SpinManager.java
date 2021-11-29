@@ -172,10 +172,10 @@ public class SpinManager
      * This will check all blocks which are in contact with each other to find
      * the shape of the spacestation. It also finds the centre of mass (to
      * rotate around) and the moment of inertia (how easy/hard this is to
-     * rotate). <p/> If placingThruster is true, it will return false if the
+     * rotate). <p> If placingThruster is true, it will return false if the
      * thruster (at baseBlock) is not in contact with the "existing"
      * spacestation - so the player cannot place thrusters on outlying
-     * disconnected blocks and expect them to have an effect. <p/> Note: this
+     * disconnected blocks and expect them to have an effect. <p> Note: this
      * check will briefly load, server-side, all chunks which have spacestation
      * blocks in them or 1 block adjacent to those.
      *
@@ -792,7 +792,7 @@ public class SpinManager
     }
 
     /**
-     * Call this when player first login/transfer to this dimension <p/> TODO
+     * Call this when player first login/transfer to this dimension <p> TODO
      * how can this code be called by other mods / plugins with teleports (e.g.
      * Bukkit)? See WorldUtil.teleportEntity()
      *

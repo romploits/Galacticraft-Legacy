@@ -61,7 +61,7 @@ public class IntCache
                 return aint4;
             } else
             {
-                int[] aint3 = (int[]) freeSmallArrays.remove(freeSmallArrays.size() - 1);
+                int[] aint3 = freeSmallArrays.remove(freeSmallArrays.size() - 1);
                 inUseSmallArrays.add(aint3);
                 return aint3;
             }
@@ -80,7 +80,7 @@ public class IntCache
             return aint1;
         } else
         {
-            int[] aint = (int[]) freeLargeArrays.remove(freeLargeArrays.size() - 1);
+            int[] aint = freeLargeArrays.remove(freeLargeArrays.size() - 1);
             inUseLargeArrays.add(aint);
             return aint;
         }
@@ -101,7 +101,7 @@ public class IntCache
                 return aint4;
             } else
             {
-                int[] aint3 = (int[]) freeSmallArrays2.remove(freeSmallArrays2.size() - 1);
+                int[] aint3 = freeSmallArrays2.remove(freeSmallArrays2.size() - 1);
                 inUseSmallArrays2.add(aint3);
                 return aint3;
             }
@@ -120,7 +120,7 @@ public class IntCache
             return aint1;
         } else
         {
-            int[] aint = (int[]) freeLargeArrays2.remove(freeLargeArrays2.size() - 1);
+            int[] aint = freeLargeArrays2.remove(freeLargeArrays2.size() - 1);
             inUseLargeArrays2.add(aint);
             return aint;
         }

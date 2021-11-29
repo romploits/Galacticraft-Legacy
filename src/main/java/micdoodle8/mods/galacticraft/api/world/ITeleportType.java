@@ -1,16 +1,17 @@
 package micdoodle8.mods.galacticraft.api.world;
 
-import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import java.util.Random;
+
 /**
  * Implement into WorldProvider for customizing spawning players and other
- * entities into space dimension <p/> You can also create a separate class,
+ * entities into space dimension <p> You can also create a separate class,
  * implement it there, then register it in @GalacticraftRegistry
  */
 public interface ITeleportType

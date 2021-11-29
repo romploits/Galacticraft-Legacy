@@ -509,6 +509,11 @@ public class OxygenUtil
 
         return adjacentConnections;
     }
+    
+    public static boolean noAtmosphericCombustion(World world)
+    {
+        return noAtmosphericCombustion(world.provider);
+    }
 
     public static boolean noAtmosphericCombustion(WorldProvider provider)
     {

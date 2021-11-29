@@ -2,10 +2,9 @@ package micdoodle8.mods.galacticraft.core.energy.tile;
 
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
-import micdoodle8.mods.miccore.Annotations.RuntimeInterface;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -23,7 +22,7 @@ public class TileCableIC2Sealed extends TileEntity
     private static Field fieldInsulation = null;
     private static Field fieldCableType = null;
 
-    @RuntimeInterface(clazz = "ic2.core.block.wiring.TileEntityCable", modID = CompatibilityManager.modidIC2, deobfName = "EXTENDS")
+    @Optional.Method(modid = "ic2")
     public TileCableIC2Sealed setupInsulation(Object cableType, int insulation)
     {
         if (!cableFieldsDone)
@@ -68,8 +67,8 @@ public class TileCableIC2Sealed extends TileEntity
         }
     }
 
-    @RuntimeInterface(clazz = "ic2.core.IWorldTickCallback", modID = CompatibilityManager.modidIC2)
-    public void onTick(World world)
+    @Optional.Method(modid = "ic2")
+    public void onTick(World worldIn)
     {
         if (!this.isInvalid() && world.isBlockLoaded(this.pos) && (world.getBlockState(this.pos)).getBlock() == GCBlocks.sealableBlock && world.getTileEntity(this.pos) == this)
         {

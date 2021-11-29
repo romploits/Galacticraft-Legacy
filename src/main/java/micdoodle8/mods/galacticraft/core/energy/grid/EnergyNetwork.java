@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.core.energy.grid;
 
+import buildcraft.api.mj.IMjReceiver;
+import cofh.redstoneflux.api.IEnergyReceiver;
+import ic2.api.energy.tile.IEnergySink;
+import mekanism.api.energy.IStrictEnergyAcceptor;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.grid.IElectricityNetwork;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConductor;
@@ -11,7 +15,6 @@ import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.GCLog;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -26,11 +29,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import buildcraft.api.mj.IMjReceiver;
-import cofh.redstoneflux.api.IEnergyReceiver;
-import ic2.api.energy.tile.IEnergySink;
-import mekanism.api.energy.IStrictEnergyAcceptor;
 
 //import buildcraft.api.power.PowerHandler.Type;
 

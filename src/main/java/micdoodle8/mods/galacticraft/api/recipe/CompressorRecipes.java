@@ -1,12 +1,9 @@
 package micdoodle8.mods.galacticraft.api.recipe;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.GalacticraftConfigAccess;
+
 import micdoodle8.mods.galacticraft.core.GCItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;
@@ -14,6 +11,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class CompressorRecipes
 {

@@ -1,16 +1,14 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
 import com.mojang.authlib.GameProfile;
-
 import micdoodle8.mods.galacticraft.api.entity.ICameraZoomEntity;
 import micdoodle8.mods.galacticraft.api.item.IHoldableItem;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntitySpaceshipBase;
 import micdoodle8.mods.galacticraft.api.world.IZeroGDimension;
-import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.EventHandlerClient;
 import micdoodle8.mods.galacticraft.core.util.CapeUtil;
+import micdoodle8.mods.galacticraft.core.util.CapeUtil.CapeResource;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.ResourceLocation;
@@ -18,6 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Optional;
 
 public class GCEntityOtherPlayerMP extends EntityOtherPlayerMP
 {
@@ -45,10 +45,10 @@ public class GCEntityOtherPlayerMP extends EntityOtherPlayerMP
         if (!this.checkedCape)
         {
             NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-            String cape = CapeUtil.instance().getCape(networkplayerinfo.getGameProfile().getId().toString().replace("-", ""));
-            if (!cape.equalsIgnoreCase("none"))
+            Optional<CapeResource> gCape = CapeUtil.getCape(networkplayerinfo.getGameProfile().getId().toString().replace("-", ""));
+            if (gCape.isPresent())
             {
-                this.galacticraftCape = new ResourceLocation(Constants.MOD_ID_CORE, "textures/misc/capes/cape_" + cape + ".png");
+                this.galacticraftCape = gCape.get();
             }
             this.checkedCape = true;
         }
@@ -65,10 +65,10 @@ public class GCEntityOtherPlayerMP extends EntityOtherPlayerMP
     @SideOnly(Side.CLIENT)
     public int getBrightnessForRender()
     {
-        double height = this.posY + (double) this.getEyeHeight();
-        if (height > 255D)
-            height = 255D;
-        BlockPos blockpos = new BlockPos(this.posX, height, this.posZ);
+        double h = this.posY + this.getEyeHeight();
+        if (h > 255D)
+            h = 255D;
+        BlockPos blockpos = new BlockPos(this.posX, h, this.posZ);
         return this.world.isBlockLoaded(blockpos) ? this.world.getCombinedLight(blockpos, 0) : 0;
     }
 

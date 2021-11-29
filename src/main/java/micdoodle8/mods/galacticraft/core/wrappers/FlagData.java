@@ -54,7 +54,7 @@ public class FlagData
     }
 
     /**
-     * Returns the color, normalized, at the flag coordinates. <p/> 0, 0 is the
+     * Returns the color, normalized, at the flag coordinates. <p> 0, 0 is the
      * top left.
      *
      * @param posX x-position of the flag

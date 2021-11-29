@@ -1,7 +1,5 @@
 package micdoodle8.mods.galacticraft.api.vector;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.crash.CrashReport;
@@ -18,6 +16,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ChunkProviderServer;
+
+import javax.annotation.Nullable;
 
 /* BlockVec3 is similar to galacticraft.api.vector.Vector3?
  * 

@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.energy.tile;
 
 import micdoodle8.mods.galacticraft.api.power.IEnergyStorageGC;
-
 import net.minecraft.nbt.NBTTagCompound;
 
 public class EnergyStorage implements IEnergyStorageGC

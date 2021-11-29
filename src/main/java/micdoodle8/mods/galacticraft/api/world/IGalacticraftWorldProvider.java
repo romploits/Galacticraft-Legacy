@@ -1,11 +1,12 @@
 package micdoodle8.mods.galacticraft.api.world;
 
-import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.entity.IRocketType;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
+
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.List;
 
 public interface IGalacticraftWorldProvider
 {
@@ -27,7 +28,7 @@ public interface IGalacticraftWorldProvider
 
     /**
      * Determines the rate to spawn meteors in this planet. Lower means MORE
-     * meteors. <p/> Typical value would be about 7. Return 0 for no meteors.
+     * meteors. <p> Typical value would be about 7. Return 0 for no meteors.
      *
      * @return
      */
@@ -111,7 +112,7 @@ public interface IGalacticraftWorldProvider
     float getThermalLevelModifier();
 
     /**
-     * Amount of wind on this world. Used for flag waving. <p/> Earth has a
+     * Amount of wind on this world. Used for flag waving. <p> Earth has a
      * value of 1.0F, Luna (Moon) has a value of 0.0F.
      *
      * @return Flag movement magnitude. Relative to earth's value of 1.0F
@@ -152,7 +153,7 @@ public interface IGalacticraftWorldProvider
     /**
      * The size (in blocks) of the average spacing between dungeons For example,
      * on the Moon it's 704 blocks, meaning one dungeon in each (704 x 704)
-     * square in the (x, z) plane <p/> If your world has no dungeons you can
+     * square in the (x, z) plane <p> If your world has no dungeons you can
      * safely return 0 here.
      */
     int getDungeonSpacing();

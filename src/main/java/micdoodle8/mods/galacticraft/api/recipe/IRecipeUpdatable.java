@@ -1,9 +1,9 @@
 package micdoodle8.mods.galacticraft.api.recipe;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+
+import java.util.List;
 
 public interface IRecipeUpdatable extends IRecipe
 {
