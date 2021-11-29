@@ -1,0 +1,118 @@
+def coreAttribs() {
+	return [
+		'FMLAT':						'accesstransformer.cfg',
+		'FMLCorePluginContainsFMLMod': 	'true',
+		'FMLCorePlugin': 				'micdoodle8.mods.miccore.MicdoodlePlugin'
+    ]
+}
+
+
+def mainAttribs(String title) {
+	return [		
+		'Specification-Title'     : title,
+		'Specification-Vendor'    : 'Galacticraft',
+		'Specification-Version'   : "${project.version}",
+		'Implementation-Title'    : title,
+		'Implementation-Version'  : "${project.version}",
+		'Implementation-Vendor'   : 'Galacticraft',
+		'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+	]
+}
+
+def setAttributes(String title, boolean isCore) {
+	return (isCore) ? mainAttribs(title) : mainAttribs(title) + coreAttribs()
+}
+
+task coreJar(type: Jar) {
+    baseName = "galacticraft-core-${mc_version}"
+    dependsOn 'reobfJar'
+    
+    from('etc/core') {
+        include '*.info'
+        expand 'version':project.version,
+               'mc_version':mc_version,
+               'forge_version':forge_version
+    }
+    
+    from zipTree(jar.outputs.getFiles().getSingleFile()).matching {
+        exclude 'micdoodle8/mods/galacticraft/planets/**',
+                'micdoodle8/mods/miccore/**',
+                'assets/galacticraftplanets/**',
+                'META-INF/*.cfg'
+    }
+    manifest.attributes(setAttributes("GalacticraftCore", false))
+}
+
+task miccoreJar(type: Jar) {
+    baseName = "micdoodlecore-${mc_version}"
+    dependsOn 'reobfJar'
+
+    from zipTree(jar.outputs.getFiles().getSingleFile()).matching {
+        include 'micdoodle8/mods/miccore/**', 'META-INF/*.cfg',
+                'micdoodle8/mods/galacticraft/api/entity/IEntityBreathable.class'
+    }
+
+    manifest.attributes(setAttributes("MicdoodleCore", true))
+}
+
+task planetsJar(type: Jar) {
+    baseName = "galacticraft-planets-${mc_version}"
+    dependsOn 'reobfJar'
+    from('etc/planets') {
+        include '*.info'
+        expand 'version':project.version,
+               'mc_version':mc_version,
+               'forge_version':forge_version
+    }
+    
+    from zipTree(jar.outputs.getFiles().getSingleFile()).matching {
+        include 'micdoodle8/mods/galacticraft/planets/**',
+                'assets/galacticraftplanets/**',
+                'assets/logo.png'
+    }
+    manifest.attributes(setAttributes("GalacticraftPlanets", false))
+}
+
+artifactsList += [coreJar, planetsJar, miccoreJar]
+
+// Honestly don't see why a standalone API jar is needed anymore
+task apiJar(type: Jar) {
+    baseName "galacticraft-${mc_version}"
+    classifier = 'api'
+    include 'micdoodle8/mods/galacticraft/api/**'
+    from sourceSets.main.output
+}
+
+task coreDevJar(type: Jar) {
+    baseName "galacticraft-core-${mc_version}"
+    classifier = 'dev'
+    include 'micdoodle8/mods/galacticraft/api/**'
+    include 'micdoodle8/mods/galacticraft/core/**'
+    include 'assets/galacticraftcore/**'
+    from sourceSets.main.output
+
+    manifest.attributes(setAttributes("GalacticraftCore", false))
+}
+
+task planetsDevJar(type: Jar) {
+    baseName "galacticraft-planets-${mc_version}"
+    classifier = 'dev'
+    include 'micdoodle8/mods/galacticraft/planets/**'
+    include 'assets/galacticraftplanets/**'
+    from sourceSets.main.output
+    
+    manifest.attributes(setAttributes("GalacticraftPlanets", false))
+}
+
+task miccoreDevJar(type: Jar) {
+    baseName "micdoodlecore-${mc_version}"
+    classifier = 'dev'
+    include 'micdoodle8/mods/miccore/**'
+    include 'META-INF/*.cfg'
+    include 'micdoodle8/mods/galacticraft/api/entity/IEntityBreathable.*'
+    from sourceSets.main.output
+
+    manifest.attributes(setAttributes("MicdoodleCore", true))
+}
+
+artifactsList += [apiJar, coreDevJar, planetsDevJar, miccoreDevJar]
