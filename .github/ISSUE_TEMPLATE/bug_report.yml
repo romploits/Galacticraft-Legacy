@@ -5,6 +5,11 @@ labels:
   - 'type: bug'
 body:
   - type: markdown
+    value: "## Important"
+  - type: markdown
+    value: "#### Only "
+
+  - type: markdown
     attributes:
       value: >-
         NOTE: No support for compiling the project will be provided.
@@ -447,7 +452,7 @@ body:
         - 4.0.2.280
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: logs
     attributes:
       label: Log or Crash Report
