@@ -452,11 +452,10 @@ body:
     attributes:
       label: Log or Crash Report
       description: >-
-        Please upload your log (latest.log or crash report) to [Github
-        Gist](https://gist.github.com/)
-      placeholder: 'https://gist.github.com/ghost/1a79a4d60de6718e8e5b326e338ae533'
-    validations:
-      required: true
+        Please upload your log (latest.log and/or crash report) to [Github
+        Gist](https://gist.github.com/) then paste the gist url here, you 
+        can paste as many links as needed
+      placeholder: 'https://gist.github.com/ROMVoid95/9392b3f0f7b44f9732087007aaa95e32'
   - type: textarea
     id: repro
     attributes:
