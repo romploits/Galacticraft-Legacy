@@ -5,11 +5,6 @@ labels:
   - 'type: bug'
 body:
   - type: markdown
-    value: "## Important"
-  - type: markdown
-    value: "#### Only "
-
-  - type: markdown
     attributes:
       value: >-
         NOTE: No support for compiling the project will be provided.
