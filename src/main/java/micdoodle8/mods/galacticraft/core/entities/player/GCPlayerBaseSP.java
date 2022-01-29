@@ -1,19 +1,17 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
+import api.player.client.ClientPlayerAPI;
+import api.player.client.ClientPlayerBase;
 import micdoodle8.mods.galacticraft.api.world.IZeroGDimension;
 import micdoodle8.mods.galacticraft.core.TransformerHooks;
 import micdoodle8.mods.galacticraft.core.client.EventHandlerClient;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
-
 import net.minecraft.entity.MoverType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import api.player.client.ClientPlayerAPI;
-import api.player.client.ClientPlayerBase;
 
 public class GCPlayerBaseSP extends ClientPlayerBase
 {

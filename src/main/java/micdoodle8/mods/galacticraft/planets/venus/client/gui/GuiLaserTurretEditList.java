@@ -1,7 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.venus.client.gui;
 
 import com.google.common.collect.Lists;
-
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementCheckbox;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementGradientList;
@@ -20,10 +22,6 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 public class GuiLaserTurretEditList extends GuiScreen implements GuiElementTextBox.ITextBoxCallback, GuiElementCheckbox.ICheckBoxCallback
 {

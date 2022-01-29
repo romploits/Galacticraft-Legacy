@@ -1,19 +1,18 @@
 package micdoodle8.mods.galacticraft.core;
 
+import buildcraft.api.fuels.BuildcraftFuelRegistry;
+import buildcraft.api.mj.MjAPI;
 import micdoodle8.mods.galacticraft.core.blocks.MaterialOleaginous;
 import micdoodle8.mods.galacticraft.core.entities.EntityMeteorChunk;
 import micdoodle8.mods.galacticraft.core.event.EventHandlerGC;
 import micdoodle8.mods.galacticraft.core.items.ItemBucketGC;
 import micdoodle8.mods.galacticraft.core.items.ItemTier1Rocket;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemTier3Rocket;
 import micdoodle8.mods.galacticraft.planets.mars.items.ItemTier2Rocket;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
 import micdoodle8.mods.galacticraft.planets.venus.VenusItems;
-
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -31,12 +30,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-
-import buildcraft.api.fuels.BuildcraftFuelRegistry;
-import buildcraft.api.mj.MjAPI;
 
 public class GCFluids
 {
@@ -73,7 +68,7 @@ public class GCFluids
             FluidRegistry.registerFluid(gcFluidOil);
         } else
         {
-            GCLog.info("Galacticraft oil is not default, issues may occur.");
+            GalacticraftCore.logger.info("Galacticraft oil is not default, issues may occur.");
         }
 
         fluidOil = FluidRegistry.getFluid(oilID);
@@ -113,7 +108,7 @@ public class GCFluids
             FluidRegistry.registerFluid(gcFluidFuel);
         } else
         {
-            GCLog.info("Galacticraft fuel is not default, issues may occur.");
+            GalacticraftCore.logger.info("Galacticraft fuel is not default, issues may occur.");
         }
 
         fluidFuel = FluidRegistry.getFluid(fuelID);

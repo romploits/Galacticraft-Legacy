@@ -1,9 +1,19 @@
 package micdoodle8.mods.galacticraft.core.world;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map.Entry;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -16,18 +26,6 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.LoadingCallback;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.config.Configuration;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map.Entry;
 
 public class ChunkLoadingCallback implements LoadingCallback
 {
@@ -78,7 +76,7 @@ public class ChunkLoadingCallback implements LoadingCallback
                 ChunkLoadingCallback.config.get("CHUNKLOADING", "LoadOnLogin", true, "If you don't want each player's chunks to load when they log in, set to false.").getBoolean(true);
         } catch (final Exception e)
         {
-            GCLog.error("Problem loading chunkloading config (\"core.conf\")");
+            GalacticraftCore.logger.error("Problem loading chunkloading config (\"core.conf\")");
         } finally
         {
             if (ChunkLoadingCallback.config.hasChanged())
@@ -139,11 +137,11 @@ public class ChunkLoadingCallback implements LoadingCallback
                 {
                     if (!saveFile.createNewFile())
                     {
-                        GCLog.error("Could not create chunk loader data file: " + saveFile.getAbsolutePath());
+                        GalacticraftCore.logger.error("Could not create chunk loader data file: " + saveFile.getAbsolutePath());
                     }
                 } catch (IOException e)
                 {
-                    GCLog.error("Could not create chunk loader data file: " + saveFile.getAbsolutePath());
+                    GalacticraftCore.logger.error("Could not create chunk loader data file: " + saveFile.getAbsolutePath());
                     e.printStackTrace();
                 }
             }
@@ -208,7 +206,7 @@ public class ChunkLoadingCallback implements LoadingCallback
             {
                 if (!saveDir.mkdirs())
                 {
-                    GCLog.error("Could not create chunk loader save data folder: " + saveDir.getAbsolutePath());
+                    GalacticraftCore.logger.error("Could not create chunk loader save data folder: " + saveDir.getAbsolutePath());
                 }
             }
 
@@ -237,7 +235,7 @@ public class ChunkLoadingCallback implements LoadingCallback
                 {
                     if (!saveDir.mkdirs())
                     {
-                        GCLog.error("Could not create chunk loader save data folder: " + saveDir.getAbsolutePath());
+                        GalacticraftCore.logger.error("Could not create chunk loader save data folder: " + saveDir.getAbsolutePath());
                     }
                 }
 

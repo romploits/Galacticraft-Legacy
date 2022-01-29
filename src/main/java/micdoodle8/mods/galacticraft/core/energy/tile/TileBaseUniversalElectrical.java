@@ -7,6 +7,8 @@ import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.ISpecialElectricItem;
+import java.util.EnumSet;
+import javax.annotation.Nonnull;
 import mekanism.api.energy.EnergizedItemManager;
 import mekanism.api.energy.IEnergizedItem;
 import micdoodle8.mods.galacticraft.api.item.ElectricItemHelper;
@@ -27,10 +29,6 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.items.CapabilityItemHandler;
-
-import java.util.EnumSet;
-
-import javax.annotation.Nonnull;
 
 public abstract class TileBaseUniversalElectrical extends EnergyStorageTile
 {

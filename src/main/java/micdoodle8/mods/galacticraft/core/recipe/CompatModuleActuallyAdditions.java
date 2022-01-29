@@ -1,17 +1,14 @@
 package micdoodle8.mods.galacticraft.core.recipe;
 
+import de.ellpeck.actuallyadditions.api.ActuallyAdditionsAPI;
+import java.util.ArrayList;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.planets.mars.blocks.MarsBlocks;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-
-import de.ellpeck.actuallyadditions.api.ActuallyAdditionsAPI;
 
 public class CompatModuleActuallyAdditions
 {

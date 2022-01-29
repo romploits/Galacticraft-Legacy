@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.entities;
 
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntityTieredRocket;
 import micdoodle8.mods.galacticraft.api.tile.IFuelDock;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
@@ -11,9 +12,6 @@ import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityLandingPad;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
-
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -23,8 +21,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 //import calclavia.api.icbm.IMissile;
 
@@ -191,8 +187,7 @@ public class EntityTier1Rocket extends EntityTieredRocket
             if (this.getLaunched())
             {
                 Vector3 motionVec = new Vector3(x1, y1, z1);
-                Object[] rider = new Object[]
-                {riddenByEntity};
+                Object[] rider = {riddenByEntity};
                 GalacticraftCore.proxy.spawnParticle("launchFlameLaunched", new Vector3(x2 + 0.4 - this.rand.nextDouble() / 10D, y, z2 + 0.4 - this.rand.nextDouble() / 10D), motionVec, rider);
                 GalacticraftCore.proxy.spawnParticle("launchFlameLaunched", new Vector3(x2 - 0.4 + this.rand.nextDouble() / 10D, y, z2 + 0.4 - this.rand.nextDouble() / 10D), motionVec, rider);
                 GalacticraftCore.proxy.spawnParticle("launchFlameLaunched", new Vector3(x2 - 0.4 + this.rand.nextDouble() / 10D, y, z2 - 0.4 + this.rand.nextDouble() / 10D), motionVec, rider);
@@ -205,8 +200,7 @@ public class EntityTier1Rocket extends EntityTieredRocket
 
             } else if (this.ticksExisted % 2 == 0)
             {
-                Object[] rider = new Object[]
-                {riddenByEntity};
+                Object[] rider = {riddenByEntity};
                 y += 0.6D;
                 GalacticraftCore.proxy.spawnParticle("launchFlameIdle", new Vector3(x2 + 0.4 - this.rand.nextDouble() / 10D, y, z2 + 0.4 - this.rand.nextDouble() / 10D),
                     new Vector3(this.rand.nextDouble() / 2.0 - 0.25, 0.0, this.rand.nextDouble() / 2.0 - 0.25), rider);
@@ -301,26 +295,5 @@ public class EntityTier1Rocket extends EntityTieredRocket
     public double getOnPadYOffset()
     {
         return 0.0D;
-    }
-
-    @Override
-    public void onReachAtmosphere()
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onLaunch()
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public ISound setSoundUpdater(EntityPlayerSP player)
-    {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

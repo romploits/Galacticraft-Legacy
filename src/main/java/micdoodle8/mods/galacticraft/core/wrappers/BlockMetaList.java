@@ -1,9 +1,8 @@
 package micdoodle8.mods.galacticraft.core.wrappers;
 
-import net.minecraft.block.Block;
-
 import java.util.Arrays;
 import java.util.List;
+import net.minecraft.block.Block;
 
 public class BlockMetaList
 {

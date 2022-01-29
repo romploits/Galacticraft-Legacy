@@ -12,10 +12,8 @@ package micdoodle8.mods.galacticraft.core.util;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-
-import net.minecraftforge.common.property.IUnlistedProperty;
-
 import java.util.Objects;
+import net.minecraftforge.common.property.IUnlistedProperty;
 
 public class PropertyObject<T> implements IUnlistedProperty<T>
 {

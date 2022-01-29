@@ -1,13 +1,12 @@
 package micdoodle8.mods.galacticraft.core.world.gen;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
-
-import java.util.Random;
 
 public class BiomeMoon extends BiomeGenBaseGC
 {

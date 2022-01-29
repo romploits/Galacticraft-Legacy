@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.jei.tier2rocket;
 
+import javax.annotation.Nonnull;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -11,8 +12,6 @@ import micdoodle8.mods.galacticraft.core.client.jei.RecipeCategories;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
 
 public class Tier2RocketRecipeCategory implements IRecipeCategory
 {

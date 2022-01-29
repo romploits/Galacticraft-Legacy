@@ -3,6 +3,14 @@ package micdoodle8.mods.galacticraft.core;
 import static micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore.PLAYER_Y_OFFSET;
 import static micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore.submergedTextures;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.api.entity.IAntiGrav;
 import micdoodle8.mods.galacticraft.api.entity.ICameraZoomEntity;
 import micdoodle8.mods.galacticraft.api.item.IArmorGravity;
@@ -11,7 +19,6 @@ import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.api.world.IOrbitDimension;
 import micdoodle8.mods.galacticraft.api.world.IWeatherProvider;
 import micdoodle8.mods.galacticraft.api.world.IZeroGDimension;
-
 import micdoodle8.mods.galacticraft.core.blocks.BlockGrating;
 import micdoodle8.mods.galacticraft.core.client.BubbleRenderer;
 import micdoodle8.mods.galacticraft.core.client.FootprintRenderer;
@@ -25,12 +32,9 @@ import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.FluidUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.OxygenUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
-
 import micdoodle8.mods.galacticraft.planets.venus.VenusItems;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -58,7 +62,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
@@ -68,16 +71,6 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -206,8 +199,8 @@ public class TransformerHooks
                 net.minecraftforge.fml.common.registry.GameRegistry.generateWorld(chunkX, chunkZ, world, chunkGenerator, chunkProvider);
             } catch (Exception e)
             {
-                GCLog.error("Error in another mod's worldgen.  This is *NOT* a Galacticraft bug, report it to the other mod please.");
-                GCLog.error("Details:- Dimension:" + GCCoreUtil.getDimensionID(world) + "  Chunk cx,cz:" + chunkX + "," + chunkZ + "  Seed:" + world.getSeed());
+                GalacticraftCore.logger.error("Error in another mod's worldgen.  This is *NOT* a Galacticraft bug, report it to the other mod please.");
+                GalacticraftCore.logger.error("Details:- Dimension:" + GCCoreUtil.getDimensionID(world) + "  Chunk cx,cz:" + chunkX + "," + chunkZ + "  Seed:" + world.getSeed());
                 e.printStackTrace();
             }
             return;
@@ -245,7 +238,7 @@ public class TransformerHooks
                     {
                         generateTCAuraNodes = genThaumCraft.getDeclaredMethod("generateWildNodes", World.class, Random.class, int.class, int.class, boolean.class, boolean.class);
                         generateTCAuraNodes.setAccessible(true);
-                        GCLog.info("Whitelisting ThaumCraft aura node generation on planets.");
+                        GalacticraftCore.logger.info("Whitelisting ThaumCraft aura node generation on planets.");
                     }
                 }
             } catch (Exception e)
@@ -274,7 +267,7 @@ public class TransformerHooks
                 }
             } catch (Exception e)
             {
-                GCLog.error("Error in another mod's worldgen.  This is *NOT* a Galacticraft bug, report it to the other mod please.");
+                GalacticraftCore.logger.error("Error in another mod's worldgen.  This is *NOT* a Galacticraft bug, report it to the other mod please.");
                 e.printStackTrace();
             }
         }
@@ -295,7 +288,7 @@ public class TransformerHooks
                     if (target.isInstance(gen))
                     {
                         otherModGeneratorsWhitelist.add(gen);
-                        GCLog.info("Whitelisting " + logString + " on planets.");
+                        GalacticraftCore.logger.info("Whitelisting " + logString + " on planets.");
                         return;
                     }
                 }

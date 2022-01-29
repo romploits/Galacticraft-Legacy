@@ -565,6 +565,7 @@ keybind.vehicleleft.name=[GC] Vehicle Left Key
 keybind.vehicleright.name=[GC] Vehicle Right Key
 keybind.vehicleup.name=[GC] Vehicle Up Key
 moon.moon=Moon
+planet.curseforge=CurseForge
 newversion.failed.name=Galacticraft update check failed! Trying again in 15 seconds
 newversion.success.name=Galacticraft remote version found:
 planet.jupiter=Jupiter

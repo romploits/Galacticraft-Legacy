@@ -1,12 +1,11 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
+import java.lang.ref.WeakReference;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-
-import java.lang.ref.WeakReference;
 
 public class CapabilityProviderStats implements ICapabilitySerializable<NBTTagCompound>
 {

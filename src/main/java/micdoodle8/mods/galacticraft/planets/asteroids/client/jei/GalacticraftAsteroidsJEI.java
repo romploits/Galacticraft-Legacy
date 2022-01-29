@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.client.jei;
 
+import javax.annotation.Nonnull;
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModRegistry;
@@ -15,8 +16,6 @@ import micdoodle8.mods.galacticraft.planets.asteroids.client.jei.tier3rocket.Tie
 import micdoodle8.mods.galacticraft.planets.asteroids.client.jei.tier3rocket.Tier3RocketRecipeMaker;
 import micdoodle8.mods.galacticraft.planets.asteroids.client.jei.tier3rocket.Tier3RocketRecipeWrapper;
 import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
 
 @JEIPlugin
 public class GalacticraftAsteroidsJEI extends BlankModPlugin

@@ -1,11 +1,10 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.jei.tier2rocket;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.recipe.INasaWorkbenchRecipe;
 import micdoodle8.mods.galacticraft.core.client.jei.tier1rocket.Tier1RocketRecipeMaker;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Tier2RocketRecipeMaker
 {

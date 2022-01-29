@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.venus;
 
+import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
 import micdoodle8.mods.galacticraft.core.items.ItemBlockGC;
@@ -78,7 +79,7 @@ public class VenusBlocks
 
     public static void registerBlock(Block block, Class<? extends ItemBlock> itemClass)
     {
-        GCBlocks.registerBlock(block, itemClass);
+        GCBlocks.register(Constants.MOD_ID_PLANETS, block, itemClass);
     }
 
     public static void registerBlocks()

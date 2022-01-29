@@ -1,28 +1,25 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
-
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
 import micdoodle8.mods.galacticraft.api.world.AtmosphereInfo;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
 import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.api.world.IMobSpawnBiome;
-
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 public abstract class CelestialBody implements Comparable<CelestialBody>
@@ -66,7 +63,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     public abstract int getID();
 
     public abstract String getTranslationKeyPrefix();
-    
+
     public String getName()
     {
         return this.bodyName;
@@ -219,6 +216,18 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
         return this;
     }
 
+    public CelestialBody atmosphereComponents(EnumAtmosphericGas... gasses)
+    {
+        this.atmosphere.composition.addAll(Arrays.asList(gasses));
+        return this;
+    }
+
+    public CelestialBody atmosphereComponents(Collection<EnumAtmosphericGas> collection)
+    {
+        this.atmosphere.composition.addAll(collection);
+        return this;
+    }
+
     public CelestialBody setRingColorRGB(float ringColorR, float ringColorG, float ringColorB)
     {
         this.ringColorR = ringColorR;
@@ -329,8 +338,8 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
 
     public void setBiomeInfo(Biome... biomes)
     {
-        this.biomeInfo = new LinkedList<Biome>();
-        this.biomesToGenerate = new LinkedList<Biome>();
+        this.biomeInfo = new LinkedList<>();
+        this.biomesToGenerate = new LinkedList<>();
         LinkedList<BiomeGenBaseGC> adaptiveBiomes = new LinkedList<>();
         int index = 0;
         for (Biome b : biomes)
@@ -357,7 +366,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     {
         if (this.mobInfo == null)
         {
-            this.mobInfo = new LinkedList<SpawnListEntry>();
+            this.mobInfo = new LinkedList<>();
         }
         this.mobInfo.add(entry);
     }
@@ -390,15 +399,15 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
         }
         return null;
     }
-    
+
     // DEPRECIATED METHODS
-    
+
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
     @ReplaceWith("getTranslationKeyPrefix()")
     public abstract String getUnlocalizedNamePrefix();
 
-    
+
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
     @ReplaceWith("getTranslationKey()")
@@ -406,7 +415,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     {
         return getTranslationKey();
     }
-    
+
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
     @ReplaceWith("getTranslatedName()")

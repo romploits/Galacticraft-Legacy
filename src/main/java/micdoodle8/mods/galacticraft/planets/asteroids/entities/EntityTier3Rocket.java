@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.entities;
 
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntityTieredRocket;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;

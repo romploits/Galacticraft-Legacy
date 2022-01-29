@@ -1,7 +1,8 @@
 package micdoodle8.mods.galacticraft.core.client.fx;
 
+import java.util.LinkedList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.blocks.BlockGrating;
-
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.Particle;
@@ -11,9 +12,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public abstract class EntityFXLaunchParticle extends Particle

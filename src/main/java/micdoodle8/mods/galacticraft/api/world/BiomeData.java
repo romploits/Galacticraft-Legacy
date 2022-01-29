@@ -1,11 +1,10 @@
 package micdoodle8.mods.galacticraft.api.world;
 
-import net.minecraft.world.biome.Biome.BiomeProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minecraft.world.biome.Biome.BiomeProperties;
 
 @Builder
 @Data

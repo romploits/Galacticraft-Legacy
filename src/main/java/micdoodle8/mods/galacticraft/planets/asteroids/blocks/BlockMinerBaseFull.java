@@ -1,5 +1,8 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.blocks;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.blocks.BlockTileGC;
 import micdoodle8.mods.galacticraft.planets.asteroids.tile.TileEntityMinerBase;
 import net.minecraft.block.SoundType;
@@ -20,10 +23,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class BlockMinerBaseFull extends BlockTileGC
 {

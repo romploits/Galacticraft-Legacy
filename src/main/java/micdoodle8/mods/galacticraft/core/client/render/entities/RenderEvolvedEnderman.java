@@ -1,20 +1,18 @@
 package micdoodle8.mods.galacticraft.core.client.render.entities;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.gui.overlay.OverlaySensorGlasses;
 import micdoodle8.mods.galacticraft.core.client.model.ModelEvolvedEnderman;
 import micdoodle8.mods.galacticraft.core.client.render.entities.layer.LayerEvolvedEndermanEyes;
 import micdoodle8.mods.galacticraft.core.client.render.entities.layer.LayerEvolvedEndermanHeldBlock;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedEnderman;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class RenderEvolvedEnderman extends RenderLiving<EntityEvolvedEnderman>

@@ -1,7 +1,8 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -10,12 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.input.Keyboard;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public abstract class ItemDesc extends Item implements IShiftDescription
 {

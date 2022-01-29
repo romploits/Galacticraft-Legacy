@@ -1,15 +1,13 @@
 package micdoodle8.mods.galacticraft.core.client.gui.screen;
 
+import java.util.Set;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
 import net.minecraftforge.fml.client.config.GuiConfig;
-
-import java.util.Set;
 
 public class ConfigGuiFactoryCore implements IModGuiFactory
 {

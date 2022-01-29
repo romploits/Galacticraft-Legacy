@@ -1,10 +1,9 @@
 package micdoodle8.mods.galacticraft.api.event.wgen;
 
+import java.util.Random;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.Event;
-
-import java.util.Random;
 
 /**
  * Event is thrown when a chunk is populated on planets. <p> If you're adding

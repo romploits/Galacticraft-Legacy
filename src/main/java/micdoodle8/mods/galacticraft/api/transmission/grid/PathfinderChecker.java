@@ -3,7 +3,6 @@ package micdoodle8.mods.galacticraft.api.transmission.grid;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.tile.INetworkConnection;
 import micdoodle8.mods.galacticraft.api.transmission.tile.ITransmitter;

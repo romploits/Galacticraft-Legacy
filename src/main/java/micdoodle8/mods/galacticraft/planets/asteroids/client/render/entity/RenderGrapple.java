@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.client.render.entity;
 
 import com.google.common.base.Function;
-
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.asteroids.client.render.item.ItemModelGrapple;

@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.tile;
 
+import java.util.Random;
+import micdoodle8.mods.galacticraft.core.tile.TileEntityInventory;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ItemStackHelper;
@@ -13,10 +15,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
-
-import java.util.Random;
-
-import micdoodle8.mods.galacticraft.core.tile.TileEntityInventory;
 
 public class TileEntityCrashedProbe extends TileEntityInventory
 {

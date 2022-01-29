@@ -1,10 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.jei.methanesynth;
 
+import javax.annotation.Nonnull;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
 
 public class MethaneSynthRecipeWrapper implements IRecipeWrapper
 {

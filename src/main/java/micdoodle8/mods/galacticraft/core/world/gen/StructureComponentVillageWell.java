@@ -1,5 +1,8 @@
 package micdoodle8.mods.galacticraft.core.world.gen;
 
+import java.util.List;
+import java.util.Random;
+import micdoodle8.mods.galacticraft.core.GCBlocks;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -8,11 +11,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-
-import java.util.List;
-import java.util.Random;
-
-import micdoodle8.mods.galacticraft.core.GCBlocks;
 
 public class StructureComponentVillageWell extends StructureComponentVillage
 {

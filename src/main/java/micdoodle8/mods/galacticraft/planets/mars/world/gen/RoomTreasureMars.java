@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.world.gen;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityTreasureChest;
@@ -14,8 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import java.util.Random;
 
 public class RoomTreasureMars extends RoomTreasure
 {

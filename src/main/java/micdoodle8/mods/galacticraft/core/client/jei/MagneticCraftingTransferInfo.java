@@ -1,14 +1,11 @@
 package micdoodle8.mods.galacticraft.core.client.jei;
 
-import micdoodle8.mods.galacticraft.core.inventory.ContainerCrafting;
-
-import net.minecraft.inventory.Slot;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
+import micdoodle8.mods.galacticraft.core.inventory.ContainerCrafting;
+import net.minecraft.inventory.Slot;
 
 public class MagneticCraftingTransferInfo implements IRecipeTransferInfo<ContainerCrafting>
 {

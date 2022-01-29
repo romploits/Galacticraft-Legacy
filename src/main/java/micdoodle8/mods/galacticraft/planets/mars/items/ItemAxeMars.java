@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.mars.items;
 
 import com.google.common.collect.Sets;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.ISortableItem;
@@ -14,8 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Set;
 
 public class ItemAxeMars extends ItemTool implements ISortableItem, GCRarity
 {

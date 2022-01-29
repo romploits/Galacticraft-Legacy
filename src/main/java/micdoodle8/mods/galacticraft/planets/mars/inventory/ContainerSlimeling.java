@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.inventory;
 
+import java.util.Collections;
 import micdoodle8.mods.galacticraft.core.inventory.SlotSpecific;
 import micdoodle8.mods.galacticraft.planets.mars.entities.EntitySlimeling;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
@@ -8,8 +9,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-
-import java.util.Collections;
 
 public class ContainerSlimeling extends Container
 {

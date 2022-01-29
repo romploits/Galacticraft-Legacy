@@ -1,26 +1,23 @@
 package micdoodle8.mods.galacticraft.core.client.render;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import net.minecraft.client.renderer.IImageBuffer;
-import net.minecraft.client.renderer.texture.SimpleTexture;
-import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.imageio.ImageIO;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import net.minecraft.client.renderer.IImageBuffer;
+import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.client.renderer.texture.TextureUtil;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @SideOnly(Side.CLIENT)
 public class ThreadDownloadImageDataGC extends SimpleTexture
@@ -90,7 +87,7 @@ public class ThreadDownloadImageDataGC extends SimpleTexture
         {
             if (this.field_152434_e != null && this.field_152434_e.isFile())
             {
-                FMLLog.fine("Loading http texture from local cache (%s)", this.field_152434_e);
+                GalacticraftCore.logger.debug("Loading http texture from local cache (%s)", this.field_152434_e);
 
                 try
                 {
@@ -121,7 +118,7 @@ public class ThreadDownloadImageDataGC extends SimpleTexture
             public void run()
             {
                 HttpURLConnection httpurlconnection = null;
-                FMLLog.fine("Downloading http texture from %s to %s", ThreadDownloadImageDataGC.this.imageUrl, ThreadDownloadImageDataGC.this.field_152434_e);
+                GalacticraftCore.logger.debug("Downloading http texture from %s to %s", ThreadDownloadImageDataGC.this.imageUrl, ThreadDownloadImageDataGC.this.field_152434_e);
 
                 try
                 {

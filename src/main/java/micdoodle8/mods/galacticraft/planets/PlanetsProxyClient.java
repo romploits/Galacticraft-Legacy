@@ -1,22 +1,17 @@
 package micdoodle8.mods.galacticraft.planets;
 
+import com.google.common.collect.Lists;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.client.model.OBJLoaderGC;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
-
 import micdoodle8.mods.galacticraft.planets.asteroids.AsteroidsModuleClient;
 import micdoodle8.mods.galacticraft.planets.mars.MarsModuleClient;
 import micdoodle8.mods.galacticraft.planets.venus.VenusModuleClient;
-
 import net.minecraft.item.Item;
-
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-
-import java.util.List;
-
-import com.google.common.collect.Lists;
 
 public class PlanetsProxyClient extends PlanetsProxy
 {

@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.blocks;
 
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.blocks.BlockAdvancedTile;
 import micdoodle8.mods.galacticraft.planets.asteroids.tile.TileEntityTelepadFake;

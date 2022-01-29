@@ -1,9 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.client;
 
 import java.util.Random;
-
-import org.lwjgl.opengl.GL11;
-
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
@@ -23,6 +20,7 @@ import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class SkyProviderAsteroids extends IRenderHandler

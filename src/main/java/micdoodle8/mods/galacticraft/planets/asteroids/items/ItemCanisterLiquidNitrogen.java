@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.core.items.ISortableItem;
 import micdoodle8.mods.galacticraft.core.items.ItemCanisterGeneric;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
@@ -21,10 +23,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemCanisterLiquidNitrogen extends ItemCanisterGeneric implements ISortableItem
 {
@@ -108,14 +106,12 @@ public class ItemCanisterLiquidNitrogen extends ItemCanisterGeneric implements I
 
                 IBlockState state = worldIn.getBlockState(pos);
                 Block b = state.getBlock();
-                int meta = b.getMetaFromState(state);
 
                 Block result = this.canFreeze(b);
                 if (result != null)
                 {
                     this.setNewDamage(itemStack, damage);
-                    worldIn.playSound(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.NEUTRAL, 1.0F,
-                        Item.itemRand.nextFloat() * 0.4F + 0.8F);
+                    worldIn.playSound(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.NEUTRAL, 1.0F, Item.itemRand.nextFloat() * 0.4F + 0.8F);
                     worldIn.setBlockState(pos, result.getDefaultState(), 3);
                     return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
                 }

@@ -1,5 +1,8 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.world.gen.base;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.planets.asteroids.blocks.AsteroidBlocks;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
@@ -14,10 +17,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class BaseDeck extends SizedPiece
 {

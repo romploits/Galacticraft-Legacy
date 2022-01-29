@@ -12,7 +12,6 @@ import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.tick.TickHandlerClient;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
@@ -97,7 +96,7 @@ public class ConnectionEvents
             {
                 ids += idList[j].toString() + " ";
             }
-            GCLog.info("Galacticraft server sending dimension IDs to connecting client: " + ids);
+            GalacticraftCore.logger.info("Galacticraft server sending dimension IDs to connecting client: " + ids);
         }
         event.getManager().sendPacket(ConnectionPacket.createDimPacket(WorldUtil.getPlanetListInts()));
         event.getManager().sendPacket(ConnectionPacket.createSSPacket(WorldUtil.getSpaceStationListInts()));

@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.inventory;
 
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.recipe.INasaWorkbenchRecipe;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;

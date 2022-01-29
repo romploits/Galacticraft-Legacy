@@ -17,6 +17,10 @@ import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.ISpecialElectricItem;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Set;
 import mekanism.api.energy.IEnergizedItem;
 import mekanism.api.energy.IStrictEnergyAcceptor;
 import mekanism.api.energy.IStrictEnergyOutputter;
@@ -29,11 +33,11 @@ import micdoodle8.mods.galacticraft.api.transmission.tile.IConductor;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConnector;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IElectrical;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.tile.EnergyStorageTile;
 import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseConductor;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,11 +47,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Set;
 
 public class EnergyUtil
 {
@@ -504,7 +503,7 @@ public class EnergyUtil
         } else if (isRF2Loaded && !EnergyConfigHandler.disableRFOutput && tileAdj instanceof IEnergyReceiver)
         {
             float sent = ((IEnergyReceiver) tileAdj).receiveEnergy(inputAdj, (int) Math.floor(toSend * EnergyConfigHandler.TO_RF_RATIO), simulate) / EnergyConfigHandler.TO_RF_RATIO;
-//          GCLog.debug("Beam/storage offering RF2 up to " + toSend + " into pipe, it accepted " + sent);
+//          GalacticraftCore.logger.debug("Beam/storage offering RF2 up to " + toSend + " into pipe, it accepted " + sent);
             return sent;
         } else if (!EnergyConfigHandler.disableFEOutput && hasCapability(tileAdj, net.minecraftforge.energy.CapabilityEnergy.ENERGY, inputAdj))
         {
@@ -704,7 +703,7 @@ public class EnergyUtil
 
         if (isIC2Loaded)
         {
-            GCLog.debug("Initialising IC2 methods OK");
+            GalacticraftCore.logger.debug("Initialising IC2 methods OK");
 
             try
             {
@@ -720,7 +719,7 @@ public class EnergyUtil
                 clazzIC2Cable = Class.forName("ic2.api.energy.tile.IEnergyConductor");
                 Class<?> clazz = Class.forName("ic2.api.energy.tile.IEnergySink");
 
-                GCLog.debug("Found IC2 IEnergySink class OK");
+                GalacticraftCore.logger.debug("Found IC2 IEnergySink class OK");
 
                 try
                 {
@@ -737,20 +736,20 @@ public class EnergyUtil
                     }
                 }
 
-                GCLog.debug("Set IC2 demandedEnergy method OK");
+                GalacticraftCore.logger.debug("Set IC2 demandedEnergy method OK");
 
                 try
                 {
                     EnergyUtil.injectEnergyIC2 = clazz.getMethod("injectEnergy", EnumFacing.class, double.class, double.class);
                     EnergyUtil.voltageParameterIC2 = true;
-                    GCLog.debug("Set IC2 injectEnergy method OK");
+                    GalacticraftCore.logger.debug("Set IC2 injectEnergy method OK");
                 } catch (Exception e)
                 {
                     // if that fails, try legacy version
                     try
                     {
                         EnergyUtil.injectEnergyIC2 = clazz.getMethod("injectEnergyUnits", EnumFacing.class, double.class);
-                        GCLog.debug("IC2 inject 1.7.2 succeeded");
+                        GalacticraftCore.logger.debug("IC2 inject 1.7.2 succeeded");
                     } catch (Exception ee)
                     {
                         ee.printStackTrace();

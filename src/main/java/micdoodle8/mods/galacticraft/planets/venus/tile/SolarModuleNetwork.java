@@ -1,15 +1,17 @@
 package micdoodle8.mods.galacticraft.planets.venus.tile;
 
 import com.google.common.collect.Lists;
-
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.api.transmission.grid.IGridNetwork;
 import micdoodle8.mods.galacticraft.api.transmission.tile.ITransmitter;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
-import java.util.*;
 
 /**
  * A universal network that works with multiple energy systems.

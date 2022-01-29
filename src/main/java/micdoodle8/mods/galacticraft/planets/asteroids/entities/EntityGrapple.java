@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.asteroids.entities;
 
 import java.util.List;
 import java.util.Objects;
-
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.api.world.IZeroGDimension;
 import micdoodle8.mods.galacticraft.core.Constants;

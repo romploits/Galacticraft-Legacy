@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.venus.client.gui;
 
+import java.io.IOException;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementSpinner;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
@@ -12,8 +13,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
 
 public class GuiLaserTurretEditPriority extends GuiScreen implements GuiElementSpinner.ISpinnerCallback
 {

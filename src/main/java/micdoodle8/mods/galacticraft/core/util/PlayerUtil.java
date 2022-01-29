@@ -1,11 +1,13 @@
 package micdoodle8.mods.galacticraft.core.util;
 
 import com.mojang.authlib.GameProfile;
-
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
-
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,11 +16,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
 
 public class PlayerUtil
 {
@@ -62,7 +59,7 @@ public class PlayerUtil
             }
         }
 
-        GCLog.error("Warning: Could not find player base server instance for player " + username);
+        GalacticraftCore.logger.error("Warning: Could not find player base server instance for player " + username);
 
         return null;
     }
@@ -89,7 +86,7 @@ public class PlayerUtil
 
         if (clientPlayer == null && player != null)
         {
-            GCLog.error("Warning: Could not find player base client instance for player " + PlayerUtil.getName(player));
+            GalacticraftCore.logger.error("Warning: Could not find player base client instance for player " + PlayerUtil.getName(player));
         }
 
         return clientPlayer;

@@ -1,7 +1,7 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.HashMap;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -17,8 +17,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-
-import java.util.HashMap;
 
 public abstract class TileEntityInventory extends TileEntity implements ISidedInventory
 {

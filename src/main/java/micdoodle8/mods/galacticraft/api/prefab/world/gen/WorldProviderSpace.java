@@ -1,13 +1,15 @@
 package micdoodle8.mods.galacticraft.api.prefab.world.gen;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
-
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.JavaUtil;
-
 import net.minecraft.command.CommandTime;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -20,13 +22,8 @@ import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.IChunkGenerator;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.util.Arrays;
 
 public abstract class WorldProviderSpace extends WorldProvider implements IGalacticraftWorldProvider
 {
@@ -48,12 +45,12 @@ public abstract class WorldProviderSpace extends WorldProvider implements IGalac
     }
 
     /**
-     * The fog color in this dimension
+     * @return The fog color in this dimension
      */
     public abstract Vector3 getFogColor();
 
     /**
-     * The sky color in this dimension
+     * @return The sky color in this dimension
      */
     public abstract Vector3 getSkyColor();
 
@@ -64,9 +61,10 @@ public abstract class WorldProviderSpace extends WorldProvider implements IGalac
      *             IGalacticraftWorldProvider interface
      */
     @Deprecated
+    @ForRemoval(deadline = "4.1.0")
     public boolean canRainOrSnow()
     {
-        return false;
+        return this.shouldDisablePrecipitation();
     }
 
     /**
@@ -82,7 +80,6 @@ public abstract class WorldProviderSpace extends WorldProvider implements IGalac
 
     public abstract Class<? extends IChunkGenerator> getChunkProviderClass();
 
-    @Deprecated
     /**
      * If possible you should not override this so that BiomeProviderDefault is
      * used (see Moon, Mars and Asteroids for examples)
@@ -394,11 +391,15 @@ public abstract class WorldProviderSpace extends WorldProvider implements IGalac
             for (int i = 0; i < constructors.length; i++)
             {
                 Constructor<?> constr = constructors[i];
-                if (Arrays.equals(constr.getParameterTypes(), new Object[]
-                {World.class, long.class, boolean.class}))
+                if (Arrays.equals(constr.getParameterTypes(), new Object[] {World.class, long.class, boolean.class}))
                 {
                     return (IChunkGenerator) constr.newInstance(this.world, this.world.getSeed(), this.world.getWorldInfo().isMapFeaturesEnabled());
-                } else if (constr.getParameterTypes().length == 0)
+                }
+                if(Arrays.equals(constr.getParameterTypes(), new Object[] {World.class, long.class}))
+                {
+                    return (IChunkGenerator) constr.newInstance(this.world, this.world.getSeed());
+                }
+                else if (constr.getParameterTypes().length == 0)
                 {
                     return (IChunkGenerator) constr.newInstance();
                 }

@@ -2,19 +2,18 @@ package micdoodle8.mods.galacticraft.core.util;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.BiomeProperties;
-import org.apache.commons.lang3.StringUtils;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Optional;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import net.minecraft.launchwrapper.Launch;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.BiomeProperties;
+import org.apache.commons.lang3.StringUtils;
 
 public class ASMUtil {
 
@@ -31,7 +30,7 @@ public class ASMUtil {
         try {
             return constructor.newInstance(arguments);
         } catch (Exception e) {
-            GCLog.error("Exception creating instance of " + constructor.getClass().getName());
+            GalacticraftCore.logger.error("Exception creating instance of " + constructor.getClass().getName());
         }
         return null;
     }
@@ -45,7 +44,7 @@ public class ASMUtil {
             }
             return (T) clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            GCLog.error("Exception creating instance of " + className);
+            GalacticraftCore.logger.error("Exception creating instance of " + className);
         }
         return null;
     }
@@ -59,7 +58,7 @@ public class ASMUtil {
      */
     public static Constructor<?> getConstructor(final String className, final Class<?>... argumentTypes) {
         if (className == null || argumentTypes == null) {
-            GCLog.error("The provided class name or arguments can't be null.");
+            GalacticraftCore.logger.error("The provided class name or arguments can't be null.");
             return null;
         }
         try {
@@ -68,7 +67,7 @@ public class ASMUtil {
             constructor.setAccessible(true);
             return constructor;
         } catch (Exception ex) {
-            GCLog.error("Exception getting constructor of " + className);
+            GalacticraftCore.logger.error("Exception getting constructor of " + className);
         }
         return null;
     }
@@ -86,7 +85,7 @@ public class ASMUtil {
             constructor.setAccessible(true);
             return constructor;
         } catch (Exception ex) {
-            GCLog.error("Exception getting constructor of " + clazz.getName());
+            GalacticraftCore.logger.error("Exception getting constructor of " + clazz.getName());
         }
         return null;
     }
@@ -107,10 +106,10 @@ public class ASMUtil {
                 result.setAccessible(true);
                 return (T) result.get(object);
             } catch (Exception ex) {
-                GCLog.error("Exception in getObject()");
+                GalacticraftCore.logger.error("Exception in getObject()");
             }
         }
-        GCLog.error("Could not retrieve any object for the provided field names.");
+        GalacticraftCore.logger.error("Could not retrieve any object for the provided field names.");
 
         return null;
     }
@@ -134,10 +133,10 @@ public class ASMUtil {
                 modifiersField.setInt(result, result.getModifiers() & ~Modifier.FINAL);
                 return (T) result.get(object);
             } catch (Exception ex) {
-                GCLog.error("Exception in getFinalObject()");
+                GalacticraftCore.logger.error("Exception in getFinalObject()");
             }
         }
-        GCLog.error("Could not retrieve any final object for the provided field names.");
+        GalacticraftCore.logger.error("Could not retrieve any final object for the provided field names.");
 
         return null;
     }
@@ -217,7 +216,7 @@ public class ASMUtil {
         try {
             field.set(clazz, value);
         } catch (IllegalArgumentException | IllegalAccessException e) {
-            GCLog.error("An error occured when attempting to set static Field [ " + fieldName + " ]");
+            GalacticraftCore.logger.error("An error occured when attempting to set static Field [ " + fieldName + " ]");
         }
     }
 
@@ -251,7 +250,7 @@ public class ASMUtil {
             }
         }
         if (field == null) {
-            GCLog.error("Can't get [ " + fieldName + " ] Field from Class [ " + clazz.getSimpleName() + " ]");
+            GalacticraftCore.logger.error("Can't get [ " + fieldName + " ] Field from Class [ " + clazz.getSimpleName() + " ]");
         }
         sFieldCache.put(fullFieldName, field);
         return field;

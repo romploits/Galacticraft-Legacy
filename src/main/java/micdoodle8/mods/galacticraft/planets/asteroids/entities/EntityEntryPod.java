@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.asteroids.entities;
 
 import java.util.Map;
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.entity.ICameraZoomEntity;
 import micdoodle8.mods.galacticraft.api.entity.IIgnoreShift;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;

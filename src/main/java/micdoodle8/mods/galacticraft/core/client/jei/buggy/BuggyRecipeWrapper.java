@@ -1,15 +1,11 @@
 package micdoodle8.mods.galacticraft.core.client.jei.buggy;
 
 import com.google.common.collect.Lists;
-
-import micdoodle8.mods.galacticraft.api.recipe.INasaWorkbenchRecipe;
-
-import net.minecraft.item.ItemStack;
-
 import javax.annotation.Nonnull;
-
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import micdoodle8.mods.galacticraft.api.recipe.INasaWorkbenchRecipe;
+import net.minecraft.item.ItemStack;
 
 public class BuggyRecipeWrapper implements IRecipeWrapper
 {

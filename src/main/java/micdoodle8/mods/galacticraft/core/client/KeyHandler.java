@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.client;
 
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -10,7 +9,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
 import net.minecraftforge.fml.relauncher.Side;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -84,7 +82,7 @@ public abstract class KeyHandler
                 }
             } catch (IndexOutOfBoundsException e)
             {
-                GCLog.error("Invalid keybinding! " + keyBinding.getKeyDescription());
+                GalacticraftCore.logger.error("Invalid keybinding! " + keyBinding.getKeyDescription());
                 continue;
             }
 

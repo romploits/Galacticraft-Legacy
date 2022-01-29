@@ -1,9 +1,11 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen;
 
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.MapGenBaseMeta;
 import micdoodle8.mods.galacticraft.api.world.ChunkProviderBase;
-import micdoodle8.mods.galacticraft.core.perlin.generator.Gradient;
+import micdoodle8.mods.galacticraft.core.perlin.generator.GradientNoise;
 import micdoodle8.mods.galacticraft.planets.venus.VenusBlocks;
 import micdoodle8.mods.galacticraft.planets.venus.blocks.BlockBasicVenus;
 import micdoodle8.mods.galacticraft.planets.venus.world.gen.dungeon.DungeonConfigurationVenus;
@@ -26,9 +28,6 @@ import net.minecraft.world.gen.NoiseGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
-import java.util.List;
-import java.util.Random;
-
 public class ChunkProviderVenus extends ChunkProviderBase
 {
 
@@ -42,7 +41,7 @@ public class ChunkProviderVenus extends ChunkProviderBase
     private NoiseGeneratorOctaves noiseGen5;
     private NoiseGeneratorOctaves noiseGen6;
     private NoiseGeneratorOctaves mobSpawnerNoise;
-    private final Gradient noiseGenSmooth1;
+    private final GradientNoise noiseGenSmooth1;
     private World world;
     private WorldType worldType;
     private final double[] terrainCalcs;
@@ -72,7 +71,7 @@ public class ChunkProviderVenus extends ChunkProviderBase
         this.noiseGen5 = new NoiseGeneratorOctaves(this.rand, 10);
         this.noiseGen6 = new NoiseGeneratorOctaves(this.rand, 16);
         this.mobSpawnerNoise = new NoiseGeneratorOctaves(this.rand, 8);
-        this.noiseGenSmooth1 = new Gradient(this.rand.nextLong(), 4, 0.25F);
+        this.noiseGenSmooth1 = new GradientNoise(this.rand.nextLong(), 4, 0.25D);
         this.terrainCalcs = new double[825];
         this.parabolicField = new float[25];
 
@@ -98,7 +97,7 @@ public class ChunkProviderVenus extends ChunkProviderBase
 
     private void setBlocksInChunk(int chunkX, int chunkZ, ChunkPrimer primer)
     {
-        this.noiseGenSmooth1.setFrequency(0.015F);
+        this.noiseGenSmooth1.setFrequencyAll(0.014999999664723873D);
         this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, chunkX * 4 - 2, chunkZ * 4 - 2, 10, 10);
         this.createLandPerBiome(chunkX * 4, chunkZ * 4);
 
@@ -142,7 +141,7 @@ public class ChunkProviderVenus extends ChunkProviderBase
 
                             for (int l2 = 0; l2 < 4; ++l2)
                             {
-                                if ((lvt_45_1_ += d16) > this.noiseGenSmooth1.getNoise(chunkX * 16 + (i * 4 + k2), chunkZ * 16 + (l * 4 + l2)) * 20.0)
+                                if ((lvt_45_1_ += d16) > this.noiseGenSmooth1.evalNoise(chunkX * 16 + (i * 4 + k2), chunkZ * 16 + (l * 4 + l2)) * 20.0)
                                 {
                                     primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, BLOCK_FILL);
                                 }
@@ -162,17 +161,17 @@ public class ChunkProviderVenus extends ChunkProviderBase
         }
     }
 
-    private void replaceBlocksForBiome(int p_180517_1_, int p_180517_2_, ChunkPrimer p_180517_3_, Biome[] p_180517_4_)
+    private void replaceBlocksForBiome(int x, int z, ChunkPrimer primer, Biome[] biomes)
     {
         double d0 = 0.03125D;
-        this.stoneNoise = this.noiseGen4.getRegion(this.stoneNoise, (double) (p_180517_1_ * 16), (double) (p_180517_2_ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
+        this.stoneNoise = this.noiseGen4.getRegion(this.stoneNoise, (double) (x * 16), (double) (z * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
 
         for (int i = 0; i < 16; ++i)
         {
             for (int j = 0; j < 16; ++j)
             {
-                Biome biomegenbase = p_180517_4_[j + i * 16];
-                biomegenbase.genTerrainBlocks(this.world, this.rand, p_180517_3_, p_180517_1_ * 16 + i, p_180517_2_ * 16 + j, this.stoneNoise[j + i * 16]);
+                Biome biomegenbase = biomes[j + i * 16];
+                biomegenbase.genTerrainBlocks(this.world, this.rand, primer, x * 16 + i, z * 16 + j, this.stoneNoise[j + i * 16]);
             }
         }
     }

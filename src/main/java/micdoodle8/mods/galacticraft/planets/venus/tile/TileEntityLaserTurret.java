@@ -1,14 +1,12 @@
 package micdoodle8.mods.galacticraft.planets.venus.tile;
 
+import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.Lists;
+import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
-
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Lists;
-
-import io.netty.buffer.ByteBuf;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.entity.ILaserTrackableFast;

@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.IShiftDescription;
@@ -30,10 +32,6 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemVolcanicPickaxe extends ItemPickaxe implements ISortableItem, IShiftDescription, GCRarity
 {

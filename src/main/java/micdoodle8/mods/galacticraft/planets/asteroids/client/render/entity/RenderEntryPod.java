@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.client.render.entity;
 
 import com.google.common.collect.ImmutableList;
-
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.asteroids.entities.EntityEntryPod;
@@ -15,7 +14,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
-
 import org.lwjgl.opengl.GL11;
 
 public class RenderEntryPod extends Render<EntityEntryPod>

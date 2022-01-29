@@ -1,15 +1,12 @@
 package micdoodle8.mods.galacticraft.core.client.gui.element;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
-
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.input.Mouse;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GuiElementGradientList extends Gui
 {

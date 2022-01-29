@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.world.gen;
 
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
 import micdoodle8.mods.galacticraft.api.world.ChunkProviderBase;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
@@ -13,8 +15,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import java.util.List;
-import java.util.Random;
 
 public class ChunkProviderOrbit extends ChunkProviderBase
 {
@@ -23,10 +23,10 @@ public class ChunkProviderOrbit extends ChunkProviderBase
 
     private final World world;
 
-    public ChunkProviderOrbit(World par1World, long par2, boolean par4)
+    public ChunkProviderOrbit(World world, long seed, boolean mapFeaturesEnabled)
     {
-        this.rand = new Random(par2);
-        this.world = par1World;
+        this.rand = new Random(seed);
+        this.world = world;
     }
 
     @Override

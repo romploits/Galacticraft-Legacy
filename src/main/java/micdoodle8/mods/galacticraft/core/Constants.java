@@ -9,25 +9,25 @@ public class Constants
     public static final String MOD_ID_PLANETS = "galacticraftplanets";
     public static final String MOD_NAME_SIMPLE = "Galacticraft";
 
-//    public static final int LOCALMAJVERSION = 4;
-//    public static final int LOCALMINVERSION = 0;
-//    public static final int LOCALPATCHVERSION = 2;
-//    public static final String LOCALBUILDVERSION = "${build}";
-//    public static final String COMBINEDVERSION = LOCALMAJVERSION + "." + LOCALMINVERSION + "." + LOCALPATCHVERSION + "." + LOCALBUILDVERSION;
+    //    public static final int LOCALMAJVERSION = 4;
+    //    public static final int LOCALMINVERSION = 0;
+    //    public static final int LOCALPATCHVERSION = 2;
+    //    public static final String LOCALBUILDVERSION = "${build}";
+    //    public static final String COMBINEDVERSION = LOCALMAJVERSION + "." + LOCALMINVERSION + "." + LOCALPATCHVERSION + "." + LOCALBUILDVERSION;
 
     public static final String VERSION = "${gcVersion}";
-    
+
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
-    public static final String DEPENDENCIES_FORGE = "required-after:forge@[14.23.1.2555,); ";  //Keep the space at the end!
+    public static final String DEPENDENCIES_FORGE = "required-after:forge@[14.23.5.2860,); "; // Keep the space at the end!
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
     public static final String DEPENDENCIES_MICCORE = "required-after:micdoodlecore; ";  //Keep the space at the end!
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
     public static final String DEPENDENCIES_MODS = "after:ic2; after:tconstruct; after:mantle;";
-    
-    public static final String MCVERSION = "[1.12.2]";
+
+    public static final String MCVERSION = "[1.12)";
 
     public static final String CONFIG_CATEGORY_DIMENSIONS = "dimensions";
     public static final String CONFIG_CATEGORY_ENTITIES = "entities";
@@ -75,38 +75,38 @@ public class Constants
     public static final int GEAR_ID_SHIELD_CONTROLLER = 16;
 
     public static final double RENDERDISTANCE_SHORT = 16384D; // 128 squared (8
-                                                              // chunks range),
-                                                              // used for small
-                                                              // + high
-                                                              // frequency TESR
-                                                              // tiles like
-                                                              // Fluid Pipes
+    // chunks range),
+    // used for small
+    // + high
+    // frequency TESR
+    // tiles like
+    // Fluid Pipes
     public static final double RENDERDISTANCE_MEDIUM = 65536D; // 256 squared
-                                                               // (16 chunks
-                                                               // range), used
-                                                               // for standard
-                                                               // block-sized
-                                                               // TESR tiles
-                                                               // like Fluid
-                                                               // Tanks or
-                                                               // Treasure
-                                                               // Chests, also
-                                                               // heavy render
-                                                               // burden large
-                                                               // tiles like the
-                                                               // Dish and
-                                                               // Display Screen
+    // (16 chunks
+    // range), used
+    // for standard
+    // block-sized
+    // TESR tiles
+    // like Fluid
+    // Tanks or
+    // Treasure
+    // Chests, also
+    // heavy render
+    // burden large
+    // tiles like the
+    // Dish and
+    // Display Screen
     public static final double RENDERDISTANCE_LONG = 262144D; // 512 squared (32
-                                                              // chunks max
-                                                              // range), used
-                                                              // for uncommon,
-                                                              // large or extra
-                                                              // bright TESR
-                                                              // tiles like
-                                                              // Oxygen Bubble
-                                                              // Distributors,
-                                                              // Solar Panels or
-                                                              // Panel Lighting
+    // chunks max
+    // range), used
+    // for uncommon,
+    // large or extra
+    // bright TESR
+    // tiles like
+    // Oxygen Bubble
+    // Distributors,
+    // Solar Panels or
+    // Panel Lighting
 
     public static final float RADIANS_TO_DEGREES = 180F / 3.1415927F;
     public static final double RADIANS_TO_DEGREES_D = 180D / Math.PI;

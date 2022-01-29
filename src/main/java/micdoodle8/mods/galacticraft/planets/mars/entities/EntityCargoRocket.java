@@ -1,9 +1,8 @@
 package micdoodle8.mods.galacticraft.planets.mars.entities;
 
+import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.netty.buffer.ByteBuf;
 import micdoodle8.mods.galacticraft.api.entity.IRocketType;
 import micdoodle8.mods.galacticraft.api.entity.IWorldTransferCallback;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntityAutoRocket;
@@ -13,8 +12,8 @@ import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
 import micdoodle8.mods.galacticraft.planets.mars.util.MarsUtil;
 import net.minecraft.entity.Entity;
@@ -256,50 +255,50 @@ public class EntityCargoRocket extends EntityAutoRocket implements IRocketType, 
             return;
         }
 
-        GCLog.debug("[Serverside] Cargo rocket reached space, heading to " + this.destinationFrequency);
+        GalacticraftPlanets.logger.debug("[Serverside] Cargo rocket reached space, heading to " + this.destinationFrequency);
         this.setTarget(true, this.destinationFrequency);
 
         if (this.targetVec != null)
         {
-            GCLog.debug("Destination location = " + this.targetVec.toString());
+            GalacticraftPlanets.logger.debug("Destination location = " + this.targetVec.toString());
             if (this.targetDimension != GCCoreUtil.getDimensionID(this.world))
             {
-                GCLog.debug("Destination is in different dimension: " + this.targetDimension);
+                GalacticraftPlanets.logger.debug("Destination is in different dimension: " + this.targetDimension);
                 WorldProvider targetDim = WorldUtil.getProviderForDimensionServer(this.targetDimension);
                 if (targetDim != null && targetDim.world instanceof WorldServer)
                 {
-                    GCLog.debug("Loaded destination dimension " + this.targetDimension);
+                    GalacticraftPlanets.logger.debug("Loaded destination dimension " + this.targetDimension);
                     this.setPosition(this.targetVec.getX() + 0.5F, this.targetVec.getY() + 800, this.targetVec.getZ() + 0.5F);
                     Entity e = WorldUtil.transferEntityToDimension(this, this.targetDimension, (WorldServer) targetDim.world, false, null);
 
                     if (e instanceof EntityCargoRocket)
                     {
-                        GCLog.debug("Cargo rocket arrived at destination dimension, going into landing mode.");
+                        GalacticraftPlanets.logger.debug("Cargo rocket arrived at destination dimension, going into landing mode.");
                         e.setPosition(this.targetVec.getX() + 0.5F, this.targetVec.getY() + 800, this.targetVec.getZ() + 0.5F);
                         ((EntityCargoRocket) e).setLaunchPhase(EnumLaunchPhase.LANDING);
                         // No setDead() following successful
                         // transferEntityToDimension() - see javadoc on that
                     } else
                     {
-                        GCLog.info("Error: failed to recreate the cargo rocket in landing mode on target planet.");
+                        GalacticraftPlanets.logger.info("Error: failed to recreate the cargo rocket in landing mode on target planet.");
                         e.setDead();
                         this.setDead();
                     }
                     return;
                 }
-                GCLog.info("Error: the server failed to load the dimension the cargo rocket is supposed to land in. Destroying rocket!");
+                GalacticraftPlanets.logger.info("Error: the server failed to load the dimension the cargo rocket is supposed to land in. Destroying rocket!");
                 this.setDead();
                 return;
             } else
             {
-                GCLog.debug("Cargo rocket going into landing mode in same destination.");
+                GalacticraftPlanets.logger.debug("Cargo rocket going into landing mode in same destination.");
                 this.setPosition(this.targetVec.getX() + 0.5F, this.targetVec.getY() + 800, this.targetVec.getZ() + 0.5F);
                 this.setLaunchPhase(EnumLaunchPhase.LANDING);
                 return;
             }
         } else
         {
-            GCLog.info("Error: the cargo rocket failed to find a valid landing spot when it reached space.");
+            GalacticraftPlanets.logger.info("Error: the cargo rocket failed to find a valid landing spot when it reached space.");
             this.setDead();
         }
     }

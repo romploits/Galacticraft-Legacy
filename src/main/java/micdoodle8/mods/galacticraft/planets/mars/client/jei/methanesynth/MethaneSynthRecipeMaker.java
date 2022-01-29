@@ -1,12 +1,10 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.jei.methanesynth;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
+import net.minecraft.item.ItemStack;
 
 public class MethaneSynthRecipeMaker
 {

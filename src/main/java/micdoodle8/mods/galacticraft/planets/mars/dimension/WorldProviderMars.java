@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.mars.dimension;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.WorldProviderSpace;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;

@@ -1,12 +1,11 @@
 package micdoodle8.mods.galacticraft.planets.venus.client;
 
+import java.util.Random;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
-
-import java.util.Random;
 
 public class FakeLightningBoltRenderer
 {

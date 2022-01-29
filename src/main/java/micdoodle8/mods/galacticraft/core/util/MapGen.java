@@ -1,9 +1,17 @@
 package micdoodle8.mods.galacticraft.core.util;
 
-import org.apache.commons.io.FileUtils;
-
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.miccore.IntCache;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -16,17 +24,7 @@ import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.storage.WorldInfo;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
+import org.apache.commons.io.FileUtils;
 
 public class MapGen extends BiomeProvider implements Runnable
 {
@@ -149,8 +147,8 @@ public class MapGen extends BiomeProvider implements Runnable
             agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         } catch (Exception e)
         {
-            GCLog.error("Galacticraft background map image generator not able to run (probably a mod conflict?)");
-            GCLog.error("Please report this at https://github.com/micdoodle8/Galacticraft/issues/2481");
+            GalacticraftCore.logger.error("Galacticraft background map image generator not able to run (probably a mod conflict?)");
+            GalacticraftCore.logger.error("Please report this at https://github.com/micdoodle8/Galacticraft/issues/2481");
             e.printStackTrace();
             this.mapNeedsCalculating = false;
             MapGen.disabled = true;
@@ -159,7 +157,7 @@ public class MapGen extends BiomeProvider implements Runnable
         this.genBiomes = agenlayer[0];
         this.biomeIndexLayer = agenlayer[1];
 
-        GCLog.debug("Starting map generation " + file.getName() + " top left " + ((biomeMapCx - limitX) * 16) + "," + ((biomeMapCz - limitZ) * 16));
+        GalacticraftCore.logger.debug("Starting map generation " + file.getName() + " top left " + ((biomeMapCx - limitX) * 16) + "," + ((biomeMapCz - limitZ) * 16));
         if (progress > 0)
         {
             this.resumeProgress(progress);
@@ -294,7 +292,7 @@ public class MapGen extends BiomeProvider implements Runnable
         if (progX > biomeMapSizeX - imagefactor)
             return;
 
-        GCLog.debug("Saving partial map image progress " + progX);
+        GalacticraftCore.logger.debug("Saving partial map image progress " + progX);
         int offset = this.biomeAndHeightArray.length;
         this.biomeAndHeightArray[offset - 1] = (byte) 0xFE;
         this.biomeAndHeightArray[offset - 2] = (byte) 0x06;
@@ -402,8 +400,8 @@ public class MapGen extends BiomeProvider implements Runnable
             biomeMapOneChunk(biomeMapCx + biomeMapX, biomeMapCz + biomeMapZ, progX, progressZ, tickLimit);
         } catch (Exception e)
         {
-            GCLog.error("Galacticraft background map image generator hit an error (probably a mod conflict?)");
-            GCLog.error("--> Please report this at https://github.com/micdoodle8/Galacticraft/issues/2544 <--");
+            GalacticraftCore.logger.error("Galacticraft background map image generator hit an error (probably a mod conflict?)");
+            GalacticraftCore.logger.error("--> Please report this at https://github.com/micdoodle8/Galacticraft/issues/2544 <--");
             e.printStackTrace();
             MapGen.disabled = true;
             this.aborted.set(true);

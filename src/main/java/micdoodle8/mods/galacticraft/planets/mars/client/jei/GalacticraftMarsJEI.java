@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.jei;
 
+import javax.annotation.Nonnull;
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModRegistry;
@@ -22,8 +23,6 @@ import micdoodle8.mods.galacticraft.planets.mars.client.jei.tier2rocket.Tier2Roc
 import micdoodle8.mods.galacticraft.planets.mars.client.jei.tier2rocket.Tier2RocketRecipeMaker;
 import micdoodle8.mods.galacticraft.planets.mars.client.jei.tier2rocket.Tier2RocketRecipeWrapper;
 import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
 
 @JEIPlugin
 public class GalacticraftMarsJEI extends BlankModPlugin

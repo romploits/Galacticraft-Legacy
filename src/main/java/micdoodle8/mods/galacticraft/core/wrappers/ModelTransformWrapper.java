@@ -1,7 +1,8 @@
 package micdoodle8.mods.galacticraft.core.wrappers;
 
-import org.apache.commons.lang3.tuple.Pair;
-
+import java.util.List;
+import javax.annotation.Nullable;
+import javax.vecmath.Matrix4f;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -11,11 +12,7 @@ import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.model.TRSRTransformation;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
-import javax.vecmath.Matrix4f;
+import org.apache.commons.lang3.tuple.Pair;
 
 abstract public class ModelTransformWrapper implements IBakedModel
 {

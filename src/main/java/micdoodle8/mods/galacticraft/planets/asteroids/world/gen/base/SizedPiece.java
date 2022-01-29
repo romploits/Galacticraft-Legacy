@@ -1,11 +1,10 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.world.gen.base;
 
+import java.util.Random;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-
-import java.util.Random;
 
 public abstract class SizedPiece extends Piece
 {

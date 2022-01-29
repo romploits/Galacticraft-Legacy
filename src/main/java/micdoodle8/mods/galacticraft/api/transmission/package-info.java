@@ -1,4 +1,4 @@
-@API(apiVersion = "1.1", owner = "galacticraftcore", provides = "Galacticraft API")
+@API(apiVersion = "1.0", owner = "galacticraftcore", provides = "GalacticraftAPI|transmission")
 package micdoodle8.mods.galacticraft.api.transmission;
 
 import net.minecraftforge.fml.common.API;

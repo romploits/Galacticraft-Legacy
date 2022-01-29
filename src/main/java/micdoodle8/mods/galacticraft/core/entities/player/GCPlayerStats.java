@@ -1,10 +1,12 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicPage;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.inventory.InventoryExtended;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,10 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.List;
 
 public abstract class GCPlayerStats
 {

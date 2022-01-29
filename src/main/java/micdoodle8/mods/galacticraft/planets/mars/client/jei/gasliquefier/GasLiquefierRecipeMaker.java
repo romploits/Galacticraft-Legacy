@@ -1,11 +1,10 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.jei.gasliquefier;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GasLiquefierRecipeMaker
 {

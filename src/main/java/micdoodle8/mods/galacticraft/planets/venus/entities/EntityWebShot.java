@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.entities;
 
+import java.util.List;
+import micdoodle8.mods.galacticraft.core.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
@@ -15,10 +17,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import micdoodle8.mods.galacticraft.core.Constants;
 
 public class EntityWebShot extends Entity implements IProjectile
 {

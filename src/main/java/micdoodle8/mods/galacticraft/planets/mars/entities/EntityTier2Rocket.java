@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.mars.entities;
 
 import java.util.List;
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntityTieredRocket;
 import micdoodle8.mods.galacticraft.api.tile.IFuelDock;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;

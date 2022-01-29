@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.tile;
 
 import java.util.UUID;
-
 import micdoodle8.mods.galacticraft.planets.mars.entities.EntitySlimeling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;

@@ -1,5 +1,12 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.event.oxygen.GCCoreOxygenSuffocationEvent;
 import micdoodle8.mods.galacticraft.api.item.EnumExtendedInventorySlot;
@@ -38,7 +45,6 @@ import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.DamageSourceGC;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.OxygenUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
@@ -47,7 +53,6 @@ import micdoodle8.mods.galacticraft.core.wrappers.Footprint;
 import micdoodle8.mods.galacticraft.planets.asteroids.dimension.WorldProviderAsteroids;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemArmorAsteroids;
 import micdoodle8.mods.galacticraft.planets.venus.VenusItems;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -80,14 +85,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.server.permission.PermissionAPI;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.UUID;
 
 public class GCPlayerHandler
 {
@@ -1204,7 +1201,7 @@ public class GCPlayerHandler
             GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_UPDATE_DIMENSION_LIST, GCCoreUtil.getDimensionID(player.world), new Object[]
             {PlayerUtil.getName(player), temp, canCreateStations}), player);
             stats.setSavedPlanetList(temp);
-            // GCLog.debug("Sending to " + PlayerUtil.getName(player) + ": " +
+            // GalacticraftCore.logger.debug("Sending to " + PlayerUtil.getName(player) + ": " +
             // temp);
         }
     }
@@ -1286,7 +1283,7 @@ public class GCPlayerHandler
                 WorldServer worldNew = WorldUtil.getStartWorld(worldOld);
                 int dimID = GCCoreUtil.getDimensionID(worldNew);
                 player.dimension = dimID;
-                GCLog.debug("DEBUG: Sending respawn packet to player for dim " + dimID);
+                GalacticraftCore.logger.debug("DEBUG: Sending respawn packet to player for dim " + dimID);
                 player.connection.sendPacket(new SPacketRespawn(dimID, player.world.getDifficulty(), player.world.getWorldInfo().getTerrainType(), player.interactionManager.getGameType()));
 
                 if (worldNew.provider instanceof WorldProviderSpaceStation)
@@ -1304,7 +1301,7 @@ public class GCPlayerHandler
             final ITeleportType type = GalacticraftRegistry.getTeleportTypeForDimension(player.world.provider.getClass());
             Vector3 spawnPos = type.getPlayerSpawnLocation((WorldServer) player.world, player);
             ChunkPos pair = player.world.getChunk(spawnPos.intX() >> 4, spawnPos.intZ() >> 4).getPos();
-            GCLog.debug("Loading first chunk in new dimension.");
+            GalacticraftCore.logger.debug("Loading first chunk in new dimension.");
             ((WorldServer) player.world).getChunkProvider().loadChunk(pair.x, pair.z);
             player.setLocationAndAngles(spawnPos.x, spawnPos.y, spawnPos.z, player.rotationYaw, player.rotationPitch);
             type.setupAdventureSpawn(player);

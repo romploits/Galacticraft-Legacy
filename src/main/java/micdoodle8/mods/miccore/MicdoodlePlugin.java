@@ -1,22 +1,26 @@
 package micdoodle8.mods.miccore;
 
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.relauncher.IFMLCallHook;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.relauncher.IFMLCallHook;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @IFMLLoadingPlugin.TransformerExclusions(value =
 {"micdoodle8.mods.miccore"})
+@MCVersion("1.12.2")
 public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
 {
 
+    public static Logger miccoreLogger = LogManager.getLogger("MicdoodleCore");
     public static boolean hasRegistered = false;
     public static final String mcVersion = MinecraftForge.MC_VERSION;
     public static File mcDir;
@@ -25,8 +29,7 @@ public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
     @Override
     public String[] getASMTransformerClass()
     {
-        final String[] asmStrings = new String[]
-        {"micdoodle8.mods.miccore.MicdoodleTransformer"};
+        final String[] asmStrings = {"micdoodle8.mods.miccore.MicdoodleTransformer"};
 
         if (!MicdoodlePlugin.hasRegistered)
         {
@@ -40,11 +43,11 @@ public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
 
                     if (c != null)
                     {
-                        System.out.println("Successfully Registered Transformer");
+                        miccoreLogger.info("Successfully Registered Transformer");
                     }
                 } catch (final Exception ex)
                 {
-                    System.out.println("Error while running transformer " + s);
+                    miccoreLogger.error("Error while running transformer " + s);
                     return null;
                 }
             }

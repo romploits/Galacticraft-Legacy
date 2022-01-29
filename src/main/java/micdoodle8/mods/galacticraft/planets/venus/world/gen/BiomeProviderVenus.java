@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
 import micdoodle8.mods.galacticraft.planets.venus.VenusModule;
@@ -14,12 +18,6 @@ import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class BiomeProviderVenus extends BiomeProvider
 {

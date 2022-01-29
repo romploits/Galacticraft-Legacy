@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.asteroids.tile;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseElectricBlock;

@@ -1,8 +1,17 @@
 package micdoodle8.mods.galacticraft.core;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.ObjectArrays;
+import com.google.common.collect.Ordering;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
-
 import micdoodle8.mods.galacticraft.core.blocks.BlockAirLockFrame;
 import micdoodle8.mods.galacticraft.core.blocks.BlockAirLockWall;
 import micdoodle8.mods.galacticraft.core.blocks.BlockAluminumWire;
@@ -89,9 +98,7 @@ import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.StackSorted;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -101,21 +108,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.ObjectArrays;
-import com.google.common.collect.Ordering;
 
 public class GCBlocks
 {
@@ -193,9 +188,9 @@ public class GCBlocks
 
     public static final Material machine = new Material(MapColor.IRON);
 
-    public static ArrayList<Block> hiddenBlocks = new ArrayList<Block>();
-    public static ArrayList<Block> otherModTorchesLit = new ArrayList<Block>();
-    public static ArrayList<Block> otherModTorchesUnlit = new ArrayList<Block>();
+    public static ArrayList<Block> hiddenBlocks = new ArrayList<>();
+    public static ArrayList<Block> otherModTorchesLit = new ArrayList<>();
+    public static ArrayList<Block> otherModTorchesUnlit = new ArrayList<>();
 
     public static Map<EnumSortCategoryBlock, List<StackSorted>> sortMapBlocks = Maps.newHashMap();
     public static HashMap<Block, Block> itemChanges = new HashMap<>(4, 1.0F);
@@ -356,7 +351,7 @@ public class GCBlocks
             try
             {
                 // tconstruct.world.TinkerWorld.stoneTorch
-                Class clazz = Class.forName("slimeknights.tconstruct.gadgets.TinkerGadgets");
+                Class<?> clazz = Class.forName("slimeknights.tconstruct.gadgets.TinkerGadgets");
                 modTorch = (Block) clazz.getDeclaredField("stoneTorch").get(null);
             } catch (Exception e)
             {
@@ -376,7 +371,7 @@ public class GCBlocks
                 registry.register(torch);
                 registry.register(torchLit);
                 BlockUnlitTorch.register(torch, torchLit, modTorch);
-                GCLog.info("Galacticraft: activating Tinker's Construct compatibility.");
+                GalacticraftCore.logger.info("Galacticraft: activating Tinker's Construct compatibility.");
             }
         }
     }
@@ -442,9 +437,50 @@ public class GCBlocks
         setHarvestLevel(GCBlocks.wallGC, "shovel", 0, 5);
 
         setHarvestLevel(GCBlocks.blockMoon, "pickaxe", 3, 14); // Moon dungeon
-                                                               // brick
-                                                               // (actually
-                                                               // unharvestable)
+        // brick
+        // (actually
+        // unharvestable)
+    }
+
+    public static void register(String modid, Block block, Class<? extends ItemBlock> itemClass, Object... itemCtorArgs)
+    {
+        String key = block.getTranslationKey().substring(5);
+        ResourceLocation resourceLocation = new ResourceLocation(modid, key);
+        if (block.getRegistryName() == null)
+        {
+            block.setRegistryName(resourceLocation);
+        }
+        GCCoreUtil.registerGalacticraftBlock(key, block);
+
+        if (itemClass != null)
+        {
+            ItemBlock item = null;
+            Class<?>[] ctorArgClasses = new Class<?>[itemCtorArgs.length + 1];
+            ctorArgClasses[0] = Block.class;
+            for (int idx = 1; idx < ctorArgClasses.length; idx++)
+            {
+                ctorArgClasses[idx] = itemCtorArgs[idx - 1].getClass();
+            }
+
+            try
+            {
+                Constructor<? extends ItemBlock> constructor = itemClass.getConstructor(ctorArgClasses);
+                item = constructor.newInstance(ObjectArrays.concat(block, itemCtorArgs));
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            if (item != null)
+            {
+                GCCoreUtil.registerGalacticraftItem(key, item);
+                if (item.getRegistryName() == null)
+                {
+                    item.setRegistryName(resourceLocation);
+                }
+            }
+        }
+
     }
 
     @Deprecated
@@ -538,6 +574,11 @@ public class GCBlocks
         }
     }
 
+    private static void registerBlock(Block block, Class<? extends ItemBlock> itemClass)
+    {
+        register(Constants.MOD_ID_CORE, block, itemClass);
+    }
+
     public static void registerBlocks()
     {
         registerBlock(GCBlocks.landingPad, ItemBlockLandingPad.class);
@@ -566,14 +607,14 @@ public class GCBlocks
         registerBlock(GCBlocks.spaceGlassVanilla, ItemBlockGlassGC.class);
         registerBlock(GCBlocks.spaceGlassStrong, ItemBlockGlassGC.class);
         registerBlock(GCBlocks.spaceGlassTinClear, null); // The corresponding
-                                                          // item is already
-                                                          // registered
+        // item is already
+        // registered
         registerBlock(GCBlocks.spaceGlassTinVanilla, null); // The corresponding
-                                                            // item is already
-                                                            // registered
+        // item is already
+        // registered
         registerBlock(GCBlocks.spaceGlassTinStrong, null); // The corresponding
-                                                           // item is already
-                                                           // registered
+        // item is already
+        // registered
         registerBlock(GCBlocks.crafting, ItemBlockDesc.class);
         registerBlock(GCBlocks.sealableBlock, ItemBlockEnclosed.class);
         registerBlock(GCBlocks.spaceStationBase, ItemBlockGC.class);

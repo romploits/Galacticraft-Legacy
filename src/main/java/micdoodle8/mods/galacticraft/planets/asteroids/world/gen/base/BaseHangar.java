@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.world.gen.base;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.planets.asteroids.blocks.AsteroidBlocks;
 import micdoodle8.mods.galacticraft.planets.mars.blocks.MarsBlocks;
@@ -9,8 +10,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-
-import java.util.Random;
 
 public class BaseHangar extends SizedPiece
 {

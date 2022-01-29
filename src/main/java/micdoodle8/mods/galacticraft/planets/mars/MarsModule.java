@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.mars;
 
 import java.lang.reflect.Method;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
@@ -22,7 +21,6 @@ import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
 import micdoodle8.mods.galacticraft.core.items.ItemBucketGC;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.planets.GCPlanetDimensions;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
@@ -111,7 +109,7 @@ public class MarsModule implements IPlanetsModule
             FluidRegistry.registerFluid(sludgeGC);
         } else
         {
-            GCLog.info("Galacticraft sludge is not default, issues may occur.");
+            GalacticraftPlanets.logger.info("Galacticraft sludge is not default, issues may occur.");
         }
 
         sludge = FluidRegistry.getFluid("bacterialsludge");
@@ -130,10 +128,10 @@ public class MarsModule implements IPlanetsModule
         if (MarsBlocks.blockSludge != null)
         {
             FluidRegistry.addBucketForFluid(sludge); // Create a Universal
-                                                     // Bucket AS WELL AS our
-                                                     // type, this is needed to
-                                                     // pull fluids out of other
-                                                     // mods tanks
+            // Bucket AS WELL AS our
+            // type, this is needed to
+            // pull fluids out of other
+            // mods tanks
             MarsItems.bucketSludge = new ItemBucketGC(MarsBlocks.blockSludge, sludge).setTranslationKey("bucket_sludge");
             MarsItems.registerItem(MarsItems.bucketSludge);
             EventHandlerGC.bucketList.put(MarsBlocks.blockSludge, MarsItems.bucketSludge);
@@ -231,15 +229,20 @@ public class MarsModule implements IPlanetsModule
 
     public void registerTileEntities()
     {
-        GameRegistry.registerTileEntity(TileEntitySlimelingEgg.class, "GC Slimeling Egg");
-        GameRegistry.registerTileEntity(TileEntityTreasureChestMars.class, "GC Tier 2 Treasure Chest");
-        GameRegistry.registerTileEntity(TileEntityTerraformer.class, "GC Planet Terraformer");
-        GameRegistry.registerTileEntity(TileEntityCryogenicChamber.class, "GC Cryogenic Chamber");
-        GameRegistry.registerTileEntity(TileEntityGasLiquefier.class, "GC Gas Liquefier");
-        GameRegistry.registerTileEntity(TileEntityMethaneSynthesizer.class, "GC Methane Synthesizer");
-        GameRegistry.registerTileEntity(TileEntityElectrolyzer.class, "GC Water Electrolyzer");
-        GameRegistry.registerTileEntity(TileEntityDungeonSpawnerMars.class, "GC Mars Dungeon Spawner");
-        GameRegistry.registerTileEntity(TileEntityLaunchController.class, "GC Launch Controller");
+        registerTileEntity(TileEntitySlimelingEgg.class, "GC Slimeling Egg");
+        registerTileEntity(TileEntityTreasureChestMars.class, "GC Tier 2 Treasure Chest");
+        registerTileEntity(TileEntityTerraformer.class, "GC Planet Terraformer");
+        registerTileEntity(TileEntityCryogenicChamber.class, "GC Cryogenic Chamber");
+        registerTileEntity(TileEntityGasLiquefier.class, "GC Gas Liquefier");
+        registerTileEntity(TileEntityMethaneSynthesizer.class, "GC Methane Synthesizer");
+        registerTileEntity(TileEntityElectrolyzer.class, "GC Water Electrolyzer");
+        registerTileEntity(TileEntityDungeonSpawnerMars.class, "GC Mars Dungeon Spawner");
+        registerTileEntity(TileEntityLaunchController.class, "GC Launch Controller");
+    }
+
+    private void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String key)
+    {
+        GameRegistry.registerTileEntity(tileEntityClass, new ResourceLocation(Constants.MOD_ID_PLANETS, key));
     }
 
     public void registerCreatures()
@@ -264,9 +267,9 @@ public class MarsModule implements IPlanetsModule
         if (nextEggID < 65536)
         {
             ResourceLocation resourcelocation = new ResourceLocation(Constants.MOD_ID_PLANETS, name);
-//            name = Constants.MOD_ID_PLANETS + "." + name;
-//            net.minecraftforge.fml.common.registry.EntityEntry entry = new net.minecraftforge.fml.common.registry.EntityEntry(clazz, name);
-//            net.minecraftforge.fml.common.registry.GameData.getEntityRegistry().register(nextEggID, resourcelocation, entry);
+            //            name = Constants.MOD_ID_PLANETS + "." + name;
+            //            net.minecraftforge.fml.common.registry.EntityEntry entry = new net.minecraftforge.fml.common.registry.EntityEntry(clazz, name);
+            //            net.minecraftforge.fml.common.registry.GameData.getEntityRegistry().register(nextEggID, resourcelocation, entry);
             EntityList.ENTITY_EGGS.put(resourcelocation, new EntityList.EntityEggInfo(resourcelocation, back, fore));
         }
     }
@@ -296,7 +299,8 @@ public class MarsModule implements IPlanetsModule
                 if (tile instanceof TileEntityTerraformer)
                 {
                     return new ContainerTerraformer(player.inventory, (TileEntityTerraformer) tile, player);
-                } else if (tile instanceof TileEntityLaunchController)
+                }
+                if (tile instanceof TileEntityLaunchController)
                 {
                     return new ContainerLaunchController(player.inventory, (TileEntityLaunchController) tile, player);
                 } else if (tile instanceof TileEntityElectrolyzer)

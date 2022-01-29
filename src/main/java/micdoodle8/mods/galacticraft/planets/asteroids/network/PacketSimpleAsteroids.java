@@ -1,16 +1,15 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.network;
 
+import io.netty.buffer.ByteBuf;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
-import io.netty.buffer.ByteBuf;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.network.NetworkUtil;
 import micdoodle8.mods.galacticraft.core.network.PacketBase;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
+import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.asteroids.entities.EntityGrapple;
 import micdoodle8.mods.galacticraft.planets.asteroids.tile.TileEntityShortRangeTelepad;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -74,7 +73,7 @@ public class PacketSimpleAsteroids extends PacketBase
 
         if (packetType.getDecodeClasses().length != data.size())
         {
-            GCLog.info("Asteroids Simple Packet found data length different than packet type: " + packetType.name());
+            GalacticraftPlanets.logger.info("Asteroids Simple Packet found data length different than packet type: " + packetType.name());
         }
 
         this.type = packetType;

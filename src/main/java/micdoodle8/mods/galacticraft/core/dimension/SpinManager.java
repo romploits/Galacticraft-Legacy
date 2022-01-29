@@ -1,7 +1,10 @@
 package micdoodle8.mods.galacticraft.core.dimension;
 
 import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -11,9 +14,7 @@ import micdoodle8.mods.galacticraft.core.entities.player.FreefallHandler;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.RedstoneUtil;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockLiquid;
@@ -33,11 +34,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 public class SpinManager
 {
@@ -142,7 +138,7 @@ public class SpinManager
         {
             if (ConfigManagerCore.enableDebug)
             {
-                GCLog.info("Clientside update to spin centre: " + x + "," + z);
+                GalacticraftCore.logger.info("Clientside update to spin centre: " + x + "," + z);
             }
         }
     }
@@ -332,7 +328,7 @@ public class SpinManager
                 // station: it must be.
                 if (ConfigManagerCore.enableDebug)
                 {
-                    GCLog.info("Thruster placed on wrong part of space station: base at " + this.oneSSBlock + " - baseBlock was " + baseBlock + " - found " + foundThrusters.size());
+                    GalacticraftCore.logger.info("Thruster placed on wrong part of space station: base at " + this.oneSSBlock + " - baseBlock was " + baseBlock + " - found " + foundThrusters.size());
                 }
                 return false;
             }
@@ -400,7 +396,7 @@ public class SpinManager
         // TODO break blocks which are outside SS (not in checked)
         // TODO prevent spin if there is a huge number of blocks outside SS
 
-        GCLog.debug("MoI = " + this.momentOfInertia + " CoMx = " + this.massCentreX + " CoMz = " + this.massCentreZ);
+        GalacticraftCore.logger.debug("MoI = " + this.momentOfInertia + " CoMx = " + this.massCentreX + " CoMz = " + this.massCentreZ);
 
         // Send packets to clients in this dimension
         List<Object> objList = new ArrayList<Object>();
@@ -489,7 +485,7 @@ public class SpinManager
 
                 if (ConfigManagerCore.enableDebug)
                 {
-                    GCLog.info("MaxR = " + maxR + " Angular vel = " + this.angularVelocityTarget + " Angular accel = " + this.angularVelocityAccel);
+                    GalacticraftCore.logger.info("MaxR = " + maxR + " Angular vel = " + this.angularVelocityTarget + " Angular accel = " + this.angularVelocityAccel);
                 }
             }
         }
@@ -511,7 +507,7 @@ public class SpinManager
                 this.readFromNBT(this.savefile.datacompound);
                 if (ConfigManagerCore.enableDebug)
                 {
-                    GCLog.info("Loading data from save: " + this.savefile.datacompound.getFloat("omegaSky"));
+                    GalacticraftCore.logger.info("Loading data from save: " + this.savefile.datacompound.getFloat("omegaSky"));
                 }
                 this.dataNotLoaded = false;
             }

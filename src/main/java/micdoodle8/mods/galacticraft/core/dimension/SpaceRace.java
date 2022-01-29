@@ -2,27 +2,24 @@ package micdoodle8.mods.galacticraft.core.dimension;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-
-import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
-import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
-import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
-import micdoodle8.mods.galacticraft.api.vector.Vector3;
-import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
-import micdoodle8.mods.galacticraft.core.wrappers.FlagData;
-
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
+import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
+import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
+import micdoodle8.mods.galacticraft.api.vector.Vector3;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
+import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
+import micdoodle8.mods.galacticraft.core.wrappers.FlagData;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 public class SpaceRace
 {
@@ -57,7 +54,7 @@ public class SpaceRace
         this.teamName = nbt.getString("TeamName");
         if (ConfigManagerCore.enableDebug)
         {
-            GCLog.info("Loading spacerace data for team " + this.teamName);
+            GalacticraftCore.logger.info("Loading spacerace data for team " + this.teamName);
         }
         this.spaceRaceID = nbt.getInteger("SpaceRaceID");
         this.ticksSpent = (int) nbt.getLong("TicksSpent"); // Deal with legacy
@@ -102,7 +99,7 @@ public class SpaceRace
 
         if (ConfigManagerCore.enableDebug)
         {
-            GCLog.info("Loaded spacerace team data OK.");
+            GalacticraftCore.logger.info("Loaded spacerace team data OK.");
         }
     }
 
@@ -110,7 +107,7 @@ public class SpaceRace
     {
         if (ConfigManagerCore.enableDebug)
         {
-            GCLog.info("Saving spacerace data for team " + this.teamName);
+            GalacticraftCore.logger.info("Saving spacerace data for team " + this.teamName);
         }
         nbt.setString("TeamName", this.teamName);
         nbt.setInteger("SpaceRaceID", this.spaceRaceID);
@@ -162,7 +159,7 @@ public class SpaceRace
 
         if (ConfigManagerCore.enableDebug)
         {
-            GCLog.info("Saved spacerace team data OK.");
+            GalacticraftCore.logger.info("Saved spacerace team data OK.");
         }
     }
 

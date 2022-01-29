@@ -1,13 +1,11 @@
 package micdoodle8.mods.galacticraft.core.client.jei.oxygencompressor;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.item.EnumExtendedInventorySlot;
 import micdoodle8.mods.galacticraft.core.items.ItemOxygenTank;
-
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OxygenCompressorRecipeMaker
 {

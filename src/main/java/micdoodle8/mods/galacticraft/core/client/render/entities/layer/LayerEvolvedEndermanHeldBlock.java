@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.core.client.render.entities.layer;
 
 import micdoodle8.mods.galacticraft.core.client.render.entities.RenderEvolvedEnderman;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedEnderman;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;

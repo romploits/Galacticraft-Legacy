@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.world.gen;
 
+import java.util.LinkedList;
 import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedCreeper;
@@ -10,8 +11,6 @@ import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedZombie;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
-
-import java.util.LinkedList;
 
 public class BiomeAsteroids extends BiomeGenBaseGC
 {

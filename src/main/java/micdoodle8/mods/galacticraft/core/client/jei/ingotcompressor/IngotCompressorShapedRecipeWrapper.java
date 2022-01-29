@@ -1,21 +1,17 @@
 package micdoodle8.mods.galacticraft.core.client.jei.ingotcompressor;
 
+import java.awt.Color;
+import java.util.Arrays;
+import javax.annotation.Nonnull;
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import micdoodle8.mods.galacticraft.api.recipe.ShapedRecipesGC;
 import micdoodle8.mods.galacticraft.core.client.jei.GalacticraftJEI;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-
-import java.awt.Color;
-import java.util.Arrays;
-
-import javax.annotation.Nonnull;
-
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IRecipeWrapper;
 
 public class IngotCompressorShapedRecipeWrapper implements IRecipeWrapper
 {

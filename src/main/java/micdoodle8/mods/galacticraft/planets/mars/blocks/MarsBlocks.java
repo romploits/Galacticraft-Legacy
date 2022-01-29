@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.blocks;
 
+import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.blocks.BlockStairsGC;
 import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
@@ -67,18 +68,18 @@ public class MarsBlocks
         setHarvestLevel(MarsBlocks.marsBlock, "pickaxe", 0, 4); // Cobblestone
         setHarvestLevel(MarsBlocks.marsBlock, "pickaxe", 3, 7); // Dungeon brick
         setHarvestLevel(MarsBlocks.marsBlock, "pickaxe", 0, 8); // Decoration
-                                                                // block
+        // block
         setHarvestLevel(MarsBlocks.marsBlock, "pickaxe", 1, 9); // Stone
         setHarvestLevel(MarsBlocks.marsBlock, "shovel", 0, 5); // Top dirt
         setHarvestLevel(MarsBlocks.marsBlock, "shovel", 0, 6); // Dirt
         setHarvestLevel(MarsBlocks.rock, "pickaxe", 3);
-//        setHarvestLevel(MarsBlocks.marsCobblestoneStairs, "pickaxe", 0);
-//        setHarvestLevel(MarsBlocks.marsBricksStairs, "pickaxe", 3);
+        //        setHarvestLevel(MarsBlocks.marsCobblestoneStairs, "pickaxe", 0);
+        //        setHarvestLevel(MarsBlocks.marsBricksStairs, "pickaxe", 3);
     }
 
     public static void registerBlock(Block block, Class<? extends ItemBlock> itemClass)
     {
-        GCBlocks.registerBlock(block, itemClass);
+        GCBlocks.register(Constants.MOD_ID_PLANETS, block, itemClass);
     }
 
     public static void registerBlocks()

@@ -3,7 +3,6 @@ package micdoodle8.mods.galacticraft.planets.mars.blocks;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.ISortableBlock;
 import micdoodle8.mods.galacticraft.core.items.IShiftDescription;

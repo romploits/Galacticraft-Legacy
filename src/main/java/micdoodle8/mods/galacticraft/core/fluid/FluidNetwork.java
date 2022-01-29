@@ -1,12 +1,18 @@
 package micdoodle8.mods.galacticraft.core.fluid;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.grid.IGridNetwork;
 import micdoodle8.mods.galacticraft.api.transmission.grid.Pathfinder;
@@ -20,7 +26,6 @@ import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.network.IPacket;
 import micdoodle8.mods.galacticraft.core.network.PacketFluidNetworkUpdate;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -30,19 +35,9 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Based heavily on Mekanism FluidNetwork
@@ -523,7 +518,7 @@ public class FluidNetwork implements IGridNetwork<FluidNetwork, IBufferTransmitt
             clamp();
         } catch (Exception e)
         {
-            FMLLog.severe("Failed to refresh liquid pipe network.");
+            GalacticraftCore.logger.error("Failed to refresh liquid pipe network.");
             e.printStackTrace();
         }
     }
@@ -585,7 +580,7 @@ public class FluidNetwork implements IGridNetwork<FluidNetwork, IBufferTransmitt
             }
         } catch (Exception e)
         {
-            FMLLog.severe("Failed to refresh liquid acceptors");
+            GalacticraftCore.logger.fatal("Failed to refresh liquid acceptors");
             e.printStackTrace();
         }
     }
@@ -609,6 +604,7 @@ public class FluidNetwork implements IGridNetwork<FluidNetwork, IBufferTransmitt
         return this;
     }
 
+    @SuppressWarnings({"unchecked", "unlikely-arg-type"})
     @Override
     public void split(IBufferTransmitter<FluidStack> splitPoint)
     {

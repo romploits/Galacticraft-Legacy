@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.asteroids;
 
 import java.lang.reflect.Method;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
@@ -14,7 +13,6 @@ import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.command.CommandGCAstroMiner;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.CreativeTabGC;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.planets.GCPlanetDimensions;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
@@ -143,9 +141,9 @@ public class AsteroidsModule implements IPlanetsModule
         // TODO: could also increase mob spawn frequency in Hard Mode on various
         // dimensions e.g. Mars and Venus?
 
-//        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(AsteroidsModule.fluidMethaneGas, 1000), new ItemStack(AsteroidsItems.methaneCanister, 1, 1), new ItemStack(GCItems.oilCanister, 1, ItemCanisterGeneric.EMPTY)));
-//        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(AsteroidsModule.fluidLiquidOxygen, 1000), new ItemStack(AsteroidsItems.canisterLOX, 1, 1), new ItemStack(GCItems.oilCanister, 1, ItemCanisterGeneric.EMPTY)));
-//        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(AsteroidsModule.fluidLiquidNitrogen, 1000), new ItemStack(AsteroidsItems.canisterLN2, 1, 1), new ItemStack(GCItems.oilCanister, 1, ItemCanisterGeneric.EMPTY)));
+        //        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(AsteroidsModule.fluidMethaneGas, 1000), new ItemStack(AsteroidsItems.methaneCanister, 1, 1), new ItemStack(GCItems.oilCanister, 1, ItemCanisterGeneric.EMPTY)));
+        //        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(AsteroidsModule.fluidLiquidOxygen, 1000), new ItemStack(AsteroidsItems.canisterLOX, 1, 1), new ItemStack(GCItems.oilCanister, 1, ItemCanisterGeneric.EMPTY)));
+        //        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(AsteroidsModule.fluidLiquidNitrogen, 1000), new ItemStack(AsteroidsItems.canisterLN2, 1, 1), new ItemStack(GCItems.oilCanister, 1, ItemCanisterGeneric.EMPTY)));
     }
 
     @Override
@@ -154,13 +152,13 @@ public class AsteroidsModule implements IPlanetsModule
         AsteroidBlocks.oreDictRegistration();
         AsteroidsItems.oreDictRegistrations();
 
-        ((CreativeTabGC) GalacticraftCore.galacticraftItemsTab).setItemForTab(new ItemStack(AsteroidsItems.astroMiner)); // Set
-                                                                                                                         // creative
-                                                                                                                         // tab
-                                                                                                                         // item
-                                                                                                                         // to
-                                                                                                                         // Astro
-                                                                                                                         // Miner
+        GalacticraftCore.galacticraftItemsTab.setItemForTab(new ItemStack(AsteroidsItems.astroMiner)); // Set
+        // creative
+        // tab
+        // item
+        // to
+        // Astro
+        // Miner
 
         this.registerMicroBlocks();
         SchematicRegistry.registerSchematicRecipe(new SchematicTier3Rocket());
@@ -177,7 +175,7 @@ public class AsteroidsModule implements IPlanetsModule
 
         AsteroidsModule.planetAsteroids.setDimensionInfo(ConfigManagerAsteroids.dimensionIDAsteroids, WorldProviderAsteroids.class).setTierRequired(3);
         AsteroidsModule.planetAsteroids.setRelativeDistanceFromCenter(new CelestialBody.ScalableDistance(1.375F, 1.375F)).setRelativeOrbitTime(45.0F)
-            .setPhaseShift((float) (Math.random() * (2 * Math.PI)));
+        .setPhaseShift((float) (Math.random() * (2 * Math.PI)));
         AsteroidsModule.planetAsteroids.setBodyIcon(new ResourceLocation(Constants.ASSET_PREFIX, "textures/gui/celestialbodies/asteroid.png"));
         AsteroidsModule.planetAsteroids.setAtmosphere(new AtmosphereInfo(false, false, false, -1.5F, 0.05F, 0.0F));
         AsteroidsModule.planetAsteroids.addChecklistKeys("equip_oxygen_suit", "craft_grapple_hook", "thermal_padding");
@@ -294,12 +292,17 @@ public class AsteroidsModule implements IPlanetsModule
 
     private void registerTileEntities()
     {
-        GameRegistry.registerTileEntity(TileEntityBeamReflector.class, "GC Beam Reflector");
-        GameRegistry.registerTileEntity(TileEntityBeamReceiver.class, "GC Beam Receiver");
-        GameRegistry.registerTileEntity(TileEntityShortRangeTelepad.class, "GC Short Range Telepad");
-        GameRegistry.registerTileEntity(TileEntityTelepadFake.class, "GC Fake Short Range Telepad");
-        GameRegistry.registerTileEntity(TileEntityMinerBaseSingle.class, "GC Astro Miner Base Builder");
-        GameRegistry.registerTileEntity(TileEntityMinerBase.class, "GC Astro Miner Base");
+        registerTileEntity(TileEntityBeamReflector.class, "GC Beam Reflector");
+        registerTileEntity(TileEntityBeamReceiver.class, "GC Beam Receiver");
+        registerTileEntity(TileEntityShortRangeTelepad.class, "GC Short Range Telepad");
+        registerTileEntity(TileEntityTelepadFake.class, "GC Fake Short Range Telepad");
+        registerTileEntity(TileEntityMinerBaseSingle.class, "GC Astro Miner Base Builder");
+        registerTileEntity(TileEntityMinerBase.class, "GC Astro Miner Base");
+    }
+
+    private void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String key)
+    {
+        GameRegistry.registerTileEntity(tileEntityClass, new ResourceLocation(Constants.MOD_ID_PLANETS, key));
     }
 
     @Override

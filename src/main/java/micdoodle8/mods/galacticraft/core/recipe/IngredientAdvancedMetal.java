@@ -1,20 +1,17 @@
 package micdoodle8.mods.galacticraft.core.recipe;
 
 import com.google.gson.JsonObject;
-
+import javax.annotation.Nonnull;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
 import micdoodle8.mods.galacticraft.planets.venus.VenusItems;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.crafting.IIngredientFactory;
 import net.minecraftforge.common.crafting.JsonContext;
-
-import javax.annotation.Nonnull;
 
 public class IngredientAdvancedMetal implements IIngredientFactory
 {

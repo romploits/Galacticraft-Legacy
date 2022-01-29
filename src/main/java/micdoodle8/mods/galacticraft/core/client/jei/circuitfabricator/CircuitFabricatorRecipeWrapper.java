@@ -1,13 +1,10 @@
 package micdoodle8.mods.galacticraft.core.client.jei.circuitfabricator;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.List;
-
 import javax.annotation.Nonnull;
-
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.item.ItemStack;
 
 public class CircuitFabricatorRecipeWrapper implements IRecipeWrapper
 {

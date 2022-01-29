@@ -1,10 +1,9 @@
 package micdoodle8.mods.galacticraft.core.util;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class StackSorted
 {

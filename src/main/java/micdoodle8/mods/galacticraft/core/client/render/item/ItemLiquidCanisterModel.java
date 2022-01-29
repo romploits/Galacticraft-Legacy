@@ -1,7 +1,7 @@
 package micdoodle8.mods.galacticraft.core.client.render.item;
 
 import com.google.common.collect.ImmutableList;
-
+import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -14,8 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
-import java.util.List;
 
 public class ItemLiquidCanisterModel implements IBakedModel
 {

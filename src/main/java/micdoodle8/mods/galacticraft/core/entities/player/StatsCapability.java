@@ -1,7 +1,13 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
 import com.google.common.collect.Maps;
-
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicPage;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
@@ -13,11 +19,9 @@ import micdoodle8.mods.galacticraft.core.command.CommandGCInv;
 import micdoodle8.mods.galacticraft.core.inventory.InventoryExtended;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityPanelLight;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.planets.asteroids.tick.AsteroidsTickHandlerServer;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -26,15 +30,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class StatsCapability extends GCPlayerStats
 {
@@ -1288,16 +1283,16 @@ public class StatsCapability extends GCPlayerStats
                 this.panelLightingColor = nbt.getInteger("PanCo");
             }
 
-            GCLog.debug("Loading GC player data for " + PlayerUtil.getName(player.get()) + " : " + this.buildFlags);
+            GalacticraftCore.logger.debug("Loading GC player data for " + PlayerUtil.getName(player.get()) + " : " + this.buildFlags);
 
             this.sentFlags = false;
         } catch (Exception e)
         {
-            GCLog.error("Found error in saved Galacticraft player data for " + PlayerUtil.getName(player.get()) + " - this should fix itself next relog.");
+            GalacticraftCore.logger.error("Found error in saved Galacticraft player data for " + PlayerUtil.getName(player.get()) + " - this should fix itself next relog.");
             e.printStackTrace();
         }
 
-        GCLog.debug("Finished loading GC player data for " + PlayerUtil.getName(player.get()) + " : " + this.buildFlags);
+        GalacticraftCore.logger.debug("Finished loading GC player data for " + PlayerUtil.getName(player.get()) + " : " + this.buildFlags);
     }
 
     @Override

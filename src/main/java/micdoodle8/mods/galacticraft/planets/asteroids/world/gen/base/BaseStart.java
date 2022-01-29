@@ -1,13 +1,11 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.world.gen.base;
 
 import com.google.common.collect.Lists;
-
+import java.util.List;
+import java.util.Random;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
-
-import java.util.List;
-import java.util.Random;
 
 public class BaseStart extends BaseDeck
 {

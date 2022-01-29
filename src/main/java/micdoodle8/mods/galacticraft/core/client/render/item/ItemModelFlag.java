@@ -1,15 +1,13 @@
 package micdoodle8.mods.galacticraft.core.client.render.item;
 
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector3f;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.wrappers.ModelTransformWrapper;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.entity.EntityLivingBase;
-
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3f;
 
 public class ItemModelFlag extends ModelTransformWrapper
 {

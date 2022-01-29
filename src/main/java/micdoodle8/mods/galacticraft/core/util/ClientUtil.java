@@ -2,7 +2,10 @@ package micdoodle8.mods.galacticraft.core.util;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import java.io.IOException;
+import java.util.List;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.model.OBJLoaderGC;
@@ -13,7 +16,6 @@ import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.wrappers.FlagData;
 import micdoodle8.mods.galacticraft.core.wrappers.ModelTransformWrapper;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -35,11 +37,7 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Starting with Release 4.1.0 this class will be removed and all methods
@@ -48,15 +46,15 @@ import java.util.List;
  * <p>
  * <strong>ADDON DEVELOPERS THAT MAKE CALLS TO ANY METHOD IN THIS CLASS ARE ADVISED
  * TO MOVE TO THEIR OWN IMPLEMENTATIONS</strong>
- * 
+ *
  */
-@Deprecated
 @ForRemoval(deadline = "4.1.0")
 @SideOnly(Side.CLIENT)
 public class ClientUtil
 {
 
     @Deprecated
+    @ReplaceWith("getClientTimeTotal()")
     public static long getMilliseconds()
     {
         return getClientTimeTotal();
@@ -110,10 +108,11 @@ public class ClientUtil
         if (race != null)
         {
             return race.getFlagData();
-        } else if (!ClientProxyCore.flagRequestsSent.contains(playerName) && sendPacket)
+        }
+        if (!ClientProxyCore.flagRequestsSent.contains(playerName) && sendPacket)
         {
             GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(EnumSimplePacket.S_REQUEST_FLAG_DATA, GCCoreUtil.getDimensionID(FMLClientHandler.instance().getClient().world), new Object[]
-            {playerName}));
+                {playerName}));
             ClientProxyCore.flagRequestsSent.add(playerName);
         }
 
@@ -127,10 +126,11 @@ public class ClientUtil
         if (race != null)
         {
             return race.getTeamColor();
-        } else if (!ClientProxyCore.flagRequestsSent.contains(playerName) && sendPacket)
+        }
+        if (!ClientProxyCore.flagRequestsSent.contains(playerName) && sendPacket)
         {
             GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(EnumSimplePacket.S_REQUEST_FLAG_DATA, GCCoreUtil.getDimensionID(FMLClientHandler.instance().getClient().world), new Object[]
-            {playerName}));
+                {playerName}));
             ClientProxyCore.flagRequestsSent.add(playerName);
         }
 
@@ -154,7 +154,7 @@ public class ClientUtil
         if (variants.length == 0)
         {
             variants = new String[]
-            {"inventory"};
+                {"inventory"};
         } else if (variants.length > 1 || !variants[0].equals("inventory"))
         {
             newModelAlt = model.bake(new OBJModel.OBJState(visibleGroups, false, TRSRTransformation.identity()), DefaultVertexFormats.ITEM, spriteFunction);
@@ -174,7 +174,7 @@ public class ClientUtil
                         newModel = clazz.getConstructor(IBakedModel.class).newInstance(newModel);
                     } catch (Exception e)
                     {
-                        GCLog.error("ItemModel constructor problem for " + modelResourceLocation);
+                        GalacticraftCore.logger.error("ItemModel constructor problem for " + modelResourceLocation);
                         e.printStackTrace();
                     }
                 }
