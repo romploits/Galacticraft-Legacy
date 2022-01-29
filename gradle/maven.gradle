@@ -1,115 +1,77 @@
 apply plugin: "maven-publish"
 apply plugin: 'signing'
 
-task buildAllJars(type: GradleBuild) {
-    group = 'script-tasks'
-    description = 'Builds all Jars for Galacticraft'
-    tasks = [
-        'build',
-        'coreJar',
-        'miccoreJar',
-        'planetsJar',
-        'fullBuild',
-        'apiJar',
-        'coreDevJar',
-        'planetsDevJar',
-        'miccoreDevJar'
-    ]
-}
-
-task buildMainJars(type: GradleBuild) {
-    group = 'script-tasks'
-    description = 'Builds the main Jars for Galacticraft'
-    tasks = [
-        'build',
-        'coreJar',
-        'miccoreJar',
-        'planetsJar',
-        'fullBuild'
-    ]
-}
-
-task buildDevJars(type: GradleBuild) {
-    group = 'script-tasks'
-    description = 'Builds the dev Jars for Galacticraft'
-    tasks = [
-        'build',
-        'apiJar',
-        'coreDevJar',
-        'planetsDevJar',
-        'miccoreDevJar',
-        'fullBuild'
-    ]
-}
-
-clean {
-    File buildDir = file('build')
-    FileCollection collection = layout.files { buildDir.listFiles() }
-    FileCollection cache = collection.filter { File f ->
-            !f.name.equals('fg_cache')
-    }
-    cache.collect { relativePath(it) }
-    delete = []
-    delete cache
-}
-
-tasks.named('wrapper') {
-    distributionType = Wrapper.DistributionType.ALL
-}
-
 publishing {
     publications {
-		coreDev(MavenPublication) {
+		Galacticraft(MavenPublication) {
 			groupId 'micdoodle8.mods'
-			artifactId 'galacticraft-core'
-			version project.version
+			artifactId 'galacticraft'
+			version project.version.split("-")[1]
 
-			artifact coreJar
-			
-			artifact coreDevJar {
-                classifier 'deobf'
-            }
-		}
-		planetsDev(MavenPublication) {
-			groupId 'micdoodle8.mods'
-			artifactId 'galacticraft-planets'
-			version project.version
+			artifact jar
+            artifact deobfJar
+            artifact sourcesJar
+            artifact apiJar
+            
+            pom {
+				name = 'Galacticraft'
+				description = 'An advanced space exploration mod for Minecraft'
+				url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy'
+				scm {
+					url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy'
+					connection = 'scm:git:git://github.com/TeamGalacticraft/Galacticraft-Legacy.git'
+					developerConnection = 'scm:git:git@github.com:TeamGalacticraft/Galacticraft-Legacy.git'
+				}
+				issueManagement {
+					system = 'github'
+					url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy/issues'
+				}
 
-			artifact planetsJar
-			
-			artifact planetsDevJar {
-                classifier 'deobf'
-            }
-		}
-		miccoreDev(MavenPublication) {
-			groupId 'micdoodle8.mods'
-			artifactId 'micdoodlecore'
-			version project.version
-
-			artifact miccoreJar
-			
-			artifact miccoreDevJar {
-                classifier 'deobf'
-            }
-		}
-		apiDev(MavenPublication) {
-			groupId 'micdoodle8.mods'
-			artifactId 'galacticraft-api'
-			version project.version
-
-			artifact apiJar
+				licenses {
+					license {
+						name = 'custom'
+						url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy/blob/master/LICENSE.txt'
+					}
+				}
+			}
 		}
     }
     repositories {
-        mavenLocal()
-        maven {
-            url "file:///${project.buildDir}/repo"
-        }
+		maven {
+			name = 'external'
+			url = 'https://maven.galacticraft.dev/releases'
+			authentication {
+                basic(BasicAuthentication)
+            }
+			credentials {
+                username = System.getenv('MAVEN_USER')
+                password = System.getenv('MAVEN_PASSWORD')
+			}
+		}
     }
 
     signing {
     	publishing.publications.each {
     	    sign it
     	}
+    }
+}
+
+tasks.register('PublishToGalacticraftMaven') {
+    group = 'script-tasks'
+    description = 'Publishes the Galacticraft publication to the Galacticraft Maven repository.'
+    dependsOn tasks.withType(PublishToMavenRepository).matching {
+        it.repository == publishing.repositories.external
+        
+		def ver = it.publication.version
+		def group = it.publication.groupId
+		def artifact = it.publication.artifactId
+	
+		println('************************************************************************')
+		println('')
+		println("  compile " + group + ":" + group + ":" + ver)
+		println("  imlementation " + group + ":" + group + ":" + ver)
+		println('')
+		println('************************************************************************')
     }
 }

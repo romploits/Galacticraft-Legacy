@@ -9,6 +9,8 @@ public class Constants
     public static final String MOD_ID_PLANETS = "galacticraftplanets";
     public static final String MOD_NAME_SIMPLE = "Galacticraft";
 
+    public static final String FINGERPRINT = "${sha1}";
+
     //    public static final int LOCALMAJVERSION = 4;
     //    public static final int LOCALMINVERSION = 0;
     //    public static final int LOCALPATCHVERSION = 2;
@@ -19,10 +21,10 @@ public class Constants
 
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
-    public static final String DEPENDENCIES_FORGE = "required-after:forge@[14.23.5.2860,); "; // Keep the space at the end!
+    public static final String DEPENDENCIES_FORGE = "required-after:forge@[14.23.5.2847,); "; // Keep the space at the end!
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
-    public static final String DEPENDENCIES_MICCORE = "required-after:micdoodlecore; ";  //Keep the space at the end!
+    public static final String DEPENDENCIES_MICCORE = "required-after:micdoodlecore; "; //Keep the space at the end!
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
     public static final String DEPENDENCIES_MODS = "after:ic2; after:tconstruct; after:mantle;";

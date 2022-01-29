@@ -14,8 +14,7 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@IFMLLoadingPlugin.TransformerExclusions(value =
-{"micdoodle8.mods.miccore"})
+@IFMLLoadingPlugin.TransformerExclusions(value = {"micdoodle8.mods.miccore"})
 @MCVersion("1.12.2")
 public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
 {

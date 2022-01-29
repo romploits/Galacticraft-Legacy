@@ -65,13 +65,7 @@ ext {
     }
 }
 
-FileCollection collection = layout.files { file('gradle').listFiles() }
-FileCollection scripts = collection.filter { File f ->
-	f.name.endsWith('.gradle') || !f.directory
-}
-scripts.collect { relativePath(it) }.each { String s ->
-	apply from: "$s".replace("\\", "/")
-}
+apply from: 'gradle/minecraft.gradle'
 
 task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
     group = 'script-tasks'
@@ -83,3 +77,57 @@ task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTas
     templateContent = file('changelog.mustache').getText('UTF-8');
 }
 
+import net.minecraftforge.gradle.common.tasks.SignJar
+
+task signJar(type: SignJar) {
+
+    onlyIf {
+        project.hasProperty('keyStore')
+    }
+    
+    keyStore = project.findProperty('keyStore')
+    alias = project.findProperty('keyStoreAlias')
+    storePass = project.findProperty('keyStorePass')
+    keyPass = project.findProperty('keyStoreKeyPass')
+    inputFile = jar.archivePath
+    outputFile = jar.archivePath
+}
+
+jar {
+    manifest.from(MANIFEST)
+    
+    afterEvaluate { project.getTasks().getByName('reobfJar').finalizedBy(signJar) }
+}
+
+jar.finalizedBy('reobfJar')
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+    from sourceSets.main.allSource
+    manifest.from(MANIFEST)
+}
+
+task apiJar(type: Jar) {
+    classifier "api"
+    include 'micdoodle8/mods/galacticraft/api/**'
+    from sourceSets.main.allJava
+    from sourceSets.main.output
+    manifest.from(MANIFEST)
+}
+
+task deobfJar(type: Jar) {
+	classifier = 'deobf'
+    from sourceSets.main.output
+    manifest.from(MANIFEST)
+}
+
+artifacts {
+    archives deobfJar
+    archives sourcesJar
+    archives apiJar
+}
+
+apply from: 'gradle/maven.gradle'
+apply from: 'gradle/resources.gradle'
+
+build.dependsOn signJar

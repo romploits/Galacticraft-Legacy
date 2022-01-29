@@ -28,6 +28,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -37,15 +38,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(
-    modid = Constants.MOD_ID_PLANETS,
+@Mod(modid = Constants.MOD_ID_PLANETS,
     name = GalacticraftPlanets.NAME,
     version = Constants.VERSION,
     dependencies = "required-after:galacticraftcore;",
     useMetadata = false,
     acceptedMinecraftVersions = "[1.12, 1.13)",
-    guiFactory = "micdoodle8.mods.galacticraft.planets.ConfigGuiFactoryPlanets"
-    )
+    guiFactory = "micdoodle8.mods.galacticraft.planets.ConfigGuiFactoryPlanets",
+    certificateFingerprint = Constants.FINGERPRINT)
 public class GalacticraftPlanets
 {
 
@@ -65,12 +65,19 @@ public class GalacticraftPlanets
     public static PlanetsProxy proxy;
 
     public static Map<String, List<String>> propOrder = new TreeMap<>();
-    
+
     public static GalacticLog logger;
-    
+
     public GalacticraftPlanets()
     {
         logger = new GalacticLog(this);
+    }
+
+    @EventHandler
+    public void onFingerprintViolation(FMLFingerprintViolationEvent event)
+    {
+        if (!GCCoreUtil.isDeobfuscated())
+            logger.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the author!");
     }
 
     @EventHandler
