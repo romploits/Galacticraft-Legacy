@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
 import micdoodle8.mods.galacticraft.core.tile.TileEntityPainter;
-
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;

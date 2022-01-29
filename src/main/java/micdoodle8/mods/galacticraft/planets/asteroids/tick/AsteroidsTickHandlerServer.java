@@ -7,13 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.asteroids.dimension.ShortRangeTelepadHandler;
 import micdoodle8.mods.galacticraft.planets.asteroids.entities.EntityAstroMiner;
 import micdoodle8.mods.galacticraft.planets.asteroids.tile.TileEntityMinerBase;
@@ -227,7 +226,7 @@ public class AsteroidsTickHandlerServer
                 WorldProvider p = WorldUtil.getProviderForDimensionServer(data.y);
                 if (p != null && p.world != null)
                 {
-                    GCLog.debug("Loading chunk " + data.y + ": " + data.x + "," + data.z + " - should contain a miner!");
+                    GalacticraftPlanets.logger.debug("Loading chunk " + data.y + ": " + data.x + "," + data.z + " - should contain a miner!");
                     WorldServer w = (WorldServer) p.world;
                     boolean previous = CompatibilityManager.forceLoadChunks(w);
                     w.getChunkProvider().loadChunk(data.x, data.z);
@@ -242,7 +241,7 @@ public class AsteroidsTickHandlerServer
     {
         int result = activeMiners.size();
         activeMiners.add(entityAstroMiner);
-        GCLog.debug("Monitoring miner " + result);
+        GalacticraftPlanets.logger.debug("Monitoring miner " + result);
         return result;
     }
 

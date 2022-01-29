@@ -1,12 +1,13 @@
 package micdoodle8.mods.galacticraft.api.prefab.world.gen;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
-
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -17,14 +18,9 @@ import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 
 public class BiomeAdaptive extends BiomeGenBaseGC
 {
@@ -379,8 +375,8 @@ public class BiomeAdaptive extends BiomeGenBaseGC
         if (this.loggedConflict)
             return;
         this.loggedConflict = true;
-        GCLog.error("POTENTIAL BIOME ID CONFLICT for id " + Biome.getIdForBiome(this) + " conflicting with Galacticraft");
-        GCLog.error("PLEASE CHECK CONFIGS FOR BOTH MODS: see Galacticraft core.conf setting BiomeIDBase");
+        GalacticraftCore.logger.error("POTENTIAL BIOME ID CONFLICT for id " + Biome.getIdForBiome(this) + " conflicting with Galacticraft");
+        GalacticraftCore.logger.error("PLEASE CHECK CONFIGS FOR BOTH MODS: see Galacticraft core.conf setting BiomeIDBase");
         Thread.dumpStack();
     }
 }

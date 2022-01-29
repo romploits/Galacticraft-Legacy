@@ -1,7 +1,19 @@
 package micdoodle8.mods.galacticraft.core.tick;
 
 import com.google.common.collect.Lists;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3Dim;
 import micdoodle8.mods.galacticraft.api.world.IOrbitDimension;
@@ -24,13 +36,11 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTransmitter;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenSealer;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityPainter;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.MapUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.Footprint;
 import micdoodle8.mods.galacticraft.core.wrappers.ScheduledBlockChange;
 import micdoodle8.mods.galacticraft.core.wrappers.ScheduledDimensionChange;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.entity.Entity;
@@ -53,20 +63,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TickHandlerServer
 {
@@ -281,7 +277,7 @@ public class TickHandlerServer
                     if (provider != null)
                     {
                         final int dim = GCCoreUtil.getDimensionID(provider);
-                        GCLog.info("Found matching world (" + dim + ") for name: " + change.getDimensionId());
+                        GalacticraftCore.logger.info("Found matching world (" + dim + ") for name: " + change.getDimensionId());
 
                         if (change.getPlayer().world instanceof WorldServer)
                         {
@@ -291,7 +287,7 @@ public class TickHandlerServer
                         }
                     } else
                     {
-                        GCLog.error("World not found when attempting to transfer entity to dimension: " + change.getDimensionId());
+                        GalacticraftCore.logger.error("World not found when attempting to transfer entity to dimension: " + change.getDimensionId());
                     }
 
                     stats.setTeleportCooldown(10);
@@ -299,7 +295,7 @@ public class TickHandlerServer
                     {}), change.getPlayer());
                 } catch (Exception e)
                 {
-                    GCLog.error("Error occurred when attempting to transfer entity to dimension: " + change.getDimensionId());
+                    GalacticraftCore.logger.error("Error occurred when attempting to transfer entity to dimension: " + change.getDimensionId());
                     e.printStackTrace();
                 }
             }
@@ -441,7 +437,7 @@ public class TickHandlerServer
                     if (!baseFolder.exists() && !baseFolder.mkdirs())
                     {
 
-                        GCLog.error("Base folder(s) could not be created: " + baseFolder.getAbsolutePath());
+                        GalacticraftCore.logger.error("Base folder(s) could not be created: " + baseFolder.getAbsolutePath());
                     } else
                     {
                         ArrayList<EntityPlayerMP> copy = new ArrayList<EntityPlayerMP>(playersRequestingMapData);

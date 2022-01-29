@@ -3,14 +3,12 @@ package micdoodle8.mods.galacticraft.core.client.render.tile;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityDish;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
-
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

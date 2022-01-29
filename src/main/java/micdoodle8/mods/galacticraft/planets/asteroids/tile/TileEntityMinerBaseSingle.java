@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.tile;
 
 import java.util.ArrayList;
-
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;

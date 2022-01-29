@@ -1,17 +1,16 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.event.wgen.GCCoreEventPopulate;
 import micdoodle8.mods.galacticraft.core.world.gen.WorldGenMinableMeta;
 import micdoodle8.mods.galacticraft.planets.venus.ConfigManagerVenus;
 import micdoodle8.mods.galacticraft.planets.venus.VenusBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
-
-import java.util.Random;
 
 public class BiomeDecoratorVenus extends BiomeDecorator
 {

@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.core.items;
 
 import com.google.common.collect.Sets;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -12,8 +13,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
-
-import java.util.Set;
 
 public class ItemAxeGC extends ItemTool implements ISortableItem, GCRarity
 {

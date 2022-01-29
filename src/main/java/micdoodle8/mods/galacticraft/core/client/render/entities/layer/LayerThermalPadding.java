@@ -10,7 +10,6 @@ import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
 import micdoodle8.mods.galacticraft.planets.venus.VenusItems;
 import micdoodle8.mods.galacticraft.planets.venus.items.ItemThermalPaddingTier2;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,7 +19,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-
 import org.lwjgl.opengl.GL11;
 
 public class LayerThermalPadding extends LayerArmorBase<ModelBiped>

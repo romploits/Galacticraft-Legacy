@@ -1,14 +1,20 @@
 package micdoodle8.mods.galacticraft.core.util;
 
 import com.google.common.primitives.Ints;
-
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import micdoodle8.mods.galacticraft.api.vector.BlockTuple;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.EnergyConfigHandler;
 import micdoodle8.mods.galacticraft.core.recipe.RecipeManagerGC;
 import micdoodle8.mods.galacticraft.core.tick.TickHandlerClient;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -19,20 +25,9 @@ import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.config.IConfigElement;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.input.Keyboard;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class ConfigManagerCore
 {
@@ -481,7 +476,7 @@ public class ConfigManagerCore
                 finishProp(prop);
             } catch (Exception e)
             {
-                FMLLog.severe("[Galacticraft] It appears you have installed the 'Dev' version of Galacticraft instead of the regular version (or vice versa).  Please re-install.");
+                GalacticraftCore.logger.error("[Galacticraft] It appears you have installed the 'Dev' version of Galacticraft instead of the regular version (or vice versa).  Please re-install.");
             }
 
             prop = getConfig(Constants.CONFIG_CATEGORY_COMPATIBILITY, "External Detectable IDs", new String[]
@@ -665,7 +660,7 @@ public class ConfigManagerCore
             challengeModeUpdate();
         } catch (final Exception e)
         {
-            GCLog.error("Problem loading core config (\"core.conf\")");
+            GalacticraftCore.logger.error("Problem loading core config (\"core.conf\")");
             e.printStackTrace();
         }
     }
@@ -926,7 +921,7 @@ public class ConfigManagerCore
             {
                 if (logging)
                 {
-                    GCLog.error("[config] " + caller + ": unrecognised block name '" + s + "'.");
+                    GalacticraftCore.logger.error("[config] " + caller + ": unrecognised block name '" + s + "'.");
                 }
                 return null;
             }
@@ -937,7 +932,7 @@ public class ConfigManagerCore
             String bName = (String) Block.REGISTRY.getNameForObject(block).toString();
             if (logging)
             {
-                GCLog.info("[config] " + caller + ": the use of numeric IDs is discouraged, please use " + bName + " instead of " + name);
+                GalacticraftCore.logger.info("[config] " + caller + ": the use of numeric IDs is discouraged, please use " + bName + " instead of " + name);
             }
         } catch (NumberFormatException ex)
         {
@@ -946,7 +941,7 @@ public class ConfigManagerCore
         {
             if (logging)
             {
-                GCLog.info("[config] " + caller + ": not a good idea to specify air, skipping that!");
+                GalacticraftCore.logger.info("[config] " + caller + ": not a good idea to specify air, skipping that!");
             }
             return null;
         }
@@ -1156,7 +1151,7 @@ public class ConfigManagerCore
             return Keyboard.KEY_0;
         }
 
-        GCLog.error("Failed to parse keyboard key: " + key + "... Use values A-Z or 0-9");
+        GalacticraftCore.logger.error("Failed to parse keyboard key: " + key + "... Use values A-Z or 0-9");
 
         return 0;
     }

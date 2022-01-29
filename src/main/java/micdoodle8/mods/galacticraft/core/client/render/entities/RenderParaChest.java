@@ -4,13 +4,11 @@ import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.model.ModelParaChest;
 import micdoodle8.mods.galacticraft.core.entities.EntityParachest;
 import micdoodle8.mods.galacticraft.core.items.ItemParaChute;
-
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)

@@ -1,5 +1,8 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.entity.ICargoEntity;
 import micdoodle8.mods.galacticraft.api.entity.IDockable;
 import micdoodle8.mods.galacticraft.api.entity.IFuelable;
@@ -11,7 +14,6 @@ import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMulti;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMulti.EnumBlockMultiType;
 import micdoodle8.mods.galacticraft.planets.mars.tile.TileEntityLaunchController;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,10 +27,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 public class TileEntityLandingPad extends TileEntityMulti implements IMultiBlock, IFuelable, IFuelDock, ICargoEntity
 {

@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.venus.event;
 
+import java.util.ArrayList;
 import micdoodle8.mods.galacticraft.api.entity.ILaserTrackableFast;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerHandler;
 import micdoodle8.mods.galacticraft.core.util.DamageSourceGC;
@@ -14,8 +15,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.ArrayList;
 
 public class EventHandlerVenus
 {

@@ -2,12 +2,10 @@ package micdoodle8.mods.galacticraft.core.client.render.entities;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.model.OBJLoaderGC;
 import micdoodle8.mods.galacticraft.core.entities.EntityBuggy;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -23,7 +21,6 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)

@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.world.gen;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.prefab.core.BlockMetaPair;
 import micdoodle8.mods.galacticraft.api.world.BiomeData;
 import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
@@ -7,8 +8,6 @@ import micdoodle8.mods.galacticraft.planets.mars.blocks.MarsBlocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
-import java.util.Random;
 
 public class BiomeMars extends BiomeGenBaseGC
 {

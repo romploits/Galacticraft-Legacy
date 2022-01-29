@@ -1,9 +1,8 @@
 package micdoodle8.mods.galacticraft.core.client.model.block;
 
 import com.google.common.collect.ImmutableList;
-
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.blocks.BlockPanelLighting;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -16,8 +15,6 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.property.IExtendedBlockState;
-
-import java.util.List;
 
 public class ModelPanelLightBase implements IBakedModel
 {

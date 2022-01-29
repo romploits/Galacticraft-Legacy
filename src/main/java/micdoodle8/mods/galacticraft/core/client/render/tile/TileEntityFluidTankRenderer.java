@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.client.render.tile;
 
 import micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTank;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -13,7 +12,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-
 import org.lwjgl.opengl.GL11;
 
 public class TileEntityFluidTankRenderer extends TileEntitySpecialRenderer<TileEntityFluidTank>

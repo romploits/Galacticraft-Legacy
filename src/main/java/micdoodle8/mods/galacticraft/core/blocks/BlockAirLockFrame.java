@@ -7,7 +7,6 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityAirLockController;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;

@@ -6,10 +6,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import javax.annotation.Nonnull;
 import micdoodle8.mods.galacticraft.api.recipe.IRecipeUpdatable;
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,13 +27,6 @@ import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 public class OreRecipeUpdatable extends ShapedOreRecipe implements IRecipeUpdatable
 {

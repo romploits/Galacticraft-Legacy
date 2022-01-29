@@ -1,8 +1,8 @@
 package micdoodle8.mods.galacticraft.core.client.render.tile;
 
+import java.nio.FloatBuffer;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityScreen;
-
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -10,10 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
-
-import java.nio.FloatBuffer;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityScreenRenderer extends TileEntitySpecialRenderer<TileEntityScreen>

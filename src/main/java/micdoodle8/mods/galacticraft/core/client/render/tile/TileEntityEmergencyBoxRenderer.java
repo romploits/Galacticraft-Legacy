@@ -3,7 +3,6 @@ package micdoodle8.mods.galacticraft.core.client.render.tile;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.blocks.BlockEmergencyBox;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityEmergencyBox;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

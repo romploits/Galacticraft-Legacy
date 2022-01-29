@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.network.PacketDynamic;
@@ -9,7 +13,6 @@ import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.FluidHandlerWrapper;
 import micdoodle8.mods.galacticraft.core.wrappers.IFluidHandlerWrapper;
 import micdoodle8.mods.galacticraft.core.wrappers.ScheduledBlockChange;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,13 +35,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 
 public class TileEntityFluidTank extends TileEntityAdvanced implements IFluidHandlerWrapper
 {

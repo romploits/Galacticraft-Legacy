@@ -1,21 +1,17 @@
 package micdoodle8.mods.galacticraft.core.network;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import java.util.EnumMap;
 import micdoodle8.mods.galacticraft.core.Constants;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.network.FMLEmbeddedChannel;
 import net.minecraftforge.fml.common.network.FMLIndexedMessageToMessageCodec;
 import net.minecraftforge.fml.common.network.FMLOutboundHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.EnumMap;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 
 public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<IPacket>
 {
@@ -53,7 +49,7 @@ public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<
             msg.decodeInto(source);
         } catch (IndexOutOfBoundsException ex)
         {
-            FMLLog.severe("Incomplete Galacticraft entity packet: dimension " + msg.getDimensionID());
+            GalacticraftCore.logger.error("Incomplete Galacticraft entity packet: dimension " + msg.getDimensionID());
         }
     }
 
@@ -102,7 +98,7 @@ public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<
             this.channels.get(Side.SERVER).writeOutbound(message);
         } catch (Exception e)
         {
-            GCLog.error("Forge error when sending network packet to nearby players - this is not a Galacticraft bug, does another mod make fake players?");
+            GalacticraftCore.logger.error("Forge error when sending network packet to nearby players - this is not a Galacticraft bug, does another mod make fake players?");
             e.printStackTrace();
         }
     }
@@ -124,7 +120,7 @@ public class GalacticraftChannelHandler extends FMLIndexedMessageToMessageCodec<
             this.channels.get(Side.SERVER).writeOutbound(message);
         } catch (Exception e)
         {
-            GCLog.error("Forge error when sending network packet to all players in dimension - this is not a Galacticraft bug, does another mod make fake players?");
+            GalacticraftCore.logger.error("Forge error when sending network packet to all players in dimension - this is not a Galacticraft bug, does another mod make fake players?");
             e.printStackTrace();
         }
     }

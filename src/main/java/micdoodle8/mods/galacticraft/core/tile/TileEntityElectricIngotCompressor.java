@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
@@ -16,7 +20,6 @@ import micdoodle8.mods.galacticraft.core.inventory.PersistantInventoryCrafting;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -30,11 +33,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
 
 public class TileEntityElectricIngotCompressor extends TileBaseElectricBlock implements IInventoryDefaults, ISidedInventory, IMachineSides
 {

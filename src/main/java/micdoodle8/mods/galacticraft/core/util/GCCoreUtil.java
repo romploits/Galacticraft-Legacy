@@ -1,9 +1,26 @@
 package micdoodle8.mods.galacticraft.core.util;
 
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
-import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.EntityLanderBase;
@@ -11,7 +28,6 @@ import micdoodle8.mods.galacticraft.core.inventory.ContainerBuggy;
 import micdoodle8.mods.galacticraft.core.inventory.ContainerParaChest;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -38,39 +54,14 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
-import javax.annotation.Nullable;
+import org.apache.commons.io.IOUtils;
 
 /**
- * Starting with Release 4.1.0 this class will be removed and all methods
- * moved to a dedicated utility class. At this time all planned utility classes
- * will be internal and non-accessible.
- * <p>
- * <strong>ADDON DEVELOPERS THAT MAKE CALLS TO ANY METHOD IN THIS CLASS ARE ADVISED
- * TO MOVE TO THEIR OWN IMPLEMENTATIONS</strong>
- * 
+ * Starting with Release 4.1.0 this class will be removed and all methods moved
+ * to a dedicated utility class. At this time all planned utility classes will
+ * be internal and non-accessible.
+ *
  */
-@Deprecated
 @ForRemoval(deadline = "4.1.0")
 public class GCCoreUtil
 {
@@ -102,8 +93,7 @@ public class GCCoreUtil
         player.getNextWindowId();
         player.closeContainer();
         int id = player.currentWindowId;
-        GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_OPEN_PARACHEST_GUI, GCCoreUtil.getDimensionID(player.world), new Object[]
-        {id, 0, 0}), player);
+        GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_OPEN_PARACHEST_GUI, GCCoreUtil.getDimensionID(player.world), new Object[] {id, 0, 0}), player);
         player.openContainer = new ContainerBuggy(player.inventory, buggyInv, type, player);
         player.openContainer.windowId = id;
         player.openContainer.addListener(player);
@@ -114,8 +104,7 @@ public class GCCoreUtil
         player.getNextWindowId();
         player.closeContainer();
         int windowId = player.currentWindowId;
-        GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_OPEN_PARACHEST_GUI, GCCoreUtil.getDimensionID(player.world), new Object[]
-        {windowId, 1, landerInv.getEntityId()}), player);
+        GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_OPEN_PARACHEST_GUI, GCCoreUtil.getDimensionID(player.world), new Object[] {windowId, 1, landerInv.getEntityId()}), player);
         player.openContainer = new ContainerParaChest(player.inventory, landerInv, player);
         player.openContainer.windowId = windowId;
         player.openContainer.addListener(player);
@@ -127,9 +116,6 @@ public class GCCoreUtil
         return GCCoreUtil.nextID - 1;
     }
 
-    @Deprecated
-    @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("Use Your Own Registry")
     public static void registerGalacticraftCreature(Class<? extends Entity> clazz, String name, int back, int fore)
     {
         registerGalacticraftNonMobEntity(clazz, name, 80, 3, true);
@@ -157,18 +143,12 @@ public class GCCoreUtil
         return eggID;
     }
 
-    @Deprecated
-    @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("Use Your Own Registry")
     public static void registerGalacticraftNonMobEntity(Class<? extends Entity> var0, String var1, int trackingDistance, int updateFreq, boolean sendVel)
     {
         ResourceLocation registryName = new ResourceLocation(Constants.MOD_ID_CORE, var1);
         EntityRegistry.registerModEntity(registryName, var0, var1, nextInternalID(), GalacticraftCore.instance, trackingDistance, updateFreq, sendVel);
     }
 
-    @Deprecated
-    @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("Use Your Own Registry")
     public static void registerGalacticraftItem(String key, Item item)
     {
         registerGalacticraftItem(key, new ItemStack(item));
@@ -188,10 +168,7 @@ public class GCCoreUtil
     {
         GalacticraftCore.blocksList.add(block);
     }
-    
-    @Deprecated
-    @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("Use Own Translation Methods")
+
     public static String translate(String key)
     {
         String result = I18n.translateToLocal(key);
@@ -255,7 +232,7 @@ public class GCCoreUtil
     @Nullable
     public static InputStream supplementEntityKeys(InputStream inputstream, String assetprefix) throws IOException
     {
-        ArrayList<String> langLines = new ArrayList<String>();
+        ArrayList<String> langLines = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
         String line;
         String supplemented = "entity." + assetprefix.toLowerCase() + ".";
@@ -277,7 +254,7 @@ public class GCCoreUtil
         }
 
         ByteArrayOutputStream outputstream = new ByteArrayOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputstream, Charsets.UTF_8.newEncoder()));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputstream, StandardCharsets.UTF_8.newEncoder()));
         for (String outLine : langLines)
             writer.write(outLine + "\n");
         writer.close();

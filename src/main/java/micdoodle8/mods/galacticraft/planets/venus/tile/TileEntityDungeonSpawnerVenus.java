@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.tile;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.client.sounds.GCSounds;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSkeleton;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSpider;
@@ -9,9 +11,6 @@ import micdoodle8.mods.galacticraft.planets.venus.entities.EntitySpiderQueen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.SoundCategory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileEntityDungeonSpawnerVenus extends TileEntityDungeonSpawner<EntitySpiderQueen>
 {

@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.blocks;
 
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.ISortableBlock;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
@@ -20,9 +22,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-import java.util.Random;
 
 public class BlockSpout extends Block implements ISortableBlock, ITileEntityProvider
 {

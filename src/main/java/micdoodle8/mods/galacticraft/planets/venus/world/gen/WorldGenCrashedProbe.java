@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.event.LootHandlerGC;
 import micdoodle8.mods.galacticraft.planets.venus.VenusBlocks;
 import micdoodle8.mods.galacticraft.planets.venus.tile.TileEntityCrashedProbe;
@@ -8,8 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import java.util.Random;
 
 public class WorldGenCrashedProbe extends WorldGenerator
 {

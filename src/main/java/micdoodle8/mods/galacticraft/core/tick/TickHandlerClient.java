@@ -4,7 +4,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
-
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
 import micdoodle8.mods.galacticraft.api.entity.IEntityNoisy;
 import micdoodle8.mods.galacticraft.api.entity.IIgnoreShift;
@@ -56,7 +61,6 @@ import micdoodle8.mods.galacticraft.core.util.OxygenUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.BlockMetaList;
 import micdoodle8.mods.galacticraft.core.wrappers.Footprint;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -88,16 +92,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 
 public class TickHandlerClient
 {

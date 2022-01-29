@@ -1,13 +1,15 @@
 package micdoodle8.mods.galacticraft.planets.mars.network;
 
 import io.netty.buffer.ByteBuf;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.event.EventWakePlayer;
 import micdoodle8.mods.galacticraft.core.network.NetworkUtil;
 import micdoodle8.mods.galacticraft.core.network.PacketBase;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.GuiIdsPlanets;
@@ -29,10 +31,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class PacketSimpleMars extends PacketBase
 {
@@ -90,7 +88,7 @@ public class PacketSimpleMars extends PacketBase
 
         if (packetType.getDecodeClasses().length != data.size())
         {
-            GCLog.info("Mars Simple Packet found data length different than packet type: " + packetType.name());
+            GalacticraftPlanets.logger.info("Mars Simple Packet found data length different than packet type: " + packetType.name());
         }
 
         this.type = packetType;

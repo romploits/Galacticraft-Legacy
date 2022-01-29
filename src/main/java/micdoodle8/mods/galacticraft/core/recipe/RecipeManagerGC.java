@@ -3,6 +3,12 @@ package micdoodle8.mods.galacticraft.core.recipe;
 import appeng.api.AEApi;
 import appeng.api.features.IGrinderRegistry;
 import appeng.api.util.AEColor;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.recipe.CircuitFabricatorRecipes;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
@@ -20,7 +26,6 @@ import micdoodle8.mods.galacticraft.core.tick.TickHandlerClient;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
 import micdoodle8.mods.galacticraft.planets.asteroids.blocks.AsteroidBlocks;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
@@ -40,13 +45,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 
 public class RecipeManagerGC
 {
@@ -502,7 +500,7 @@ public class RecipeManagerGC
 
         if (refineryDone)
         {
-            GCLog.info("Successfully added GC oil to Buildcraft Refinery recipes.");
+            GalacticraftCore.logger.info("Successfully added GC oil to Buildcraft Refinery recipes.");
         }
 
         try
@@ -554,7 +552,7 @@ public class RecipeManagerGC
             }
         } else
         {
-            GCLog.debug("Failed to add Applied Energistics 2 Recipes");
+            GalacticraftCore.logger.debug("Failed to add Applied Energistics 2 Recipes");
         }
     }
 
@@ -569,7 +567,7 @@ public class RecipeManagerGC
             {
                 m.invoke(null, torch, 0.1F);
             }
-            GCLog.info("Successfully added space torches as heat sources for Ex Nihilo crucibles etc");
+            GalacticraftCore.logger.info("Successfully added space torches as heat sources for Ex Nihilo crucibles etc");
         } catch (Throwable e)
         {
         }

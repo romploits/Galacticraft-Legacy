@@ -1,5 +1,8 @@
 package micdoodle8.mods.galacticraft.core.client.gui.screen;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -19,19 +22,13 @@ import micdoodle8.mods.galacticraft.core.util.ColorUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.FlagData;
-
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GuiJoinSpaceRace extends GuiScreen implements ICheckBoxCallback, ITextBoxCallback
 {

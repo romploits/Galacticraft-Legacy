@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.recipe;
 
+import java.util.HashMap;
+import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -10,10 +12,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-
-import java.util.HashMap;
-
-import javax.annotation.Nullable;
 
 public class ShapedRecipeNBT extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe
 {

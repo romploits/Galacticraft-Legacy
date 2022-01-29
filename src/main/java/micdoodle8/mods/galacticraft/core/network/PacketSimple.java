@@ -5,7 +5,16 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-
+import io.netty.buffer.ByteBuf;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Satellite;
@@ -64,7 +73,6 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityTelemetry;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.MapUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
@@ -72,7 +80,6 @@ import micdoodle8.mods.galacticraft.core.wrappers.FlagData;
 import micdoodle8.mods.galacticraft.core.wrappers.Footprint;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
 import micdoodle8.mods.galacticraft.core.wrappers.ScheduledDimensionChange;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -105,18 +112,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import io.netty.buffer.ByteBuf;
 
 public class PacketSimple extends PacketBase implements Packet<INetHandler>
 {
@@ -302,7 +297,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
         super(dimID);
         if (packetType.getDecodeClasses().length != data.size())
         {
-            GCLog.info("Simple Packet Core found data length different than packet type");
+            GalacticraftCore.logger.info("Simple Packet Core found data length different than packet type");
             new RuntimeException().printStackTrace();
         }
 
@@ -339,7 +334,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
             }
             if (buffer.readableBytes() > 0 && buffer.writerIndex() < 0xfff00)
             {
-                GCLog.error("Galacticraft packet length problem for packet type " + this.type.toString());
+                GalacticraftCore.logger.error("Galacticraft packet length problem for packet type " + this.type.toString());
             }
         } catch (Exception e)
         {
@@ -385,7 +380,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                     {
                         if (!dimensionList.equals(PacketSimple.spamCheckString))
                         {
-                            GCLog.info("DEBUG info: " + dimensionList);
+                            GalacticraftCore.logger.info("DEBUG info: " + dimensionList);
                             PacketSimple.spamCheckString = dimensionList;
                         }
                     }
@@ -781,7 +776,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                 final int dimID = GCCoreUtil.getDimensionID(provider);
                 if (ConfigManagerCore.enableDebug)
                 {
-                    GCLog.info("DEBUG: Client receiving respawn packet for dim " + dimID);
+                    GalacticraftCore.logger.info("DEBUG: Client receiving respawn packet for dim " + dimID);
                 }
                 int par2 = (Integer) this.data.get(1);
                 String par3 = (String) this.data.get(2);

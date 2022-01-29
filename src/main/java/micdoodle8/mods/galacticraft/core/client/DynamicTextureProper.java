@@ -1,8 +1,7 @@
 package micdoodle8.mods.galacticraft.core.client;
 
-import net.minecraft.client.renderer.texture.DynamicTexture;
-
 import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 
 public class DynamicTextureProper extends DynamicTexture
 {

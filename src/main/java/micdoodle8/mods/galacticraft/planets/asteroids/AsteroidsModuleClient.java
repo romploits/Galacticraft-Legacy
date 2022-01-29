@@ -1,9 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.asteroids;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;

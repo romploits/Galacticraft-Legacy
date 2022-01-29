@@ -3,7 +3,6 @@ package micdoodle8.mods.galacticraft.core.client.render.entities;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.model.ModelMeteorChunk;
 import micdoodle8.mods.galacticraft.core.entities.EntityMeteorChunk;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;

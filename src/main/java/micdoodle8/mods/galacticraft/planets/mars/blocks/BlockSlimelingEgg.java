@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.blocks;
 
 import javax.annotation.Nullable;
-
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.ISortableBlock;
 import micdoodle8.mods.galacticraft.core.items.IShiftDescription;

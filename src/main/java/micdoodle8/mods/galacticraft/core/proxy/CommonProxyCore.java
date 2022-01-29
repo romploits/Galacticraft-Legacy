@@ -13,7 +13,6 @@ import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.PartialCanister;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.network.INetHandler;

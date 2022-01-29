@@ -1,15 +1,14 @@
 package micdoodle8.mods.galacticraft.core.energy;
 
 import buildcraft.api.mj.MjAPI;
+import java.io.File;
+import java.util.ArrayList;
 import mekanism.api.gas.Gas;
 import mekanism.api.gas.GasRegistry;
 import micdoodle8.mods.galacticraft.core.GCFluids;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import net.minecraftforge.common.config.Configuration;
-
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * The universal energy compatibility module allows Galacticraft to be
@@ -331,7 +330,7 @@ public class EnergyConfigHandler
             cachedRF2LoadedValue = (count2 == 2);
         } else if (count > 0 || count2 > 0)
         {
-            GCLog.error("Incomplete Redstone Flux API detected: Galacticraft will not support RF energy connections until this is fixed.");
+            GalacticraftCore.logger.error("Incomplete Redstone Flux API detected: Galacticraft will not support RF energy connections until this is fixed.");
         }
     }
 

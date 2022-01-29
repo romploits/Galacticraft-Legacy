@@ -5,13 +5,11 @@ import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.inventory.ContainerBuggyBench;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiSchematicBuggy extends GuiPositionedContainer implements ISchematicResultPage

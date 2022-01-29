@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.api.vector;
 
+import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.crash.CrashReport;
@@ -17,14 +18,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ChunkProviderServer;
 
-import javax.annotation.Nullable;
-
 /* BlockVec3 is similar to galacticraft.api.vector.Vector3?
- * 
+ *
  * But for speed it uses integer arithmetic not doubles, for block coordinates
  * This reduces unnecessary type conversion between integers and doubles and back again.
  * (Minecraft block coordinates are always integers, only entity coordinates are doubles.)
- * 
+ *
  */
 public class BlockVec3 implements Cloneable
 {
@@ -114,32 +113,25 @@ public class BlockVec3 implements Cloneable
                     && BlockVec3.chunkCached_Client.isLoaded())
                 {
                     return BlockVec3.chunkCached_Client.getBlockState(this.x & 15, this.y, this.z & 15);
-                } else
-                {
-                    final Chunk chunk = world.getChunk(chunkx, chunkz);
-                    BlockVec3.chunkCached_Client = chunk;
-                    BlockVec3.chunkCacheDim_Client = world.provider.getDimension();
-                    BlockVec3.chunkCacheX_Client = chunkx;
-                    BlockVec3.chunkCacheZ_Client = chunkz;
-                    return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
                 }
-            } else
-            {
-                // In a typical inner loop, 80% of the time consecutive calls to
-                // this will be within the same chunk
-                if (BlockVec3.chunkCacheX == chunkx && BlockVec3.chunkCacheZ == chunkz && BlockVec3.chunkCacheDim == world.provider.getDimension() && BlockVec3.chunkCached.isLoaded())
-                {
-                    return BlockVec3.chunkCached.getBlockState(this.x & 15, this.y, this.z & 15);
-                } else
-                {
-                    final Chunk chunk = world.getChunk(chunkx, chunkz);
-                    BlockVec3.chunkCached = chunk;
-                    BlockVec3.chunkCacheDim = world.provider.getDimension();
-                    BlockVec3.chunkCacheX = chunkx;
-                    BlockVec3.chunkCacheZ = chunkz;
-                    return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
-                }
+                final Chunk chunk = world.getChunk(chunkx, chunkz);
+                BlockVec3.chunkCached_Client = chunk;
+                BlockVec3.chunkCacheDim_Client = world.provider.getDimension();
+                BlockVec3.chunkCacheX_Client = chunkx;
+                BlockVec3.chunkCacheZ_Client = chunkz;
+                return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
             }
+            // this will be within the same chunk
+            if (BlockVec3.chunkCacheX == chunkx && BlockVec3.chunkCacheZ == chunkz && BlockVec3.chunkCacheDim == world.provider.getDimension() && BlockVec3.chunkCached.isLoaded())
+            {
+                return BlockVec3.chunkCached.getBlockState(this.x & 15, this.y, this.z & 15);
+            }
+            final Chunk chunk = world.getChunk(chunkx, chunkz);
+            BlockVec3.chunkCached = chunk;
+            BlockVec3.chunkCacheDim = world.provider.getDimension();
+            BlockVec3.chunkCacheX = chunkx;
+            BlockVec3.chunkCacheZ = chunkz;
+            return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
         } catch (Throwable throwable)
         {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Oxygen Sealer thread: Exception getting block type in world");
@@ -177,33 +169,26 @@ public class BlockVec3 implements Cloneable
                         && BlockVec3.chunkCached_Client.isLoaded())
                     {
                         return BlockVec3.chunkCached_Client.getBlockState(this.x & 15, this.y, this.z & 15);
-                    } else
-                    {
-                        final Chunk chunk = world.getChunk(chunkx, chunkz);
-                        BlockVec3.chunkCached_Client = chunk;
-                        BlockVec3.chunkCacheDim_Client = world.provider.getDimension();
-                        BlockVec3.chunkCacheX_Client = chunkx;
-                        BlockVec3.chunkCacheZ_Client = chunkz;
-                        return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
                     }
-                } else
-                {
-                    // In a typical inner loop, 80% of the time consecutive
-                    // calls to
-                    // this will be within the same chunk
-                    if (BlockVec3.chunkCacheX == chunkx && BlockVec3.chunkCacheZ == chunkz && BlockVec3.chunkCacheDim == world.provider.getDimension() && BlockVec3.chunkCached.isLoaded())
-                    {
-                        return BlockVec3.chunkCached.getBlockState(this.x & 15, this.y, this.z & 15);
-                    } else
-                    {
-                        final Chunk chunk = world.getChunk(chunkx, chunkz);
-                        BlockVec3.chunkCached = chunk;
-                        BlockVec3.chunkCacheDim = world.provider.getDimension();
-                        BlockVec3.chunkCacheX = chunkx;
-                        BlockVec3.chunkCacheZ = chunkz;
-                        return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
-                    }
+                    final Chunk chunk = world.getChunk(chunkx, chunkz);
+                    BlockVec3.chunkCached_Client = chunk;
+                    BlockVec3.chunkCacheDim_Client = world.provider.getDimension();
+                    BlockVec3.chunkCacheX_Client = chunkx;
+                    BlockVec3.chunkCacheZ_Client = chunkz;
+                    return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
                 }
+                // calls to
+                // this will be within the same chunk
+                if (BlockVec3.chunkCacheX == chunkx && BlockVec3.chunkCacheZ == chunkz && BlockVec3.chunkCacheDim == world.provider.getDimension() && BlockVec3.chunkCached.isLoaded())
+                {
+                    return BlockVec3.chunkCached.getBlockState(this.x & 15, this.y, this.z & 15);
+                }
+                final Chunk chunk = world.getChunk(chunkx, chunkz);
+                BlockVec3.chunkCached = chunk;
+                BlockVec3.chunkCacheDim = world.provider.getDimension();
+                BlockVec3.chunkCacheX = chunkx;
+                BlockVec3.chunkCacheZ = chunkz;
+                return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
             }
             // Chunk doesn't exist - meaning, it is not loaded
             return Blocks.BEDROCK.getDefaultState();
@@ -251,33 +236,26 @@ public class BlockVec3 implements Cloneable
                         && BlockVec3.chunkCached_Client.isLoaded())
                     {
                         return BlockVec3.chunkCached_Client.getBlockState(this.x & 15, this.y, this.z & 15);
-                    } else
-                    {
-                        final Chunk chunk = world.getChunk(chunkx, chunkz);
-                        BlockVec3.chunkCached_Client = chunk;
-                        BlockVec3.chunkCacheDim_Client = world.provider.getDimension();
-                        BlockVec3.chunkCacheX_Client = chunkx;
-                        BlockVec3.chunkCacheZ_Client = chunkz;
-                        return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
                     }
-                } else
-                {
-                    // In a typical inner loop, 80% of the time consecutive
-                    // calls to
-                    // this will be within the same chunk
-                    if (BlockVec3.chunkCacheX == chunkx && BlockVec3.chunkCacheZ == chunkz && BlockVec3.chunkCacheDim == world.provider.getDimension() && BlockVec3.chunkCached.isLoaded())
-                    {
-                        return BlockVec3.chunkCached.getBlockState(this.x & 15, this.y, this.z & 15);
-                    } else
-                    {
-                        final Chunk chunk = world.getChunk(chunkx, chunkz);
-                        BlockVec3.chunkCached = chunk;
-                        BlockVec3.chunkCacheDim = world.provider.getDimension();
-                        BlockVec3.chunkCacheX = chunkx;
-                        BlockVec3.chunkCacheZ = chunkz;
-                        return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
-                    }
+                    final Chunk chunk = world.getChunk(chunkx, chunkz);
+                    BlockVec3.chunkCached_Client = chunk;
+                    BlockVec3.chunkCacheDim_Client = world.provider.getDimension();
+                    BlockVec3.chunkCacheX_Client = chunkx;
+                    BlockVec3.chunkCacheZ_Client = chunkz;
+                    return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
                 }
+                // calls to
+                // this will be within the same chunk
+                if (BlockVec3.chunkCacheX == chunkx && BlockVec3.chunkCacheZ == chunkz && BlockVec3.chunkCacheDim == world.provider.getDimension() && BlockVec3.chunkCached.isLoaded())
+                {
+                    return BlockVec3.chunkCached.getBlockState(this.x & 15, this.y, this.z & 15);
+                }
+                final Chunk chunk = world.getChunk(chunkx, chunkz);
+                BlockVec3.chunkCached = chunk;
+                BlockVec3.chunkCacheDim = world.provider.getDimension();
+                BlockVec3.chunkCacheX = chunkx;
+                BlockVec3.chunkCacheZ = chunkz;
+                return chunk.getBlockState(this.x & 15, this.y, this.z & 15);
             }
             // Chunk doesn't exist - meaning, it is not loaded
             return Blocks.BEDROCK.getDefaultState();
@@ -416,6 +394,9 @@ public class BlockVec3 implements Cloneable
 
     /**
      * This will load the chunk.
+     *
+     * @param world
+     * @return TileEntity
      */
     public TileEntity getTileEntity(IBlockAccess world)
     {
@@ -424,6 +405,10 @@ public class BlockVec3 implements Cloneable
 
     /**
      * No chunk load: returns null if chunk to side is unloaded
+     *
+     * @param world
+     * @param side
+     * @return TileEntity
      */
     public TileEntity getTileEntityOnSide(World world, EnumFacing side)
     {
@@ -464,6 +449,10 @@ public class BlockVec3 implements Cloneable
 
     /**
      * No chunk load: returns null if chunk to side is unloaded
+     *
+     * @param world
+     * @param side
+     * @return TileEntity
      */
     public TileEntity getTileEntityOnSide(World world, int side)
     {
@@ -499,6 +488,10 @@ public class BlockVec3 implements Cloneable
 
     /**
      * This will load the chunk to the side.
+     *
+     * @param world
+     * @param side
+     * @return boolean true if face is solid, false if not solid
      */
     public boolean blockOnSideHasSolidFace(World world, int side)
     {
@@ -534,6 +527,10 @@ public class BlockVec3 implements Cloneable
 
     /**
      * No chunk load: returns null if chunk is unloaded
+     *
+     * @param world
+     * @param side
+     * @return Block
      */
     public Block getBlockOnSide(World world, int side)
     {
@@ -598,39 +595,39 @@ public class BlockVec3 implements Cloneable
         return var2 * var2 + var4 * var4 + var6 * var6;
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound par1NBTTagCompound)
+    public NBTTagCompound writeToNBT(NBTTagCompound tag)
     {
-        par1NBTTagCompound.setInteger("x", this.x);
-        par1NBTTagCompound.setInteger("y", this.y);
-        par1NBTTagCompound.setInteger("z", this.z);
-        return par1NBTTagCompound;
+        tag.setInteger("x", this.x);
+        tag.setInteger("y", this.y);
+        tag.setInteger("z", this.z);
+        return tag;
     }
 
-    public BlockVec3(NBTTagCompound par1NBTTagCompound)
+    public BlockVec3(NBTTagCompound tag)
     {
-        this.x = par1NBTTagCompound.getInteger("x");
-        this.y = par1NBTTagCompound.getInteger("y");
-        this.z = par1NBTTagCompound.getInteger("z");
+        this.x = tag.getInteger("x");
+        this.y = tag.getInteger("y");
+        this.z = tag.getInteger("z");
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound par1NBTTagCompound, String prefix)
+    public NBTTagCompound writeToNBT(NBTTagCompound tag, String prefix)
     {
-        par1NBTTagCompound.setInteger(prefix + "_x", this.x);
-        par1NBTTagCompound.setInteger(prefix + "_y", this.y);
-        par1NBTTagCompound.setInteger(prefix + "_z", this.z);
-        return par1NBTTagCompound;
+        tag.setInteger(prefix + "_x", this.x);
+        tag.setInteger(prefix + "_y", this.y);
+        tag.setInteger(prefix + "_z", this.z);
+        return tag;
     }
 
-    public static BlockVec3 readFromNBT(NBTTagCompound par1NBTTagCompound, String prefix)
+    public static BlockVec3 readFromNBT(NBTTagCompound tag, String prefix)
     {
-        Integer readX = par1NBTTagCompound.getInteger(prefix + "_x");
-        if (readX == null)
+        Integer readX = tag.getInteger(prefix + "_x");
+        if (readX == 0)
             return null;
-        Integer readY = par1NBTTagCompound.getInteger(prefix + "_y");
-        if (readY == null)
+        Integer readY = tag.getInteger(prefix + "_y");
+        if (readY == 0)
             return null;
-        Integer readZ = par1NBTTagCompound.getInteger(prefix + "_z");
-        if (readZ == null)
+        Integer readZ = tag.getInteger(prefix + "_z");
+        if (readZ == 0)
             return null;
         return new BlockVec3(readX, readY, readZ);
     }

@@ -1,18 +1,16 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicPage;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.inventory.InventoryExtended;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public interface IStatsCapability
 {

@@ -1,5 +1,20 @@
 package micdoodle8.mods.galacticraft.core.client.jei;
 
+import java.util.LinkedList;
+import java.util.List;
+import javax.annotation.Nonnull;
+import mezz.jei.api.BlankModPlugin;
+import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiRuntime;
+import mezz.jei.api.IModRegistry;
+import mezz.jei.api.IRecipeRegistry;
+import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapperFactory;
+import mezz.jei.api.recipe.IStackHelper;
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
 import micdoodle8.mods.galacticraft.api.recipe.INasaWorkbenchRecipe;
 import micdoodle8.mods.galacticraft.api.recipe.ShapedRecipesGC;
@@ -27,27 +42,8 @@ import micdoodle8.mods.galacticraft.core.client.jei.tier1rocket.Tier1RocketRecip
 import micdoodle8.mods.galacticraft.core.recipe.ShapedRecipeNBT;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import mezz.jei.api.BlankModPlugin;
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.IJeiRuntime;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.IRecipeRegistry;
-import mezz.jei.api.JEIPlugin;
-import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeCategoryRegistration;
-import mezz.jei.api.recipe.IRecipeWrapper;
-import mezz.jei.api.recipe.IRecipeWrapperFactory;
-import mezz.jei.api.recipe.IStackHelper;
-import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 
 @JEIPlugin
 public class GalacticraftJEI extends BlankModPlugin

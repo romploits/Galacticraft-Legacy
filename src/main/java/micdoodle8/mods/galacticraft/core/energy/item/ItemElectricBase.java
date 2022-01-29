@@ -1,6 +1,8 @@
 package micdoodle8.mods.galacticraft.core.energy.item;
 
 import ic2.api.item.IElectricItemManager;
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.item.ElectricItemHelper;
 import micdoodle8.mods.galacticraft.api.item.IItemElectricBase;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -21,10 +23,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import net.minecraftforge.fml.relauncher.FMLInjectionData;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public abstract class ItemElectricBase extends Item implements IItemElectricBase
 {

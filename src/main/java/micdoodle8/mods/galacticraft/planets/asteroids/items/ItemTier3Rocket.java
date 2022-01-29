@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.entity.IRocketType.EnumRocketType;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.item.IHoldableItem;
@@ -30,10 +32,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemTier3Rocket extends Item implements IHoldableItem, ISortableItem, GCRarity
 {

@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.EnumSet;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
@@ -8,7 +9,6 @@ import micdoodle8.mods.galacticraft.core.GCFluids;
 import micdoodle8.mods.galacticraft.core.blocks.BlockOxygenCollector;
 import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
-
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -20,8 +20,6 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.EnumSet;
 
 public class TileEntityOxygenCollector extends TileEntityOxygen
 {

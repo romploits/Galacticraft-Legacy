@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.venus.tile;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import net.minecraft.block.state.IBlockState;
@@ -7,8 +8,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class TileEntitySpout extends TileEntity implements ITickable
 {

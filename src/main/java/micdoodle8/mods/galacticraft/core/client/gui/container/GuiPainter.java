@@ -8,7 +8,6 @@ import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityPainter;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -17,7 +16,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)

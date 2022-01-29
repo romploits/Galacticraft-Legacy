@@ -1,10 +1,16 @@
 package micdoodle8.mods.galacticraft.core.network;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetHandlerPlayServer;
@@ -16,15 +22,6 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 
 public class ConnectionPacket
 {
@@ -62,7 +59,7 @@ public class ConnectionPacket
                     ConfigManagerCore.setConfigOverride(data);
                     if (ConfigManagerCore.enableDebug)
                     {
-                        GCLog.info("Server-set configs received OK on client.");
+                        GalacticraftCore.logger.info("Server-set configs received OK on client.");
                     }
                 } catch (Exception e)
                 {
@@ -74,7 +71,7 @@ public class ConnectionPacket
         }
         if (payload.readInt() != 3519)
         {
-            GCLog.error("Packet completion problem for connection packet " + packetId + " - maybe the player's Galacticraft version does not match the server version?");
+            GalacticraftCore.logger.error("Packet completion problem for connection packet " + packetId + " - maybe the player's Galacticraft version does not match the server version?");
         }
     }
 
@@ -153,8 +150,8 @@ public class ConnectionPacket
             this.handle(data, player);
         } catch (Exception e)
         {
-            GCLog.error("GC login packet handler: Failed to read packet");
-            GCLog.error(e.toString());
+            GalacticraftCore.logger.error("GC login packet handler: Failed to read packet");
+            GalacticraftCore.logger.error(e.toString());
             e.printStackTrace();
         }
     }

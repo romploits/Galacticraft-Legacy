@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.BlockAdvanced;
@@ -23,11 +27,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 public class ItemUniversalWrench extends Item implements ISortableItem, GCRarity
 {

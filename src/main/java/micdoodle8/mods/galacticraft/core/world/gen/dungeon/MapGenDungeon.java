@@ -1,18 +1,26 @@
 package micdoodle8.mods.galacticraft.core.world.gen.dungeon;
 
 import com.google.common.collect.Lists;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.util.List;
+import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.*;
-import net.minecraft.world.gen.structure.*;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
-import java.util.Random;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.MapGenStructure;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
+import net.minecraft.world.gen.structure.StructureComponent;
+import net.minecraft.world.gen.structure.StructureStart;
 
 public class MapGenDungeon extends MapGenStructure
 {

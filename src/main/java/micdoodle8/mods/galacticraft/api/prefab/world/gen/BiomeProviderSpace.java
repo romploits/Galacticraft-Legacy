@@ -1,14 +1,14 @@
 package micdoodle8.mods.galacticraft.api.prefab.world.gen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import javax.annotation.Nullable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeCache;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.IntCache;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Do not include this prefab class in your released mod download. <p> This
@@ -41,33 +41,33 @@ public abstract class BiomeProviderSpace extends BiomeProvider
     }
 
     @Override
-    public float getTemperatureAtHeight(float par1, int par2)
+    public float getTemperatureAtHeight(float temp, int height)
     {
-        return par1;
+        return temp;
     }
-
+    
     @Override
-    public Biome[] getBiomesForGeneration(Biome[] par1ArrayOfBiome, int par2, int par3, int par4, int par5)
+    public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height)
     {
         IntCache.resetIntCache();
 
-        if (par1ArrayOfBiome == null || par1ArrayOfBiome.length < par4 * par5)
+        if (biomes == null || biomes.length < width * height)
         {
-            par1ArrayOfBiome = new Biome[par4 * par5];
+            biomes = new Biome[width * height];
         }
 
-        for (int var7 = 0; var7 < par4 * par5; ++var7)
+        for (int var7 = 0; var7 < width * height; ++var7)
         {
-            par1ArrayOfBiome[var7] = this.getBiome();
+            biomes[var7] = this.getBiome();
         }
 
-        return par1ArrayOfBiome;
+        return biomes;
     }
 
     @Override
-    public Biome[] getBiomes(Biome[] par1ArrayOfBiome, int par2, int par3, int par4, int par5)
+    public Biome[] getBiomes(@Nullable Biome[] oldBiomeList, int x, int z, int width, int depth)
     {
-        return this.getBiomes(par1ArrayOfBiome, par2, par3, par4, par5, true);
+        return this.getBiomes(oldBiomeList, x, z, width, depth, true);
     }
 
     @Override
@@ -97,23 +97,23 @@ public abstract class BiomeProviderSpace extends BiomeProvider
     }
 
     @Override
-    public boolean areBiomesViable(int par1, int par2, int par3, List par4List)
+    public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed)
     {
-        return par4List.contains(this.getBiome());
+        return allowed.contains(this.getBiome());
     }
 
     @Override
-    public BlockPos findBiomePosition(int par1, int par2, int par3, List par4List, Random par5Random)
+    public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random)
     {
-        final int var6 = par1 - par3 >> 2;
-        final int var7 = par2 - par3 >> 2;
-        final int var8 = par1 + par3 >> 2;
-        final int var10 = var8 - var6 + 1;
+        final int i = x - range >> 2;
+        final int j = z - range >> 2;
+        final int k = x + range >> 2;
+        final int l = k - i + 1;
 
-        final int var16 = var6 + 0 % var10 << 2;
-        final int var17 = var7 + 0 / var10 << 2;
+        final int i1 = i + 0 % l << 2;
+        final int j1 = j + 0 / l << 2;
 
-        return new BlockPos(var16, 0, var17);
+        return new BlockPos(i1, 0, j1);
     }
 
     @Override

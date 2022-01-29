@@ -1,11 +1,9 @@
 package micdoodle8.mods.galacticraft.core.client.jei.refinery;
 
-import micdoodle8.mods.galacticraft.core.GCItems;
-
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.List;
+import micdoodle8.mods.galacticraft.core.GCItems;
+import net.minecraft.item.ItemStack;
 
 public class RefineryRecipeMaker
 {

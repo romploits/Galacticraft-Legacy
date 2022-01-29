@@ -1,9 +1,8 @@
 package micdoodle8.mods.galacticraft.api.item;
 
-import net.minecraft.item.ItemStack;
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import net.minecraft.item.ItemStack;
 
 public class GCItems
 {

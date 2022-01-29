@@ -1,8 +1,7 @@
 package micdoodle8.mods.galacticraft.api.world;
 
-import net.minecraft.world.biome.Biome.SpawnListEntry;
-
 import java.util.LinkedList;
+import net.minecraft.world.biome.Biome.SpawnListEntry;
 
 /**
  * Implement this on any Galacticraft World Provider biome registered for a

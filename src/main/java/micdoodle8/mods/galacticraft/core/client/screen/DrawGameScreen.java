@@ -1,10 +1,10 @@
 package micdoodle8.mods.galacticraft.core.client.screen;
 
+import java.nio.FloatBuffer;
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.client.IScreenManager;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.MapUtil;
-
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.Render;
@@ -15,10 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.opengl.GL11;
-
-import java.nio.FloatBuffer;
 
 public class DrawGameScreen implements IScreenManager
 {

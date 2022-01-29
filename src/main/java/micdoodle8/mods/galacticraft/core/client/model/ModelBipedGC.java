@@ -9,7 +9,6 @@ import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.render.entities.RenderPlayerGC;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
-
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;

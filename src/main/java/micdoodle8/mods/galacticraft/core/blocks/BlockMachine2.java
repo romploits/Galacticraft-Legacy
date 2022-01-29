@@ -6,7 +6,6 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityCircuitFabricator;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityDeconstructor;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityElectricIngotCompressor;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenStorageModule;
-
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;

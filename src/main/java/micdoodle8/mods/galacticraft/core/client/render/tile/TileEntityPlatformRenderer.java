@@ -1,10 +1,11 @@
 package micdoodle8.mods.galacticraft.core.client.render.tile;
 
+import java.util.HashMap;
+import java.util.Map;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.blocks.BlockPlatform;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityPlatform;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -18,11 +19,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityPlatformRenderer extends TileEntitySpecialRenderer<TileEntityPlatform>

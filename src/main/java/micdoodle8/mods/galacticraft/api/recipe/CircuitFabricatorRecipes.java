@@ -1,12 +1,10 @@
 package micdoodle8.mods.galacticraft.api.recipe;
 
-import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-
 import java.util.ArrayList;
 import java.util.List;
+import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 public class CircuitFabricatorRecipes
 {
@@ -40,7 +38,7 @@ public class CircuitFabricatorRecipes
             {
                 continue;
             }
-            if (o instanceof List<?> && ((List) o).size() > 0)
+            if (o instanceof List<?> && ((List<?>) o).size() > 0)
             {
                 continue;
             }
@@ -59,6 +57,7 @@ public class CircuitFabricatorRecipes
      * 
      * @param inputList
      */
+    @SuppressWarnings("unchecked")
     private static void validateItems(List<Object> inputList)
     {
         // First initialise the ArrayList if this is the first time it's used
@@ -118,6 +117,7 @@ public class CircuitFabricatorRecipes
      * @param inputList ItemStack array of input items
      * @return The result ItemStack
      */
+    @SuppressWarnings("unchecked")
     public static ItemStack getOutputForInput(List<ItemStack> inputList)
     {
         if (inputList.size() != 5)
@@ -208,6 +208,7 @@ public class CircuitFabricatorRecipes
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void replaceRecipeIngredient(ItemStack ingredient, List<ItemStack> replacement)
     {
         if (ingredient == null)
@@ -234,7 +235,6 @@ public class CircuitFabricatorRecipes
                     }
                 } else if (recipeStack instanceof List<?>)
                 {
-                    boolean listMatchOne = false;
                     for (ItemStack stack : (List<ItemStack>) recipeStack)
                     {
                         if (stack.getItem() == ingredient.getItem() && stack.getItemDamage() == ingredient.getItemDamage() && ItemStack.areItemStackTagsEqual(stack, ingredient))

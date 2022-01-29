@@ -1,11 +1,10 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 
 class AirLockProtocol
 {

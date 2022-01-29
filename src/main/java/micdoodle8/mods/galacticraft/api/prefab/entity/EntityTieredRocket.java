@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.api.prefab.entity;
 
+import io.netty.buffer.ByteBuf;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Iterator;
 import micdoodle8.mods.galacticraft.api.entity.ICameraZoomEntity;
 import micdoodle8.mods.galacticraft.api.entity.IDockable;
 import micdoodle8.mods.galacticraft.api.entity.IRocketType;
@@ -10,15 +14,12 @@ import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.api.world.IExitHeight;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
-
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -29,12 +30,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import io.netty.buffer.ByteBuf;
 
 /**
  * Do not include this prefab class in your released mod download.
@@ -123,7 +118,7 @@ public abstract class EntityTieredRocket extends EntityAutoRocket implements IRo
                     this.preGenList.add(new BlockVec3(cx, dimID, cz));
                     if (ConfigManagerCore.enableDebug)
                     {
-                        GCLog.info("Starting terrain pregen for dimension " + dimID + " at " + (cx * 16 + 8) + ", " + (cz * 16 + 8));
+                        GalacticraftCore.logger.info("Starting terrain pregen for dimension " + dimID + " at " + (cx * 16 + 8) + ", " + (cz * 16 + 8));
                     }
                 }
                 for (int r = 1; r < 12; r++) // concentric squares with radius r
@@ -167,7 +162,7 @@ public abstract class EntityTieredRocket extends EntityAutoRocket implements IRo
                     {
                         this.removePassengers();
                         passenger.startRiding(this, true);
-                        GCLog.debug("Remounting player in rocket.");
+                        GalacticraftCore.logger.debug("Remounting player in rocket.");
                     }
 
                     this.setWaitForPlayer(false);
@@ -356,7 +351,7 @@ public abstract class EntityTieredRocket extends EntityAutoRocket implements IRo
                                     ((EntityAutoRocket) e).setWaitForPlayer(false);
                                 } else
                                 {
-                                    GCLog.info("Error: failed to recreate the unmanned rocket in landing mode on target planet.");
+                                    GalacticraftCore.logger.info("Error: failed to recreate the unmanned rocket in landing mode on target planet.");
                                     e.setDead();
                                     this.setDead();
                                 }
@@ -384,7 +379,7 @@ public abstract class EntityTieredRocket extends EntityAutoRocket implements IRo
                             WorldUtil.forceMoveEntityToPos(passenger, (WorldServer) this.world, new Vector3(this.targetVec.getX() + 0.5F, this.targetVec.getY() + 800, this.targetVec.getZ() + 0.5F),
                                 false);
                             this.setWaitForPlayer(true);
-                            GCLog.debug("Rocket repositioned, waiting for player");
+                            GalacticraftCore.logger.debug("Rocket repositioned, waiting for player");
                         }
                     }
                     this.setLaunchPhase(EnumLaunchPhase.LANDING);
@@ -395,7 +390,7 @@ public abstract class EntityTieredRocket extends EntityAutoRocket implements IRo
             {
                 // Launch controlled launch but no valid target frequency =
                 // rocket loss [INVESTIGATE]
-                GCLog.info("Error: the launch controlled rocket failed to find a valid landing spot when it reached space.");
+                GalacticraftCore.logger.info("Error: the launch controlled rocket failed to find a valid landing spot when it reached space.");
                 this.fuelTank.drain(Integer.MAX_VALUE, true);
                 this.posY = Math.max(255, (this.world.provider instanceof IExitHeight ? ((IExitHeight) this.world.provider).getYCoordinateToTeleport() : 1200) - 200);
                 return;

@@ -1,11 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.venus.tile;
 
+import com.google.common.collect.Sets;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
-
-import com.google.common.collect.Sets;
-
 import micdoodle8.mods.galacticraft.api.tile.IDisableableMachine;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConnector;

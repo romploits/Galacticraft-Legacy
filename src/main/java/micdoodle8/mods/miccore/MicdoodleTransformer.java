@@ -1,5 +1,14 @@
 package micdoodle8.mods.miccore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
+import net.minecraftforge.fml.relauncher.FMLInjectionData;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -15,18 +24,6 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
-
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
-import net.minecraftforge.fml.relauncher.FMLInjectionData;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 @IFMLLoadingPlugin.TransformerExclusions(value =
 {"micdoodle8.mods.miccore"})
@@ -159,7 +156,6 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
     private static final String CLASS_MICDOODLE_PLUGIN = "micdoodle8/mods/miccore/MicdoodlePlugin";
     private static final String CLASS_TRANSFORMER_HOOKS = "micdoodle8/mods/galacticraft/core/TransformerHooks";
     private static final String CLASS_INTCACHE_VARIANT = "micdoodle8/mods/miccore/IntCache";
-    private static final String CLASS_GL11 = "org/lwjgl/opengl/GL11";
     private static final String CLASS_IENTITYBREATHABLE = "micdoodle8/mods/galacticraft/api/entity/IEntityBreathable";
     private static final String CLASS_SYNCMOD_CLONEPLAYER = "sync/common/tileentity/TileEntityDualVertical";
     private static final String CLASS_RENDERPLAYEROF = "RenderPlayerOF";
@@ -663,7 +659,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                         if (nodeAt.name.equals("<init>") && nodeAt.owner.equals(this.getName(MicdoodleTransformer.KEY_CLASS_PLAYER_MP)))
                         {
                             respawnPlayerMethod.instructions.set(nodeAt, new MethodInsnNode(Opcodes.INVOKESPECIAL, this.getName(MicdoodleTransformer.KEY_CLASS_CUSTOM_PLAYER_MP),
-                                this.getName(MicdoodleTransformer.KEY_METHOD_CUSTOM_PLAYER_MP), this.getDescDynamic(MicdoodleTransformer.KEY_METHOD_CUSTOM_PLAYER_MP)));
+                                this.getName(MicdoodleTransformer.KEY_METHOD_CUSTOM_PLAYER_MP), this.getDescDynamic(MicdoodleTransformer.KEY_METHOD_CUSTOM_PLAYER_MP), false));
 
                             MicdoodleTransformer.injectionCount++;
                         }
@@ -710,7 +706,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                         if (nodeAt.name.equals("<init>") && nodeAt.owner.equals(this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_PLAYER_SP)))
                         {
                             method.instructions.set(nodeAt, new MethodInsnNode(Opcodes.INVOKESPECIAL, this.getName(MicdoodleTransformer.KEY_CLASS_CUSTOM_PLAYER_SP),
-                                this.getName(MicdoodleTransformer.KEY_METHOD_CUSTOM_PLAYER_SP), this.getDescDynamic(MicdoodleTransformer.KEY_METHOD_CUSTOM_PLAYER_SP)));
+                                this.getName(MicdoodleTransformer.KEY_METHOD_CUSTOM_PLAYER_SP), this.getDescDynamic(MicdoodleTransformer.KEY_METHOD_CUSTOM_PLAYER_SP), false));
                             MicdoodleTransformer.injectionCount++;
                         }
                     }
@@ -743,7 +739,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     {
                         final VarInsnNode beforeNode = new VarInsnNode(Opcodes.ALOAD, 0);
                         final MethodInsnNode overwriteNode = new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getGravityForEntity",
-                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY) + ";)D");
+                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY) + ";)D", false);
 
                         method.instructions.insertBefore(nodeAt, beforeNode);
                         method.instructions.set(nodeAt, overwriteNode);
@@ -817,7 +813,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     {
                         final VarInsnNode beforeNode = new VarInsnNode(Opcodes.ALOAD, 0);
                         final MethodInsnNode overwriteNode = new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getItemGravity",
-                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY_ITEM) + ";)D");
+                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY_ITEM) + ";)D", false);
 
                         method.instructions.insertBefore(nodeAt, beforeNode);
                         method.instructions.set(nodeAt, overwriteNode);
@@ -846,7 +842,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
             final InsnList nodesToAdd = new InsnList();
 
             nodesToAdd.add(new VarInsnNode(Opcodes.FLOAD, 1));
-            nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "orientCamera", "(F)V"));
+            nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "orientCamera", "(F)V", false));
             orientCameraMethod.instructions.insertBefore(orientCameraMethod.instructions.get(orientCameraMethod.instructions.size() - 3), nodesToAdd);
             MicdoodleTransformer.injectionCount++;
 
@@ -862,7 +858,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     {
                         nodesToAdd.clear();
                         nodesToAdd.add(new VarInsnNode(Opcodes.DLOAD, 10));
-                        nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getCameraZoom", "(D)D"));
+                        nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getCameraZoom", "(D)D", false));
                         nodesToAdd.add(new VarInsnNode(Opcodes.DSTORE, 10));
                         orientCameraMethod.instructions.insert(list.getNext(), nodesToAdd);
                         MicdoodleTransformer.injectionCount++;
@@ -871,8 +867,8 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                 }
             }
 
-            if (ConfigManagerMicCore.enableDebug)
-                System.out.println("bll.OrientCamera done");
+            
+            printLog("bll.OrientCamera done");
         }
 
         if (updateLightMapMethod != null)
@@ -893,11 +889,11 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     {
                         updateLightMapMethod.instructions.remove(updateLightMapMethod.instructions.get(count - 1));
                         updateLightMapMethod.instructions.set(updateLightMapMethod.instructions.get(count - 1), new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS,
-                            "getWorldBrightness", "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)F"));
+                            "getWorldBrightness", "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)F", false));
                         MicdoodleTransformer.injectionCount++;
                         worldBrightnessInjection = true;
-                        if (ConfigManagerMicCore.enableDebug)
-                            System.out.println("bll.updateLightMap - worldBrightness done");
+                        
+                        printLog("bll.updateLightMap - worldBrightness done");
                         continue;
                     }
                 }
@@ -913,27 +909,27 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                         nodesToAdd.add(new VarInsnNode(Opcodes.FLOAD, 12));
                         nodesToAdd.add(new VarInsnNode(Opcodes.ALOAD, 2));
                         nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getColorRed",
-                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)F"));
+                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)F", false));
                         nodesToAdd.add(new InsnNode(Opcodes.FMUL));
                         nodesToAdd.add(new VarInsnNode(Opcodes.FSTORE, 12));
 
                         nodesToAdd.add(new VarInsnNode(Opcodes.FLOAD, 13));
                         nodesToAdd.add(new VarInsnNode(Opcodes.ALOAD, 2));
                         nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getColorGreen",
-                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)F"));
+                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)F", false));
                         nodesToAdd.add(new InsnNode(Opcodes.FMUL));
                         nodesToAdd.add(new VarInsnNode(Opcodes.FSTORE, 13));
 
                         nodesToAdd.add(new VarInsnNode(Opcodes.FLOAD, 14));
                         nodesToAdd.add(new VarInsnNode(Opcodes.ALOAD, 2));
                         nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getColorBlue",
-                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)F"));
+                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)F", false));
                         nodesToAdd.add(new InsnNode(Opcodes.FMUL));
                         nodesToAdd.add(new VarInsnNode(Opcodes.FSTORE, 14));
 
                         updateLightMapMethod.instructions.insertBefore(nodeAt, nodesToAdd);
                         MicdoodleTransformer.injectionCount++;
-                        if (ConfigManagerMicCore.enableDebug)
+                        
                             System.out.println("bll.updateLightMap - getColors done");
                         break;
                     }
@@ -957,12 +953,12 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
 
                         toAdd.add(new VarInsnNode(Opcodes.ALOAD, 2));
                         toAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getFogColorHook",
-                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_VEC3) + ";"));
+                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_VEC3) + ";", false));
                         toAdd.add(new VarInsnNode(Opcodes.ASTORE, 9));
 
                         updateFogColorMethod.instructions.insertBefore(updateFogColorMethod.instructions.get(count + 2), toAdd);
                         MicdoodleTransformer.injectionCount++;
-                        if (ConfigManagerMicCore.enableDebug)
+                        
                             System.out.println("bll.updateFogColor - getFogColor (no Optifine) done");
                     } else if (this.methodMatches(MicdoodleTransformer.KEY_METHOD_GET_SKY_COLOR, nodeAt))
                     {
@@ -970,12 +966,12 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
 
                         toAdd.add(new VarInsnNode(Opcodes.ALOAD, 2));
                         toAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getSkyColorHook",
-                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_VEC3) + ";"));
+                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";)L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_VEC3) + ";", false));
                         toAdd.add(new VarInsnNode(Opcodes.ASTORE, 5));
 
                         updateFogColorMethod.instructions.insertBefore(updateFogColorMethod.instructions.get(count + 2), toAdd);
                         MicdoodleTransformer.injectionCount++;
-                        if (ConfigManagerMicCore.enableDebug)
+                        
                             System.out.println("bll.updateFogColor - getSkyColor done");
                     }
                 }
@@ -984,7 +980,6 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
 
         if (addRainMethod != null)
         {
-            int aloadcount = 0;
             for (int count = 0; count < addRainMethod.instructions.size(); count++)
             {
                 final AbstractInsnNode listPos = addRainMethod.instructions.get(count);
@@ -996,7 +991,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     nodesToAdd.add(new FieldInsnNode(Opcodes.GETFIELD, this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY_RENDERER),
                         this.getNameDynamic(MicdoodleTransformer.KEY_FIELD_ENTITY_RENDERER_RAINCOUNT), "I"));
                     nodesToAdd.add(new VarInsnNode(Opcodes.FLOAD, 1));
-                    nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "addRainParticles", "(IIF)I"));
+                    nodesToAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "addRainParticles", "(IIF)I", false));
                     addRainMethod.instructions.insert(listPos, nodesToAdd);
                     MicdoodleTransformer.injectionCount++;
                     break;
@@ -1028,7 +1023,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
             toAdd.add(new VarInsnNode(Opcodes.FLOAD, 6));
             toAdd.add(new VarInsnNode(Opcodes.ALOAD, 7));
             toAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_MODEL_BIPED_GC, "setRotationAngles",
-                "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_MODEL_BIPED) + ";FFFFFFL" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY) + ";)V"));
+                "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_MODEL_BIPED) + ";FFFFFFL" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY) + ";)V", false));
             method.instructions.insertBefore(method.instructions.get(method.instructions.size() - 2), toAdd);
             MicdoodleTransformer.injectionCount++;
         }
@@ -1053,7 +1048,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     InsnList toAdd = new InsnList();
                     toAdd.add(new InsnNode(Opcodes.DUP));
                     toAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "setCurrentBuffer",
-                        "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_VERTEX_BUFFER) + ";)V"));
+                        "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_VERTEX_BUFFER) + ";)V", false));
                     method.instructions.insertBefore(test, toAdd);
                     MicdoodleTransformer.injectionCount++;
                     break;
@@ -1081,7 +1076,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     InsnList toAdd = new InsnList();
                     toAdd.add(new VarInsnNode(Opcodes.ALOAD, optifinePresent ? 19 : 16));
                     toAdd.add(
-                        new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "isGrating", "(ZL" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_BLOCK) + ";)Z"));
+                        new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "isGrating", "(ZL" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_BLOCK) + ";)Z", false));
                     method.instructions.insertBefore(test, toAdd);
                     MicdoodleTransformer.injectionCount++;
                     break;
@@ -1102,7 +1097,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
         if (method != null)
         {
             method.instructions.insertBefore(method.instructions.get(method.instructions.size() - 3),
-                new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_MICDOODLE_PLUGIN, "onSleepCancelled", "()V"));
+                new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_MICDOODLE_PLUGIN, "onSleepCancelled", "()V", false));
             MicdoodleTransformer.injectionCount++;
         }
 
@@ -1119,7 +1114,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
 
         if (method != null)
         {
-            method.instructions.insertBefore(method.instructions.get(0), new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_MICDOODLE_PLUGIN, "orientCamera", "()V"));
+            method.instructions.insertBefore(method.instructions.get(0), new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_MICDOODLE_PLUGIN, "orientCamera", "()V", false));
             MicdoodleTransformer.injectionCount++;
         }
 
@@ -1260,30 +1255,6 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
             {
                 for (AnnotationNode annotation : methodnode.visibleAnnotations)
                 {
-                    /*
-                     * if (annotation.desc.equals("L" +
-                     * MicdoodleTransformer.CLASS_VERSION_SPECIFIC + ";")) {
-                     * String toMatch = null; for (int i = 0; i <
-                     * annotation.values.size(); i+=2) { if
-                     * ("version".equals(annotation.values.get(i))) { toMatch =
-                     * String.valueOf(annotation.values.get(i + 1)); } } if
-                     * (toMatch != null) { boolean doRemove = true; if
-                     * (mcVersionMatches(toMatch)) { doRemove = false; } if
-                     * (doRemove) { methods.remove(); break methodLabel; } } }
-                     * if (annotation.desc.equals("L" +
-                     * MicdoodleTransformer.CLASS_ALT_FORVERSION + ";")) {
-                     * String toMatch = null; for (int i = 0; i <
-                     * annotation.values.size(); i+=2) { if
-                     * ("version".equals(annotation.values.get(i))) { toMatch =
-                     * String.valueOf(annotation.values.get(i + 1)); } } if
-                     * (toMatch != null) { if (mcVersionMatches(toMatch)) {
-                     * String existing = new String(methodnode.name); existing =
-                     * existing.substring(0, existing.length() - 1); if
-                     * (ConfigManagerMicCore.enableDebug)
-                     * this.printLog("Renaming method "+existing+" for version "
-                     * +toMatch); methodnode.name = new String(existing); break;
-                     * } } }
-                     */
                     if (annotation.desc.equals("L" + MicdoodleTransformer.CLASS_RUNTIME_INTERFACE + ";"))
                     {
                         List<String> desiredInterfaces = new ArrayList<String>();
@@ -1322,7 +1293,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                                         Class.forName(inter);
                                     } catch (ClassNotFoundException e)
                                     {
-                                        if (ConfigManagerMicCore.enableDebug)
+                                        
                                             this.printLog("Galacticraft ignored missing interface \"" + inter + "\" from mod \"" + modID + "\".");
                                         continue;
                                     }
@@ -1331,7 +1302,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
 
                                     if (deobfName.equals("EXTENDS"))
                                     {
-                                        if (ConfigManagerMicCore.enableDebug)
+                                        
                                             this.printLog("Galacticraft added superclass \"" + inter + "\" dynamically from \"" + modID + "\" to class \"" + node.name + "\".");
                                         node.superName = inter;
                                         MicdoodleTransformer.injectionCount++;
@@ -1340,7 +1311,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
 
                                     if (!node.interfaces.contains(inter))
                                     {
-                                        if (ConfigManagerMicCore.enableDebug)
+                                        
                                             this.printLog("Galacticraft added interface \"" + inter + "\" dynamically from \"" + modID + "\" to class \"" + node.name + "\".");
                                         node.interfaces.add(inter);
                                         MicdoodleTransformer.injectionCount++;
@@ -1349,7 +1320,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                                         {
                                             String nameBefore = methodnode.name;
                                             methodnode.name = deobfName;
-                                            if (ConfigManagerMicCore.enableDebug)
+                                            
                                                 this.printLog("Galacticraft renamed method " + nameBefore + " to " + deobfName + " in class " + node.name);
                                         }
                                     }
@@ -1359,7 +1330,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                             } else
                             {
                                 ignoredMods.add(modID);
-                                if (ConfigManagerMicCore.enableDebug)
+                                
                                     this.printLog("Galacticraft ignored dynamic interface insertion since \"" + modID + "\" was not found.");
                             }
                         }
@@ -1372,7 +1343,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
 
         if (MicdoodleTransformer.injectionCount > 0)
         {
-            if (ConfigManagerMicCore.enableDebug)
+            
                 this.printLog("Galacticraft successfully injected bytecode into: " + node.name + " (" + MicdoodleTransformer.injectionCount + ")");
         }
 
@@ -1462,7 +1433,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     if (nodeAt.name.equals("<init>") && nodeAt.owner.equals(this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY_OTHER_PLAYER)))
                     {
                         handleNamedSpawnMethod.instructions.set(nodeAt, new MethodInsnNode(Opcodes.INVOKESPECIAL, this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_CUSTOM_OTHER_PLAYER), "<init>",
-                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_GAME_PROFILE) + ";)V"));
+                            "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_GAME_PROFILE) + ";)V", false));
                         MicdoodleTransformer.injectionCount++;
                     }
                 }
@@ -1614,8 +1585,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     toAdd.add(new VarInsnNode(Opcodes.ALOAD, 0));
                     toAdd.add(new VarInsnNode(Opcodes.FLOAD, 1));
                     toAdd.add(new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "getRainStrength",
-                        "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";F)F"));
-                    // toAdd.add(new InsnNode(Opcodes.FRETURN));
+                        "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_WORLD) + ";F)F", false));
                     method.instructions.insertBefore(method.instructions.get(count), toAdd);
                     MicdoodleTransformer.injectionCount++;
                     break;
@@ -1658,7 +1628,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                 if (list.getOpcode() == Opcodes.GETFIELD && ((FieldInsnNode) list).name.equals("skyStoneDefinition"))
                 {
                     AbstractInsnNode toAdd = new MethodInsnNode(Opcodes.INVOKESTATIC, MicdoodleTransformer.CLASS_TRANSFORMER_HOOKS, "addAE2MeteorSpawn",
-                        "(Ljava/lang/Object;L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_BLOCK) + ";)Z");
+                        "(Ljava/lang/Object;L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_BLOCK) + ";)Z", false);
                     method.instructions.set(method.instructions.get(count - 5), toAdd);
                     MicdoodleTransformer.injectionCount++;
                     break;
@@ -1753,7 +1723,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
         {
             if (MicdoodleTransformer.injectionCount >= MicdoodleTransformer.operationCount)
             {
-                if (ConfigManagerMicCore.enableDebug)
+                
                     this.printLog("Galacticraft successfully injected bytecode into: " + nodeName + " (" + MicdoodleTransformer.injectionCount + " / " + MicdoodleTransformer.operationCount + ")");
             } else
             {
@@ -1834,8 +1804,10 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
 
     private void printLog(String message)
     {
-        // TODO: Add custom log file
-        FMLLog.info(message);
+        if (ConfigManagerMicCore.enableDebug)
+        {
+            MicdoodlePlugin.miccoreLogger.debug(message);
+        }
     }
 
     private ClassNode startInjection(byte[] bytes)

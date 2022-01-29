@@ -1,17 +1,12 @@
 package micdoodle8.mods.miccore;
 
 import com.google.common.eventbus.EventBus;
-
+import java.util.Arrays;
 import micdoodle8.mods.galacticraft.core.Constants;
-
 import net.minecraftforge.fml.common.DummyModContainer;
 import net.minecraftforge.fml.common.LoadController;
 import net.minecraftforge.fml.common.ModMetadata;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 
-import java.util.Arrays;
-
-@MCVersion("1.12.2")
 public class MicdoodleModContainer extends DummyModContainer
 {
 

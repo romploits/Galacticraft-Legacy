@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.gui.container.GuiContainerGC;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementInfoRegion;
@@ -20,9 +22,6 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiGasLiquefier extends GuiContainerGC

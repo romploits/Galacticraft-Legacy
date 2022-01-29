@@ -1,7 +1,8 @@
 package micdoodle8.mods.galacticraft.planets.venus.client;
 
 import com.google.common.collect.Maps;
-
+import java.util.Iterator;
+import java.util.Map;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.client.CloudRenderer;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
@@ -21,9 +22,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Iterator;
-import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class TickHandlerClientVenus

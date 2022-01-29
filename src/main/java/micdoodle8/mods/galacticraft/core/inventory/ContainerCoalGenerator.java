@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.inventory;
 
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCoalGenerator;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;

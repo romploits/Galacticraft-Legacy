@@ -1,12 +1,11 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.client.jei.astrominer;
 
 import com.google.common.collect.Lists;
+import javax.annotation.Nonnull;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import micdoodle8.mods.galacticraft.api.recipe.INasaWorkbenchRecipe;
 import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
 
 public class AstroMinerRecipeWrapper implements IRecipeWrapper
 {

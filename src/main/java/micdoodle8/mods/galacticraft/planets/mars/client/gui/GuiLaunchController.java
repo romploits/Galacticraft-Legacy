@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.gui;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.gui.container.GuiContainerGC;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementInfoRegion;
@@ -25,15 +29,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class GuiLaunchController extends GuiContainerGC implements ITextBoxCallback
 {

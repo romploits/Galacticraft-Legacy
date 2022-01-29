@@ -7,7 +7,6 @@ import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenSealer;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

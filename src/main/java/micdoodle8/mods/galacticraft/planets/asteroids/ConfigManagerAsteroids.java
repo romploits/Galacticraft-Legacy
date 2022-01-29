@@ -1,15 +1,11 @@
 package micdoodle8.mods.galacticraft.planets.asteroids;
 
 import java.io.File;
-
-import org.apache.logging.log4j.Level;
-
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.mars.ConfigManagerMars;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.common.FMLLog;
 
 public class ConfigManagerAsteroids
 {
@@ -160,7 +156,7 @@ public class ConfigManagerAsteroids
             GalacticraftPlanets.finishProp(prop, Constants.CONFIG_CATEGORY_WORLDGEN);
         } catch (final Exception e)
         {
-            FMLLog.log(Level.ERROR, e, "Galacticraft Asteroids (Planets) has a problem loading its config");
+            GalacticraftPlanets.logger.error(e, "Galacticraft Asteroids (Planets) has a problem loading its config");
         }
     }
 }

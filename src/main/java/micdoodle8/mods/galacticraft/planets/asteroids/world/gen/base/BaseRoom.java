@@ -1,5 +1,8 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.world.gen.base;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMulti;
@@ -34,10 +37,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 
 public class BaseRoom extends SizedPiece
 {

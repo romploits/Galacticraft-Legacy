@@ -1,11 +1,13 @@
 package micdoodle8.mods.galacticraft.core.inventory;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.item.IItemElectric;
 import micdoodle8.mods.galacticraft.api.recipe.CircuitFabricatorRecipes;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.EnergyUtil;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCircuitFabricator;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
@@ -16,10 +18,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnaceOutput;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class ContainerCircuitFabricator extends Container
 {
@@ -296,7 +294,7 @@ public class ContainerCircuitFabricator extends Container
                 target.grow(transfer);
                 if (target.getCount() > target.getMaxStackSize())
                 {
-                    GCLog.info("Shift clicking - slot " + slot.slotNumber + " wanted more than it could accept:" + target.getCount());
+                    GalacticraftCore.logger.info("Shift clicking - slot " + slot.slotNumber + " wanted more than it could accept:" + target.getCount());
                     stack.grow(target.getCount() - target.getMaxStackSize());
                     target.setCount(target.getMaxStackSize());
                 }

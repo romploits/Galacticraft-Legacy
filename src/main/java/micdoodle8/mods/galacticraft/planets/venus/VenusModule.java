@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.venus;
 
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
@@ -21,7 +20,6 @@ import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
 import micdoodle8.mods.galacticraft.core.items.ItemBucketGC;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.planets.GCPlanetDimensions;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
@@ -99,7 +97,7 @@ public class VenusModule implements IPlanetsModule
             FluidRegistry.registerFluid(sulphuricAcidGC);
         } else
         {
-            GCLog.info("Galacticraft sulphuric acid is not default, issues may occur.");
+            GalacticraftPlanets.logger.info("Galacticraft sulphuric acid is not default, issues may occur.");
         }
 
         sulphuricAcid = FluidRegistry.getFluid("sulphuricacid");

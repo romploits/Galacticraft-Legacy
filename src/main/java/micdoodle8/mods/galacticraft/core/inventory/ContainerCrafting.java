@@ -1,9 +1,10 @@
 package micdoodle8.mods.galacticraft.core.inventory;
 
+import java.util.LinkedList;
+import java.util.List;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCrafting;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -13,9 +14,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.NonNullList;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class ContainerCrafting extends Container
 {
@@ -317,7 +315,7 @@ public class ContainerCrafting extends Container
                 target.grow(transfer);
                 if (target.getCount() > target.getMaxStackSize())
                 {
-                    GCLog.info("Shift clicking - slot " + slot.slotNumber + " wanted more than it could accept:" + target.getCount());
+                    GalacticraftCore.logger.info("Shift clicking - slot " + slot.slotNumber + " wanted more than it could accept:" + target.getCount());
                     stack.grow(target.getCount() - target.getMaxStackSize());
                     target.setCount(target.getMaxStackSize());
                 }

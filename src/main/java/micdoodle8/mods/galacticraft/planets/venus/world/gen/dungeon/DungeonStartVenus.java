@@ -1,14 +1,12 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen.dungeon;
 
 import com.google.common.collect.Lists;
-
-import micdoodle8.mods.galacticraft.core.util.GCLog;
+import java.util.List;
+import java.util.Random;
+import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
-
-import java.util.List;
-import java.util.Random;
 
 public class DungeonStartVenus extends EntranceCraterVenus
 {
@@ -55,7 +53,7 @@ public class DungeonStartVenus extends EntranceCraterVenus
             attempts++;
         }
 
-        GCLog.debug("Dungeon generation took " + attempts + " attempt(s)");
+        GalacticraftPlanets.logger.debug("Dungeon generation took " + attempts + " attempt(s)");
 
         if (!validAttempt)
         {

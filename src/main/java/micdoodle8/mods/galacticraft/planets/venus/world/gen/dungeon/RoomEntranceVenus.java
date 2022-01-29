@@ -1,11 +1,10 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen.dungeon;
 
+import java.util.Random;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-
-import java.util.Random;
 
 public class RoomEntranceVenus extends SizedPieceVenus
 {

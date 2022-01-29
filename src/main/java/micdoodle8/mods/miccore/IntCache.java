@@ -1,10 +1,8 @@
 package micdoodle8.mods.miccore;
 
 import com.google.common.collect.Lists;
-
-import micdoodle8.mods.galacticraft.core.util.MapUtil;
-
 import java.util.List;
+import micdoodle8.mods.galacticraft.core.util.MapUtil;
 
 public class IntCache
 {

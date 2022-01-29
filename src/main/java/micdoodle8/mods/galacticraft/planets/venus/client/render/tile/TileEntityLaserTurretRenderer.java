@@ -1,17 +1,18 @@
 package micdoodle8.mods.galacticraft.planets.venus.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.client.model.OBJLoaderGC;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.venus.tile.TileEntityLaserTurret;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -23,6 +24,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityLaserTurretRenderer extends TileEntitySpecialRenderer<TileEntityLaserTurret>

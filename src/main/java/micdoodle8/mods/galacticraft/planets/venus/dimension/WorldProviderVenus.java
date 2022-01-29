@@ -3,7 +3,6 @@ package micdoodle8.mods.galacticraft.planets.venus.dimension;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.WorldProviderSpace;
@@ -27,12 +26,12 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DimensionType;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

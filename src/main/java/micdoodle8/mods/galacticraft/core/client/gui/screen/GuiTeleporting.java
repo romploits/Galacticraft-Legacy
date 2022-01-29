@@ -3,14 +3,13 @@ package micdoodle8.mods.galacticraft.core.client.gui.screen;
 import micdoodle8.mods.galacticraft.core.dimension.WorldProviderSpaceStation;
 import micdoodle8.mods.galacticraft.core.tick.TickHandlerClient;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
-
 import net.minecraft.client.gui.GuiScreen;
 
 public class GuiTeleporting extends GuiScreen
 {
 
     private final int targetDimensionID;
-    private final String message;
+    protected String message;
 
     public GuiTeleporting(int targetDimensionID)
     {

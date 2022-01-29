@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.dimension;
 
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.entity.IRocketType;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
@@ -11,7 +10,7 @@ import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
+import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.asteroids.blocks.AsteroidBlocks;
 import micdoodle8.mods.galacticraft.planets.asteroids.entities.EntityEntryPod;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
@@ -101,7 +100,7 @@ public class TeleportTypeAsteroids implements ITeleportType
 
                     if (ConfigManagerCore.enableDebug)
                     {
-                        GCLog.info("Testing asteroid at x" + (bv3.x) + " y" + (bv3.y) + " z" + bv3.z);
+                        GalacticraftPlanets.logger.info("Testing asteroid at x" + (bv3.x) + " y" + (bv3.y) + " z" + bv3.z);
                     }
                     this.loadChunksAround(bv3.x, bv3.z, 2, world.getChunkProvider());
                     this.loadChunksAround(bv3.x, bv3.z, -3, world.getChunkProvider());
@@ -131,7 +130,7 @@ public class TeleportTypeAsteroids implements ITeleportType
                     // one there
                     if (ConfigManagerCore.enableDebug)
                     {
-                        GCLog.info("Removing drilled out asteroid at x" + (bv3.x) + " z" + (bv3.z));
+                        GalacticraftPlanets.logger.info("Removing drilled out asteroid at x" + (bv3.x) + " z" + (bv3.z));
                     }
                     ((WorldProviderAsteroids) world.provider).removeAsteroid(bv3.x, bv3.y, bv3.z);
                 }
@@ -139,12 +138,12 @@ public class TeleportTypeAsteroids implements ITeleportType
                 attemptCount++;
             } while (attemptCount < 5);
 
-            GCLog.info("Failed to find good large asteroid landing spot! Falling back to making a small one.");
+            GalacticraftPlanets.logger.info("Failed to find good large asteroid landing spot! Falling back to making a small one.");
             this.makeSmallLandingSpot(world, x, z);
             return new Vector3(x, 310, z);
         }
 
-        GCLog.error("Null player when teleporting to Asteroids!");
+        GalacticraftPlanets.logger.error("Null player when teleporting to Asteroids!");
         return new Vector3(0, 310, 0);
     }
 
@@ -181,7 +180,7 @@ public class TeleportTypeAsteroids implements ITeleportType
                 }
                 if (ConfigManagerCore.enableDebug)
                 {
-                    GCLog.info("Found asteroid at x" + (x) + " z" + (z));
+                    GalacticraftPlanets.logger.info("Found asteroid at x" + (x) + " z" + (z));
                 }
                 return true;
             }

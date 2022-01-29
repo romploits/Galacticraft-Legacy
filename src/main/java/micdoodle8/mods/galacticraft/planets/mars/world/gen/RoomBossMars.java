@@ -1,17 +1,16 @@
 package micdoodle8.mods.galacticraft.planets.mars.world.gen;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityDungeonSpawner;
 import micdoodle8.mods.galacticraft.core.world.gen.dungeon.DungeonConfiguration;
 import micdoodle8.mods.galacticraft.core.world.gen.dungeon.RoomBoss;
 import micdoodle8.mods.galacticraft.planets.mars.blocks.MarsBlocks;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-
-import java.util.Random;
 
 public class RoomBossMars extends RoomBoss
 {

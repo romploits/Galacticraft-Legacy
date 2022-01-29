@@ -1,17 +1,15 @@
 package micdoodle8.mods.galacticraft.planets.venus.tile;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.tile.ITransmitter;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class NetworkFinderSolar
 {

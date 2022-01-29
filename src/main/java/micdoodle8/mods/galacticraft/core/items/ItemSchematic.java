@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicItem;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
@@ -7,14 +9,12 @@ import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.EntityHangingSchematic;
-import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemHangingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -26,10 +26,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemSchematic extends ItemHangingEntity implements ISchematicItem, ISortableItem, GCRarity
 {

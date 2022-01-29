@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.client.gui.container;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementCheckbox;
@@ -12,15 +14,10 @@ import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDistributor;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GuiOxygenDistributor extends GuiContainerGC implements ICheckBoxCallback
 {

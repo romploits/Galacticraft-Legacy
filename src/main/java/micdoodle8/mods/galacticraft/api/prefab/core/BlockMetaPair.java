@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.api.prefab.core;
 
+import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 
@@ -7,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
  * Do not include this prefab class in your released mod download.
  */
 @Deprecated
+@ForRemoval(deadline = "4.1.0")
 public class BlockMetaPair
 {
 

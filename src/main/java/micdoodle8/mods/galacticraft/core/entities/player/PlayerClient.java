@@ -23,7 +23,6 @@ import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -115,15 +114,15 @@ public class PlayerClient implements IPlayerClient
 
 //        if (player.boundingBox != null && stats.boundingBoxBefore == null)
 //        {
-//            GCLog.debug("Changed player BB from " + player.boundingBox.minY);
+//            GalacticraftCore.logger.debug("Changed player BB from " + player.boundingBox.minY);
 //            stats.boundingBoxBefore = player.boundingBox;
 //            player.boundingBox.setBounds(stats.boundingBoxBefore.minX + 0.4, stats.boundingBoxBefore.minY + 0.9, stats.boundingBoxBefore.minZ + 0.4, stats.boundingBoxBefore.maxX - 0.4, stats.boundingBoxBefore.maxY - 0.9, stats.boundingBoxBefore.maxZ - 0.4);
-//            GCLog.debug("Changed player BB to " + player.boundingBox.minY);
+//            GalacticraftCore.logger.debug("Changed player BB to " + player.boundingBox.minY);
 //        }
 //        else if (player.boundingBox != null && stats.boundingBoxBefore != null)
 //        {
 //            player.boundingBox.setBB(stats.boundingBoxBefore);
-//            GCLog.debug("Changed player BB to " + player.boundingBox.minY);
+//            GalacticraftCore.logger.debug("Changed player BB to " + player.boundingBox.minY);
 //        }
     }
 

@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
 import micdoodle8.mods.galacticraft.core.util.JavaUtil;
-
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockStaticLiquid;

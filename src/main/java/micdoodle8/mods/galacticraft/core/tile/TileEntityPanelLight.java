@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import io.netty.buffer.ByteBuf;
+import java.util.ArrayList;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -10,7 +12,6 @@ import micdoodle8.mods.galacticraft.core.network.IPacketReceiver;
 import micdoodle8.mods.galacticraft.core.network.PacketDynamic;
 import micdoodle8.mods.galacticraft.core.util.RedstoneUtil;
 import micdoodle8.mods.galacticraft.planets.asteroids.blocks.AsteroidBlocks;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,10 +24,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-
-import io.netty.buffer.ByteBuf;
 
 public class TileEntityPanelLight extends TileEntity implements IPacketReceiver
 {

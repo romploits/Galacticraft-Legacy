@@ -1,13 +1,10 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.entities;
 
+import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
-
-import org.lwjgl.opengl.GL11;
-
-import io.netty.buffer.ByteBuf;
 import micdoodle8.mods.galacticraft.api.entity.IAntiGrav;
 import micdoodle8.mods.galacticraft.api.entity.IEntityNoisy;
 import micdoodle8.mods.galacticraft.api.entity.ITelemetry;
@@ -22,10 +19,10 @@ import micdoodle8.mods.galacticraft.core.network.IPacketReceiver;
 import micdoodle8.mods.galacticraft.core.network.PacketDynamic;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.asteroids.blocks.AsteroidBlocks;
 import micdoodle8.mods.galacticraft.planets.asteroids.client.sounds.SoundUpdaterMiner;
 import micdoodle8.mods.galacticraft.planets.asteroids.dimension.WorldProviderAsteroids;
@@ -71,6 +68,7 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 
 public class EntityAstroMiner extends Entity implements IInventory, IPacketReceiver, IEntityNoisy, IAntiGrav, ITelemetry
 {
@@ -642,7 +640,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
                     }
                 } else
                 {
-                    GCLog.error("AstroMiner missing base position: this is a bug.");
+                    GalacticraftPlanets.logger.error("AstroMiner missing base position: this is a bug.");
                     this.AIstate = AISTATE_STUCK;
                 }
                 break;
@@ -841,7 +839,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
         if (!this.minePoints.isEmpty() && this.pathBlockedCount < 2)
         {
             this.posTarget = this.minePoints.getFirst().clone();
-            GCLog.debug("Still mining at: " + posTarget.toString() + " Remaining shafts: " + this.minePoints.size());
+            GalacticraftPlanets.logger.debug("Still mining at: " + posTarget.toString() + " Remaining shafts: " + this.minePoints.size());
             return true;
         }
 
@@ -855,7 +853,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
             return false;
         }
 
-        GCLog.debug("Miner target: " + posTarget.toString());
+        GalacticraftPlanets.logger.debug("Miner target: " + posTarget.toString());
 
         return true;
     }
@@ -874,7 +872,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
 
         if (this.posTarget == null)
         {
-            GCLog.error("AstroMiner missing target: this is a bug.");
+            GalacticraftPlanets.logger.error("AstroMiner missing target: this is a bug.");
             AIstate = AISTATE_STUCK;
             return true;
         }
@@ -978,14 +976,14 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
             }
             AIstate = AISTATE_RETURNING;
             this.pathBlockedCount = 0;
-            GCLog.debug("Miner going home: " + this.posBase.toString() + " " + this.minePoints.size() + " shafts still to be mined");
+            GalacticraftPlanets.logger.debug("Miner going home: " + this.posBase.toString() + " " + this.minePoints.size() + " shafts still to be mined");
             return true;
         }
 
         if (this.moveToPos(this.minePoints.getFirst(), false))
         {
             this.minePointCurrent = this.minePoints.removeFirst();
-            GCLog.debug("Miner mid mining: " + this.minePointCurrent.toString() + " " + this.minePoints.size() + " shafts still to be mined");
+            GalacticraftPlanets.logger.debug("Miner mid mining: " + this.minePointCurrent.toString() + " " + this.minePoints.size() + " shafts still to be mined");
             return true;
         }
         return false;
@@ -1670,7 +1668,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
 
         if (item == null)
         {
-            GCLog.info("AstroMiner was unable to mine anything from: " + b.getTranslationKey());
+            GalacticraftPlanets.logger.info("AstroMiner was unable to mine anything from: " + b.getTranslationKey());
             return null;
         }
 
@@ -1764,7 +1762,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
                 this.moveToPosZ(pos.z, stopForTurn);
                 if (TEMPDEBUG)
                 {
-                    GCLog.debug("At " + posX + "," + posY + "," + posZ + "Moving Z to " + pos.toString()
+                    GalacticraftPlanets.logger.debug("At " + posX + "," + posY + "," + posZ + "Moving Z to " + pos.toString()
                         + (stopForTurn ? " : Stop for turn " + this.rotationPitch + "," + this.rotationYaw + " | " + this.targetPitch + "," + this.targetYaw : ""));
                 }
             } else if (this.posY > pos.y - 0.9999D || this.posY < pos.y - 1.0001D)
@@ -1772,7 +1770,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
                 this.moveToPosY(pos.y - 1, stopForTurn);
                 if (TEMPDEBUG)
                 {
-                    GCLog.debug("At " + posX + "," + posY + "," + posZ + "Moving Y to " + pos.toString()
+                    GalacticraftPlanets.logger.debug("At " + posX + "," + posY + "," + posZ + "Moving Y to " + pos.toString()
                         + (stopForTurn ? " : Stop for turn " + this.rotationPitch + "," + this.rotationYaw + " | " + this.targetPitch + "," + this.targetYaw : ""));
                 }
             } else if (this.posX > pos.x + 0.0001D || this.posX < pos.x - 0.0001D)
@@ -1780,7 +1778,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
                 this.moveToPosX(pos.x, stopForTurn);
                 if (TEMPDEBUG)
                 {
-                    GCLog.debug("At " + posX + "," + posY + "," + posZ + "Moving X to " + pos.toString()
+                    GalacticraftPlanets.logger.debug("At " + posX + "," + posY + "," + posZ + "Moving X to " + pos.toString()
                         + (stopForTurn ? " : Stop for turn " + this.rotationPitch + "," + this.rotationYaw + " | " + this.targetPitch + "," + this.targetYaw : ""));
                 }
             } else
@@ -1795,7 +1793,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
                 this.moveToPosX(pos.x, stopForTurn);
                 if (TEMPDEBUG)
                 {
-                    GCLog.debug("At " + posX + "," + posY + "," + posZ + "Moving X to " + pos.toString()
+                    GalacticraftPlanets.logger.debug("At " + posX + "," + posY + "," + posZ + "Moving X to " + pos.toString()
                         + (stopForTurn ? " : Stop for turn " + this.rotationPitch + "," + this.rotationYaw + " | " + this.targetPitch + "," + this.targetYaw : ""));
                 }
             } else if (this.posY > pos.y - 0.9999D || this.posY < pos.y - 1.0001D)
@@ -1803,7 +1801,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
                 this.moveToPosY(pos.y - 1, stopForTurn);
                 if (TEMPDEBUG)
                 {
-                    GCLog.debug("At " + posX + "," + posY + "," + posZ + "Moving Y to " + pos.toString()
+                    GalacticraftPlanets.logger.debug("At " + posX + "," + posY + "," + posZ + "Moving Y to " + pos.toString()
                         + (stopForTurn ? " : Stop for turn " + this.rotationPitch + "," + this.rotationYaw + " | " + this.targetPitch + "," + this.targetYaw : ""));
                 }
             } else if (this.posZ > pos.z + 0.0001D || this.posZ < pos.z - 0.0001D)
@@ -1811,7 +1809,7 @@ public class EntityAstroMiner extends Entity implements IInventory, IPacketRecei
                 this.moveToPosZ(pos.z, stopForTurn);
                 if (TEMPDEBUG)
                 {
-                    GCLog.debug("At " + posX + "," + posY + "," + posZ + "Moving Z to " + pos.toString()
+                    GalacticraftPlanets.logger.debug("At " + posX + "," + posY + "," + posZ + "Moving Z to " + pos.toString()
                         + (stopForTurn ? " : Stop for turn " + this.rotationPitch + "," + this.rotationYaw + " | " + this.targetPitch + "," + this.targetYaw : ""));
                 }
             } else

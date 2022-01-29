@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.mars.tile;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMulti;

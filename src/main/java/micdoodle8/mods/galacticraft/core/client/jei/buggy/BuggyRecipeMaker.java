@@ -1,14 +1,12 @@
 package micdoodle8.mods.galacticraft.core.client.jei.buggy;
 
-import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
-import micdoodle8.mods.galacticraft.api.recipe.INasaWorkbenchRecipe;
-import micdoodle8.mods.galacticraft.core.GCItems;
-
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
+import micdoodle8.mods.galacticraft.api.recipe.INasaWorkbenchRecipe;
+import micdoodle8.mods.galacticraft.core.GCItems;
+import net.minecraft.item.ItemStack;
 
 public class BuggyRecipeMaker
 {

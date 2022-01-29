@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.api.item.IItemThermal;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -20,10 +22,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemThermalPaddingTier2 extends Item implements IItemThermal, ISortableItem, GCRarity
 {

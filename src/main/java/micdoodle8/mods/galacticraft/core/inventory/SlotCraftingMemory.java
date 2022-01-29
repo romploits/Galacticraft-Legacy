@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.inventory;
 
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCrafting;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;

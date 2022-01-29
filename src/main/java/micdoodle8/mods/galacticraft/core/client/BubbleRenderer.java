@@ -2,13 +2,12 @@ package micdoodle8.mods.galacticraft.core.client;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.entities.IBubbleProviderColored;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -17,10 +16,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
-import java.util.List;
 
 public class BubbleRenderer
 {

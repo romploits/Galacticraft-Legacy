@@ -5,6 +5,23 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.Predicate;
+import javax.vecmath.Quat4f;
+import javax.vecmath.Vector3f;
 import micdoodle8.mods.galacticraft.api.client.IItemMeshDefinitionCustom;
 import micdoodle8.mods.galacticraft.api.client.tabs.InventoryTabVanilla;
 import micdoodle8.mods.galacticraft.api.client.tabs.TabRegistry;
@@ -105,8 +122,8 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntitySolar;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityTreasureChest;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
+import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.BlockMetaList;
 import micdoodle8.mods.galacticraft.core.wrappers.ModelTransformWrapper;
@@ -128,6 +145,7 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetHandler;
@@ -135,6 +153,7 @@ import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -158,19 +177,6 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Predicate;
-
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
 
 public class ClientProxyCore extends CommonProxyCore implements ISelectiveResourceReloadListener
 {
@@ -207,6 +213,10 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
     private static ModelResourceLocation fuelLocation = new ModelResourceLocation(Constants.TEXTURE_PREFIX + "fuel", "fluid");
     private static ModelResourceLocation oilLocation = new ModelResourceLocation(Constants.TEXTURE_PREFIX + "oil", "fluid");
     private static List<PartialCanister> canisters = Lists.newArrayList();
+    public static Map<String, ResourceLocation> capeMap = new HashMap<>();
+
+    @Deprecated
+    public static EnumRarity galacticraftItem = EnumHelper.addRarity("GCRarity", TextFormatting.BLUE, "Space");
 
     @Override
     public void preInit(FMLPreInitializationEvent event)
@@ -227,8 +237,9 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
     public void init(FMLInitializationEvent event)
     {
         MUSIC_TYPE_MARS = EnumHelper.addEnum(MusicTicker.MusicType.class, "MARS_JC", new Class[]
-        {SoundEvent.class, Integer.TYPE, Integer.TYPE}, GCSounds.music, 12000, 24000);
+            {SoundEvent.class, Integer.TYPE, Integer.TYPE}, GCSounds.music, 12000, 24000);
         ClientProxyCore.registerTileEntityRenderers();
+        ClientProxyCore.updateCapeList();
         ClientProxyCore.registerInventoryJsons();
 
         Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler((state, world, pos, tintIndex) ->
@@ -240,8 +251,7 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
         {
             Block b = state.getBlock();
             return (b instanceof BlockSpaceGlass) ? ((BlockSpaceGlass) b).color : 0xFFFFFF;
-        }, new Block[]
-        {GCBlocks.spaceGlassVanilla, GCBlocks.spaceGlassClear, GCBlocks.spaceGlassStrong});
+        }, GCBlocks.spaceGlassVanilla, GCBlocks.spaceGlassClear, GCBlocks.spaceGlassStrong);
 
         Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler((state, world, pos, tintIndex) ->
         {
@@ -302,7 +312,7 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
     public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate)
     {
         String lang = net.minecraft.client.Minecraft.getMinecraft().gameSettings.language;
-        GCLog.debug("Reloading entity names for language " + lang);
+        GalacticraftCore.logger.debug("Reloading entity names for language " + lang);
         if (lang == null)
         {
             lang = "en_US";
@@ -369,14 +379,14 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
             ModelLoader.setCustomModelResourceLocation(GCItems.buggy, i, modelResourceLocation);
         }
 
-//        for (PartialCanister container : ClientProxyCore.canisters)
-//        {
-//            modelResourceLocation = new ModelResourceLocation(container.getModID() + ":" + container.getBaseName() + "_0", "inventory");
-//            for (int i = 0; i < container.getItem().getMaxDamage(); ++i)
-//            {
-//                ModelLoader.setCustomModelResourceLocation(container.getItem(), i, modelResourceLocation);
-//            }
-//        }
+        //        for (PartialCanister container : ClientProxyCore.canisters)
+        //        {
+        //            modelResourceLocation = new ModelResourceLocation(container.getModID() + ":" + container.getBaseName() + "_0", "inventory");
+        //            for (int i = 0; i < container.getItem().getMaxDamage(); ++i)
+        //            {
+        //                ModelLoader.setCustomModelResourceLocation(container.getItem(), i, modelResourceLocation);
+        //            }
+        //        }
 
         modelResourceLocation = new ModelResourceLocation("galacticraftcore:flag", "inventory");
         ModelLoader.setCustomModelResourceLocation(GCItems.flag, 0, modelResourceLocation);
@@ -430,10 +440,8 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
         if (handler instanceof NetHandlerPlayServer)
         {
             return ((NetHandlerPlayServer) handler).player;
-        } else
-        {
-            return FMLClientHandler.instance().getClientPlayerEntity();
         }
+        return FMLClientHandler.instance().getClientPlayerEntity();
     }
 
     @Override
@@ -539,17 +547,17 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
             blockLoc = new ModelResourceLocation(Constants.ASSET_PREFIX + ":grating" + i, "normal");
             event.getModelRegistry().putObject(blockLoc, new ModelGrating(defaultLoc, event.getModelManager()));
         }
-//
-//        for (PartialCanister container : ClientProxyCore.canisters)
-//        {
-//            for (int i = 0; i < container.getTextureCount(); ++i)
-//            {
-//                ModelResourceLocation modelResourceLocation = new ModelResourceLocation(container.getModID() + ":" + container.getBaseName() + "_" + i, "inventory");
-//                IBakedModel object = event.modelRegistry.getObject(modelResourceLocation);
-//                ItemLiquidCanisterModel modelFinal = new ItemLiquidCanisterModel(object);
-//                event.modelRegistry.putObject(modelResourceLocation, modelFinal);
-//            }
-//        }
+        //
+        //        for (PartialCanister container : ClientProxyCore.canisters)
+        //        {
+        //            for (int i = 0; i < container.getTextureCount(); ++i)
+        //            {
+        //                ModelResourceLocation modelResourceLocation = new ModelResourceLocation(container.getModID() + ":" + container.getBaseName() + "_" + i, "inventory");
+        //                IBakedModel object = event.modelRegistry.getObject(modelResourceLocation);
+        //                ItemLiquidCanisterModel modelFinal = new ItemLiquidCanisterModel(object);
+        //                event.modelRegistry.putObject(modelResourceLocation, modelFinal);
+        //            }
+        //        }
     }
 
     /**
@@ -600,20 +608,20 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
     {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTreasureChest.class, new TileEntityTreasureChestRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolar.class, new TileEntitySolarPanelRenderer());
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxygenDistributor.class, new TileEntityBubbleProviderRenderer<>(0.25F, 0.25F, 1.0F));
+        //        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxygenDistributor.class, new TileEntityBubbleProviderRenderer<>(0.25F, 0.25F, 1.0F));
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScreen.class, new TileEntityScreenRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFluidTank.class, new TileEntityFluidTankRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFluidPipe.class, new TileEntityFluidPipeRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDish.class, new TileEntityDishRenderer());
-//            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityThruster.class, new TileEntityThrusterRenderer());
+        //            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityThruster.class, new TileEntityThrusterRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityArclamp.class, new TileEntityArclampRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPanelLight.class, new TileEntityPanelLightRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlatform.class, new TileEntityPlatformRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEmergencyBox.class, new TileEntityEmergencyBoxRenderer());
-//            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFluidPipe.class, new TileEntityOxygenPipeRenderer());
-//            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxygenStorageModule.class, new TileEntityMachineRenderer());
-//            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCircuitFabricator.class, new TileEntityMachineRenderer());
-//            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityElectricIngotCompressor.class, new TileEntityMachineRenderer());
+        //            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFluidPipe.class, new TileEntityOxygenPipeRenderer());
+        //            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxygenStorageModule.class, new TileEntityMachineRenderer());
+        //            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCircuitFabricator.class, new TileEntityMachineRenderer());
+        //            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityElectricIngotCompressor.class, new TileEntityMachineRenderer());
     }
 
     private static void registerInventoryJsons()
@@ -624,12 +632,12 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
         }
 
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.canister, 0, "canister"); // This
-                                                                                                // was
-                                                                                                // canister_tin
+        // was
+        // canister_tin
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.canister, 1, "canister_copper");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.rocketEngine, 0, "engine"); // This
-                                                                                                  // was
-                                                                                                  // tier1engine
+        // was
+        // tier1engine
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.rocketEngine, 1, "tier1booster");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.parachute, 0, "parachute");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.parachute, 1, "parachute_black");
@@ -648,18 +656,18 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.parachute, 14, "parachute_teal");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.parachute, 15, "parachute_yellow");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.schematic, 0, "schematic"); // This
-                                                                                                  // was
-                                                                                                  // schematic_buggy
+        // was
+        // schematic_buggy
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.schematic, 1, "schematic_rocket_t2");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.key, 0, "key");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.partBuggy, 0, "buggymat"); // This
-                                                                                                 // was
-                                                                                                 // wheel
+        // was
+        // wheel
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.partBuggy, 1, "seat");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.partBuggy, 2, "storage");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.basicItem, 0, "basic_item"); // This
-                                                                                                   // was
-                                                                                                   // solar_module_0
+        // was
+        // solar_module_0
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.basicItem, 1, "solar_module_1");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.basicItem, 2, "raw_silicon");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.basicItem, 3, "ingot_copper");
@@ -686,8 +694,8 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
             ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.foodItem, j, ItemFood.names[j]);
         }
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.itemBasicMoon, 0, "item_basic_moon"); // This
-                                                                                                            // was
-                                                                                                            // meteoric_iron_ingot
+        // was
+        // meteoric_iron_ingot
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.itemBasicMoon, 1, "compressed_meteoric_iron");
         ClientUtil.registerItemJson(Constants.TEXTURE_PREFIX, GCItems.itemBasicMoon, 2, "lunar_sapphire");
         if (CompatibilityManager.isIc2Loaded())
@@ -933,6 +941,81 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
         ClientProxyCore.submergedTextures.put(fluid, submergedTexture);
     }
 
+    private static void updateCapeList()
+    {
+        int timeout = 10000;
+        URL capeListUrl;
+
+        try
+        {
+            capeListUrl = new URL("https://raw.github.com/micdoodle8/Galacticraft/master/capes-uuid.txt");
+        } catch (IOException e)
+        {
+            if(ConfigManagerCore.enableDebug)
+            {
+                GalacticraftCore.logger.noticableWarning(e, "Error getting capes list URL");
+            } else {
+                GalacticraftCore.logger.warn("Error getting capes list URL");
+            }
+            return;
+        }
+
+        URLConnection connection;
+
+        try
+        {
+            connection = capeListUrl.openConnection();
+        } catch (IOException e)
+        {
+            if (ConfigManagerCore.enableDebug)
+                e.printStackTrace();
+            return;
+        }
+
+        connection.setConnectTimeout(timeout);
+        connection.setReadTimeout(timeout);
+        InputStream stream;
+
+        try
+        {
+            stream = connection.getInputStream();
+        } catch (IOException e)
+        {
+            if (ConfigManagerCore.enableDebug)
+                e.printStackTrace();
+            return;
+        }
+
+        InputStreamReader streamReader = new InputStreamReader(stream);
+        BufferedReader reader = new BufferedReader(streamReader);
+
+        String line;
+        try
+        {
+            while ((line = reader.readLine()) != null)
+            {
+                if (line.contains(":"))
+                {
+                    capeMap.put(line.split(":")[0], new ResourceLocation(Constants.MOD_ID_CORE, "textures/misc/capes/cape_" + line.split(":")[1].split(" ")[0].substring(4).toLowerCase() + ".png"));
+                }
+            }
+        } catch (IOException e)
+        {
+            if (ConfigManagerCore.enableDebug)
+                e.printStackTrace();
+        } finally
+        {
+            try
+            {
+                reader.close();
+            } catch (IOException e)
+            {
+                if (ConfigManagerCore.enableDebug)
+                    e.printStackTrace();
+            }
+        }
+    }
+
     public static class EventSpecialRender extends Event
     {
 
@@ -956,7 +1039,7 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
             if (!ClientProxyCore.gearDataRequests.contains(id))
             {
                 GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(PacketSimple.EnumSimplePacket.S_REQUEST_GEAR_DATA2, GCCoreUtil.getDimensionID(player.world), new Object[]
-                {id}));
+                    {id}));
                 ClientProxyCore.gearDataRequests.add(id);
             }
         }

@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.planets.venus.client.render.entity;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-
 import micdoodle8.mods.galacticraft.core.client.model.OBJLoaderGC;
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
@@ -23,7 +22,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.obj.OBJModel;
-
 import org.lwjgl.opengl.GL11;
 
 public class RenderEntryPodVenus extends Render<EntityEntryPodVenus>

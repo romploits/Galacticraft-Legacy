@@ -4,7 +4,6 @@ import java.util.ArrayList;
 // import java.util.HashMap;
 import java.util.List;
 // import java.util.Map;
-
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.entity.IDockable;
@@ -18,9 +17,9 @@ import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
 import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseElectricBlockWithInventory;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityLandingPad;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
 import micdoodle8.mods.galacticraft.core.world.IChunkLoader;
+import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.mars.ConfigManagerMars;
 import micdoodle8.mods.galacticraft.planets.mars.blocks.BlockMachineMars;
 import micdoodle8.mods.galacticraft.planets.mars.network.PacketSimpleMars;
@@ -352,7 +351,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
 
                             if (launchController2.frequency == this.frequency)
                             {
-                                GCLog.debug("Launch Controller frequency conflict at " + tile2.getPos() + " on dim: " + GCCoreUtil.getDimensionID(tile2));
+                                GalacticraftPlanets.logger.debug("Launch Controller frequency conflict at " + tile2.getPos() + " on dim: " + GCCoreUtil.getDimensionID(tile2));
                                 this.frequencyValid = false;
                                 break worldLoop;
                             }

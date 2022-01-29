@@ -3,7 +3,6 @@ package micdoodle8.mods.galacticraft.core.client.render.entities.layer;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.render.entities.RenderEvolvedEnderman;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedEnderman;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

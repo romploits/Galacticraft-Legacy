@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.api.item;
 
 import net.minecraft.util.text.TextFormatting;
-
 import net.minecraftforge.common.IRarity;
 
 public interface GCRarity extends IRarity

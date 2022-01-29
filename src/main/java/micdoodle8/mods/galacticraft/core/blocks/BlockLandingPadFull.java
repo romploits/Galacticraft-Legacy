@@ -1,12 +1,11 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
-
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.tile.IMultiBlock;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityBuggyFueler;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityLandingPad;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -25,11 +24,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
 
 public class BlockLandingPadFull extends BlockAdvancedTile implements IPartialSealableBlock
 {

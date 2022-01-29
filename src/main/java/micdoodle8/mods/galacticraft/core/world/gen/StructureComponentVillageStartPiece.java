@@ -1,11 +1,10 @@
 package micdoodle8.mods.galacticraft.core.world.gen;
 
+import java.util.ArrayList;
+import java.util.Random;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class StructureComponentVillageStartPiece extends StructureComponentVillageWell
 {

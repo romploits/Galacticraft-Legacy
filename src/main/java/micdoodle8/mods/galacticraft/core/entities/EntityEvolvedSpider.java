@@ -3,10 +3,9 @@ package micdoodle8.mods.galacticraft.core.entities;
 import micdoodle8.mods.galacticraft.api.entity.IEntityBreathable;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GCItems;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -72,7 +71,7 @@ public class EntityEvolvedSpider extends EntitySpider implements IEntityBreathab
             entity.dismountRidingEntity();
             if (!(entity instanceof EntitySkeleton))
             {
-                GCLog.error("Removed unexpected passenger from spider: " + entity);
+                GalacticraftCore.logger.error("Removed unexpected passenger from spider: " + entity);
             } else
             {
                 entity.setDead();

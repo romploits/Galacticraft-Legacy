@@ -1,7 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.venus.tick;
 
 import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.planets.venus.tile.SolarModuleNetwork;
 import micdoodle8.mods.galacticraft.planets.venus.tile.TileEntitySolarTransmitter;
 import net.minecraft.server.MinecraftServer;
@@ -9,10 +11,6 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class VenusTickHandlerServer
 {

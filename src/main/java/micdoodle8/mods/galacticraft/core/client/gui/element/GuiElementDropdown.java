@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.core.client.gui.element;
 
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -10,7 +9,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiElementDropdown extends GuiButton

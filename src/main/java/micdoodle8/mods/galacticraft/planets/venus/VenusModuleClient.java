@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.venus;
 
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.client.IItemMeshDefinitionCustom;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.Constants;
@@ -56,8 +57,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public class VenusModuleClient implements IPlanetsModuleClient
 {

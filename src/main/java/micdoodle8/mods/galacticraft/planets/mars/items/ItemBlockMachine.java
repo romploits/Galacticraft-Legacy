@@ -3,14 +3,12 @@ package micdoodle8.mods.galacticraft.planets.mars.items;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMachineBase;
 import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
-import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.planets.mars.blocks.BlockMachineMars;
 import micdoodle8.mods.galacticraft.planets.mars.blocks.MarsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -19,8 +17,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBlockMachine extends ItemBlockDesc implements GCRarity
 {

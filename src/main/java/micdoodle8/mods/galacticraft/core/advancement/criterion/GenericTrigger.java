@@ -1,13 +1,11 @@
 package micdoodle8.mods.galacticraft.core.advancement.criterion;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.core.Constants;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;

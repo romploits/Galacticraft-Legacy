@@ -1,11 +1,12 @@
 package micdoodle8.mods.galacticraft.core.client.gui.container;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementInfoRegion;
 import micdoodle8.mods.galacticraft.core.inventory.ContainerCrafting;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCrafting;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -13,9 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiCrafting extends GuiContainerGC

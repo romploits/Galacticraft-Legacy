@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.render.entity;
 
 import com.google.common.collect.ImmutableList;
-
 import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.mars.client.model.ModelBalloonParachute;
@@ -18,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)

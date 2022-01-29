@@ -2,15 +2,11 @@ package micdoodle8.mods.galacticraft.core.items;
 
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
-import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMoon extends ItemDesc implements ISortableItem, GCRarity
 {

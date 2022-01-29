@@ -1,11 +1,12 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMulti;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMulti.EnumBlockMultiType;
 import micdoodle8.mods.galacticraft.core.client.gui.GuiIdsCore;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -15,9 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileEntityNasaWorkbench extends TileEntityMulti implements IMultiBlock
 {

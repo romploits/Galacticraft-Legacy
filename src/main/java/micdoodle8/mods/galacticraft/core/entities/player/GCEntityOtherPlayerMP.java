@@ -6,8 +6,7 @@ import micdoodle8.mods.galacticraft.api.item.IHoldableItem;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntitySpaceshipBase;
 import micdoodle8.mods.galacticraft.api.world.IZeroGDimension;
 import micdoodle8.mods.galacticraft.core.client.EventHandlerClient;
-import micdoodle8.mods.galacticraft.core.util.CapeUtil;
-import micdoodle8.mods.galacticraft.core.util.CapeUtil.CapeResource;
+import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -16,8 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Optional;
 
 public class GCEntityOtherPlayerMP extends EntityOtherPlayerMP
 {
@@ -35,8 +32,7 @@ public class GCEntityOtherPlayerMP extends EntityOtherPlayerMP
     {
         if (this.getRidingEntity() instanceof EntitySpaceshipBase)
         {
-            // Don't draw any cape if riding a rocket (the cape renders outside
-            // the rocket model!)
+            // Don't draw any cape if riding a rocket (the cape renders outside the rocket model!)
             return null;
         }
 
@@ -45,11 +41,7 @@ public class GCEntityOtherPlayerMP extends EntityOtherPlayerMP
         if (!this.checkedCape)
         {
             NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-            Optional<CapeResource> gCape = CapeUtil.getCape(networkplayerinfo.getGameProfile().getId().toString().replace("-", ""));
-            if (gCape.isPresent())
-            {
-                this.galacticraftCape = gCape.get();
-            }
+            this.galacticraftCape = ClientProxyCore.capeMap.get(networkplayerinfo.getGameProfile().getId().toString().replace("-", ""));
             this.checkedCape = true;
         }
 

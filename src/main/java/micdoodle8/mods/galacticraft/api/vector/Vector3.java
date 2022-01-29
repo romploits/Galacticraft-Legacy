@@ -1,7 +1,7 @@
 package micdoodle8.mods.galacticraft.api.vector;
 
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.Constants;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -15,9 +15,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.lwjgl.util.vector.Vector3f;

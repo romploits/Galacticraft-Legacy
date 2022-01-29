@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.blocks;
 
+import java.util.Random;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.venus.VenusModule;
@@ -15,10 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
-
-import javax.annotation.Nullable;
 
 public class BlockSulphuricAcid extends BlockFluidClassic
 {

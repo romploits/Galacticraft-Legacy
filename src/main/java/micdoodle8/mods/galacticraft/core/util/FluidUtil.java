@@ -1,11 +1,13 @@
 package micdoodle8.mods.galacticraft.core.util;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import javax.annotation.Nonnull;
 import micdoodle8.mods.galacticraft.core.GCFluids;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.items.ItemBucketGC;
 import micdoodle8.mods.galacticraft.core.items.ItemCanisterGeneric;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,11 +30,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import javax.annotation.Nonnull;
 
 public class FluidUtil
 {

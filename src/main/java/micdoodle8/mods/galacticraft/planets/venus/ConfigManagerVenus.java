@@ -1,13 +1,11 @@
 package micdoodle8.mods.galacticraft.planets.venus;
 
+import java.io.File;
 import micdoodle8.mods.galacticraft.core.Constants;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.mars.ConfigManagerMars;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-
-import java.io.File;
 
 public class ConfigManagerVenus
 {
@@ -129,7 +127,7 @@ public class ConfigManagerVenus
 
         } catch (final Exception e)
         {
-            GCLog.error(e, "Galacticraft Venus (Planets) has a problem loading its config");
+            GalacticraftPlanets.logger.error(e, "Galacticraft Venus (Planets) has a problem loading its config");
         }
     }
 }

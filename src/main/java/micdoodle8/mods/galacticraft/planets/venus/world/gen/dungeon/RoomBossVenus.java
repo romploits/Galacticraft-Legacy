@@ -1,19 +1,18 @@
 package micdoodle8.mods.galacticraft.planets.venus.world.gen.dungeon;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityDungeonSpawner;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
+import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.venus.VenusBlocks;
 import micdoodle8.mods.galacticraft.planets.venus.blocks.BlockTorchWeb;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-
-import java.util.Random;
 
 public class RoomBossVenus extends SizedPieceVenus
 {
@@ -198,12 +197,12 @@ public class RoomBossVenus extends SizedPieceVenus
         if (chunkBox.isVecInside(blockpos))
         {
             worldIn.setBlockState(blockpos, VenusBlocks.bossSpawner.getDefaultState(), 2);
-            TileEntityDungeonSpawner spawner = (TileEntityDungeonSpawner) worldIn.getTileEntity(blockpos);
+            TileEntityDungeonSpawner<?> spawner = (TileEntityDungeonSpawner<?>) worldIn.getTileEntity(blockpos);
             if (spawner != null)
             {
                 if (box.getXSize() > 10000 || box.getYSize() > 10000 || box.getZSize() > 10000)
                 {
-                    GCLog.error("Failed to set correct boss room size. This is a bug!");
+                    GalacticraftPlanets.logger.error("Failed to set correct boss room size. This is a bug!");
                 } else
                 {
                     spawner.setRoom(new Vector3(box.minX + this.boundingBox.minX, box.minY + this.boundingBox.minY, box.minZ + this.boundingBox.minZ),

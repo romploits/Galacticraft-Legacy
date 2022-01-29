@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.entities;
 
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.entity.IEntityBreathable;
 import micdoodle8.mods.galacticraft.api.entity.IIgnoreShift;
@@ -12,7 +14,6 @@ import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -41,9 +42,6 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-
-import java.util.List;
-import java.util.Random;
 
 public class EntitySkeletonBoss extends EntityBossBase implements IEntityBreathable, IRangedAttackMob, IIgnoreShift
 {

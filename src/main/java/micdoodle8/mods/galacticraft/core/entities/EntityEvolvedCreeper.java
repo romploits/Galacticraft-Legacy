@@ -1,11 +1,11 @@
 package micdoodle8.mods.galacticraft.core.entities;
 
+import java.util.UUID;
 import micdoodle8.mods.galacticraft.api.entity.IEntityBreathable;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
-
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -34,8 +34,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
-
-import java.util.UUID;
 
 public class EntityEvolvedCreeper extends EntityCreeper implements IEntityBreathable
 {
@@ -125,7 +123,7 @@ public class EntityEvolvedCreeper extends EntityCreeper implements IEntityBreath
     protected final void setCreeperScale(float scale)
     {
         super.setSize(this.sizeXBase * scale, this.sizeYBase * scale);
-        // FMLLog.info("" + this.sizeYBase + " " + scale);
+        // GalacticraftCore.logger.info("" + this.sizeYBase + " " + scale);
     }
 
     @Override

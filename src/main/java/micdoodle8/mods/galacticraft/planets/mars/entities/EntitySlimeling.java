@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.entities;
 
 import java.util.UUID;
-
 import micdoodle8.mods.galacticraft.api.entity.IEntityBreathable;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.Constants;

@@ -1,14 +1,14 @@
 package micdoodle8.mods.galacticraft.core.dimension;
 
+import java.util.ArrayList;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Satellite;
 import micdoodle8.mods.galacticraft.core.Constants;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,8 +17,6 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.DimensionManager;
-
-import java.util.ArrayList;
 
 public class SpaceStationWorldData extends WorldSavedData
 {
@@ -142,7 +140,7 @@ public class SpaceStationWorldData extends WorldSavedData
             this.homePlanet = nbttagcompound.getInteger("homePlanet");
         } else
         {
-            GCLog.info("Home planet data not found in space station save file for \"" + this.spaceStationName + "\". Using default overworld.");
+            GalacticraftCore.logger.info("Home planet data not found in space station save file for \"" + this.spaceStationName + "\". Using default overworld.");
             this.homePlanet = 0; // Overworld dimension ID
         }
 
@@ -151,7 +149,7 @@ public class SpaceStationWorldData extends WorldSavedData
             this.dimensionIdStatic = nbttagcompound.getInteger("dimensionIdStatic");
         } else
         {
-            GCLog.info("Static dimension ID not found in space station save file for \"" + this.spaceStationName + "\". Using default overworld.");
+            GalacticraftCore.logger.info("Static dimension ID not found in space station save file for \"" + this.spaceStationName + "\". Using default overworld.");
             this.dimensionIdStatic = ConfigManagerCore.idDimensionOverworldOrbitStatic;
         }
 
@@ -160,7 +158,7 @@ public class SpaceStationWorldData extends WorldSavedData
             this.dimensionIdDynamic = nbttagcompound.getInteger("dimensionIdDynamic");
         } else
         {
-            GCLog.info("Dynamic dimension ID not found in space station save file for \"" + this.spaceStationName + "\". Using default overworld.");
+            GalacticraftCore.logger.info("Dynamic dimension ID not found in space station save file for \"" + this.spaceStationName + "\". Using default overworld.");
             this.dimensionIdDynamic = ConfigManagerCore.idDimensionOverworldOrbit;
         }
 
@@ -310,7 +308,7 @@ public class SpaceStationWorldData extends WorldSavedData
             var3 = (SpaceStationWorldData) var0.loadData(SpaceStationWorldData.class, Constants.GCDATAFOLDER + var2);
         } else
         {
-            GCLog.error("No world for dimension 0?  That should be unpossible!  Please report at https://github.com/micdoodle8/Galacticraft/issues/2617");
+            GalacticraftCore.logger.error("No world for dimension 0?  That should be unpossible!  Please report at https://github.com/micdoodle8/Galacticraft/issues/2617");
         }
 
         if (var3 == null)
@@ -361,7 +359,7 @@ public class SpaceStationWorldData extends WorldSavedData
             // matches
             if (!(stats.getSpaceStationDimensionData().values().contains(stationID)))
             {
-                GCLog.debug("Player owns station: " + stationData.getSpaceStationName() + " with home planet " + stationData.getHomePlanet());
+                GalacticraftCore.logger.debug("Player owns station: " + stationData.getSpaceStationName() + " with home planet " + stationData.getHomePlanet());
                 stats.getSpaceStationDimensionData().put(stationData.getHomePlanet(), stationID);
             }
         } else
@@ -370,7 +368,7 @@ public class SpaceStationWorldData extends WorldSavedData
             Integer savedOwned = stats.getSpaceStationDimensionData().get(stationData.getHomePlanet());
             if (savedOwned != null && savedOwned == stationID)
             {
-                GCLog.debug("Player does not own station: " + stationData.getSpaceStationName() + " with home planet " + stationData.getHomePlanet());
+                GalacticraftCore.logger.debug("Player does not own station: " + stationData.getSpaceStationName() + " with home planet " + stationData.getHomePlanet());
                 stats.getSpaceStationDimensionData().remove(savedOwned);
             }
         }

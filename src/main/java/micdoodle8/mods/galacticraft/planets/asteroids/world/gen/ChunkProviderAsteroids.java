@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.api.world.ChunkProviderBase;

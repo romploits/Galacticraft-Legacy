@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import javax.annotation.Nullable;
 import mekanism.api.gas.Gas;
 import mekanism.api.gas.GasStack;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
@@ -26,8 +27,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
 
 public abstract class TileEntityFluidTransmitter extends TileEntityAdvanced implements IBufferTransmitter<FluidStack>, IFluidHandlerWrapper
 {

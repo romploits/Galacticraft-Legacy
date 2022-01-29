@@ -1,9 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.mars.blocks;
 
-import java.util.Random;
-
 import com.google.common.base.Predicate;
-
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
 import micdoodle8.mods.galacticraft.api.block.IPlantableBlock;
 import micdoodle8.mods.galacticraft.api.block.ITerraformableBlock;

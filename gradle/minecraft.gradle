@@ -79,7 +79,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${MC_VERSION}-${FORGE_VERSION}"
 
 	compileOnly fg.deobf('curse.maven:bop-7.0.1.2444-220318:2842510')
 	compileOnly fg.deobf('curse.maven:mekanism-9.8.3.390-268560:2835176')

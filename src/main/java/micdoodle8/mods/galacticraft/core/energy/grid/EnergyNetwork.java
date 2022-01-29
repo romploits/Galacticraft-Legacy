@@ -3,24 +3,6 @@ package micdoodle8.mods.galacticraft.core.energy.grid;
 import buildcraft.api.mj.IMjReceiver;
 import cofh.redstoneflux.api.IEnergyReceiver;
 import ic2.api.energy.tile.IEnergySink;
-import mekanism.api.energy.IStrictEnergyAcceptor;
-import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
-import micdoodle8.mods.galacticraft.api.transmission.grid.IElectricityNetwork;
-import micdoodle8.mods.galacticraft.api.transmission.tile.IConductor;
-import micdoodle8.mods.galacticraft.api.transmission.tile.IElectrical;
-import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
-import micdoodle8.mods.galacticraft.core.energy.EnergyConfigHandler;
-import micdoodle8.mods.galacticraft.core.energy.EnergyUtil;
-import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
-import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,6 +11,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import mekanism.api.energy.IStrictEnergyAcceptor;
+import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
+import micdoodle8.mods.galacticraft.api.transmission.grid.IElectricityNetwork;
+import micdoodle8.mods.galacticraft.api.transmission.tile.IConductor;
+import micdoodle8.mods.galacticraft.api.transmission.tile.IElectrical;
+import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import micdoodle8.mods.galacticraft.core.energy.EnergyConfigHandler;
+import micdoodle8.mods.galacticraft.core.energy.EnergyUtil;
+import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
+import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
+import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 //import buildcraft.api.power.PowerHandler.Type;
 
@@ -73,8 +71,8 @@ public class EnergyNetwork implements IElectricityNetwork
      * linked lists matches so, an acceptor connected on two sides will be in
      * connectedAcceptors twice
      */
-    private List<Object> connectedAcceptors = new LinkedList<Object>();
-    private List<EnumFacing> connectedDirections = new LinkedList<EnumFacing>();
+    private List<Object> connectedAcceptors = new LinkedList<>();
+    private List<EnumFacing> connectedDirections = new LinkedList<>();
 
     /*
      * availableAcceptors is the acceptors which can receive energy (this tick)
@@ -84,13 +82,13 @@ public class EnergyNetwork implements IElectricityNetwork
      * (there is no point trying to put power into a machine twice from two
      * different sides)
      */
-    private Set<Object> availableAcceptors = new HashSet<Object>();
-    private Map<Object, EnumFacing> availableconnectedDirections = new HashMap<Object, EnumFacing>();
+    private Set<Object> availableAcceptors = new HashSet<>();
+    private Map<Object, EnumFacing> availableconnectedDirections = new HashMap<>();
 
-    private Map<Object, Float> energyRequests = new HashMap<Object, Float>();
-    private List<TileEntity> ignoreAcceptors = new LinkedList<TileEntity>();
+    private Map<Object, Float> energyRequests = new HashMap<>();
+    private List<TileEntity> ignoreAcceptors = new LinkedList<>();
 
-    private final Set<IConductor> conductors = new HashSet<IConductor>();
+    private final Set<IConductor> conductors = new HashSet<>();
 
     // This is an energy per tick which exceeds what any normal machine will
     // request, so the requester must be an energy storage - for example, a
@@ -189,10 +187,10 @@ public class EnergyNetwork implements IElectricityNetwork
                 return energy; // None of the electricity will be used
             }
             return totalEnergyLast + energy - this.totalRequested; // Some of
-                                                                   // the
-                                                                   // electricity
-                                                                   // will be
-                                                                   // used
+            // the
+            // electricity
+            // will be
+            // used
         }
         return energy;
     }
@@ -306,17 +304,17 @@ public class EnergyNetwork implements IElectricityNetwork
                     {
                         long bcDemand = ((IMjReceiver) acceptor).getPowerRequested();
                         bcDemand = Math.min(bcDemand, this.networkTierGC * this.networkTierGC * 16000000L); // Capped
-                                                                                                            // at
-                                                                                                            // 16
-                                                                                                            // MJ/tick
-                                                                                                            // for
-                                                                                                            // standard
-                                                                                                            // Alu
-                                                                                                            // wire,
-                                                                                                            // 64
-                                                                                                            // for
-                                                                                                            // heavy.
-                        e = (float) bcDemand / EnergyConfigHandler.TO_BC_RATIO;
+                        // at
+                        // 16
+                        // MJ/tick
+                        // for
+                        // standard
+                        // Alu
+                        // wire,
+                        // 64
+                        // for
+                        // heavy.
+                        e = bcDemand / EnergyConfigHandler.TO_BC_RATIO;
                     } else if (isRF2Loaded && acceptor instanceof IEnergyReceiver)
                     {
                         e = ((IEnergyReceiver) acceptor).receiveEnergy(sideFrom, Integer.MAX_VALUE, true) / EnergyConfigHandler.TO_RF_RATIO;
@@ -465,7 +463,7 @@ public class EnergyNetwork implements IElectricityNetwork
                     } else if (isBCLoaded && tileEntity instanceof IMjReceiver)
                     {
                         long toSendBC = (long) (currentSending * EnergyConfigHandler.TO_BC_RATIO);
-                        sentToAcceptor = (float) (toSendBC - ((IMjReceiver) tileEntity).receivePower(toSendBC, false)) / EnergyConfigHandler.TO_BC_RATIO;
+                        sentToAcceptor = (toSendBC - ((IMjReceiver) tileEntity).receivePower(toSendBC, false)) / EnergyConfigHandler.TO_BC_RATIO;
                     } else if (isRF2Loaded && tileEntity instanceof IEnergyReceiver)
                     {
                         final int currentSendinginRF =
@@ -485,7 +483,7 @@ public class EnergyNetwork implements IElectricityNetwork
                     {
                         if (!this.spamstop)
                         {
-                            FMLLog.info("Energy network: acceptor took too much energy, offered " + currentSending + ", took " + sentToAcceptor + ". " + tileEntity.toString());
+                            GalacticraftCore.logger.info("Energy network: acceptor took too much energy, offered " + currentSending + ", took " + sentToAcceptor + ". " + tileEntity.toString());
                             this.spamstop = true;
                         }
                         sentToAcceptor = currentSending;
@@ -495,10 +493,10 @@ public class EnergyNetwork implements IElectricityNetwork
                 }
             } catch (Exception e)
             {
-                GCLog.error("DEBUG Energy network loop issue, please report this");
+                GalacticraftCore.logger.error("DEBUG Energy network loop issue, please report this");
                 if (debugTE instanceof TileEntity)
                 {
-                    GCLog.error("Problem was likely caused by tile in dim " + GCCoreUtil.getDimensionID(((TileEntity) debugTE).getWorld()) + " at " + ((TileEntity) debugTE).getPos() + " Type:"
+                    GalacticraftCore.logger.error("Problem was likely caused by tile in dim " + GCCoreUtil.getDimensionID(((TileEntity) debugTE).getWorld()) + " at " + ((TileEntity) debugTE).getPos() + " Type:"
                         + debugTE.getClass().getSimpleName());
                 }
             }
@@ -642,7 +640,7 @@ public class EnergyNetwork implements IElectricityNetwork
             }
         } catch (Exception e)
         {
-            FMLLog.severe("GC Aluminium Wire: Error when testing whether another mod's tileEntity can accept energy.");
+            GalacticraftCore.logger.error("GC Aluminium Wire: Error when testing whether another mod's tileEntity can accept energy.");
             e.printStackTrace();
         }
     }
@@ -660,21 +658,18 @@ public class EnergyNetwork implements IElectricityNetwork
         {
             Set<IConductor> thisNetwork = this.conductors;
             Set<IConductor> thatNetwork = network.getTransmitters();
-            if (thisNetwork.size() >= thatNetwork.size())
-            {
-                thisNetwork.addAll(thatNetwork);
-                this.refresh();
-                if (network instanceof EnergyNetwork)
-                {
-                    ((EnergyNetwork) network).destroy();
-                }
-                return this;
-            } else
+            if (thisNetwork.size() < thatNetwork.size())
             {
                 thatNetwork.addAll(thisNetwork);
                 network.refresh();
                 this.destroy();
                 return network;
+            }
+            thisNetwork.addAll(thatNetwork);
+            this.refresh();
+            if (network instanceof EnergyNetwork)
+            {
+                ((EnergyNetwork) network).destroy();
             }
         }
 
@@ -691,6 +686,7 @@ public class EnergyNetwork implements IElectricityNetwork
         TickHandlerServer.removeNetworkTick(this);
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     @Override
     public void split(IConductor splitPoint)
     {

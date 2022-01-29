@@ -1,7 +1,9 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
 import com.mojang.authlib.GameProfile;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
 import micdoodle8.mods.galacticraft.api.entity.ITelemetry;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntitySpaceshipBase;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
@@ -11,10 +13,8 @@ import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -41,10 +41,6 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
 
 public class TileEntityTelemetry extends TileEntity implements ITickable
 {
@@ -121,7 +117,7 @@ public class TileEntityTelemetry extends TileEntity implements ITickable
 
                     if (name == null)
                     {
-                        GCLog.info("Telemetry Unit: Error finding name for " + linkedEntity.getClass().getSimpleName());
+                        GalacticraftCore.logger.info("Telemetry Unit: Error finding name for " + linkedEntity.getClass().getSimpleName());
                         name = "";
                     }
 
@@ -358,7 +354,7 @@ public class TileEntityTelemetry extends TileEntity implements ITickable
             // TODO
             if (wp == null || wp.world == null)
             {
-                GCLog.debug("Frequency module worn: world provider is null.  This is a bug. " + dim);
+                GalacticraftCore.logger.debug("Frequency module worn: world provider is null.  This is a bug. " + dim);
             } else
             {
                 TileEntity te = wp.world.getTileEntity(new BlockPos(x, y, z));

@@ -1,11 +1,10 @@
 package micdoodle8.mods.galacticraft.core.client.model.block;
 
 import com.google.common.collect.ImmutableList;
-
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.TransformerHooks;
 import micdoodle8.mods.galacticraft.core.blocks.BlockGrating;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -22,8 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.property.IExtendedBlockState;
-
-import java.util.List;
 
 public class ModelGrating implements IBakedModel
 {

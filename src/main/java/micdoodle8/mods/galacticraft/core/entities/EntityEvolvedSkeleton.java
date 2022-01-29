@@ -6,7 +6,6 @@ import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
-
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.init.Items;

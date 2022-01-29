@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.tile;
 
+import com.google.common.collect.Lists;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
-
-import com.google.common.collect.Lists;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
@@ -24,7 +23,6 @@ import micdoodle8.mods.galacticraft.core.tile.IMachineSidesProperties;
 import micdoodle8.mods.galacticraft.core.tile.IMultiBlock;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
@@ -119,7 +117,7 @@ public class TileEntityMinerBase extends TileBaseElectricBlockWithInventory impl
             World w = WorldUtil.getWorldForDimensionServer(entry.getKey());
             if (w == null)
             {
-                GCLog.error("Astro Miner Base placement: Unable to find server world for dim " + entry.getKey());
+                GalacticraftPlanets.logger.error("Astro Miner Base placement: Unable to find server world for dim " + entry.getKey());
                 entries.remove();
                 continue;
             }

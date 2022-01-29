@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryItem;
@@ -9,10 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemFuelCanister extends ItemCanisterGeneric implements ISortableItem, GCRarity
 {

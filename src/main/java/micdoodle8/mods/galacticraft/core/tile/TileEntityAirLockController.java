@@ -1,11 +1,11 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.client.sounds.GCSounds;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -15,8 +15,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.List;
 
 public class TileEntityAirLockController extends TileEntityAirLock
 {

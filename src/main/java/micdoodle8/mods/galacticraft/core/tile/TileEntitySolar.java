@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.tile.IDisableableMachine;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConnector;
@@ -18,7 +22,6 @@ import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseUniversalElectrical
 import micdoodle8.mods.galacticraft.core.inventory.IInventoryDefaults;
 import micdoodle8.mods.galacticraft.planets.venus.dimension.WorldProviderVenus;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -34,11 +37,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
 
 public class TileEntitySolar extends TileBaseUniversalElectricalSource implements IMultiBlock, IDisableableMachine, IInventoryDefaults, ISidedInventory, IConnector
 {

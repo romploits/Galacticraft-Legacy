@@ -1,11 +1,10 @@
 package micdoodle8.mods.miccore;
 
-import net.minecraftforge.fml.relauncher.Side;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import net.minecraftforge.fml.relauncher.Side;
 
 public interface Annotations
 {

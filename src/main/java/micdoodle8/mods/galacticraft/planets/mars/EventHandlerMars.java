@@ -1,7 +1,5 @@
 package micdoodle8.mods.galacticraft.planets.mars;
 
-import org.lwjgl.opengl.GL11;
-
 import micdoodle8.mods.galacticraft.api.event.wgen.GCCoreEventPopulate;
 import micdoodle8.mods.galacticraft.api.tile.IFuelDock;
 import micdoodle8.mods.galacticraft.api.tile.ILandingPadAttachable;
@@ -40,6 +38,7 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 
 public class EventHandlerMars
 {

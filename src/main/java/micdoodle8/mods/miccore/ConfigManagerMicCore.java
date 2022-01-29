@@ -1,9 +1,7 @@
 package micdoodle8.mods.miccore;
 
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.FMLLog;
-
 import java.io.File;
+import net.minecraftforge.common.config.Configuration;
 
 public class ConfigManagerMicCore
 {
@@ -37,7 +35,7 @@ public class ConfigManagerMicCore
                 .get(Configuration.CATEGORY_GENERAL, "Enable Debug messages", false, "Enable debug messages during Galacticraft bytecode injection at startup.").getBoolean(false);
         } catch (final Exception e)
         {
-            FMLLog.severe("Problem loading core config (\"miccore.conf\")");
+            MicdoodlePlugin.miccoreLogger.error("Problem loading core config (\"miccore.conf\")");
         } finally
         {
             if (ConfigManagerMicCore.configuration.hasChanged())

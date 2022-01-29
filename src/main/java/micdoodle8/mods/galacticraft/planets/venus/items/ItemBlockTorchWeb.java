@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
@@ -8,10 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemBlockTorchWeb extends ItemBlockDesc implements GCRarity
 {

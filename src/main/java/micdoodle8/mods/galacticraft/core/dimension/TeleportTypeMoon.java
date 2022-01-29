@@ -1,19 +1,17 @@
 package micdoodle8.mods.galacticraft.core.dimension;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.api.world.ITeleportType;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.entities.EntityLander;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import java.util.Random;
 
 public class TeleportTypeMoon implements ITeleportType
 {
@@ -102,7 +100,7 @@ public class TeleportTypeMoon implements ITeleportType
                 newWorld.updateEntityWithOptionalForce(lander, true);
                 player.startRiding(lander);
                 CompatibilityManager.forceLoadChunksEnd((WorldServer) newWorld, previous);
-                GCLog.debug("Entering lander at : " + player.posX + "," + player.posZ + " lander spawn at: " + lander.posX + "," + lander.posZ);
+                GalacticraftCore.logger.debug("Entering lander at : " + player.posX + "," + player.posZ + " lander spawn at: " + lander.posX + "," + lander.posZ);
             }
 
             stats.setTeleportCooldown(10);

@@ -1,13 +1,12 @@
 package micdoodle8.mods.galacticraft.core.energy.tile;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 public class TileCableIC2Sealed extends TileEntity
 {

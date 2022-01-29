@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.blocks;
 
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.GCBlocks;

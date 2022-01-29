@@ -1,5 +1,9 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import io.netty.buffer.ByteBuf;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.entity.IEntityBreathable;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
@@ -9,7 +13,6 @@ import micdoodle8.mods.galacticraft.core.items.ItemEmergencyKit;
 import micdoodle8.mods.galacticraft.core.network.IPacketReceiver;
 import micdoodle8.mods.galacticraft.core.network.PacketDynamic;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.state.IBlockState;
@@ -35,12 +38,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.items.ItemHandlerHelper;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import io.netty.buffer.ByteBuf;
 
 public class TileEntityEmergencyBox extends TileEntity implements ITickable, IPacketReceiver
 {

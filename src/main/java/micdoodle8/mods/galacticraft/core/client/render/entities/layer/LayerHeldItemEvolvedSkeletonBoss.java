@@ -3,7 +3,6 @@ package micdoodle8.mods.galacticraft.core.client.render.entities.layer;
 import micdoodle8.mods.galacticraft.core.client.model.ModelEvolvedSkeletonBoss;
 import micdoodle8.mods.galacticraft.core.client.render.entities.RenderEvolvedSkeletonBoss;
 import micdoodle8.mods.galacticraft.core.entities.EntitySkeletonBoss;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;

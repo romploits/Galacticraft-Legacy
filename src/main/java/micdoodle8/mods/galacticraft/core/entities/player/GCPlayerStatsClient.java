@@ -1,12 +1,10 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
+import java.util.ArrayList;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicPage;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityPlatform;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
-
-import java.util.ArrayList;
 
 public abstract class GCPlayerStatsClient
 {

@@ -1,9 +1,10 @@
 package micdoodle8.mods.galacticraft.api.recipe;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.GalacticraftConfigAccess;
-
 import micdoodle8.mods.galacticraft.core.GCItems;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;
@@ -12,19 +13,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class CompressorRecipes
 {
 
     private static List<IRecipe> recipes = new ArrayList<>();
     private static List<IRecipe> recipesAdventure = new ArrayList<>();
     private static boolean adventureOnly = false;
-    private static Field adventureFlag;
-    private static boolean flagNotCached = true;
+    //private static Field adventureFlag;
+    //private static boolean flagNotCached = true;
     public static boolean steelIngotsPresent = false;
     public static List<ItemStack> steelRecipeGC;
 
@@ -99,12 +95,11 @@ public class CompressorRecipes
         return shapedRecipes;
     }
 
-    public static void addShapelessRecipe(ItemStack par1ItemStack, Object... par2ArrayOfObj)
+    public static void addShapelessRecipe(ItemStack itemStack, Object... objs)
     {
         ArrayList<Object> arraylist = new ArrayList<>();
-        int i = par2ArrayOfObj.length;
 
-        for (Object object1 : par2ArrayOfObj)
+        for (Object object1 : objs)
         {
             if (object1 instanceof ItemStack)
             {
@@ -126,7 +121,7 @@ public class CompressorRecipes
             }
         }
 
-        IRecipe toAdd = new ShapelessOreRecipeGC(par1ItemStack, arraylist.toArray());
+        IRecipe toAdd = new ShapelessOreRecipeGC(itemStack, arraylist.toArray());
         if (!adventureOnly)
             CompressorRecipes.recipes.add(toAdd);
         CompressorRecipes.recipesAdventure.add(toAdd);
@@ -176,10 +171,11 @@ public class CompressorRecipes
 
         if (i == 2 && itemstack.getItem() == itemstack1.getItem() && itemstack.getCount() == 1 && itemstack1.getCount() == 1 && itemstack.getItem().isRepairable())
         {
-            int k = itemstack.getItem().getMaxDamage() - itemstack.getItemDamage();
-            int l = itemstack.getItem().getMaxDamage() - itemstack1.getItemDamage();
-            int i1 = k + l + itemstack.getItem().getMaxDamage() * 5 / 100;
-            int j1 = itemstack.getItem().getMaxDamage() - i1;
+            Item item = itemstack.getItem();
+            int k = item.getMaxDamage(itemstack) - itemstack.getItemDamage();
+            int l = item.getMaxDamage(itemstack) - itemstack1.getItemDamage();
+            int i1 = k + l + item.getMaxDamage(itemstack) * 5 / 100;
+            int j1 = item.getMaxDamage(itemstack) - i1;
 
             if (j1 < 0)
             {
@@ -292,7 +288,7 @@ public class CompressorRecipes
 
     public static List<IRecipe> getRecipes(ItemStack match)
     {
-        List<IRecipe> result = new ArrayList(CompressorRecipes.getRecipeList());
+        List<IRecipe> result = new ArrayList<IRecipe>(CompressorRecipes.getRecipeList());
         result.removeIf(irecipe -> !ItemStack.areItemStacksEqual(match, irecipe.getRecipeOutput()));
         return result;
     }

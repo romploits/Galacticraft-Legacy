@@ -1,25 +1,20 @@
 package micdoodle8.mods.galacticraft.planets.venus.network;
 
 import io.netty.buffer.ByteBuf;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.network.NetworkUtil;
 import micdoodle8.mods.galacticraft.core.network.PacketBase;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
-import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.GuiIdsPlanets;
 import micdoodle8.mods.galacticraft.planets.venus.tile.TileEntityLaserTurret;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class PacketSimpleVenus extends PacketBase
 {
@@ -72,7 +67,7 @@ public class PacketSimpleVenus extends PacketBase
 
         if (packetType.getDecodeClasses().length != data.size())
         {
-            GCLog.info("Venus Simple Packet found data length different than packet type: " + packetType.name());
+            GalacticraftPlanets.logger.info("Venus Simple Packet found data length different than packet type: " + packetType.name());
         }
 
         this.type = packetType;

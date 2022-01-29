@@ -1,28 +1,25 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.Event;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 /**
  * This will eventually be completely reworked and implemented differently
  * It is still safe to depend and make calls to this class.
- * 
+ *
  * Credits to KingLemming and CovertJaguar, since this is based on the
  * Liquid/Fluid API
  */
-@Deprecated
 public class GalaxyRegistry
 {
 
@@ -83,7 +80,7 @@ public class GalaxyRegistry
             List<Moon> listOfMoons = GalaxyRegistry.moonList.get(planet);
             if (listOfMoons == null)
             {
-                listOfMoons = new ArrayList<Moon>();
+                listOfMoons = new ArrayList<>();
             }
             listOfMoons.add(moon);
             GalaxyRegistry.moonList.put(planet, listOfMoons);
@@ -95,7 +92,7 @@ public class GalaxyRegistry
             List<Satellite> satelliteList1 = GalaxyRegistry.satelliteList.get(celestialBody);
             if (satelliteList1 == null)
             {
-                satelliteList1 = new ArrayList<Satellite>();
+                satelliteList1 = new ArrayList<>();
             }
             satelliteList1.add(satellite);
             GalaxyRegistry.satelliteList.put(celestialBody, satelliteList1);
@@ -107,7 +104,7 @@ public class GalaxyRegistry
             List<Planet> planetList = GalaxyRegistry.solarSystemList.get(solarSystem);
             if (planetList == null)
             {
-                planetList = new ArrayList<Planet>();
+                planetList = new ArrayList<>();
             }
             planetList.add(planet);
             GalaxyRegistry.solarSystemList.put(solarSystem, planetList);
@@ -120,7 +117,7 @@ public class GalaxyRegistry
 
         if (solarSystemListLocal == null)
         {
-            return new ArrayList<Planet>();
+            return new ArrayList<>();
         }
 
         return ImmutableList.copyOf(solarSystemListLocal);
@@ -132,7 +129,7 @@ public class GalaxyRegistry
 
         if (moonListLocal == null)
         {
-            return new ArrayList<Moon>();
+            return new ArrayList<>();
         }
 
         return ImmutableList.copyOf(moonListLocal);
@@ -144,7 +141,7 @@ public class GalaxyRegistry
 
         if (satelliteList1 == null)
         {
-            return new ArrayList<Satellite>();
+            return new ArrayList<>();
         }
 
         return ImmutableList.copyOf(satelliteList1);
@@ -256,7 +253,7 @@ public class GalaxyRegistry
      */
     public static Map<String, Planet> getRegisteredPlanets()
     {
-        return (Map<String, Planet>) GalaxyRegistry.planets.clone();
+        return ImmutableMap.copyOf(GalaxyRegistry.planets);
     }
 
     /**
@@ -272,7 +269,7 @@ public class GalaxyRegistry
      */
     public static Map<String, Moon> getRegisteredMoons()
     {
-        return (Map<String, Moon>) GalaxyRegistry.moons.clone();
+        return ImmutableMap.copyOf(GalaxyRegistry.moons);
     }
 
     /**

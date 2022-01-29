@@ -3,7 +3,6 @@ package micdoodle8.mods.galacticraft.planets.mars.entities;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.entity.IEntityBreathable;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicPage;

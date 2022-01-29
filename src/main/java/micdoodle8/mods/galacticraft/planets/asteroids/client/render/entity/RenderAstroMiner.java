@@ -1,13 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.client.render.entity;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-
+import java.util.ArrayList;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.client.model.OBJLoaderGC;
@@ -17,10 +13,10 @@ import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.asteroids.entities.EntityAstroMiner;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -28,11 +24,12 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import org.lwjgl.opengl.GL11;
 
 public class RenderAstroMiner extends Render<EntityAstroMiner>
 {

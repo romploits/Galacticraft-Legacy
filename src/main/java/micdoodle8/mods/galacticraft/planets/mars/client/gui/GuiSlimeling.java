@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.mars.client.gui;
 
+import java.io.IOException;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
@@ -19,10 +20,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.input.Keyboard;
-
-import java.io.IOException;
 
 public class GuiSlimeling extends GuiScreen
 {

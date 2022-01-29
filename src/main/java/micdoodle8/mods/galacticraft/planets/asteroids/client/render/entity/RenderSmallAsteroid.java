@@ -2,9 +2,6 @@ package micdoodle8.mods.galacticraft.planets.asteroids.client.render.entity;
 
 import static micdoodle8.mods.galacticraft.planets.asteroids.blocks.BlockBasicAsteroids.EnumBlockBasic.ASTEROID_0;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import micdoodle8.mods.galacticraft.planets.asteroids.blocks.AsteroidBlocks;
 import micdoodle8.mods.galacticraft.planets.asteroids.blocks.BlockBasicAsteroids;
 import micdoodle8.mods.galacticraft.planets.asteroids.entities.EntitySmallAsteroid;
@@ -14,6 +11,8 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class RenderSmallAsteroid extends Render<EntitySmallAsteroid>
 {

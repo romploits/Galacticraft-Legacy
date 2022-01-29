@@ -1,12 +1,11 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
-
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -25,11 +24,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
 
 /**
  * Metadata: 3 = Tin Decoration Block 1; 4 = Tin Decoration Block 2; 5 = Copper

@@ -1,8 +1,8 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.entities.EntitySkeletonBoss;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityDungeonSpawner;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -20,8 +20,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
 public class BlockBossSpawner extends Block implements ITileEntityProvider
 {
 
@@ -32,12 +30,6 @@ public class BlockBossSpawner extends Block implements ITileEntityProvider
         this.blockResistance = 1000000.0F;
         this.setTranslationKey(assetName);
     }
-
-//    @Override
-//    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos)
-//    {
-//        return new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-//    }
 
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state)

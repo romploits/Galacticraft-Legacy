@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.ArrayList;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.recipe.CircuitFabricatorRecipes;
@@ -13,7 +14,6 @@ import micdoodle8.mods.galacticraft.core.items.ItemBasic;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
-
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -22,8 +22,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.ArrayList;
 
 public class TileEntityCircuitFabricator extends TileBaseElectricBlockWithInventory implements ISidedInventory, IMachineSides
 {

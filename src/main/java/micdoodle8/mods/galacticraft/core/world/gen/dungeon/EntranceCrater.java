@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.world.gen.dungeon;
 
+import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -9,8 +10,6 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-
-import java.util.Random;
 
 public class EntranceCrater extends SizedPiece
 {

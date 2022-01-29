@@ -1,9 +1,9 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
+import java.util.Random;
 import micdoodle8.mods.galacticraft.core.items.IShiftDescription;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -24,11 +24,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
 
 public class BlockCheese extends Block implements IShiftDescription, ISortableBlock
 {

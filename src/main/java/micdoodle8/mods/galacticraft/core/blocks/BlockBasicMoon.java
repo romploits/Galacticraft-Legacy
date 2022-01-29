@@ -1,17 +1,20 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
+import com.google.common.base.Predicate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
 import micdoodle8.mods.galacticraft.api.block.IPlantableBlock;
 import micdoodle8.mods.galacticraft.api.block.ITerraformableBlock;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3Dim;
-
 import micdoodle8.mods.galacticraft.core.GCItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
 import micdoodle8.mods.galacticraft.core.util.EnumSortCategoryBlock;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.Footprint;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.material.Material;
@@ -33,17 +36,9 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import com.google.common.base.Predicate;
 
 public class BlockBasicMoon extends Block implements IDetectableResource, IPlantableBlock, ITerraformableBlock, ISortableBlock
 {

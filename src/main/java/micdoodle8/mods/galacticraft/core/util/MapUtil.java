@@ -1,7 +1,28 @@
 package micdoodle8.mods.galacticraft.core.util;
 
-import org.apache.commons.io.FileUtils;
-
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Random;
+import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageTypeSpecifier;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -10,7 +31,6 @@ import micdoodle8.mods.galacticraft.core.client.screen.DrawGameScreen;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -30,31 +50,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
-
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReadParam;
-import javax.imageio.ImageReader;
-import javax.imageio.ImageTypeSpecifier;
-import javax.imageio.stream.FileImageOutputStream;
-import javax.imageio.stream.ImageInputStream;
-import javax.imageio.stream.ImageOutputStream;
+import org.apache.commons.io.FileUtils;
 
 public class MapUtil
 {
@@ -232,7 +228,7 @@ public class MapUtil
         ;
         if (!baseFolder.exists() && !baseFolder.mkdirs())
         {
-            GCLog.error("Base folder(s) could not be created: " + baseFolder.getAbsolutePath());
+            GalacticraftCore.logger.error("Base folder(s) could not be created: " + baseFolder.getAbsolutePath());
             doneOverworldTexture = true;
             return;
         }
@@ -260,7 +256,7 @@ public class MapUtil
                 ;
                 if (!baseFolder.exists())
                 {
-                    GCLog.error("Base folder missing: " + baseFolder.getAbsolutePath());
+                    GalacticraftCore.logger.error("Base folder missing: " + baseFolder.getAbsolutePath());
                     return;
                 }
                 File file = new File(baseFolder, "Overworld" + OVERWORLD_TEXTURE_WIDTH + ".bin");
@@ -296,7 +292,7 @@ public class MapUtil
             ;
             if (!baseFolder.exists())
             {
-                GCLog.error("Base folder missing: " + baseFolder.getAbsolutePath());
+                GalacticraftCore.logger.error("Base folder missing: " + baseFolder.getAbsolutePath());
                 return;
             }
             File file = makeFileName(baseFolder, cx, cz);
@@ -402,7 +398,7 @@ public class MapUtil
         ;
         if (!baseFolder.exists() && !baseFolder.mkdirs())
         {
-            GCLog.error("Base folder(s) could not be created: " + baseFolder.getAbsolutePath());
+            GalacticraftCore.logger.error("Base folder(s) could not be created: " + baseFolder.getAbsolutePath());
             return false;
         }
         int cx = convertMap(x);
@@ -826,8 +822,8 @@ public class MapUtil
             getOverworldImageFromRaw(cx, cz, zipDeCompress(raw));
         } catch (DataFormatException e)
         {
-            GCLog.debug(e.toString());
-            GCLog.debug("Client received a corrupted map image data packet from server " + cx + "_" + cz);
+            GalacticraftCore.logger.debug(e.toString());
+            GalacticraftCore.logger.debug("Client received a corrupted map image data packet from server " + cx + "_" + cz);
         }
     }
 
@@ -990,7 +986,7 @@ public class MapUtil
         File baseFolder = new File(FMLClientHandler.instance().getClient().gameDir, "assets/galacticraftMaps");
         if (!baseFolder.exists() && !baseFolder.mkdirs())
         {
-            GCLog.error("Base folder(s) could not be created: " + baseFolder.getAbsolutePath());
+            GalacticraftCore.logger.error("Base folder(s) could not be created: " + baseFolder.getAbsolutePath());
             return false;
         }
 
@@ -1043,12 +1039,12 @@ public class MapUtil
         {
             if (clientRequests.contains(filename.getName()))
             {
-                // GCLog.debug("Info: Server not yet ready to send map file " +
+                // GalacticraftCore.logger.debug("Info: Server not yet ready to send map file " +
                 // baseFolder.getName() + "/" + filename.getName());
             } else
             {
                 clientRequests.add(filename.getName());
-                // GCLog.debug("Info: Client requested map file" +
+                // GalacticraftCore.logger.debug("Info: Client requested map file" +
                 // filename.getName());
                 GalacticraftCore.packetPipeline
                     .sendToServer(new PacketSimple(PacketSimple.EnumSimplePacket.S_REQUEST_MAP_IMAGE, GCCoreUtil.getDimensionID(FMLClientHandler.instance().getClient().world), new Object[]
@@ -1071,12 +1067,12 @@ public class MapUtil
             raw = FileUtils.readFileToByteArray(filename);
         } catch (IOException e)
         {
-            GCLog.error("Problem reading map file: " + baseFolder.getAbsolutePath() + filename.getName());
+            GalacticraftCore.logger.error("Problem reading map file: " + baseFolder.getAbsolutePath() + filename.getName());
             return true;
         }
         if (raw == null || raw.length != SIZE_STD * SIZE_STD * 2)
         {
-            GCLog.debug("Warning: unexpected map size is " + raw.length + " for file " + filename.toString());
+            GalacticraftCore.logger.debug("Warning: unexpected map size is " + raw.length + " for file " + filename.toString());
             return true;
         }
 
@@ -1113,7 +1109,7 @@ public class MapUtil
 
                 if (imagex < 0 || imageZ < 0)
                 {
-                    GCLog.debug("Outside image " + imagex + "," + imageZ + " - " + "x=" + x + " z=" + z + " offsetX=" + offsetX + " offsetZ = " + offsetZ + " ox=" + ox + " oz=" + oz);
+                    GalacticraftCore.logger.debug("Outside image " + imagex + "," + imageZ + " - " + "x=" + x + " z=" + z + " offsetX=" + offsetX + " offsetZ = " + offsetZ + " ox=" + ox + " oz=" + oz);
                 } else
                 {
                     array[imagex + SIZE_STD2 * imageZ] = convertBiomeColour(biome, height) + 0xff000000;

@@ -1,16 +1,21 @@
 package micdoodle8.mods.galacticraft.core.fluid;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.BlockUnlitTorch;
 import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenSealer;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.wrappers.ScheduledBlockChange;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEnchantmentTable;
 import net.minecraft.block.BlockFarmland;
@@ -29,13 +34,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ThreadFindSeal
 {
@@ -282,7 +280,7 @@ public class ThreadFindSeal
                         {
                             if (ConfigManagerCore.enableDebug)
                             {
-                                GCLog.info("Oxygen Sealer replacing head at x" + this.head.x + " y" + (this.head.y - 1) + " z" + this.head.z);
+                                GalacticraftCore.logger.info("Oxygen Sealer replacing head at x" + this.head.x + " y" + (this.head.y - 1) + " z" + this.head.z);
                             }
                             if (!sealersSave.isEmpty())
                             {
@@ -382,9 +380,9 @@ public class ThreadFindSeal
             float total = (time3 - time1) / 1000000.0F;
             float looping = (time2 - time1) / 1000000.0F;
             float replacing = (time3 - time2) / 1000000.0F;
-            GCLog.info("Oxygen Sealer Check Completed at x" + this.head.x + " y" + this.head.y + " z" + this.head.z);
-            GCLog.info("   Sealed: " + this.sealed + "  ~  " + this.sealers.size() + " sealers  ~  " + (checkedSize - 1) + " blocks");
-            GCLog.info("   Total Time taken: " + String.format("%.2f", total) + "ms  ~  " + String.format("%.2f", looping) + " + " + String.format("%.2f", replacing) + "");
+            GalacticraftCore.logger.info("Oxygen Sealer Check Completed at x" + this.head.x + " y" + this.head.y + " z" + this.head.z);
+            GalacticraftCore.logger.info("   Sealed: " + this.sealed + "  ~  " + this.sealers.size() + " sealers  ~  " + (checkedSize - 1) + " blocks");
+            GalacticraftCore.logger.info("   Total Time taken: " + String.format("%.2f", total) + "ms  ~  " + String.format("%.2f", looping) + " + " + String.format("%.2f", replacing) + "");
         }
     }
 

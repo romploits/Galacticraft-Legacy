@@ -1,15 +1,14 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.entity.ICameraZoomEntity;
 import micdoodle8.mods.galacticraft.api.event.ZeroGravityEvent;
 import micdoodle8.mods.galacticraft.api.item.IHoldableItem;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntitySpaceshipBase;
 import micdoodle8.mods.galacticraft.api.world.IZeroGDimension;
-import micdoodle8.mods.galacticraft.core.Constants;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.EventHandlerClient;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
-import micdoodle8.mods.galacticraft.core.util.CapeUtil;
-import micdoodle8.mods.galacticraft.core.util.CapeUtil.CapeResource;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -30,12 +29,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-import java.util.Optional;
 
 public class GCEntityClientPlayerMP extends EntityPlayerSP
 {
@@ -182,8 +177,7 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
                     }
                 }
 
-                if (!this.isSprinting() && this.movementInput.moveForward >= sprintlevel && flag4 && !this.isHandActive() && !this.isPotionActive(MobEffects.BLINDNESS)
-                    && this.mc.gameSettings.keyBindSprint.isKeyDown())
+                if (!this.isSprinting() && this.movementInput.moveForward >= sprintlevel && flag4 && !this.isHandActive() && !this.isPotionActive(MobEffects.BLINDNESS) && this.mc.gameSettings.keyBindSprint.isKeyDown())
                 {
                     this.setSprinting(true);
                 }
@@ -343,10 +337,8 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
 
                     List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, axisalignedbb);
 
-                    for (int i = 0; i < list.size(); ++i)
+                    for (Entity entity : list)
                     {
-                        Entity entity = list.get(i);
-
                         if (!entity.isDead)
                         {
                             entity.onCollideWithPlayer(this);
@@ -367,7 +359,7 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
             }
         } catch (RuntimeException e)
         {
-            FMLLog.severe(
+            GalacticraftCore.logger.error(e,
                 "A mod has crashed while Minecraft was doing a normal player tick update.  See details below.  GCEntityClientPlayerMP is in this because that is the player class name when Galacticraft is installed.  This is =*NOT*= a bug in Galacticraft, please report it to the mod indicated by the first lines of the crash report.");
             throw (e);
         }
@@ -408,8 +400,8 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
 
                 this.sneakLast = stats.getLandingTicks() < this.lastLandingTicks;
                 return sneakLast;
-            } else
-                this.lastLandingTicks = 0;
+            }
+            this.lastLandingTicks = 0;
             if (stats.getFreefallHandler().pjumpticks > 0)
             {
                 this.sneakLast = true;
@@ -431,8 +423,7 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
         } else
         {
             this.sneakLast = false;
-            if (EventHandlerClient.sneakRenderOverride && this.onGround && this.inventory.getCurrentItem() != null && this.inventory.getCurrentItem().getItem() instanceof IHoldableItem
-                && !(this.getRidingEntity() instanceof ICameraZoomEntity))
+            if (EventHandlerClient.sneakRenderOverride && this.onGround && this.inventory.getCurrentItem() != null && this.inventory.getCurrentItem().getItem() instanceof IHoldableItem && !(this.getRidingEntity() instanceof ICameraZoomEntity))
             {
                 IHoldableItem holdableItem = (IHoldableItem) this.inventory.getCurrentItem().getItem();
 
@@ -493,8 +484,7 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
     {
         if (this.getRidingEntity() instanceof EntitySpaceshipBase)
         {
-            // Don't draw any cape if riding a rocket (the cape renders outside
-            // the rocket model!)
+            // Don't draw any cape if riding a rocket (the cape renders outside the rocket model!)
             return null;
         }
 
@@ -503,11 +493,7 @@ public class GCEntityClientPlayerMP extends EntityPlayerSP
         if (!this.checkedCape)
         {
             NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-            Optional<CapeResource> gCape = CapeUtil.getCape(networkplayerinfo.getGameProfile().getId().toString().replace("-", ""));
-            if (gCape.isPresent())
-            {
-                this.galacticraftCape = gCape.get();
-            }
+            this.galacticraftCape = ClientProxyCore.capeMap.get(networkplayerinfo.getGameProfile().getId().toString().replace("-", ""));
             this.checkedCape = true;
         }
 

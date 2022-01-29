@@ -1,14 +1,13 @@
 package micdoodle8.mods.galacticraft.planets;
 
+import java.util.ArrayList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-
 import micdoodle8.mods.galacticraft.planets.venus.tick.VenusTickHandlerServer;
 import micdoodle8.mods.galacticraft.planets.venus.tile.SolarModuleNetwork;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -16,9 +15,6 @@ import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlanetsProxy implements IGuiHandler
 {

@@ -1,15 +1,13 @@
 package micdoodle8.mods.galacticraft.api.prefab.world.gen;
 
-import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
-import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
-
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.layer.IntCache;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
+import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.layer.IntCache;
 
 /**
  * A Biome Provider for Galacticraft planets (and other bodies!) which only have
@@ -62,7 +60,7 @@ public class BiomeProviderDefault extends BiomeProviderSpace
     }
 
     @Override
-    public List getBiomesToSpawnIn()
+    public List<Biome> getBiomesToSpawnIn()
     {
         return this.biomesToSpawnIn;
     }

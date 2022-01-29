@@ -1,11 +1,20 @@
 package micdoodle8.mods.galacticraft.core.event;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import micdoodle8.mods.galacticraft.api.entity.IEntityBreathable;
 import micdoodle8.mods.galacticraft.api.event.oxygen.GCCoreOxygenSuffocationEvent;
 import micdoodle8.mods.galacticraft.api.item.IKeyItem;
 import micdoodle8.mods.galacticraft.api.item.IKeyable;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntityAutoRocket;
-import micdoodle8.mods.galacticraft.api.prefab.entity.EntitySpaceshipBase;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicPage;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicEvent.FlipPage;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicEvent.Unlock;
@@ -32,14 +41,12 @@ import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.DamageSourceGC;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.OxygenUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
 import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
 import micdoodle8.mods.galacticraft.planets.asteroids.AsteroidsModule;
 import micdoodle8.mods.galacticraft.planets.mars.network.PacketSimpleMars;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGravel;
 import net.minecraft.block.BlockLiquid;
@@ -106,17 +113,6 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class EventHandlerGC
 {
@@ -1013,7 +1009,7 @@ public class EventHandlerGC
                             event.setResultSound(null);
                         } else
                         {
-                            GCLog.error("Sound event null! " + event.getName() + " " + event.getResultSound().getSoundLocation());
+                            GalacticraftCore.logger.error("Sound event null! " + event.getName() + " " + event.getResultSound().getSoundLocation());
                         }
                     }
                 }

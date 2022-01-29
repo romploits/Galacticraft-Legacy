@@ -1,12 +1,13 @@
 package micdoodle8.mods.galacticraft.core.world.gen;
 
+import java.util.List;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.MapGenBaseMeta;
 import micdoodle8.mods.galacticraft.api.world.ChunkProviderBase;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.blocks.BlockBasicMoon;
-import micdoodle8.mods.galacticraft.core.perlin.NoiseModule;
-import micdoodle8.mods.galacticraft.core.perlin.generator.Gradient;
+import micdoodle8.mods.galacticraft.core.perlin.generator.GradientNoise;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.world.gen.dungeon.DungeonConfiguration;
 import micdoodle8.mods.galacticraft.core.world.gen.dungeon.MapGenDungeon;
@@ -23,9 +24,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import java.util.List;
-import java.util.Random;
-
 public class ChunkProviderMoon extends ChunkProviderBase
 {
 
@@ -35,10 +33,10 @@ public class ChunkProviderMoon extends ChunkProviderBase
 
     private final Random rand;
 
-    private final NoiseModule noiseGen1;
-    private final NoiseModule noiseGen2;
-    private final NoiseModule noiseGen3;
-    private final NoiseModule noiseGen4;
+    private final GradientNoise noiseGen1;
+    private final GradientNoise noiseGen2;
+    private final GradientNoise noiseGen3;
+    private final GradientNoise noiseGen4;
 
     private final World world;
     private final MapGenVillageMoon villageGenerator = new MapGenVillageMoon();
@@ -57,30 +55,30 @@ public class ChunkProviderMoon extends ChunkProviderBase
     private static final int CHUNK_SIZE_Y = 128;
     private static final int CHUNK_SIZE_Z = 16;
 
-    public ChunkProviderMoon(World par1World, long par2, boolean par4)
+    public ChunkProviderMoon(World worldIn, long seed, boolean mapFeaturesEnabled)
     {
-        this.world = par1World;
-        this.rand = new Random(par2);
-        this.noiseGen1 = new Gradient(this.rand.nextLong(), 4, 0.25F);
-        this.noiseGen2 = new Gradient(this.rand.nextLong(), 4, 0.25F);
-        this.noiseGen3 = new Gradient(this.rand.nextLong(), 1, 0.25F);
-        this.noiseGen4 = new Gradient(this.rand.nextLong(), 1, 0.25F);
+        this.world = worldIn;
+        this.rand = new Random(seed);
+        this.noiseGen1 = new GradientNoise(this.rand.nextLong(), 4, 0.25D);
+        this.noiseGen2 = new GradientNoise(this.rand.nextLong(), 4, 0.25D);
+        this.noiseGen3 = new GradientNoise(this.rand.nextLong(), 1, 0.25D);
+        this.noiseGen4 = new GradientNoise(this.rand.nextLong(), 1, 0.25D);
     }
 
     public void setBlocksInChunk(int chunkX, int chunkZ, ChunkPrimer primer)
     {
-        this.noiseGen1.setFrequency(0.0125F);
-        this.noiseGen2.setFrequency(0.015F);
-        this.noiseGen3.setFrequency(0.01F);
-        this.noiseGen4.setFrequency(0.02F);
+        this.noiseGen1.setFrequencyAll(0.012500000186264515D);
+        this.noiseGen2.setFrequencyAll(0.014999999664723873D);
+        this.noiseGen3.setFrequencyAll(0.0D);
+        this.noiseGen4.setFrequencyAll(0.019999999552965164D);
 
         for (int x = 0; x < ChunkProviderMoon.CHUNK_SIZE_X; x++)
         {
             for (int z = 0; z < ChunkProviderMoon.CHUNK_SIZE_Z; z++)
             {
-                final double d = this.noiseGen1.getNoise(x + chunkX * 16, z + chunkZ * 16) * 8;
-                final double d2 = this.noiseGen2.getNoise(x + chunkX * 16, z + chunkZ * 16) * 24;
-                double d3 = this.noiseGen3.getNoise(x + chunkX * 16, z + chunkZ * 16) - 0.1;
+                final double d = this.noiseGen1.evalNoise(x + chunkX * 16, z + chunkZ * 16) * 8;
+                final double d2 = this.noiseGen2.evalNoise(x + chunkX * 16, z + chunkZ * 16) * 24;
+                double d3 = this.noiseGen3.evalNoise(x + chunkX * 16, z + chunkZ * 16) - 0.1;
                 d3 *= 4;
 
                 double yDev;
@@ -107,14 +105,14 @@ public class ChunkProviderMoon extends ChunkProviderBase
         }
     }
 
-    public void replaceBlocksForBiome(int par1, int par2, ChunkPrimer primer, Biome[] par4ArrayOfBiome)
+    public void replaceBlocksForBiome(int x, int z, ChunkPrimer primer, Biome[] biomes)
     {
         final int var5 = 20;
-        for (int var8 = 0; var8 < 16; ++var8)
+        for (int i = 0; i < 16; ++i)
         {
-            for (int var9 = 0; var9 < 16; ++var9)
+            for (int j = 0; j < 16; ++j)
             {
-                final int var12 = (int) (this.noiseGen4.getNoise(var8 + par1 * 16, var9 * par2 * 16) / 3.0D + 3.0D + this.rand.nextDouble() * 0.25D);
+                final int var12 = (int) (this.noiseGen4.evalNoise(i + x * 16, j * z * 16) / 3.0D + 3.0D + this.rand.nextDouble() * 0.25D);
                 int var13 = -1;
                 IBlockState state0 = BLOCK_TOP;
                 IBlockState state1 = BLOCK_FILL;
@@ -123,10 +121,10 @@ public class ChunkProviderMoon extends ChunkProviderBase
                 {
                     if (var16 <= this.rand.nextInt(5))
                     {
-                        primer.setBlockState(var8, var16, var9, Blocks.BEDROCK.getDefaultState());
+                        primer.setBlockState(i, var16, j, Blocks.BEDROCK.getDefaultState());
                     } else
                     {
-                        IBlockState var18 = primer.getBlockState(var8, var16, var9);
+                        IBlockState var18 = primer.getBlockState(i, var16, j);
                         if (Blocks.AIR == var18.getBlock())
                         {
                             var13 = -1;
@@ -147,15 +145,15 @@ public class ChunkProviderMoon extends ChunkProviderBase
 
                                 if (var16 >= var5 - 1)
                                 {
-                                    primer.setBlockState(var8, var16, var9, state0);
+                                    primer.setBlockState(i, var16, j, state0);
                                 } else if (var16 < var5 - 1 && var16 >= var5 - 2)
                                 {
-                                    primer.setBlockState(var8, var16, var9, state1);
+                                    primer.setBlockState(i, var16, j, state1);
                                 }
                             } else if (var13 > 0)
                             {
                                 --var13;
-                                primer.setBlockState(var8, var16, var9, state1);
+                                primer.setBlockState(i, var16, j, state1);
                             }
                         }
                     }
@@ -200,7 +198,7 @@ public class ChunkProviderMoon extends ChunkProviderBase
                 {
                     for (int z = 0; z < ChunkProviderMoon.CHUNK_SIZE_Z; z++)
                     {
-                        if (Math.abs(this.randFromPoint(cx * 16 + x, (cz * 16 + z) * 1000)) < this.noiseGen4.getNoise(x * ChunkProviderMoon.CHUNK_SIZE_X + x, cz * ChunkProviderMoon.CHUNK_SIZE_Z + z)
+                        if (Math.abs(this.randFromPoint(cx * 16 + x, (cz * 16 + z) * 1000)) < this.noiseGen4.evalNoise(x * ChunkProviderMoon.CHUNK_SIZE_X + x, cz * ChunkProviderMoon.CHUNK_SIZE_Z + z)
                             / ChunkProviderMoon.CRATER_PROB)
                         {
                             final Random random = new Random(cx * 16 + x + (cz * 16 + z) * 5000);

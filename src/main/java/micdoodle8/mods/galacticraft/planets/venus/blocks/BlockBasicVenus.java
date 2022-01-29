@@ -1,7 +1,8 @@
 package micdoodle8.mods.galacticraft.planets.venus.blocks;
 
 import com.google.common.base.Predicate;
-
+import java.util.ArrayList;
+import java.util.Random;
 import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
 import micdoodle8.mods.galacticraft.api.block.IPlantableBlock;
 import micdoodle8.mods.galacticraft.api.block.ITerraformableBlock;
@@ -39,9 +40,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class BlockBasicVenus extends Block implements IDetectableResource, IPlantableBlock, ITerraformableBlock, ISortableBlock
 {

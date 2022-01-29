@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.HashSet;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
@@ -11,7 +13,6 @@ import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseElectricBlockWithIn
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -23,9 +24,6 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class TileEntityElectricFurnace extends TileBaseElectricBlockWithInventory implements ISidedInventory, IMachineSides
 {

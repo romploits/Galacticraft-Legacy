@@ -1,11 +1,11 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
+import java.util.Random;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
-
 import micdoodle8.mods.galacticraft.core.GCFluids;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
-
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,16 +20,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.IFluidBlock;
-
-import java.util.Random;
-
-import javax.annotation.Nullable;
 
 public class BlockFluidGC extends BlockFluidClassic
 {

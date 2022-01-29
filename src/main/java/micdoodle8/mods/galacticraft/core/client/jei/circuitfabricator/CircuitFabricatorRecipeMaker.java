@@ -1,9 +1,8 @@
 package micdoodle8.mods.galacticraft.core.client.jei.circuitfabricator;
 
-import micdoodle8.mods.galacticraft.api.recipe.CircuitFabricatorRecipes;
-
 import java.util.ArrayList;
 import java.util.List;
+import micdoodle8.mods.galacticraft.api.recipe.CircuitFabricatorRecipes;
 
 public class CircuitFabricatorRecipeMaker
 {

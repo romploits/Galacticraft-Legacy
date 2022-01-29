@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.venus.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.item.GCRarity;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
@@ -12,10 +14,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemBatteryAtomic extends ItemElectricBase implements ISortableItem, GCRarity
 {

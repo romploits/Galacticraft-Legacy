@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
 import micdoodle8.mods.galacticraft.core.Constants;
-
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

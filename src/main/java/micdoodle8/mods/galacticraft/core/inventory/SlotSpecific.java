@@ -1,14 +1,12 @@
 package micdoodle8.mods.galacticraft.core.inventory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import micdoodle8.mods.galacticraft.api.item.IItemElectric;
 import micdoodle8.mods.galacticraft.core.energy.EnergyConfigHandler;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Creates a slot with a specific amount of items that matches the slot's
@@ -22,40 +20,41 @@ public class SlotSpecific extends Slot
 {
 
     public ItemStack[] validItemStacks = new ItemStack[0];
-    public Class[] validClasses = new Class[0];
+    public Class<?>[] validClasses = new Class[0];
 
     public boolean isInverted = false;
     public boolean isMetadataSensitive = false;
 
-    public SlotSpecific(IInventory par2IInventory, int par3, int par4, int par5, ItemStack... itemStacks)
+    public SlotSpecific(IInventory inventory, int par3, int par4, int par5, ItemStack... itemStacks)
     {
-        super(par2IInventory, par3, par4, par5);
+        super(inventory, par3, par4, par5);
         this.setItemStacks(itemStacks);
     }
 
-    public SlotSpecific(IInventory par2IInventory, int par3, int par4, int par5, Class... validClasses)
+    @SafeVarargs
+    public SlotSpecific(IInventory inventory, int par3, int par4, int par5, Class<?>... validClasses)
     {
-        super(par2IInventory, par3, par4, par5);
+        super(inventory, par3, par4, par5);
         if (validClasses != null && Arrays.asList(validClasses).contains(IItemElectric.class))
         {
             try
             {
                 if (EnergyConfigHandler.isRFAPILoaded())
                 {
-                    ArrayList<Class> existing = new ArrayList<>(Arrays.asList(validClasses));
+                    ArrayList<Class<?>> existing = new ArrayList<>(Arrays.asList(validClasses));
                     existing.add(cofh.redstoneflux.api.IEnergyContainerItem.class);
                     validClasses = existing.toArray(new Class[existing.size()]);
                 }
                 if (EnergyConfigHandler.isIndustrialCraft2Loaded())
                 {
-                    ArrayList<Class> existing = new ArrayList<>(Arrays.asList(validClasses));
+                    ArrayList<Class<?>> existing = new ArrayList<>(Arrays.asList(validClasses));
                     existing.add(ic2.api.item.IElectricItem.class);
                     existing.add(ic2.api.item.ISpecialElectricItem.class);
                     validClasses = existing.toArray(new Class[existing.size()]);
                 }
                 if (EnergyConfigHandler.isMekanismLoaded())
                 {
-                    ArrayList<Class> existing = new ArrayList<>(Arrays.asList(validClasses));
+                    ArrayList<Class<?>> existing = new ArrayList<>(Arrays.asList(validClasses));
                     existing.add(mekanism.api.energy.IEnergizedItem.class);
                     validClasses = existing.toArray(new Class[existing.size()]);
                 }
@@ -64,7 +63,7 @@ public class SlotSpecific extends Slot
                 e.printStackTrace();
             }
         }
-        this.setClasses(validClasses);
+        this.validClasses = validClasses;
     }
 
     public SlotSpecific setMetadataSensitive()
@@ -76,12 +75,6 @@ public class SlotSpecific extends Slot
     public SlotSpecific setItemStacks(ItemStack... validItemStacks)
     {
         this.validItemStacks = validItemStacks;
-        return this;
-    }
-
-    public SlotSpecific setClasses(Class... validClasses)
-    {
-        this.validClasses = validClasses;
         return this;
     }
 
@@ -111,7 +104,7 @@ public class SlotSpecific extends Slot
 
         if (!returnValue)
         {
-            for (Class clazz : this.validClasses)
+            for (Class<?> clazz : this.validClasses)
             {
                 if (clazz.isInstance(compareStack.getItem()))
                 {

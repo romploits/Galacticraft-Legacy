@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.core.entities.player;
 
+import java.util.LinkedList;
+import java.util.List;
 import micdoodle8.mods.galacticraft.api.entity.IIgnoreShift;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.dimension.WorldProviderMoon;
@@ -9,7 +11,6 @@ import micdoodle8.mods.galacticraft.core.util.DamageSourceGC;
 import micdoodle8.mods.galacticraft.planets.asteroids.dimension.WorldProviderAsteroids;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemArmorAsteroids;
 import micdoodle8.mods.galacticraft.planets.mars.items.ItemArmorMars;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -20,9 +21,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class PlayerServer implements IPlayerServer
 {

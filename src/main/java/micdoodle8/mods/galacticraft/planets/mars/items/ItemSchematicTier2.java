@@ -1,5 +1,7 @@
 package micdoodle8.mods.galacticraft.planets.mars.items;
 
+import java.util.List;
+import javax.annotation.Nullable;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicItem;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
@@ -15,10 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemSchematicTier2 extends ItemSchematic implements ISchematicItem, ISortableItem
 {

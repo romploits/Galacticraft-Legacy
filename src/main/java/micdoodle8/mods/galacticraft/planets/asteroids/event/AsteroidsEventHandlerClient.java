@@ -1,7 +1,5 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.event;
 
-import org.lwjgl.opengl.GL11;
-
 import micdoodle8.mods.galacticraft.api.event.client.CelestialBodyRenderEvent;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.Constants;
@@ -22,6 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 
 public class AsteroidsEventHandlerClient
 {

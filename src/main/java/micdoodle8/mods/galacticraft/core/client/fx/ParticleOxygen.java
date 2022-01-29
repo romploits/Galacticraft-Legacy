@@ -1,7 +1,8 @@
 package micdoodle8.mods.galacticraft.core.client.fx;
 
+import java.util.HashMap;
+import java.util.Map;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
-
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
@@ -9,9 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class ParticleOxygen extends Particle

@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.api.transmission.grid;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 
 /**

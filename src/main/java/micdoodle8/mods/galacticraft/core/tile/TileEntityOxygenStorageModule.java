@@ -1,5 +1,8 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.item.IItemOxygenSupply;
@@ -7,7 +10,6 @@ import micdoodle8.mods.galacticraft.core.blocks.BlockMachine2;
 import micdoodle8.mods.galacticraft.core.blocks.BlockMachineBase;
 import micdoodle8.mods.galacticraft.core.inventory.IInventoryDefaults;
 import micdoodle8.mods.galacticraft.core.util.FluidUtil;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -17,10 +19,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
 
 public class TileEntityOxygenStorageModule extends TileEntityOxygen implements IInventoryDefaults, ISidedInventory, IMachineSides
 {

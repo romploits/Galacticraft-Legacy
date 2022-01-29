@@ -1,7 +1,6 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.recipe;
 
 import java.util.HashMap;
-
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
 import micdoodle8.mods.galacticraft.core.GCItems;

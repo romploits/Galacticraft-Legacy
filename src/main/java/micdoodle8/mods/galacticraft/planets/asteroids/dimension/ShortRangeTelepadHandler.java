@@ -1,18 +1,15 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.dimension;
 
-import java.util.Map;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import com.google.common.collect.Maps;
-
+import java.util.Map;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.planets.asteroids.tick.AsteroidsTickHandlerServer;
 import micdoodle8.mods.galacticraft.planets.asteroids.tile.TileEntityShortRangeTelepad;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.storage.WorldSavedData;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class ShortRangeTelepadHandler extends WorldSavedData
 {
