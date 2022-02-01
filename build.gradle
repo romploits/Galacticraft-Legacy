@@ -24,7 +24,7 @@ ext {
 	IS_SNAPSHOT = false
 	COMMIT = grgit.head().abbreviatedId.toString()
 	
-	VERSION = '4.0.2.282'
+	VERSION = '4.0.2.283'
 	MC_VERSION = '1.12.2'
 	FORGE_VERSION = '14.23.5.2860'
 	
