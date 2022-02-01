@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.core.energy.tile;
 
 import buildcraft.api.mj.IMjConnector;
+import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
 import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergyTile;
@@ -513,7 +514,8 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile
         return super.getCapability(capability, facing);
     }
 
-    private static class ForgeReceiver implements net.minecraftforge.energy.IEnergyStorage
+    @Optional.Interface(modid = "buildcraftenergy", iface = "buildcraft.api.mj.IMjReceiver")
+    private static class ForgeReceiver implements net.minecraftforge.energy.IEnergyStorage, IMjReceiver
     {
 
         private TileBaseUniversalElectrical tile;

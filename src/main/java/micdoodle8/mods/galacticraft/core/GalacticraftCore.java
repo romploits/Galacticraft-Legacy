@@ -198,7 +198,7 @@ import net.minecraftforge.server.permission.PermissionAPI;
 @Mod(modid = Constants.MOD_ID_CORE,
     name = GalacticraftCore.NAME,
     version = Constants.VERSION,
-    dependencies = "required-after:forge@[14.23.5.2860,);",
+    dependencies = "required-after:forge@[14.23.5.2847,);",
     useMetadata = true,
     acceptedMinecraftVersions = "[1.12, 1.13)",
     guiFactory = "micdoodle8.mods.galacticraft.core.client.gui.screen.ConfigGuiFactoryCore",
