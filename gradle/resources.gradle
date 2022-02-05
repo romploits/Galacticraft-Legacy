@@ -1,6 +1,6 @@
 def resourceTargets = [ 'mcmod.info' ]
 def intoTargets = [ "$rootDir/out/production/resources/", "$rootDir/out/production/${project.name}.main/", "$rootDir/bin/main/" ]
-def replaceProperties = [ mod_version: version.toString().split("-")[1], minecraft_version: MC_VERSION ]
+def replaceProperties = [ mod_version: version.toString().split("-")[1], minecraft_version: "${mc_version}" ]
 
 processResources {
     inputs.properties replaceProperties
@@ -23,7 +23,7 @@ processResources {
     }
 }
 
-def modFileTokens = [ gcVersion: version.toString().split("-")[1], sha1: project.findProperty('signSHA1') ]
+def modFileTokens = [ gcVersion: version.toString().split("-")[1] ]
 def included = [ "micdoodle8/mods/galacticraft/core/Constants.java" ]
 def includedPaths = included.collect { java.nio.file.Paths.get(it) }
 def expandedSrc = new File(project.buildDir, 'expandedSrc')
