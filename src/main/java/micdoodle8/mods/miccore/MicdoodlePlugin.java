@@ -11,11 +11,13 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.relauncher.IFMLCallHook;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @IFMLLoadingPlugin.TransformerExclusions(value = {"micdoodle8.mods.miccore"})
 @MCVersion("1.12.2")
+@SortingIndex(1001)
 public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
 {
 

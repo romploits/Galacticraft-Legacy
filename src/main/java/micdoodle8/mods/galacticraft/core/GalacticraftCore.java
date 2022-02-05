@@ -174,7 +174,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -201,8 +200,7 @@ import net.minecraftforge.server.permission.PermissionAPI;
     dependencies = "required-after:forge@[14.23.5.2847,);",
     useMetadata = true,
     acceptedMinecraftVersions = "[1.12, 1.13)",
-    guiFactory = "micdoodle8.mods.galacticraft.core.client.gui.screen.ConfigGuiFactoryCore",
-    certificateFingerprint = Constants.FINGERPRINT)
+    guiFactory = "micdoodle8.mods.galacticraft.core.client.gui.screen.ConfigGuiFactoryCore")
 public class GalacticraftCore
 {
 
@@ -257,13 +255,6 @@ public class GalacticraftCore
     static
     {
         FluidRegistry.enableUniversalBucket();
-    }
-
-    @EventHandler
-    public void onFingerprintViolation(FMLFingerprintViolationEvent event)
-    {
-        if (!GCCoreUtil.isDeobfuscated())
-            logger.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the author!");
     }
 
     @EventHandler

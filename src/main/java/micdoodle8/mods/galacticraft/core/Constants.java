@@ -9,8 +9,6 @@ public class Constants
     public static final String MOD_ID_PLANETS = "galacticraftplanets";
     public static final String MOD_NAME_SIMPLE = "Galacticraft";
 
-    public static final String FINGERPRINT = "${sha1}";
-
     //    public static final int LOCALMAJVERSION = 4;
     //    public static final int LOCALMINVERSION = 0;
     //    public static final int LOCALPATCHVERSION = 2;
