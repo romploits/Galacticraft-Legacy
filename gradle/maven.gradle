@@ -44,8 +44,8 @@ publishing {
                 basic(BasicAuthentication)
             }
 			credentials {
-                username = project.findProperty('id')
-                password = project.findProperty('token')
+                username = System.getenv('MAVEN_USER')
+                password = System.getenv('MAVEN_PASSWORD')
 			}
 		}
     }

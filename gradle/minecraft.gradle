@@ -34,11 +34,45 @@ repositories {
     all {
         ArtifactRepository repo ->
         if (repo instanceof MavenArtifactRepository) {
-            if ((repo.url.toString() == 'repo1.maven.org') || 
-            	(repo.url.toString() == 'files.minecraftforge.net') || 
+            if ((repo.url.toString() == 'files.minecraftforge.net') || 
             	(repo.url.toString() == 'maven.minecraftforge.net')) {
                 remove repo
             }
+        }
+    }
+}
+
+minecraft {
+    mappings channel: "${mapping_channel}", version: "${mapping_version}"
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run/client')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            if (project.hasProperty('mc_uuid'))
+                args '--uuid', project.getProperty('mc_uuid')
+
+            if (project.hasProperty('mc_username'))
+                args '--username', project.getProperty('mc_username')
+
+            if (project.hasProperty('mc_accessToken'))
+                args '--accessToken', project.getProperty('mc_accessToken')
+
+            jvmArg '-Dfml.coreMods.load=micdoodle8.mods.miccore.MicdoodlePlugin'
+        }
+
+        server {
+            workingDirectory project.file('run/server')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            
+            jvmArg '-Dfml.coreMods.load=micdoodle8.mods.miccore.MicdoodlePlugin'
         }
     }
 }
@@ -58,4 +92,12 @@ dependencies {
 	
 	compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
 	runtimeOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
+}
+
+fancyGradle {
+    patches {
+        resources
+        coremods
+        asm
+    }
 }
