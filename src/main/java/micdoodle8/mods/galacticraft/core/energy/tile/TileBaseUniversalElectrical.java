@@ -452,10 +452,9 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile
         return this.getMaxEnergyStoredGC() / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
-    @Optional.Method(modid = "mekanism")
     public boolean canOutputEnergy(EnumFacing side)
     {
-        return false;
+        return this.getElectricalOutputDirections().contains(side);
     }
 
     @Optional.Method(modid = "mekanism")

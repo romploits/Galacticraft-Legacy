@@ -194,13 +194,6 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
 
     @Override
     @Optional.Method(modid = "mekanism")
-    public boolean canOutputEnergy(EnumFacing side)
-    {
-        return this.getElectricalOutputDirections().contains(side);
-    }
-
-    @Override
-    @Optional.Method(modid = "mekanism")
     public double pullEnergy(EnumFacing side, double amount, boolean simulate)
     {
         if (this.canOutputEnergy(side))
