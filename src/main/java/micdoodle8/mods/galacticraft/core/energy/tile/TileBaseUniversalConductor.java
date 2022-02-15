@@ -4,9 +4,11 @@ import buildcraft.api.mj.IMjConnector;
 import buildcraft.api.mj.MjAPI;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyEmitter;
+import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergyTile;
 import javax.annotation.Nonnull;
+import mekanism.api.energy.IStrictEnergyAcceptor;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConductor;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IElectrical;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
@@ -15,14 +17,26 @@ import micdoodle8.mods.galacticraft.core.energy.EnergyUtil;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.common.Optional.Interface;
+import net.minecraftforge.fml.common.Optional.InterfaceList;
+import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-public abstract class TileBaseUniversalConductor extends TileBaseConductor implements net.minecraftforge.energy.IEnergyStorage
+// @noformat
+@InterfaceList(value = {
+    @Interface(iface = "net.minecraft.util.ITickable", modid = CompatibilityManager.modidIC2), 
+    @Interface(iface = "ic2.api.energy.tile.IEnergyAcceptor", modid = CompatibilityManager.modidIC2),
+    @Interface(iface = "ic2.api.energy.tile.IEnergyEmitter", modid = CompatibilityManager.modidIC2),
+    @Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = CompatibilityManager.modidIC2),
+    @Interface(iface = "mekanism.api.energy.IStrictEnergyAcceptor", modid = CompatibilityManager.modidMekanism)
+})
+public abstract class TileBaseUniversalConductor extends TileBaseConductor implements IEnergyStorage, ITickable, IEnergyAcceptor, IEnergyEmitter, IEnergySink, IStrictEnergyAcceptor
 {
 
     protected boolean isAddedToEnergyNet;
@@ -39,7 +53,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return EnergyUtil.getAdjacentPowerConnections(this);
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public void update()
     {
         if (!this.isAddedToEnergyNet)
@@ -111,7 +125,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         }
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public double getDemandedEnergy()
     {
         if (this.getNetwork() == null)
@@ -134,7 +148,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return 0D;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public double injectEnergy(EnumFacing directionFrom, double amount, double voltage)
     {
         TileEntity tile = new BlockVec3(this).getTileEntityOnSide(this.world, directionFrom);
@@ -149,7 +163,8 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         if (surplus >= 0.001F)
         {
             this.IC2surplusJoules = surplus;
-        } else
+        }
+        else
         {
             this.IC2surplusJoules = 0F;
         }
@@ -157,30 +172,30 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return 0D;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public int getSinkTier()
     {
         return 3;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side)
     {
-        // Don't add connection to IC2 grid if it's a Galacticraft tile
+        //Don't add connection to IC2 grid if it's a Galacticraft tile
         if (emitter instanceof IElectrical || emitter instanceof IConductor)
         {
             return false;
         }
 
-        // Don't make connection with IC2 wires [don't want risk of multiple
-        // connections + there is a graphical glitch in IC2]
+        //Don't make connection with IC2 wires [don't want risk of multiple connections + there is a graphical glitch in IC2]
         try
         {
             if (EnergyUtil.clazzIC2Cable != null && EnergyUtil.clazzIC2Cable.isInstance(emitter))
             {
                 return false;
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -188,24 +203,24 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return true;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public boolean emitsEnergyTo(IEnergyAcceptor receiver, EnumFacing side)
     {
-        // Don't add connection to IC2 grid if it's a Galacticraft tile
+        //Don't add connection to IC2 grid if it's a Galacticraft tile
         if (receiver instanceof IElectrical || receiver instanceof IConductor)
         {
             return false;
         }
 
-        // Don't make connection with IC2 wires [don't want risk of multiple
-        // connections + there is a graphical glitch in IC2]
+        //Don't make connection with IC2 wires [don't want risk of multiple connections + there is a graphical glitch in IC2]
         try
         {
             if (EnergyUtil.clazzIC2Cable != null && EnergyUtil.clazzIC2Cable.isInstance(receiver))
             {
                 return false;
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -268,7 +283,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
-    @Optional.Method(modid = "buildcraftenergy")
+    @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long getPowerRequested()
     {
         if (this.getNetwork() == null || EnergyConfigHandler.disableBuildCraftInput)
@@ -280,7 +295,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
-    @Optional.Method(modid = "buildcraftenergy")
+    @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long receivePower(long microJoules, boolean simulate)
     {
         if (this.getNetwork() == null || EnergyConfigHandler.disableBuildCraftInput)
@@ -293,13 +308,12 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
-    @Optional.Method(modid = "buildcraftenergy")
+    @Method(modid = CompatibilityManager.modBCraftEnergy)
     public boolean canConnect(@Nonnull IMjConnector other)
     {
         return true;
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate)
     {
         if (this.getNetwork() == null)
@@ -311,13 +325,11 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return MathHelper.floor(sentGC / EnergyConfigHandler.RF_RATIO);
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public int extractEnergy(EnumFacing from, int maxExtract, boolean simulate)
     {
         return 0;
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public boolean canConnectEnergy(EnumFacing from)
     {
         // Do not form wire-to-wire connections with EnderIO conduits
@@ -334,13 +346,11 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return true;
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public int getEnergyStored(EnumFacing from)
     {
         return 0;
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public int getMaxEnergyStored(EnumFacing from)
     {
         if (this.getNetwork() == null)
@@ -351,7 +361,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return MathHelper.floor(this.getNetwork().getRequest(this) / EnergyConfigHandler.RF_RATIO);
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double transferEnergyToAcceptor(EnumFacing side, double amount)
     {
         if (EnergyConfigHandler.disableMekanismInput)
@@ -367,7 +377,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return amount - this.getNetwork().produce((float) amount * EnergyConfigHandler.MEKANISM_RATIO, true, 1, this) / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double acceptEnergy(EnumFacing side, double amount, boolean simulate)
     {
         if (EnergyConfigHandler.disableMekanismInput)
@@ -383,7 +393,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return amount - this.getNetwork().produce((float) amount * EnergyConfigHandler.MEKANISM_RATIO, !simulate, 1, this) / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canReceiveEnergy(EnumFacing side)
     {
         if (this.getNetwork() == null)
@@ -396,7 +406,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         {
             if (EnergyUtil.clazzMekCable != null && EnergyUtil.clazzMekCable.isInstance(te))
             {
-                return false;
+                return true;
             }
         } catch (Exception e)
         {
@@ -406,18 +416,18 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return true;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double getEnergy()
     {
         return 0;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public void setEnergy(double energy)
     {
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double getMaxEnergy()
     {
         if (this.getNetwork() == null)

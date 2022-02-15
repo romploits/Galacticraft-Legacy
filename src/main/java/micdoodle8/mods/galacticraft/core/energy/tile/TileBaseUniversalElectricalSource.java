@@ -2,6 +2,8 @@ package micdoodle8.mods.galacticraft.core.energy.tile;
 
 import buildcraft.api.mj.MjAPI;
 import ic2.api.energy.tile.IEnergyAcceptor;
+import ic2.api.energy.tile.IEnergyEmitter;
+import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
@@ -10,6 +12,7 @@ import ic2.api.item.ISpecialElectricItem;
 import java.util.EnumSet;
 import mekanism.api.energy.EnergizedItemManager;
 import mekanism.api.energy.IEnergizedItem;
+import mekanism.api.energy.IStrictEnergyStorage;
 import micdoodle8.mods.galacticraft.api.item.ElectricItemHelper;
 import micdoodle8.mods.galacticraft.api.item.IItemElectric;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
@@ -19,6 +22,7 @@ import micdoodle8.mods.galacticraft.api.transmission.tile.IElectrical;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.energy.EnergyConfigHandler;
 import micdoodle8.mods.galacticraft.core.energy.EnergyUtil;
+import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -26,9 +30,17 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional.Interface;
+import net.minecraftforge.fml.common.Optional.InterfaceList;
+import net.minecraftforge.fml.common.Optional.Method;
 
-public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversalElectrical
+// @noformat
+@InterfaceList(value = {
+    @Interface(iface = "ic2.api.energy.tile.IEnergyEmitter", modid = CompatibilityManager.modidIC2), 
+    @Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = CompatibilityManager.modidIC2),
+    @Interface(iface = "mekanism.api.energy.IStrictEnergyStorage", modid = CompatibilityManager.modidMekanism)
+})
+public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversalElectrical implements IEnergyEmitter, IEnergySource, IStrictEnergyStorage
 {
 
     public TileBaseUniversalElectricalSource(String tileName)
@@ -149,13 +161,13 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
         }
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public boolean emitsEnergyTo(IEnergyAcceptor receiver, EnumFacing direction)
     {
         if (this.tileEntityInvalid)
             return false;
 
-        // Don't add connection to IC2 grid if it's a Galacticraft tile
+        //Don't add connection to IC2 grid if it's a Galacticraft tile
         if (receiver instanceof IElectrical || receiver instanceof IConductor || !(receiver instanceof IEnergyTile))
         {
             return false;
@@ -164,7 +176,7 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
         return this.getElectricalOutputDirections().contains(direction);
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public double getOfferedEnergy()
     {
         if (EnergyConfigHandler.disableIC2Output)
@@ -175,7 +187,7 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
         return this.getProvide(null) * EnergyConfigHandler.TO_IC2_RATIO;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public void drawEnergy(double amount)
     {
         if (EnergyConfigHandler.disableIC2Output)
@@ -186,14 +198,14 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
         this.storage.extractEnergyGC((float) amount / EnergyConfigHandler.TO_IC2_RATIO, false);
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public int getSourceTier()
     {
         return this.tierGC + 1;
     }
 
     @Override
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double pullEnergy(EnumFacing side, double amount, boolean simulate)
     {
         if (this.canOutputEnergy(side))
@@ -204,21 +216,19 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
         return 0D;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double getEnergy()
     {
         return this.storage.getEnergyStoredGC() * EnergyConfigHandler.TO_MEKANISM_RATIO;
     }
 
-    @Override
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double getMaxEnergy()
     {
         return this.storage.getCapacityGC() * EnergyConfigHandler.TO_MEKANISM_RATIO;
     }
 
-    @Override
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public void setEnergy(double energy)
     {
         this.storage.setEnergyStored((float) energy / EnergyConfigHandler.TO_MEKANISM_RATIO);
@@ -284,7 +294,6 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
         return null;
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public int extractEnergy(EnumFacing from, int maxExtract, boolean simulate)
     {
         if (EnergyConfigHandler.disableRFOutput)

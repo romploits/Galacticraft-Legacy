@@ -866,9 +866,6 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     }
                 }
             }
-
-            
-            printLog("bll.OrientCamera done");
         }
 
         if (updateLightMapMethod != null)
@@ -893,7 +890,6 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                         MicdoodleTransformer.injectionCount++;
                         worldBrightnessInjection = true;
                         
-                        printLog("bll.updateLightMap - worldBrightness done");
                         continue;
                     }
                 }
@@ -930,7 +926,6 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                         updateLightMapMethod.instructions.insertBefore(nodeAt, nodesToAdd);
                         MicdoodleTransformer.injectionCount++;
                         
-                            System.out.println("bll.updateLightMap - getColors done");
                         break;
                     }
                 }
@@ -972,7 +967,6 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                         updateFogColorMethod.instructions.insertBefore(updateFogColorMethod.instructions.get(count + 2), toAdd);
                         MicdoodleTransformer.injectionCount++;
                         
-                            System.out.println("bll.updateFogColor - getSkyColor done");
                     }
                 }
             }
@@ -1727,7 +1721,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     this.printLog("Galacticraft successfully injected bytecode into: " + nodeName + " (" + MicdoodleTransformer.injectionCount + " / " + MicdoodleTransformer.operationCount + ")");
             } else
             {
-                System.err.println("Potential problem: Galacticraft did not complete injection of bytecode into: " + nodeName + " (" + MicdoodleTransformer.injectionCount + " / "
+                MicdoodlePlugin.miccoreLogger.error("Potential problem: Galacticraft did not complete injection of bytecode into: " + nodeName + " (" + MicdoodleTransformer.injectionCount + " / "
                     + MicdoodleTransformer.operationCount + ")");
             }
         }
@@ -1806,7 +1800,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
     {
         if (ConfigManagerMicCore.enableDebug)
         {
-            MicdoodlePlugin.miccoreLogger.debug(message);
+            MicdoodlePlugin.miccoreLogger.info(message);
         }
     }
 

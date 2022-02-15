@@ -1,36 +1,38 @@
 package micdoodle8.mods.miccore;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.LoaderException;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.relauncher.IFMLCallHook;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@IFMLLoadingPlugin.TransformerExclusions(value = {"micdoodle8.mods.miccore"})
+@IFMLLoadingPlugin.TransformerExclusions(value =
+{"micdoodle8.mods.miccore"})
 @MCVersion("1.12.2")
-@SortingIndex(1001)
 public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
 {
 
-    public static Logger miccoreLogger = LogManager.getLogger("MicdoodleCore");
-    public static boolean hasRegistered = false;
-    public static final String mcVersion = MinecraftForge.MC_VERSION;
-    public static File mcDir;
-    public static File canonicalConfigDir;
+    public static Logger       miccoreLogger = LogManager.getLogger("MicdoodleCore");
+    public static boolean      hasRegistered = false;
+    public static final String mcVersion     = MinecraftForge.MC_VERSION;
+    public static File         mcDir;
+    public static File         canonicalConfigDir;
 
     @Override
     public String[] getASMTransformerClass()
     {
-        final String[] asmStrings = {"micdoodle8.mods.miccore.MicdoodleTransformer"};
+        final String[] asmStrings =
+        {"micdoodle8.mods.miccore.MicdoodleTransformer"};
 
         if (!MicdoodlePlugin.hasRegistered)
         {
@@ -46,7 +48,8 @@ public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
                     {
                         miccoreLogger.info("Successfully Registered Transformer");
                     }
-                } catch (final Exception ex)
+                }
+                catch (final Exception ex)
                 {
                     miccoreLogger.error("Error while running transformer " + s);
                     return null;
@@ -79,7 +82,7 @@ public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
 
     private static Constructor<?> sleepCancelledConstructor;
     private static Constructor<?> orientCameraConstructor;
-    private static String eventContainerClass = "micdoodle8.mods.galacticraft.core.event.EventHandlerGC";
+    private static String         eventContainerClass = "micdoodle8.mods.galacticraft.core.event.EventHandlerGC";
 
     public static void onSleepCancelled()
     {
@@ -91,7 +94,8 @@ public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
             }
 
             MinecraftForge.EVENT_BUS.post((Event) MicdoodlePlugin.sleepCancelledConstructor.newInstance());
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -107,7 +111,8 @@ public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
             }
 
             MinecraftForge.EVENT_BUS.post((Event) MicdoodlePlugin.orientCameraConstructor.newInstance());
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -121,9 +126,9 @@ public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
         try
         {
             deobfuscated = Launch.classLoader.getClassBytes("net.minecraft.world.World") != null;
-        } catch (final Exception e)
-        {
         }
+        catch (final Exception e)
+        {}
 
         if (deobfuscated)
         {
@@ -135,6 +140,35 @@ public class MicdoodlePlugin implements IFMLLoadingPlugin, IFMLCallHook
     @Override
     public void injectData(Map<String, Object> data)
     {
+        if (data.containsKey("mcLocation"))
+        {
+            MicdoodlePlugin.mcDir = (File) data.get("mcLocation");
+            File configDir = new File(mcDir, "config");
+            String canonicalConfigPath;
+            try
+            {
+                canonicalConfigPath = configDir.getCanonicalPath();
+                canonicalConfigDir = configDir.getCanonicalFile();
+            }
+            catch (IOException ioe)
+            {
+                throw new LoaderException(ioe);
+            }
+            if (!canonicalConfigDir.exists())
+            {
+                miccoreLogger.debug("No config directory found, creating one: %s", canonicalConfigPath);
+                boolean dirMade = canonicalConfigDir.mkdir();
 
+                if (!dirMade)
+                {
+                    miccoreLogger.error("Unable to create the config directory %s", canonicalConfigPath);
+                    throw new LoaderException();
+                }
+
+                miccoreLogger.info("Config directory created successfully");
+            }
+
+            ConfigManagerMicCore.init();
+        }
     }
 }

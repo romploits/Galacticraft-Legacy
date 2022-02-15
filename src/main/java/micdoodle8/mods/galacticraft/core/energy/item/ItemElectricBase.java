@@ -1,14 +1,18 @@
 package micdoodle8.mods.galacticraft.core.energy.item;
 
+import ic2.api.item.IElectricItem;
 import ic2.api.item.IElectricItemManager;
+import ic2.api.item.ISpecialElectricItem;
 import java.util.List;
 import javax.annotation.Nullable;
+import mekanism.api.energy.IEnergizedItem;
 import micdoodle8.mods.galacticraft.api.item.ElectricItemHelper;
 import micdoodle8.mods.galacticraft.api.item.IItemElectricBase;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.EnergyConfigHandler;
 import micdoodle8.mods.galacticraft.core.energy.EnergyDisplayHelper;
 import micdoodle8.mods.galacticraft.core.items.ItemBatteryInfinite;
+import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,11 +24,19 @@ import net.minecraft.nbt.NBTTagDouble;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional.Interface;
+import net.minecraftforge.fml.common.Optional.InterfaceList;
+import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import net.minecraftforge.fml.relauncher.FMLInjectionData;
 
-public abstract class ItemElectricBase extends Item implements IItemElectricBase
+//@noformat
+@InterfaceList(value = {
+    @Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = CompatibilityManager.modidIC2), 
+    @Interface(iface = "ic2.api.item.IElectricItem", modid = CompatibilityManager.modidIC2),
+    @Interface(iface = "mekanism.api.energy.IEnergizedItem", modid = CompatibilityManager.modidMekanism)
+})
+public abstract class ItemElectricBase extends Item implements IItemElectricBase, ISpecialElectricItem, IElectricItem, IEnergizedItem
 {
 
     private static Object itemManagerIC2;
@@ -271,25 +283,21 @@ public abstract class ItemElectricBase extends Item implements IItemElectricBase
 
     // For RF compatibility
 
-    @Optional.Method(modid = "redstoneflux")
     public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate)
     {
         return (int) (this.recharge(container, maxReceive * EnergyConfigHandler.RF_RATIO, !simulate) / EnergyConfigHandler.RF_RATIO);
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public int extractEnergy(ItemStack container, int maxExtract, boolean simulate)
     {
         return (int) (this.discharge(container, maxExtract / EnergyConfigHandler.TO_RF_RATIO, !simulate) * EnergyConfigHandler.TO_RF_RATIO);
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public int getEnergyStored(ItemStack container)
     {
         return (int) (this.getElectricityStored(container) * EnergyConfigHandler.TO_RF_RATIO);
     }
 
-    @Optional.Method(modid = "redstoneflux")
     public int getMaxEnergyStored(ItemStack container)
     {
         return (int) (this.getMaxElectricityStored(container) * EnergyConfigHandler.TO_RF_RATIO);
@@ -297,31 +305,31 @@ public abstract class ItemElectricBase extends Item implements IItemElectricBase
 
     // The following seven methods are for Mekanism compatibility
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double getEnergy(ItemStack itemStack)
     {
         return this.getElectricityStored(itemStack) * EnergyConfigHandler.TO_MEKANISM_RATIO;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public void setEnergy(ItemStack itemStack, double amount)
     {
         this.setElectricity(itemStack, (float) amount * EnergyConfigHandler.MEKANISM_RATIO);
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double getMaxEnergy(ItemStack itemStack)
     {
         return this.getMaxElectricityStored(itemStack) * EnergyConfigHandler.TO_MEKANISM_RATIO;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public double getMaxTransfer(ItemStack itemStack)
     {
         return this.transferMax * EnergyConfigHandler.TO_MEKANISM_RATIO;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canReceive(ItemStack itemStack)
     {
         return (itemStack != null && !(itemStack.getItem() instanceof ItemBatteryInfinite));
@@ -334,31 +342,31 @@ public abstract class ItemElectricBase extends Item implements IItemElectricBase
 
     // All the following methods are for IC2 compatibility
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public IElectricItemManager getManager(ItemStack itemstack)
     {
         return (IElectricItemManager) ItemElectricBase.itemManagerIC2;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public boolean canProvideEnergy(ItemStack itemStack)
     {
         return true;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public int getTier(ItemStack itemStack)
     {
         return 1;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public double getMaxCharge(ItemStack itemStack)
     {
         return this.getMaxElectricityStored(itemStack) / EnergyConfigHandler.IC2_RATIO;
     }
 
-    @Optional.Method(modid = "ic2")
+    @Method(modid = CompatibilityManager.modidIC2)
     public double getTransferLimit(ItemStack itemStack)
     {
         return this.transferMax * EnergyConfigHandler.TO_IC2_RATIO;

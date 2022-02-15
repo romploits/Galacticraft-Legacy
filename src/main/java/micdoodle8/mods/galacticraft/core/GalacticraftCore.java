@@ -232,7 +232,6 @@ public class GalacticraftCore
     public static Planet planetSaturn;
     public static Planet planetUranus;
     public static Planet planetNeptune;
-    public static Planet curse;
     public static Moon moonMoon;
     public static Satellite satelliteSpaceStation;
 
@@ -510,7 +509,6 @@ public class GalacticraftCore
         }
 
         GCDimensions.MOON = WorldUtil.getDimensionTypeById(ConfigManagerCore.idDimensionMoon);
-        GCDimensions.CURSE = WorldUtil.getDimensionTypeById(666);
 
         CompatibilityManager.checkForCompatibleMods();
         RecipeManagerGC.loadCompatibilityRecipes();
