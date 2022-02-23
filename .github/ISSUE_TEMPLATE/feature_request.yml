@@ -1,0 +1,31 @@
+name: Feature Request
+description: Suggest an idea/enhancement for this mod
+labels:
+  - '[Type] Feature Request'
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Thank you for taking intrest in suggesting new features or enhancements to existing features!
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: >-
+        Is this an enhancement for an existing feature or a new feature?
+      options:
+        - Existing
+        - New
+    validations:
+      required: true
+  - type: textarea
+    id: desc
+    attributes:
+      label: Describe Your Request
+      description:  >-
+        Please explain and describe the feature or enhancement your suggesting. The more
+        information you provide the better!
+      value: |
+        ...
+    validations:
+      required: true
