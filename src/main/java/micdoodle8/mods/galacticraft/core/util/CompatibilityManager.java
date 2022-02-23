@@ -53,7 +53,6 @@ public class CompatibilityManager
     public static boolean isTConstructLoaded = Loader.isModLoaded("tconstruct");
     public static boolean isWitcheryLoaded = Loader.isModLoaded("witchery");
     public static boolean isCubicChunksLoaded;
-//    public static int isBG2Loaded = 0;
 
     public static Class<?> classGTOre = null;
     private static Method spongeOverrideSet = null;
@@ -85,22 +84,22 @@ public class CompatibilityManager
 
         if (CompatibilityManager.modMekLoaded)
         {
-            GalacticraftCore.logger.info("Galacticraft: activating Mekanism compatibility.");
+            GalacticraftCore.logger.info("Activating Mekanism compatibility.");
         }
 
         if (CompatibilityManager.isMFRLoaded)
         {
-            GalacticraftCore.logger.info("Galacticraft: activating MFR compatibility feature.");
+            GalacticraftCore.logger.info("Activating MFR compatibility feature.");
         }
 
         if (CompatibilityManager.modTELoaded)
         {
-            GalacticraftCore.logger.info("Galacticraft: activating ThermalExpansion compatibility features.");
+            GalacticraftCore.logger.info("Activating ThermalExpansion compatibility features.");
         }
 
         if (CompatibilityManager.isTConstructLoaded)
         {
-            GalacticraftCore.logger.info("Galacticraft: activating Tinker's Construct compatibility features.");
+            GalacticraftCore.logger.info("Activating Tinker's Construct compatibility features.");
         }
 
         if (CompatibilityManager.modIc2Loaded)
@@ -201,7 +200,7 @@ public class CompatibilityManager
                         }
                     }
                 }
-                GalacticraftCore.logger.info("Galacticraft: activating IndustrialCraft2 compatibility features.");
+                GalacticraftCore.logger.info("Activating IndustrialCraft2 compatibility features.");
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -229,7 +228,7 @@ public class CompatibilityManager
                 CompatibilityManager.modBCraftTransportLoaded = false;
             } else
             {
-                GalacticraftCore.logger.info("Galacticraft: activating BuildCraft Transport (Pipes) compatibility features.");
+                GalacticraftCore.logger.info("Activating BuildCraft Transport (Pipes) compatibility features.");
             }
         }
 
@@ -240,7 +239,7 @@ public class CompatibilityManager
                 classBOPWorldType = Class.forName("biomesoplenty.common.world.WorldTypeBOP");
                 classBOPws = Class.forName("biomesoplenty.common.world.BOPWorldSettings");
                 classBOPwcm = Class.forName("biomesoplenty.common.world.BiomeProviderBOP");
-                GalacticraftCore.logger.info("Galacticraft: activating Biomes O'Plenty compatibility feature.");
+                GalacticraftCore.logger.info("Activating Biomes O'Plenty compatibility feature.");
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -250,7 +249,7 @@ public class CompatibilityManager
         if (Loader.isModLoaded("aetherii"))
         {
             CompatibilityManager.modAetherIILoaded = true;
-            GalacticraftCore.logger.info("Galacticraft: activating AetherII compatibility feature.");
+            GalacticraftCore.logger.info("Activating AetherII compatibility feature.");
         }
 
         if (Loader.isModLoaded("basiccomponents"))
@@ -261,19 +260,19 @@ public class CompatibilityManager
         if (Loader.isModLoaded("appliedenergistics2"))
         {
             CompatibilityManager.modAppEngLoaded = true;
-            GalacticraftCore.logger.info("Galacticraft: activating AppliedEnergistics2 compatibility features.");
+            GalacticraftCore.logger.info("Activating AppliedEnergistics2 compatibility features.");
         }
 
         if (Loader.isModLoaded("pneumaticcraft"))
         {
             CompatibilityManager.modPneumaticCraftLoaded = true;
-            GalacticraftCore.logger.info("Galacticraft: activating PneumaticCraft compatibility features.");
+            GalacticraftCore.logger.info("Activating PneumaticCraft compatibility features.");
         }
 
         if (Loader.isModLoaded("waila"))
         {
             CompatibilityManager.wailaLoaded = true;
-            GalacticraftCore.logger.info("Galacticraft: activating WAILA compatibility features.");
+            GalacticraftCore.logger.info("Activating WAILA compatibility features.");
         }
 
         if (Loader.isModLoaded("sponge"))
@@ -303,19 +302,6 @@ public class CompatibilityManager
         {
             CompatibilityManager.isCubicChunksLoaded = true;
         }
-
-//TODO      
-//        //Compatibility with BattleGear2 - was used by RenderEvolvedSkeleton in 1.7.10
-//        try
-//        {
-//            Class<?> clazz = Class.forName("mods.battlegear2.MobHookContainerClass");
-//
-//            //accessing this: public static final int Skell_Arrow_Datawatcher = 25;
-//            CompatibilityManager.isBG2Loaded = clazz.getField("Skell_Arrow_Datawatcher").getInt(null);
-//        }
-//        catch (Exception e)
-//        {
-//        }
 
         if (Loader.isModLoaded("matteroverdrive"))
         {
@@ -469,7 +455,7 @@ public class CompatibilityManager
                 registerMethod.invoke(null, clazzbm.getConstructor(Block.class, int.class).newInstance(GCBlocks.blockMoon, 4), "tile.moonBlock.moonstone");
                 registerMethod.invoke(null, clazzbm.getConstructor(Block.class, int.class).newInstance(GCBlocks.blockMoon, 5), "tile.moonBlock.moongrass");
                 registerMethod.invoke(null, clazzbm.getConstructor(Block.class, int.class).newInstance(GCBlocks.blockMoon, 14), "tile.moonBlock.bricks");
-                GalacticraftCore.logger.info("Galacticraft: activating CodeChicken Microblocks compatibility.");
+                GalacticraftCore.logger.info("Activating CodeChicken Microblocks compatibility.");
             }
         } catch (Exception e)
         {

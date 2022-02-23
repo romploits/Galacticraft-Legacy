@@ -43,6 +43,7 @@ import micdoodle8.mods.galacticraft.core.command.CommandPlanetTeleport;
 import micdoodle8.mods.galacticraft.core.command.CommandSpaceStationAddOwner;
 import micdoodle8.mods.galacticraft.core.command.CommandSpaceStationChangeOwner;
 import micdoodle8.mods.galacticraft.core.command.CommandSpaceStationRemoveOwner;
+import micdoodle8.mods.galacticraft.core.datafix.GCCoreDataFixers;
 import micdoodle8.mods.galacticraft.core.dimension.GCDimensions;
 import micdoodle8.mods.galacticraft.core.dimension.TeleportTypeMoon;
 import micdoodle8.mods.galacticraft.core.dimension.TeleportTypeOrbit;
@@ -285,7 +286,6 @@ public class GalacticraftCore
 
         ConfigManagerCore.initialize(new File(event.getModConfigurationDirectory(), Constants.CONFIG_FILE));
         EnergyConfigHandler.setDefaultValues(new File(event.getModConfigurationDirectory(), Constants.POWER_CONFIG_FILE));
-        ChunkLoadingCallback.loadConfig(new File(event.getModConfigurationDirectory(), Constants.CHUNKLOADER_CONFIG_FILE));
 
         GalacticraftCore.galacticraftBlocksTab = new CreativeTabGC(CreativeTabs.getNextID(), "galacticraft_blocks", null, null);
         GalacticraftCore.galacticraftItemsTab = new CreativeTabGC(CreativeTabs.getNextID(), "galacticraft_items", null, null);
@@ -685,61 +685,63 @@ public class GalacticraftCore
 
     private void registerTileEntities()
     {
-        registerTileEntity(TileEntityTreasureChest.class, "GC Treasure Chest");
-        registerTileEntity(TileEntityOxygenDistributor.class, "GC Air Distributor");
-        registerTileEntity(TileEntityOxygenCollector.class, "GC Air Collector");
-        registerTileEntity(TileEntityFluidPipe.class, "GC Oxygen Pipe");
-        registerTileEntity(TileEntityAirLock.class, "GC Air Lock Frame");
-        registerTileEntity(TileEntityRefinery.class, "GC Refinery");
-        registerTileEntity(TileEntityNasaWorkbench.class, "GC NASA Workbench");
-        registerTileEntity(TileEntityDeconstructor.class, "GC Deconstructor");
-        registerTileEntity(TileEntityOxygenCompressor.class, "GC Air Compressor");
-        registerTileEntity(TileEntityFuelLoader.class, "GC Fuel Loader");
-        registerTileEntity(TileEntityLandingPadSingle.class, "GC Landing Pad");
-        registerTileEntity(TileEntityLandingPad.class, "GC Landing Pad Full");
-        registerTileEntity(TileEntitySpaceStationBase.class, "GC Space Station");
-        registerTileEntity(TileEntityMulti.class, "GC Dummy Block");
-        registerTileEntity(TileEntityOxygenSealer.class, "GC Air Sealer");
-        registerTileEntity(TileEntityDungeonSpawner.class, "GC Dungeon Boss Spawner");
-        registerTileEntity(TileEntityOxygenDetector.class, "GC Oxygen Detector");
-        registerTileEntity(TileEntityBuggyFueler.class, "GC Buggy Fueler");
-        registerTileEntity(TileEntityBuggyFuelerSingle.class, "GC Buggy Fueler Single");
-        registerTileEntity(TileEntityCargoLoader.class, "GC Cargo Loader");
-        registerTileEntity(TileEntityCargoUnloader.class, "GC Cargo Unloader");
-        registerTileEntity(TileEntityParaChest.class, "GC Parachest Tile");
-        registerTileEntity(TileEntitySolar.class, "GC Solar Panel");
-        registerTileEntity(TileEntityDish.class, "GC Radio Telescope");
-        registerTileEntity(TileEntityCrafting.class, "GC Magnetic Crafting Table");
-        registerTileEntity(TileEntityEnergyStorageModule.class, "GC Energy Storage Module");
-        registerTileEntity(TileEntityCoalGenerator.class, "GC Coal Generator");
-        registerTileEntity(TileEntityElectricFurnace.class, "GC Electric Furnace");
-        registerTileEntity(TileEntityAluminumWire.class, "GC Aluminum Wire");
-        registerTileEntity(TileEntityAluminumWireSwitch.class, "GC Switchable Aluminum Wire");
-        registerTileEntity(TileEntityFallenMeteor.class, "GC Fallen Meteor");
-        registerTileEntity(TileEntityIngotCompressor.class, "GC Ingot Compressor");
-        registerTileEntity(TileEntityElectricIngotCompressor.class, "GC Electric Ingot Compressor");
-        registerTileEntity(TileEntityCircuitFabricator.class, "GC Circuit Fabricator");
-        registerTileEntity(TileEntityAirLockController.class, "GC Air Lock Controller");
-        registerTileEntity(TileEntityOxygenStorageModule.class, "GC Oxygen Storage Module");
-        registerTileEntity(TileEntityOxygenDecompressor.class, "GC Oxygen Decompressor");
-        registerTileEntity(TileEntityThruster.class, "GC Space Station Thruster");
-        registerTileEntity(TileEntityArclamp.class, "GC Arc Lamp");
-        registerTileEntity(TileEntityScreen.class, "GC View Screen");
-        registerTileEntity(TileEntityPanelLight.class, "GC Panel Lighting");
-        registerTileEntity(TileEntityTelemetry.class, "GC Telemetry Unit");
-        registerTileEntity(TileEntityPainter.class, "GC Painter");
-        registerTileEntity(TileEntityFluidTank.class, "GC Fluid Tank");
-        registerTileEntity(TileEntityPlayerDetector.class, "GC Player Detector");
-        registerTileEntity(TileEntityPlatform.class, "GC Platform");
-        registerTileEntity(TileEntityEmergencyBox.class, "GC Emergency Post");
-        registerTileEntity(TileEntityNull.class, "GC Null Tile");
+        register(TileEntityTreasureChest.class, "gc_treasure_chest");
+        register(TileEntityOxygenDistributor.class, "gc_air_distributor");
+        register(TileEntityOxygenCollector.class, "gc_air_collector");
+        register(TileEntityFluidPipe.class, "gc_oxygen_pipe");
+        register(TileEntityAirLock.class, "gc_air_lock_frame");
+        register(TileEntityRefinery.class, "gc_refinery");
+        register(TileEntityNasaWorkbench.class, "gc_nasa_workbench");
+        register(TileEntityDeconstructor.class, "gc_deconstructor");
+        register(TileEntityOxygenCompressor.class, "gc_air_compressor");
+        register(TileEntityFuelLoader.class, "gc_fuel_loader");
+        register(TileEntityLandingPadSingle.class, "gc_landing_pad");
+        register(TileEntityLandingPad.class, "gc_landing_pad_full");
+        register(TileEntitySpaceStationBase.class, "gc_space_station");
+        register(TileEntityMulti.class, "gc_dummy_block");
+        register(TileEntityOxygenSealer.class, "gc_air_sealer");
+        register(TileEntityDungeonSpawner.class, "gc_dungeon_boss_spawner");
+        register(TileEntityOxygenDetector.class, "gc_oxygen_detector");
+        register(TileEntityBuggyFueler.class, "gc_buggy_fueler");
+        register(TileEntityBuggyFuelerSingle.class, "gc_buggy_fueler_single");
+        register(TileEntityCargoLoader.class, "gc_cargo_loader");
+        register(TileEntityCargoUnloader.class, "gc_cargo_unloader");
+        register(TileEntityParaChest.class, "gc_parachest_tile");
+        register(TileEntitySolar.class, "gc_solar_panel");
+        register(TileEntityDish.class, "gc_radio_telescope");
+        register(TileEntityCrafting.class, "gc_magnetic_crafting_table");
+        register(TileEntityEnergyStorageModule.class, "gc_energy_storage_module");
+        register(TileEntityCoalGenerator.class, "gc_coal_generator");
+        register(TileEntityElectricFurnace.class, "gc_electric_furnace");
+        register(TileEntityAluminumWire.class, "gc_aluminum_wire");
+        register(TileEntityAluminumWireSwitch.class, "gc_switchable_aluminum_wire");
+        register(TileEntityFallenMeteor.class, "gc_fallen_meteor");
+        register(TileEntityIngotCompressor.class, "gc_ingot_compressor");
+        register(TileEntityElectricIngotCompressor.class, "gc_electric_ingot_compressor");
+        register(TileEntityCircuitFabricator.class, "gc_circuit_fabricator");
+        register(TileEntityAirLockController.class, "gc_air_lock_controller");
+        register(TileEntityOxygenStorageModule.class, "gc_oxygen_storage_module");
+        register(TileEntityOxygenDecompressor.class, "gc_oxygen_decompressor");
+        register(TileEntityThruster.class, "gc_space_station_thruster");
+        register(TileEntityArclamp.class, "gc_arc_lamp");
+        register(TileEntityScreen.class, "gc_view_screen");
+        register(TileEntityPanelLight.class, "gc_panel_lighting");
+        register(TileEntityTelemetry.class, "gc_telemetry_unit");
+        register(TileEntityPainter.class, "gc_painter");
+        register(TileEntityFluidTank.class, "gc_fluid_tank");
+        register(TileEntityPlayerDetector.class, "gc_player_detector");
+        register(TileEntityPlatform.class, "gc_platform");
+        register(TileEntityEmergencyBox.class, "gc_emergency_post");
+        register(TileEntityNull.class, "gc_null_tile");
         if (CompatibilityManager.isIc2Loaded())
         {
-            registerTileEntity(TileCableIC2Sealed.class, "GC Sealed IC2 Cable");
+            register(TileCableIC2Sealed.class, "gc_sealed_ic2_cable");
         }
+
+        new GCCoreDataFixers().registerAll();
     }
 
-    private void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String key)
+    private void register(Class<? extends TileEntity> tileEntityClass, String key)
     {
         GameRegistry.registerTileEntity(tileEntityClass, new ResourceLocation(Constants.MOD_ID_CORE, key));
     }

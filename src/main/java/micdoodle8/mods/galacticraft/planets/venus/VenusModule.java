@@ -71,7 +71,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class VenusModule implements IPlanetsModule
@@ -115,13 +114,7 @@ public class VenusModule implements IPlanetsModule
 
         if (VenusBlocks.sulphuricAcid != null)
         {
-            FluidRegistry.addBucketForFluid(sulphuricAcid); // Create a
-                                                            // Universal Bucket
-                                                            // AS WELL AS our
-                                                            // type, this is
-                                                            // needed to pull
-                                                            // fluids out of
-                                                            // other mods tanks
+            FluidRegistry.addBucketForFluid(sulphuricAcid);
             VenusItems.bucketSulphuricAcid = new ItemBucketGC(VenusBlocks.sulphuricAcid, VenusModule.sulphuricAcid).setTranslationKey("bucket_sulphuric_acid");
             VenusItems.registerItem(VenusItems.bucketSulphuricAcid);
             EventHandlerGC.bucketList.put(VenusBlocks.sulphuricAcid, VenusItems.bucketSulphuricAcid);
@@ -198,19 +191,14 @@ public class VenusModule implements IPlanetsModule
 
     public void registerTileEntities()
     {
-        registerTileEntity(TileEntitySpout.class, "Venus Spout");
-        registerTileEntity(TileEntityDungeonSpawnerVenus.class, "Venus Dungeon Spawner");
-        registerTileEntity(TileEntityTreasureChestVenus.class, "Tier 3 Treasure Chest");
-        registerTileEntity(TileEntityGeothermalGenerator.class, "Geothermal Generator");
-        registerTileEntity(TileEntityCrashedProbe.class, "Crashed Probe");
-        registerTileEntity(TileEntitySolarArrayModule.class, "Solar Array Module");
-        registerTileEntity(TileEntitySolarArrayController.class, "Solar Array Controller");
-        registerTileEntity(TileEntityLaserTurret.class, "Laser Turret");
-    }
-
-    private void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String name)
-    {
-        GameRegistry.registerTileEntity(tileEntityClass, new ResourceLocation(Constants.MOD_ID_PLANETS, name));
+        register(TileEntitySpout.class, "gc_venus_spout");
+        register(TileEntityDungeonSpawnerVenus.class, "gc_venus_dungeon_spawner");
+        register(TileEntityTreasureChestVenus.class, "gc_tier_3_treasure_chest");
+        register(TileEntityGeothermalGenerator.class, "gc_geothermal_generator");
+        register(TileEntityCrashedProbe.class, "gc_crashed_probe");
+        register(TileEntitySolarArrayModule.class, "gc_solar_array_module");
+        register(TileEntitySolarArrayController.class, "gc_solar_array_controller");
+        register(TileEntityLaserTurret.class, "gc_laser_turret");
     }
 
     public void registerCreatures()

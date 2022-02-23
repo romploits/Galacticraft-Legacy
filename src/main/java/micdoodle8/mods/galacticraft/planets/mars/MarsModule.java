@@ -81,7 +81,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class MarsModule implements IPlanetsModule
@@ -229,20 +228,15 @@ public class MarsModule implements IPlanetsModule
 
     public void registerTileEntities()
     {
-        registerTileEntity(TileEntitySlimelingEgg.class, "GC Slimeling Egg");
-        registerTileEntity(TileEntityTreasureChestMars.class, "GC Tier 2 Treasure Chest");
-        registerTileEntity(TileEntityTerraformer.class, "GC Planet Terraformer");
-        registerTileEntity(TileEntityCryogenicChamber.class, "GC Cryogenic Chamber");
-        registerTileEntity(TileEntityGasLiquefier.class, "GC Gas Liquefier");
-        registerTileEntity(TileEntityMethaneSynthesizer.class, "GC Methane Synthesizer");
-        registerTileEntity(TileEntityElectrolyzer.class, "GC Water Electrolyzer");
-        registerTileEntity(TileEntityDungeonSpawnerMars.class, "GC Mars Dungeon Spawner");
-        registerTileEntity(TileEntityLaunchController.class, "GC Launch Controller");
-    }
-
-    private void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String key)
-    {
-        GameRegistry.registerTileEntity(tileEntityClass, new ResourceLocation(Constants.MOD_ID_PLANETS, key));
+        register(TileEntitySlimelingEgg.class, "gc_slimeling_egg");
+        register(TileEntityTreasureChestMars.class, "gc_tier_2_treasure_chest");
+        register(TileEntityTerraformer.class, "gc_planet_terraformer");
+        register(TileEntityCryogenicChamber.class, "gc_cryogenic_chamber");
+        register(TileEntityGasLiquefier.class, "gc_gas_liquefier");
+        register(TileEntityMethaneSynthesizer.class, "gc_methane_synthesizer");
+        register(TileEntityElectrolyzer.class, "gc_water_electrolyzer");
+        register(TileEntityDungeonSpawnerMars.class, "gc_mars_dungeon_spawner");
+        register(TileEntityLaunchController.class, "gc_launch_controller");
     }
 
     public void registerCreatures()
