@@ -42,6 +42,12 @@ repositories {
     }
 }
 
+configurations {
+    devTimeMod
+    runtimeOnly.extendsFrom(devTimeMod)
+    compileOnly.extendsFrom(devTimeMod)
+}
+
 minecraft {
     mappings channel: "${mapping_channel}", version: "${mapping_version}"
 
@@ -80,18 +86,18 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-	compileOnly fg.deobf('curse.maven:bop-7.0.1.2444-220318:2842510')
-	compileOnly fg.deobf('curse.maven:mekanism-9.8.3.390-268560:2835176')
-	compileOnly fg.deobf('curse.maven:ae2-rv6-stable-7-223794:2747063')
+	devTimeMod fg.deobf('curse.maven:bop-7.0.1.2444-220318:2842510')
+	devTimeMod fg.deobf('curse.maven:mekanism-9.8.3.390-268560:2835175')
+	devTimeMod fg.deobf('curse.maven:ae2-rv6-stable-7-223794:2747063')
 	compileOnly fg.deobf('curse.maven:redstoneflux-1.1.1-270789:2920436')
 	compileOnly fg.deobf('curse.maven:actuallyadditions-r152-228404:3117927')
 	compileOnly fg.deobf('curse.maven:playerapi-1.1-449521:3212872')
 
 	compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.6')
-	compileOnly fg.deobf('net.industrial-craft:industrialcraft-2:2.8.221-ex112:api')
+	devTimeMod fg.deobf('net.industrial-craft:industrialcraft-2:2.8.221-ex112')
 	
-	compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
-	runtimeOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
+	//compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
+	devTimeMod fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
 }
 
 fancyGradle {

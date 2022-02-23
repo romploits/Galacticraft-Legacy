@@ -4,7 +4,7 @@ def intoTargets = [
 	"$rootDir/out/production/${project.name}.main/", 
 	"$rootDir/bin/main/" 
 ]
-def replaceProperties = [ mod_version: "${version_full}", minecraft_version: "${mc_version}" ]
+def replaceProperties = [ mod_version: gradleutils.getVersion(), minecraft_version: "${mc_version}" ]
 
 processResources {
     inputs.properties replaceProperties
@@ -28,7 +28,7 @@ processResources {
 }
 
 def modFileTokens = [ 
-	gcVersion: version_full
+	gcVersion: gradleutils.getVersion()
 ]
 def included = [ "micdoodle8/mods/galacticraft/core/Constants.java" ]
 def includedPaths = included.collect { java.nio.file.Paths.get(it) }
