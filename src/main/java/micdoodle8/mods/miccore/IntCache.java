@@ -27,15 +27,6 @@ public class IntCache
         return getIntCacheVanilla(p_76445_0_);
     }
 
-    public static int[] func_76445_a(int p_76445_0_)
-    {
-        if (MapUtil.backgroundMapping(Thread.currentThread()))
-        {
-            return getIntCacheGC(p_76445_0_);
-        }
-        return getIntCacheVanilla(p_76445_0_);
-    }
-
     // Obfuscated method name for use by vanilla, because this won't be
     // processed by the deobfuscators
     public static int[] a(int p_76445_0_)
@@ -134,16 +125,6 @@ public class IntCache
         resetIntCacheVanilla();
     }
 
-    public static void func_76446_a()
-    {
-        if (MapUtil.backgroundMapping(Thread.currentThread()))
-        {
-            resetIntCacheGC();
-            return;
-        }
-        resetIntCacheVanilla();
-    }
-
     // Obfuscated method name for use by vanilla, because this won't be
     // processed by the deobfuscators
     public static void a()
@@ -198,11 +179,6 @@ public class IntCache
     }
 
     public static String getCacheSizes()
-    {
-        return getCacheSizesVanilla();
-    }
-
-    public static String func_85144_b()
     {
         return getCacheSizesVanilla();
     }
