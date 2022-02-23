@@ -257,6 +257,7 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
         }
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public double getDemandedEnergy()
     {
@@ -285,6 +286,7 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
         return 0D;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public double injectEnergy(EnumFacing direction, double amount, double voltage)
     {
@@ -335,12 +337,14 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
     }
 
     // BuildCraft
+    @Override
     public boolean canReceive()
     {
         return !EnergyConfigHandler.disableBuildCraftInput;
     }
 
     // Buildcraft 7
+    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long getPowerRequested()
     {
@@ -355,6 +359,7 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
     }
 
     // Buildcraft 7
+    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long receivePower(long microJoules, boolean simulate)
     {
@@ -368,6 +373,7 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
     }
 
     // Buildcraft 7
+    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public boolean canConnect(@Nonnull IMjConnector other)
     {
@@ -420,12 +426,14 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
         return this.receiveElectricity(from, (float) amount * EnergyConfigHandler.MEKANISM_RATIO, 1, true) / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canReceiveEnergy(EnumFacing side)
     {
         return this.getElectricalInputDirections().contains(side);
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public double acceptEnergy(EnumFacing side, double amount, boolean simulate)
     {
@@ -464,11 +472,13 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
         return this.getMaxEnergyStoredGC() / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
+    @Override
     public boolean canOutputEnergy(EnumFacing side)
     {
         return this.getElectricalOutputDirections().contains(side);
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public double pullEnergy(EnumFacing side, double amount, boolean simulate)
     {
@@ -581,18 +591,21 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
             return false;
         }
 
+        @Override
         @Method(modid = CompatibilityManager.modBCraftEnergy)
         public boolean canConnect(@Nonnull IMjConnector other)
         {
             return true;
         }
 
+        @Override
         @Method(modid = CompatibilityManager.modBCraftEnergy)
         public long getPowerRequested()
         {
             return tile.getPowerRequested();
         }
 
+        @Override
         @Method(modid = CompatibilityManager.modBCraftEnergy)
         public long receivePower(long microJoules, boolean simulate)
         {

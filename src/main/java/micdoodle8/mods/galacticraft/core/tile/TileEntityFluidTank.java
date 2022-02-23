@@ -271,10 +271,8 @@ public class TileEntityFluidTank extends TileEntityAdvanced implements IFluidHan
 
         if (nbt.hasKey("fuelTank"))
         {
-            this.fluidTank.readFromNBT(nbt.getCompoundTag("fuelTank"));
+            fluidTank.readFromNBT(nbt.getCompoundTag("fluidTank"));
         }
-
-        this.updateClient = GCCoreUtil.getEffectiveSide() == Side.SERVER;
     }
 
     @Override
@@ -282,9 +280,8 @@ public class TileEntityFluidTank extends TileEntityAdvanced implements IFluidHan
     {
         super.writeToNBT(nbt);
 
-        if (this.fluidTank.getFluid() != null)
-        {
-            nbt.setTag("fuelTank", this.fluidTank.writeToNBT(new NBTTagCompound()));
+        if (fluidTank.getFluid() != null) {
+            nbt.setTag("fluidTank", fluidTank.writeToNBT(new NBTTagCompound()));
         }
         return nbt;
     }

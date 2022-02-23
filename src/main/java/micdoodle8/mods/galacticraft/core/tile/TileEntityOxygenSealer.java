@@ -57,24 +57,7 @@ public class TileEntityOxygenSealer extends TileEntityOxygen implements ITileCli
         this.storage.setMaxExtract(5.0F); // Half of a standard machine's power
                                           // draw
         this.storage.setMaxReceive(25.0F);
-        this.storage.setCapacity(EnergyStorageTile.STANDARD_CAPACITY * 2); // Large
-                                                                           // capacity
-                                                                           // so
-                                                                           // it
-                                                                           // can
-                                                                           // keep
-                                                                           // working
-                                                                           // for
-                                                                           // a
-                                                                           // while
-                                                                           // even
-                                                                           // if
-                                                                           // chunk
-                                                                           // unloads
-                                                                           // affect
-                                                                           // its
-                                                                           // power
-                                                                           // supply
+        this.storage.setCapacity(EnergyStorageTile.STANDARD_CAPACITY * 2);
         inventory = NonNullList.withSize(3, ItemStack.EMPTY);
     }
 
@@ -359,9 +342,9 @@ public class TileEntityOxygenSealer extends TileEntityOxygen implements ITileCli
 
     public static HashMap<BlockVec3, TileEntityOxygenSealer> getSealersAround(World world, BlockPos pos, int rSquared)
     {
-        HashMap<BlockVec3, TileEntityOxygenSealer> ret = new HashMap<BlockVec3, TileEntityOxygenSealer>();
+        HashMap<BlockVec3, TileEntityOxygenSealer> ret = new HashMap<>();
 
-        for (TileEntityOxygenSealer tile : new ArrayList<TileEntityOxygenSealer>(TileEntityOxygenSealer.loadedTiles))
+        for (TileEntityOxygenSealer tile : new ArrayList<>(TileEntityOxygenSealer.loadedTiles))
         {
             if (tile != null && tile.getWorld() == world && tile.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) < rSquared)
             {

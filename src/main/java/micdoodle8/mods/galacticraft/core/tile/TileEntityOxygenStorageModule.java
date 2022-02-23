@@ -23,7 +23,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 public class TileEntityOxygenStorageModule extends TileEntityOxygen implements IInventoryDefaults, ISidedInventory, IMachineSides
 {
 
-    public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
+    public final Set<EntityPlayer> playersUsing = new HashSet<>();
     public int scaledOxygenLevel;
     private int lastScaledOxygenLevel;
 
@@ -68,44 +68,6 @@ public class TileEntityOxygenStorageModule extends TileEntityOxygen implements I
         this.lastScaledOxygenLevel = this.scaledOxygenLevel;
 
         this.produceOxygen(byIndex().rotateY().getOpposite());
-
-        // if (!this.world.isRemote)
-        // {
-        // int gasToSend = Math.min(this.storedOxygen,
-        // GCCoreTileEntityOxygenStorageModule.OUTPUT_PER_TICK);
-        // GasStack toSend = new GasStack(GalacticraftCore.gasOxygen,
-        // gasToSend);
-        // this.storedOxygen -= GasTransmission.emitGasToNetwork(toSend, this,
-        // this.getOxygenOutputDirection());
-        //
-        // Vector3 thisVec = new Vector3(this);
-        // TileEntity tileEntity =
-        // thisVec.modifyPositionFromSide(this.getOxygenOutputDirection()).getTileEntity(this.world);
-        //
-        // if (tileEntity instanceof IGasAcceptor)
-        // {
-        // if (((IGasAcceptor)
-        // tileEntity).canReceiveGas(this.getOxygenInputDirection(),
-        // GalacticraftCore.gasOxygen))
-        // {
-        // double sendingGas = 0;
-        //
-        // if (this.storedOxygen >=
-        // GCCoreTileEntityOxygenStorageModule.OUTPUT_PER_TICK)
-        // {
-        // sendingGas = GCCoreTileEntityOxygenStorageModule.OUTPUT_PER_TICK;
-        // }
-        // else
-        // {
-        // sendingGas = this.storedOxygen;
-        // }
-        //
-        // this.storedOxygen -= sendingGas - ((IGasAcceptor)
-        // tileEntity).receiveGas(new GasStack(GalacticraftCore.gasOxygen, (int)
-        // Math.floor(sendingGas)));
-        // }
-        // }
-        // }
 
         this.lastScaledOxygenLevel = this.scaledOxygenLevel;
     }

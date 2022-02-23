@@ -205,16 +205,6 @@ public abstract class TileEntityAdvanced extends TileEntityInventory implements 
         {
             this.initFieldCache();
         }
-
-//        if (this.world.isRemote && this.fieldCacheClient.size() == 0)
-//        {
-//            return;
-//        }
-//        else if (!this.world.isRemote && this.fieldCacheServer.size() == 0)
-//        {
-//            return;
-//        }
-
         Set<Field> fieldSet = null;
 
         if (this.world.isRemote)

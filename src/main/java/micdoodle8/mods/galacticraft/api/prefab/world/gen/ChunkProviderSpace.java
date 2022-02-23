@@ -70,10 +70,10 @@ public abstract class ChunkProviderSpace extends ChunkProviderBase
     public void generateTerrain(int chunkX, int chunkZ, ChunkPrimer primer)
     {
         this.noiseGen1.setFrequencyAll(0.014999999664723873D);
-        this.noiseGen2.setFrequencyAll(0.0D);
-        this.noiseGen3.setFrequencyAll(0.0D);
-        this.noiseGen4.setFrequencyAll(0.0D);
-        this.noiseGen5.setFrequencyAll(0.0D);
+        this.noiseGen2.setFrequencyAll(0.0030000000474999913D);
+        this.noiseGen3.setFrequencyAll(0.01D);
+        this.noiseGen4.setFrequencyAll(0.01D);
+        this.noiseGen5.setFrequencyAll(0.01D);
         this.noiseGen6.setFrequencyAll(0.0010000000474974513D);
         this.noiseGen7.setFrequencyAll(0.004999999888241291D);
 
