@@ -1,0 +1,72 @@
+apply plugin: "maven-publish"
+apply plugin: 'signing'
+
+Boolean isSnapshot() {
+    grgit.resolve.toCommit(grgit.tag.list().last()).id != grgit.head().id
+}
+
+def versionForMaven = "${gc_version}${t -> if (isSnapshot()) t << '-snapshot.' + grgit.head().abbreviatedId}"
+
+publishing {
+    publications {
+        Galacticraft(MavenPublication) {
+            groupId 'dev.galacticraft'
+            artifactId 'galacticraft-legacy'
+            version versionForMaven
+
+            artifact jar
+            artifact deobfJar
+            artifact sourcesJar
+            artifact apiJar
+            
+            pom {
+                name = 'Galacticraft'
+                description = 'An advanced space exploration mod for Minecraft'
+                url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy'
+                scm {
+                    url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy'
+                    connection = 'scm:git:git://github.com/TeamGalacticraft/Galacticraft-Legacy.git'
+                    developerConnection = 'scm:git:git@github.com:TeamGalacticraft/Galacticraft-Legacy.git'
+                }
+                issueManagement {
+                    system = 'github'
+                    url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy/issues'
+                }
+
+                licenses {
+                    license {
+                        name = 'custom'
+                        url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy/blob/master/LICENSE.txt'
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        if (project.hasProperty('MAVEN_PASSWORD')) {
+            maven {
+                if(isSnapshot())
+                    url = 'https://maven.galacticraft.dev/snapshots'
+                else
+                    url = 'https://maven.galacticraft.dev/releases'
+                authentication {
+                    basic(BasicAuthentication)
+                }
+                credentials {
+                    username = project.getProperty('MAVEN_USER')
+                    password = project.getProperty('MAVEN_PASSWORD')
+                }
+            }
+        } else {
+            maven {
+                url "file://${project.projectDir}/repo"
+            }
+        }
+    }
+
+    signing {
+        publishing.publications.each {
+            sign it
+        }
+    }
+}
