@@ -46,29 +46,29 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory implements ISidedInventory, IDisableableMachine, IBubbleProviderColored, IFluidHandlerWrapper
 {
 
-    private final int tankCapacity = 2000;
-    @NetworkedField(targetSide = Side.CLIENT) public FluidTank waterTank = new FluidTank(this.tankCapacity);
-    public boolean active;
-    public boolean lastActive;
-    public static final int WATTS_PER_TICK = 1;
-    private ArrayList<BlockPos> terraformableBlocksList = new ArrayList<BlockPos>();
-    private ArrayList<BlockPos> grassBlockList = new ArrayList<BlockPos>();
-    private ArrayList<BlockPos> grownTreesList = new ArrayList<BlockPos>();
-    @NetworkedField(targetSide = Side.CLIENT) public int terraformableBlocksListSize = 0; // used
-                                                                                          // for
-                                                                                          // server->client
-                                                                                          // ease
-    @NetworkedField(targetSide = Side.CLIENT) public int grassBlocksListSize = 0; // used
-                                                                                  // for
-                                                                                  // server->client
-                                                                                  // ease
-    @NetworkedField(targetSide = Side.CLIENT) public boolean treesDisabled;
-    @NetworkedField(targetSide = Side.CLIENT) public boolean grassDisabled;
-    public final double MAX_SIZE = 15.0D;
-    private int[] useCount = new int[2];
-    private int saplingIndex = 6;
-    public float bubbleSize;
-    @NetworkedField(targetSide = Side.CLIENT) public boolean shouldRenderBubble = true;
+    private final int           tankCapacity                = 2000;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public FluidTank            waterTank                   = new FluidTank(this.tankCapacity);
+    public boolean              active;
+    public boolean              lastActive;
+    public static final int     WATTS_PER_TICK              = 1;
+    private ArrayList<BlockPos> terraformableBlocksList     = new ArrayList<>();
+    private ArrayList<BlockPos> grassBlockList              = new ArrayList<>();
+    private ArrayList<BlockPos> grownTreesList              = new ArrayList<>();
+    @NetworkedField(targetSide = Side.CLIENT)
+    public int                  terraformableBlocksListSize = 0;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public int                  grassBlocksListSize         = 0;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public boolean              treesDisabled;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public boolean              grassDisabled;
+    public final double         MAX_SIZE                    = 15.0D;
+    private int[]               useCount                    = new int[2];
+    private int                 saplingIndex                = 6;
+    public float                bubbleSize;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public boolean              shouldRenderBubble          = true;
 
     public TileEntityTerraformer()
     {
@@ -103,15 +103,6 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
     {
         super.update();
 
-//        if (this.terraformBubble == null)
-//        {
-//            if (!this.world.isRemote)
-//            {
-//                this.terraformBubble = new EntityTerraformBubble(this.world, new Vector3(this), this);
-//                this.world.spawnEntity(this.terraformBubble);
-//            }
-//        }
-
         if (!this.world.isRemote)
         {
             final FluidStack liquid = FluidUtil.getFluidContained(this.getInventory().get(0));
@@ -120,8 +111,7 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
                 FluidUtil.loadFromContainer(waterTank, FluidRegistry.WATER, this.getInventory(), 0, liquid.amount);
             }
 
-            this.active =
-                this.bubbleSize == this.MAX_SIZE && this.hasEnoughEnergyToRun && !this.getFirstBonemealStack().isEmpty() && this.waterTank.getFluid() != null && this.waterTank.getFluid().amount > 0;
+            this.active = this.bubbleSize == this.MAX_SIZE && this.hasEnoughEnergyToRun && !this.getFirstBonemealStack().isEmpty() && this.waterTank.getFluid() != null && this.waterTank.getFluid().amount > 0;
         }
 
         if (!this.world.isRemote && (this.active != this.lastActive || this.ticks % 60 == 0))
@@ -154,7 +144,8 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
                                 if (doGrass && blockID instanceof ITerraformableBlock && ((ITerraformableBlock) blockID).isTerraformable(this.world, pos))
                                 {
                                     this.terraformableBlocksList.add(new BlockPos(x, y, z));
-                                } else if (doTrees)
+                                }
+                                else if (doTrees)
                                 {
                                     Block blockIDAbove = this.world.getBlockState(pos.up()).getBlock();
                                     if (blockID == Blocks.GRASS && blockIDAbove.isAir(this.world.getBlockState(pos.up()), this.world, pos.up()))
@@ -171,7 +162,7 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
 
         if (!this.world.isRemote && this.terraformableBlocksList.size() > 0 && this.ticks % 15 == 0)
         {
-            ArrayList<BlockPos> terraformableBlocks2 = new ArrayList<BlockPos>(this.terraformableBlocksList);
+            ArrayList<BlockPos> terraformableBlocks2 = new ArrayList<>(this.terraformableBlocksList);
 
             int randomIndex = this.world.rand.nextInt(this.terraformableBlocksList.size());
             BlockPos vec = terraformableBlocks2.get(randomIndex);
@@ -183,11 +174,12 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
                 switch (this.world.rand.nextInt(40))
                 {
                     case 0:
-                        if (this.world.isBlockFullCube(new BlockPos(vec.getX() - 1, vec.getY(), vec.getZ())) && this.world.isBlockFullCube(new BlockPos(vec.getX() + 1, vec.getY(), vec.getZ()))
-                            && this.world.isBlockFullCube(new BlockPos(vec.getX(), vec.getY(), vec.getZ() - 1)) && this.world.isBlockFullCube(new BlockPos(vec.getX(), vec.getY(), vec.getZ() + 1)))
+                        if (this.world.isBlockFullCube(new BlockPos(vec.getX() - 1, vec.getY(), vec.getZ())) && this.world.isBlockFullCube(new BlockPos(vec.getX() + 1, vec.getY(), vec.getZ())) && this.world.isBlockFullCube(new BlockPos(vec.getX(), vec.getY(), vec.getZ() - 1))
+                            && this.world.isBlockFullCube(new BlockPos(vec.getX(), vec.getY(), vec.getZ() + 1)))
                         {
                             id = Blocks.FLOWING_WATER;
-                        } else
+                        }
+                        else
                         {
                             id = Blocks.GRASS;
                         }
@@ -204,7 +196,8 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
                     this.useCount[0]++;
                     this.waterTank.drain(1, true);
                     this.checkUsage(1);
-                } else if (id == Blocks.FLOWING_WATER)
+                }
+                else if (id == Blocks.FLOWING_WATER)
                 {
                     this.checkUsage(2);
                 }
@@ -245,7 +238,8 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
                             ((BlockSapling) b).grow(this.world, vecSapling, this.world.getBlockState(vecSapling), this.world.rand);
                             this.grownTreesList.add(new BlockPos(vecSapling.getX(), vecSapling.getY(), vecSapling.getZ()));
                         }
-                    } else if (b instanceof BlockBush)
+                    }
+                    else if (b instanceof BlockBush)
                     {
                         if (this.world.getLightFromNeighbors(vecSapling) >= 5)
                         // Hammer the update tick a few times to try to get it
@@ -256,7 +250,8 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
                                 if (this.world.getBlockState(vecSapling).getBlock() == b)
                                 {
                                     ((BlockBush) b).updateTick(this.world, vecSapling, this.world.getBlockState(vecSapling), this.world.rand);
-                                } else
+                                }
+                                else
                                 {
                                     this.grownTreesList.add(new BlockPos(vecSapling.getX(), vecSapling.getY(), vecSapling.getZ()));
                                     break;
@@ -283,7 +278,8 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
         if (this.hasEnoughEnergyToRun && (!this.grassDisabled || !this.treesDisabled))
         {
             this.bubbleSize = (float) Math.min(Math.max(0, this.bubbleSize + 0.1F), this.MAX_SIZE);
-        } else
+        }
+        else
         {
             this.bubbleSize = (float) Math.min(Math.max(0, this.bubbleSize - 0.1F), this.MAX_SIZE);
         }
@@ -584,12 +580,6 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
         return false;
     }
 
-//    @Override
-//    public IBubble getBubble()
-//    {
-//        return this.terraformBubble;
-//    }
-
     @Override
     public void setBubbleVisible(boolean shouldRender)
     {
@@ -651,8 +641,7 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox()
     {
-        return new AxisAlignedBB(this.getPos().getX() - this.bubbleSize, this.getPos().getY() - this.bubbleSize, this.getPos().getZ() - this.bubbleSize, this.getPos().getX() + this.bubbleSize,
-            this.getPos().getY() + this.bubbleSize, this.getPos().getZ() + this.bubbleSize);
+        return new AxisAlignedBB(this.getPos().getX() - this.bubbleSize, this.getPos().getY() - this.bubbleSize, this.getPos().getZ() - this.bubbleSize, this.getPos().getX() + this.bubbleSize, this.getPos().getY() + this.bubbleSize, this.getPos().getZ() + this.bubbleSize);
     }
 
     @Override
@@ -724,7 +713,7 @@ public class TileEntityTerraformer extends TileBaseElectricBlockWithInventory im
         }
         return false;
     }
-    
+
     @Override
     @Deprecated
     @ForRemoval(deadline = "4.1.0")

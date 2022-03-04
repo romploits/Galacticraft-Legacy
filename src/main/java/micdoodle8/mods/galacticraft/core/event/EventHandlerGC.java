@@ -43,7 +43,6 @@ import micdoodle8.mods.galacticraft.core.util.DamageSourceGC;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.OxygenUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
-import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
 import micdoodle8.mods.galacticraft.planets.asteroids.AsteroidsModule;
 import micdoodle8.mods.galacticraft.planets.mars.network.PacketSimpleMars;
@@ -103,9 +102,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.ChunkDataEvent;
-import net.minecraftforge.event.world.ChunkEvent.Load;
-import net.minecraftforge.event.world.WorldEvent.Save;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -144,26 +140,26 @@ public class EventHandlerGC
 		}
     }
 
-    @SubscribeEvent
-    public void onWorldSave(Save event)
-    {
-        ChunkLoadingCallback.save((WorldServer) event.getWorld());
-    }
-
-    @SubscribeEvent
-    public void onChunkDataLoad(ChunkDataEvent.Load event)
-    {
-        ChunkLoadingCallback.load((WorldServer) event.getWorld());
-    }
-
-    @SubscribeEvent
-    public void onWorldLoad(Load event)
-    {
-        if (!event.getWorld().isRemote)
-        {
-            ChunkLoadingCallback.load((WorldServer) event.getWorld());
-        }
-    }
+    //    @SubscribeEvent(priority = EventPriority.LOWEST)
+    //    public void onWorldSave(Save event)
+    //    {
+    //        ChunkLoadingCallback.save((WorldServer) event.getWorld());
+    //    }
+    //
+    //    @SubscribeEvent(priority = EventPriority.LOWEST)
+    //    public void onChunkDataLoad(ChunkDataEvent.Load event)
+    //    {
+    //        ChunkLoadingCallback.load((WorldServer) event.getWorld());
+    //    }
+    //
+    //    @SubscribeEvent(priority = EventPriority.LOWEST)
+    //    public void onWorldLoad(Load event)
+    //    {
+    //        if (!event.getWorld().isRemote)
+    //        {
+    //            ChunkLoadingCallback.load((WorldServer) event.getWorld());
+    //        }
+    //    }
 
     @SubscribeEvent
     public void onEntityDamaged(LivingHurtEvent event)

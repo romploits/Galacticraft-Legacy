@@ -44,24 +44,31 @@ import net.minecraftforge.fml.relauncher.Side;
 public class TileEntityLaunchController extends TileBaseElectricBlockWithInventory implements IChunkLoader, ISidedInventory, ILandingPadAttachable
 {
 
-    public static final int WATTS_PER_TICK = 1;
-    @NetworkedField(targetSide = Side.CLIENT) public boolean launchPadRemovalDisabled = true;
-    private Ticket chunkLoadTicket;
-    private List<BlockPos> connectedPads = new ArrayList<BlockPos>();
-    @NetworkedField(targetSide = Side.CLIENT) public int frequency = -1;
-    @NetworkedField(targetSide = Side.CLIENT) public int destFrequency = -1;
-    @NetworkedField(targetSide = Side.CLIENT) public String ownerName = "";
-    @NetworkedField(targetSide = Side.CLIENT) public boolean frequencyValid;
-    @NetworkedField(targetSide = Side.CLIENT) public boolean destFrequencyValid;
-    @NetworkedField(targetSide = Side.CLIENT) public int launchDropdownSelection;
-    @NetworkedField(targetSide = Side.CLIENT) public boolean launchSchedulingEnabled;
-    @NetworkedField(targetSide = Side.CLIENT) public boolean controlEnabled;
-    public boolean hideTargetDestination = true;
-    public boolean requiresClientUpdate;
-    public Object attachedDock = null;
-    private boolean frequencyCheckNeeded = false;
-//    private static Map<Integer, Long> tickCounts = new HashMap<>();
-//    private static Map<Integer, Integer> instanceCounts = new HashMap<>();
+    public static final int WATTS_PER_TICK           = 1;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public boolean          launchPadRemovalDisabled = true;
+    private Ticket          chunkLoadTicket;
+    private List<BlockPos>  connectedPads            = new ArrayList<BlockPos>();
+    @NetworkedField(targetSide = Side.CLIENT)
+    public int              frequency                = -1;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public int              destFrequency            = -1;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public String           ownerName                = "";
+    @NetworkedField(targetSide = Side.CLIENT)
+    public boolean          frequencyValid;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public boolean          destFrequencyValid;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public int              launchDropdownSelection;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public boolean          launchSchedulingEnabled;
+    @NetworkedField(targetSide = Side.CLIENT)
+    public boolean          controlEnabled;
+    public boolean          hideTargetDestination    = true;
+    public boolean          requiresClientUpdate;
+    public Object           attachedDock             = null;
+    private boolean         frequencyCheckNeeded     = false;
 
     public TileEntityLaunchController()
     {
@@ -116,7 +123,8 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
                     }
                 }
             }
-        } else
+        }
+        else
         {
             if (this.frequency == -1 && this.destFrequency == -1)
             {
@@ -184,7 +192,8 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
                             if (placed)
                             {
                                 ChunkLoadingCallback.forceChunk(this.chunkLoadTicket, this.world, this.getPos().getX() + x, this.getPos().getY(), this.getPos().getZ() + z, this.getOwnerName());
-                            } else
+                            }
+                            else
                             {
                                 ChunkLoadingCallback.addToList(this.world, this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getOwnerName());
                             }
@@ -359,7 +368,8 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
                     }
                 }
             }
-        } else
+        }
+        else
         {
             this.frequencyValid = false;
         }
@@ -474,7 +484,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
     {
         return byIndex().rotateY();
     }
-    
+
     @Override
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
