@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.core.blocks;
 
 import java.util.Random;
+import micdoodle8.mods.galacticraft.api.block.IBlockRocketPlatform;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.tile.IMultiBlock;
@@ -27,7 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockLandingPadFull extends BlockAdvancedTile implements IPartialSealableBlock
+public class BlockLandingPadFull extends BlockAdvancedTile implements IPartialSealableBlock, IBlockRocketPlatform
 {
 
     public static final PropertyEnum<EnumLandingPadFullType> PAD_TYPE = PropertyEnum.create("type", EnumLandingPadFullType.class);
@@ -216,7 +217,7 @@ public class BlockLandingPadFull extends BlockAdvancedTile implements IPartialSe
     @Override
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumLandingPadFullType) state.getValue(PAD_TYPE)).getMeta();
+        return state.getValue(PAD_TYPE).getMeta();
     }
 
     @Override

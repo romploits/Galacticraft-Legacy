@@ -6,16 +6,14 @@ import java.util.List;
 // import java.util.Map;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
+import micdoodle8.mods.galacticraft.api.block.IBlockRocketPlatform;
 import micdoodle8.mods.galacticraft.api.entity.IDockable;
+import micdoodle8.mods.galacticraft.api.entity.IRocketPlatform;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntityAutoRocket;
-import micdoodle8.mods.galacticraft.api.tile.IFuelDock;
 import micdoodle8.mods.galacticraft.api.tile.ILandingPadAttachable;
-import micdoodle8.mods.galacticraft.core.GCBlocks;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
-import micdoodle8.mods.galacticraft.core.blocks.BlockLandingPadFull;
 import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
 import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseElectricBlockWithInventory;
-import micdoodle8.mods.galacticraft.core.tile.TileEntityLandingPad;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
 import micdoodle8.mods.galacticraft.core.world.IChunkLoader;
@@ -48,7 +46,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
     @NetworkedField(targetSide = Side.CLIENT)
     public boolean          launchPadRemovalDisabled = true;
     private Ticket          chunkLoadTicket;
-    private List<BlockPos>  connectedPads            = new ArrayList<BlockPos>();
+    private List<BlockPos>  connectedPads            = new ArrayList<>();
     @NetworkedField(targetSide = Side.CLIENT)
     public int              frequency                = -1;
     @NetworkedField(targetSide = Side.CLIENT)
@@ -67,7 +65,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
     public boolean          controlEnabled;
     public boolean          hideTargetDestination    = true;
     public boolean          requiresClientUpdate;
-    public Object           attachedDock             = null;
+    public IRocketPlatform  attachedDock             = null;
     private boolean         frequencyCheckNeeded     = false;
 
     public TileEntityLaunchController()
@@ -115,7 +113,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
                         BlockPos coords = this.connectedPads.get(i);
                         Block block = this.world.getBlockState(coords).getBlock();
 
-                        if (block != GCBlocks.landingPadFull)
+                        if (!(block instanceof IBlockRocketPlatform))
                         {
                             this.connectedPads.remove(i);
                             ForgeChunkManager.unforceChunk(this.chunkLoadTicket, new ChunkPos(coords.getX() >> 4, coords.getZ() >> 4));
@@ -183,7 +181,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
                 {
                     Block blockID = this.world.getBlockState(this.getPos().add(x, 0, z)).getBlock();
 
-                    if (blockID instanceof BlockLandingPadFull)
+                    if (blockID instanceof IBlockRocketPlatform)
                     {
                         if (this.getPos().getX() + x >> 4 != this.getPos().getX() >> 4 || this.getPos().getZ() + z >> 4 != this.getPos().getZ() >> 4)
                         {
@@ -328,7 +326,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
     {
         TileEntity tile = world.getTileEntity(pos);
 
-        return tile instanceof TileEntityLandingPad;
+        return tile instanceof IRocketPlatform;
     }
 
     public void setFrequency(int frequency)
@@ -344,7 +342,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
             {
                 WorldServer world = servers[i];
 
-                for (TileEntity tile2 : new ArrayList<TileEntity>(world.loadedTileEntityList))
+                for (TileEntity tile2 : new ArrayList<>(world.loadedTileEntityList))
                 {
                     if (this != tile2)
                     {
@@ -397,7 +395,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
                 {
                     WorldServer world = servers[i];
 
-                    for (TileEntity tile2 : new ArrayList<TileEntity>(world.loadedTileEntityList))
+                    for (TileEntity tile2 : new ArrayList<>(world.loadedTileEntityList))
                     {
                         if (this != tile2)
                         {
@@ -452,9 +450,9 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
 
     public void updateRocketOnDockSettings()
     {
-        if (this.attachedDock instanceof TileEntityLandingPad)
+        if (this.attachedDock instanceof IRocketPlatform)
         {
-            TileEntityLandingPad pad = ((TileEntityLandingPad) this.attachedDock);
+            IRocketPlatform pad = this.attachedDock;
             IDockable rocket = pad.getDockedEntity();
             if (rocket instanceof EntityAutoRocket)
             {
@@ -463,7 +461,7 @@ public class TileEntityLaunchController extends TileBaseElectricBlockWithInvento
         }
     }
 
-    public void setAttachedPad(IFuelDock pad)
+    public void setAttachedPad(IRocketPlatform pad)
     {
         this.attachedDock = pad;
     }

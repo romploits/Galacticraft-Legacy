@@ -178,6 +178,7 @@ public class GCItems
      * @param amount Stack size
      * @return A stack of Galacticraft items with the passed key.
      */
+    @SuppressWarnings("unchecked")
     public static ItemStack requestItem(String key, int amount)
     {
         try
@@ -212,6 +213,7 @@ public class GCItems
      * @param amount Stack size
      * @return A stack of Galacticraft items with the passed key.
      */
+    @SuppressWarnings("unchecked")
     public static ItemStack requestBlock(String key, int amount)
     {
         try

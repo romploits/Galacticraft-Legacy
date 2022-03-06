@@ -28,7 +28,7 @@ processResources {
 }
 
 def modFileTokens = [ 
-	gcVersion: "${gc_version}"
+	gcVersion: project.gc_version
 ]
 def included = [ "micdoodle8/mods/galacticraft/core/Constants.java" ]
 def includedPaths = included.collect { java.nio.file.Paths.get(it) }
