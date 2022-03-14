@@ -10,16 +10,21 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'org.ajoberstar.reckon' version '0.13.2'
     id 'org.ajoberstar.grgit' version '4.1.1'
     id 'io.freefair.lombok' version '6.4.1'
-    id "io.freefair.mkdocs" version "6.4.1"
     id 'wtf.gofancy.fancygradle' version '1.+'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
-version = "${mc_version}-${gc_version}"
+reckon {
+    scopeFromProp()
+    stageFromProp('rc', 'final')
+    snapshotFromProp()
+}
+
 group = "micdoodle8.mods.galacticraft"
 archivesBaseName = "Galacticraft"
 
@@ -30,6 +35,7 @@ repositories {
     maven { url 'https://mod-buildcraft.com/maven/' }
     maven { url 'https://maven.ic2.player.to' }
     maven { url 'https://dvs1.progwml6.com/files/maven' }
+    
     all {
         ArtifactRepository repo ->
         if (repo instanceof MavenArtifactRepository) {
@@ -49,7 +55,7 @@ dependencies {
     implementation fg.deobf('curse.maven:redstoneflux-1.1.1-270789:2920436')
     implementation fg.deobf('curse.maven:actuallyadditions-r152-228404:3117927')
     implementation fg.deobf('curse.maven:playerapi-1.1-449521:3212872')
-    compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.6')
+    compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
     implementation fg.deobf('net.industrial-craft:industrialcraft-2:2.8.221-ex112')
     compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
     runtimeOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
@@ -91,13 +97,11 @@ fancyGradle {
 def setManifest = { Manifest manifest->
     manifest.attributes(
         [
-            'Maven-Artifact'              : "dev.galacticraft:galacticraft-legacy:${gc_version}",
-            'Timestamp'                   : System.currentTimeMillis(),
             'Specification-Title'         : 'Galacticraft',
             'Specification-Vendor'        : 'TeamGalacticraft',
-            'Specification-Version'       : "${gc_version}",
+            'Specification-Version'       : "${version}",
             'Implementation-Title'        : 'Galacticraft',
-            'Implementation-Version'      : "${gc_version}",
+            'Implementation-Version'      : "${version}",
             'Implementation-Vendor'       : 'TeamGalacticraft',
             'Implementation-Timestamp'    : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             'FMLAT'                       : 'accesstransformer.cfg',
@@ -113,27 +117,37 @@ def setManifest = { Manifest manifest->
 
 jar {
     manifest(setManifest)
+    archiveVersion.set("${mc_version}-${version}")
 }
 
 jar.finalizedBy('reobfJar')
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = 'sources'
+    archiveClassifier.set('sources')
+    archiveVersion.set("${mc_version}-${version}")
+    
     from sourceSets.main.allSource
+    
     manifest(setManifest)
 }
 
 task apiJar(type: Jar) {
-    classifier "api"
+    archiveClassifier.set('api')
+    archiveVersion.set("${mc_version}-${version}")
+    
     include 'micdoodle8/mods/galacticraft/api/**'
     from sourceSets.main.allJava
     from sourceSets.main.output
+    
     manifest(setManifest)
 }
 
 task deobfJar(type: Jar) {
-	classifier = 'deobf'
+    archiveClassifier.set('deobf')
+    archiveVersion.set("${mc_version}-${version}")
+    
     from sourceSets.main.output
+    
     manifest(setManifest)
 }
 
