@@ -59,7 +59,7 @@ public class ItemBlockDesc extends ItemBlockGC
     {
         if (this.getBlock() instanceof IShiftDescription && ((IShiftDescription) this.getBlock()).showDescription(stack.getItemDamage()))
         {
-            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+            if (Keyboard.isKeyDown(FMLClientHandler.instance().getClient().gameSettings.keyBindSneak.getKeyCode()))
             {
                 info.addAll(FMLClientHandler.instance().getClient().fontRenderer.listFormattedStringToWidth(((IShiftDescription) this.getBlock()).getShiftDescription(stack.getItemDamage()), 150));
             } else

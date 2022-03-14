@@ -9,12 +9,6 @@ public class Constants
     public static final String MOD_ID_PLANETS = "galacticraftplanets";
     public static final String MOD_NAME_SIMPLE = "Galacticraft";
 
-    //    public static final int LOCALMAJVERSION = 4;
-    //    public static final int LOCALMINVERSION = 0;
-    //    public static final int LOCALPATCHVERSION = 2;
-    //    public static final String LOCALBUILDVERSION = "${build}";
-    //    public static final String COMBINEDVERSION = LOCALMAJVERSION + "." + LOCALMINVERSION + "." + LOCALPATCHVERSION + "." + LOCALBUILDVERSION;
-
     public static final String VERSION = "${gcVersion}";
 
     @Deprecated

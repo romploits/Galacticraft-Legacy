@@ -22,7 +22,7 @@ public abstract class ItemDesc extends Item implements IShiftDescription
     {
         if (this.showDescription(stack.getItemDamage()))
         {
-            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+            if (Keyboard.isKeyDown(FMLClientHandler.instance().getClient().gameSettings.keyBindSneak.getKeyCode()))
             {
                 info.addAll(FMLClientHandler.instance().getClient().fontRenderer.listFormattedStringToWidth(this.getShiftDescription(stack.getItemDamage()), 150));
             } else
