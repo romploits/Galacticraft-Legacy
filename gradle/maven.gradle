@@ -2,22 +2,41 @@ apply plugin: "maven-publish"
 apply plugin: 'signing'
 
 Boolean isSnapshot() {
-    grgit.resolve.toCommit(grgit.tag.list().last()).id != grgit.head().id
+    version.toString().endsWith("SNAPSHOT")
 }
 
-def versionForMaven = "${gc_version}${t -> if (isSnapshot()) t << '-snapshot.' + grgit.head().abbreviatedId}"
-
 publishing {
+    repositories {
+        if (System.getenv().GITHUB_RUN_ID) {
+            maven {
+                url System.getenv().NEXUS_REPOSITORY_URL
+                credentials {
+                    username = System.getenv().NEXUS_USER
+                    password = System.getenv().NEXUS_PASSWORD
+                }
+            }
+        }
+        
+        if (!System.getenv().GITHUB_RUN_ID) {
+            maven {
+                url System.getenv().NEXUS_RELEASE_URL
+                credentials {
+                    username = System.getenv().NEXUS_USER
+                    password = System.getenv().NEXUS_PASSWORD
+                }
+            }
+        }
+    }
+    
+    
     publications {
         Galacticraft(MavenPublication) {
             groupId 'dev.galacticraft'
             artifactId 'galacticraft-legacy'
-            version versionForMaven
+            version version
 
             artifact jar
-            artifact deobfJar
             artifact sourcesJar
-            artifact apiJar
             
             pom {
                 name = 'Galacticraft'
@@ -43,24 +62,22 @@ publishing {
         }
     }
     repositories {
-        if (project.hasProperty('MAVEN_PASSWORD')) {
+        if (project.hasProperty("MAVEN_USER") && project.hasProperty("MAVEN_PASSWORD")) {
             maven {
-                if(isSnapshot())
-                    url = 'https://maven.galacticraft.dev/snapshots'
+                if(version.toString().endsWith("SNAPSHOT"))
+                    url = 'https://maven.galacticraft.net/snapshot'
                 else
-                    url = 'https://maven.galacticraft.dev/releases'
+                    url = 'https://maven.galacticraft.net/release'
                 authentication {
                     basic(BasicAuthentication)
                 }
                 credentials {
-                    username = project.getProperty('MAVEN_USER')
-                    password = project.getProperty('MAVEN_PASSWORD')
+                    username = project.getProperty("MAVEN_USER")
+                    password = project.getProperty("MAVEN_PASSWORD")
                 }
             }
         } else {
-            maven {
-                url "file://${project.projectDir}/repo"
-            }
+
         }
     }
 

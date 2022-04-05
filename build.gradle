@@ -56,6 +56,7 @@ dependencies {
     implementation fg.deobf('curse.maven:actuallyadditions-r152-228404:3117927')
     implementation fg.deobf('curse.maven:playerapi-1.1-449521:3212872')
     compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
+    runtimeOnly fg.deobf('com.mod-buildcraft:buildcraft-main:7.99.24.8')
     implementation fg.deobf('net.industrial-craft:industrialcraft-2:2.8.221-ex112')
     compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
     runtimeOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
@@ -71,10 +72,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            if (project.hasProperty('mc_uuid'))
-                args '--uuid', project.getProperty('mc_uuid')
-            if (project.hasProperty('mc_username'))
-                args '--username', project.getProperty('mc_username')
+            if (project.hasProperty('uuid'))
+                args '--uuid', project.getProperty('uuid')
+            if (project.hasProperty('username'))
+                args '--username', project.getProperty('username')
             jvmArg '-Dfml.coreMods.load=micdoodle8.mods.miccore.MicdoodlePlugin'
         }
         server {
@@ -122,39 +123,15 @@ jar {
 
 jar.finalizedBy('reobfJar')
 
-task sourcesJar(type: Jar, dependsOn: classes) {
+task sourcesJar(type: Jar) {
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
     archiveClassifier.set('sources')
     archiveVersion.set("${mc_version}-${version}")
-    
-    from sourceSets.main.allSource
-    
-    manifest(setManifest)
-}
-
-task apiJar(type: Jar) {
-    archiveClassifier.set('api')
-    archiveVersion.set("${mc_version}-${version}")
-    
-    include 'micdoodle8/mods/galacticraft/api/**'
-    from sourceSets.main.allJava
-    from sourceSets.main.output
-    
-    manifest(setManifest)
-}
-
-task deobfJar(type: Jar) {
-    archiveClassifier.set('deobf')
-    archiveVersion.set("${mc_version}-${version}")
-    
-    from sourceSets.main.output
-    
-    manifest(setManifest)
+    from sourceSets.main.allSource    
 }
 
 artifacts {
-    archives deobfJar
     archives sourcesJar
-    archives apiJar
 }
 
 apply from: 'gradle/maven.gradle'
