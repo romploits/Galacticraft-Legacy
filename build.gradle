@@ -30,8 +30,7 @@ archivesBaseName = "Galacticraft"
 
 repositories {
     mavenCentral()
-    maven { url 'https://maven.galacticraft.dev/releases' }
-    maven { url 'https://www.cursemaven.com' }
+    maven { url 'https://repo.galacticraft.net/repository/maven-common' }
     maven { url 'https://mod-buildcraft.com/maven/' }
     maven { url 'https://maven.ic2.player.to' }
     maven { url 'https://dvs1.progwml6.com/files/maven' }
@@ -49,12 +48,12 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    implementation fg.deobf('curse.maven:bop-7.0.1.2444-220318:2842510')
-    implementation fg.deobf('curse.maven:mekanism-9.8.3.390-268560:2835175')
-    implementation fg.deobf('curse.maven:ae2-rv6-stable-7-223794:2747063')
-    implementation fg.deobf('curse.maven:redstoneflux-1.1.1-270789:2920436')
-    implementation fg.deobf('curse.maven:actuallyadditions-r152-228404:3117927')
-    implementation fg.deobf('curse.maven:playerapi-1.1-449521:3212872')
+    implementation fg.deobf('mod.dependency:biomesoplenty:7.0.1.2445')
+    implementation fg.deobf('mod.dependency:mekanism:9.8.3.390')
+    implementation fg.deobf('mod.dependency:ae2:rv6-stable-7')
+    implementation fg.deobf('mod.dependency:redstoneflux:1.1.1')
+    implementation fg.deobf('mod.dependency:actuallyadditions:r152')
+    implementation fg.deobf('mod.dependency:playerapi:1.1')
     compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
     runtimeOnly fg.deobf('com.mod-buildcraft:buildcraft-main:7.99.24.8')
     implementation fg.deobf('net.industrial-craft:industrialcraft-2:2.8.221-ex112')

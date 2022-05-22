@@ -1,6 +1,8 @@
 apply plugin: "maven-publish"
 apply plugin: 'signing'
 
+def defaultFolder = project.rootProject.file('repo')
+
 Boolean isSnapshot() {
     version.toString().endsWith("SNAPSHOT")
 }
@@ -26,9 +28,12 @@ publishing {
                 }
             }
         }
+        
+        maven {
+            name 'local'
+            url 'file://' + defaultFolder.getAbsolutePath()
+        }
     }
-    
-    
     publications {
         Galacticraft(MavenPublication) {
             groupId 'dev.galacticraft'
@@ -61,26 +66,6 @@ publishing {
             }
         }
     }
-    repositories {
-        if (project.hasProperty("MAVEN_USER") && project.hasProperty("MAVEN_PASSWORD")) {
-            maven {
-                if(version.toString().endsWith("SNAPSHOT"))
-                    url = 'https://maven.galacticraft.net/snapshot'
-                else
-                    url = 'https://maven.galacticraft.net/release'
-                authentication {
-                    basic(BasicAuthentication)
-                }
-                credentials {
-                    username = project.getProperty("MAVEN_USER")
-                    password = project.getProperty("MAVEN_PASSWORD")
-                }
-            }
-        } else {
-
-        }
-    }
-
     signing {
         publishing.publications.each {
             sign it
