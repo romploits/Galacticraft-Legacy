@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
+import micdoodle8.mods.galacticraft.api.galaxies.CelestialObject;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Satellite;
-import micdoodle8.mods.galacticraft.api.galaxies.SolarSystem;
 import micdoodle8.mods.galacticraft.api.item.EnumExtendedInventorySlot;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntityAutoRocket;
 import micdoodle8.mods.galacticraft.api.prefab.entity.EntitySpaceshipBase;
@@ -142,7 +142,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
         S_INVITE_RACE_PLAYER(Side.SERVER, String.class, Integer.class),
         S_REMOVE_RACE_PLAYER(Side.SERVER, String.class, Integer.class),
         S_ADD_RACE_PLAYER(Side.SERVER, String.class, Integer.class),
-        S_COMPLETE_CBODY_HANDSHAKE(Side.SERVER, String.class),
+        S_COMPLETE_CBODY_HANDSHAKE(Side.SERVER, String[].class),
         S_REQUEST_GEAR_DATA1(Side.SERVER, UUID.class),
         S_REQUEST_GEAR_DATA2(Side.SERVER, UUID.class),
         S_REQUEST_OVERWORLD_IMAGE(Side.SERVER),
@@ -655,7 +655,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                 String teamName = (String) this.data.get(1);
                 FlagData flagData = (FlagData) this.data.get(2);
                 Vector3 teamColor = (Vector3) this.data.get(3);
-                List<String> playerList = new ArrayList<String>();
+                List<String> playerList = new ArrayList<>();
 
                 for (int i = 4; i < this.data.size(); i++)
                 {
@@ -676,7 +676,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                 stats.setDungeonDirection((Float) this.data.get(0));
                 break;
             case C_UPDATE_FOOTPRINT_LIST:
-                List<Footprint> printList = new ArrayList<Footprint>();
+                List<Footprint> printList = new ArrayList<>();
                 long chunkKey = (Long) this.data.get(0);
                 for (int i = 1; i < this.data.size(); i++)
                 {
@@ -692,7 +692,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                 long chunkKey0 = (Long) this.data.get(0);
                 BlockVec3 position = (BlockVec3) this.data.get(1);
                 List<Footprint> footprintList = FootprintRenderer.footprints.get(chunkKey0);
-                List<Footprint> toRemove = new ArrayList<Footprint>();
+                List<Footprint> toRemove = new ArrayList<>();
 
                 if (footprintList != null)
                 {
@@ -743,30 +743,8 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                 player.sendMessage(new TextComponentString(GameSettings.getKeyDisplayString(KeyHandlerClient.openFuelGui.getKeyCode()) + "       - " + GCCoreUtil.translate("gui.rocket.inv.name")));
                 break;
             case C_GET_CELESTIAL_BODY_LIST:
-                String str = "";
-
-                for (CelestialBody cBody : GalaxyRegistry.getRegisteredPlanets().values())
-                {
-                    str = str.concat(cBody.getTranslationKey() + ";");
-                }
-
-                for (CelestialBody cBody : GalaxyRegistry.getRegisteredMoons().values())
-                {
-                    str = str.concat(cBody.getTranslationKey() + ";");
-                }
-
-                for (CelestialBody cBody : GalaxyRegistry.getRegisteredSatellites().values())
-                {
-                    str = str.concat(cBody.getTranslationKey() + ";");
-                }
-
-                for (SolarSystem solarSystem : GalaxyRegistry.getRegisteredSolarSystems().values())
-                {
-                    str = str.concat(solarSystem.getTranslationKey() + ";");
-                }
-
-                GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(EnumSimplePacket.S_COMPLETE_CBODY_HANDSHAKE, getDimensionID(), new Object[]
-                {str}));
+                String[] objKeys = GalaxyRegistry.getAllTransltionKeys();
+                GalacticraftCore.packetPipeline.sendToServer(new PacketSimple(EnumSimplePacket.S_COMPLETE_CBODY_HANDSHAKE, getDimensionID(), new Object[] {objKeys}));
                 break;
             case C_UPDATE_ENERGYUNITS:
                 CommandGCEnergyUnits.handleParamClientside((Integer) this.data.get(0));
@@ -1113,7 +1091,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                 String teamName = (String) this.data.get(1);
                 FlagData flagData = (FlagData) this.data.get(2);
                 Vector3 teamColor = (Vector3) this.data.get(3);
-                List<String> playerList = new ArrayList<String>();
+                List<String> playerList = new ArrayList<>();
 
                 for (int i = 4; i < this.data.size(); i++)
                 {
@@ -1218,36 +1196,19 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                 }
                 break;
             case S_COMPLETE_CBODY_HANDSHAKE:
-                String completeList = (String) this.data.get(0);
-                List<String> clientObjects = Arrays.asList(completeList.split(";"));
-                List<String> serverObjects = Lists.newArrayList();
+                List<CelestialObject> clientObjects = new ArrayList<>();
+                for (int i = 0; i < this.data.size(); i++)
+                {
+                    clientObjects.add(GalaxyRegistry.getCelestialObjectFromTranslationKey((String) this.data.get(i)));
+                }
+                List<CelestialObject> serverObjects = GalaxyRegistry.getAllRegisteredObjects();
                 String missingObjects = "";
 
-                for (CelestialBody cBody : GalaxyRegistry.getRegisteredPlanets().values())
+                for (CelestialObject celestialObject : serverObjects)
                 {
-                    serverObjects.add(cBody.getTranslationKey());
-                }
-
-                for (CelestialBody cBody : GalaxyRegistry.getRegisteredMoons().values())
-                {
-                    serverObjects.add(cBody.getTranslationKey());
-                }
-
-                for (CelestialBody cBody : GalaxyRegistry.getRegisteredSatellites().values())
-                {
-                    serverObjects.add(cBody.getTranslationKey());
-                }
-
-                for (SolarSystem solarSystem : GalaxyRegistry.getRegisteredSolarSystems().values())
-                {
-                    serverObjects.add(solarSystem.getTranslationKey());
-                }
-
-                for (String str : serverObjects)
-                {
-                    if (!clientObjects.contains(str))
+                    if (!clientObjects.contains(celestialObject))
                     {
-                        missingObjects = missingObjects.concat(str + "\n");
+                        missingObjects = missingObjects.concat(celestialObject.translationKey + "\n");
                     }
                 }
 

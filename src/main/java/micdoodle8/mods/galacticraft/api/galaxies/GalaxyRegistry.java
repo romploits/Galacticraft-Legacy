@@ -269,6 +269,11 @@ public class GalaxyRegistry
         return satellites.contains(satellite);
     }
 
+    public static ImmutableCelestialList<CelestialObject> getAllRegisteredObjects()
+    {
+        return objects.toImmutableList();
+    }
+
     /**
      * Returns a read-only list containing all registered Solar Systems
      */
