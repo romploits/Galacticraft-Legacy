@@ -1,17 +1,15 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
-import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 
-public class Planet extends CelestialBody
+public class Planet extends CelestialBody implements ICelestial<Planet>
 {
-
     protected SolarSystem parentSolarSystem = null;
 
     public Planet(String planetName)
     {
-        super(planetName);
+        super(Prefix.PLANET, planetName);
     }
 
     public SolarSystem getParentSolarSystem()
@@ -19,35 +17,28 @@ public class Planet extends CelestialBody
         return this.parentSolarSystem;
     }
 
-    @Override
-    public int getID()
-    {
-        return GalaxyRegistry.getPlanetID(this.bodyName);
-    }
-
-    @Override
-    public String getTranslationKeyPrefix()
-    {
-        return "planet";
-    }
-
     public Planet setParentSolarSystem(SolarSystem galaxy)
     {
         this.parentSolarSystem = galaxy;
         return this;
     }
-
+    
     public static void addMobToSpawn(String planetName, SpawnListEntry mobData)
     {
-        GalaxyRegistry.getCelestialBodyFromUnlocalizedName("planet." + planetName).addMobInfo(mobData);
+        GalaxyRegistry.getPlanetOrMoonFromTranslationkey("planet." + planetName).addMobInfo(mobData);
     }
-    
+
+    @Override
+    public Planet get()
+    {
+        return this;
+    }
+
     @Override
     @Deprecated
-    @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("getTranslationKeyPrefix()")
+    @ReplaceWith("getPrefix()")
     public String getUnlocalizedNamePrefix()
     {
-        return getTranslationKeyPrefix();
+        return this.getPrefix();
     }
 }

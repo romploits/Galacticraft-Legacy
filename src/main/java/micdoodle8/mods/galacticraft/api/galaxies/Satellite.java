@@ -1,18 +1,16 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
-import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import net.minecraft.world.WorldProvider;
 
-public class Satellite extends CelestialBody implements IChildBody
+public class Satellite extends CelestialBody implements IChildBody, ICelestial<Satellite>
 {
-
     protected Planet parentCelestialBody = null;
     protected int dimensionIdStatic = 0;
 
     public Satellite(String satelliteName)
     {
-        super(satelliteName);
+        super(Prefix.SATELLITE, satelliteName);
     }
 
     @Override
@@ -27,49 +25,35 @@ public class Satellite extends CelestialBody implements IChildBody
         return this;
     }
 
-    @Override
-    @Deprecated
-    public CelestialBody setDimensionInfo(int providerId, Class<? extends WorldProvider> providerClass, boolean autoRegister)
-    {
-        // Since satellites need a static ID, the subclass method will not work
-        // correctly.
-        throw new UnsupportedOperationException("Satellite registered using an outdated method (setDimensionInfo)! Tell Galacticraft addon authors to update to the latest API.");
-    }
-
     public CelestialBody setDimensionInfo(int providerIdDynamic, int providerIdStatic, Class<? extends WorldProvider> providerClass)
     {
-        this.dimensionID = providerIdDynamic;
         this.dimensionIdStatic = providerIdStatic;
-        this.providerClass = providerClass;
-        this.autoRegisterDimension = false; // Addons need to register
-                                            // satellites manually
-        this.isReachable = true;
-        return this;
-    }
-
-    @Override
-    public int getID()
-    {
-        return GalaxyRegistry.getSatelliteID(this.bodyName);
-    }
-
-    @Override
-    public String getTranslationKeyPrefix()
-    {
-        return "satellite";
+        return super.setDimensionInfo(providerIdDynamic, providerClass, false);
     }
 
     public int getDimensionIdStatic()
     {
         return dimensionIdStatic;
     }
-    
+
+    @Override
+    public Satellite get()
+    {
+        return this;
+    }
+
     @Override
     @Deprecated
-    @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("getTranslationKeyPrefix()")
+    @ReplaceWith("getPrefix()")
     public String getUnlocalizedNamePrefix()
     {
-        return getTranslationKeyPrefix();
+        return this.getPrefix();
+    }
+
+    @Override
+    @Deprecated
+    public CelestialBody setDimensionInfo(int providerId, Class<? extends WorldProvider> providerClass, boolean autoRegister)
+    {
+        throw new UnsupportedOperationException("Satellite registered using an outdated method (setDimensionInfo)! Tell Galacticraft addon authors to update to the latest API.");
     }
 }

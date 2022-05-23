@@ -140,6 +140,7 @@ import micdoodle8.mods.galacticraft.core.util.CreativeTabGC;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.GalacticLog;
 import micdoodle8.mods.galacticraft.core.util.MapUtil;
+import micdoodle8.mods.galacticraft.core.util.TranslateUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
 import micdoodle8.mods.galacticraft.core.world.gen.BiomeMoon;
@@ -365,10 +366,10 @@ public class GalacticraftCore
         this.registerOtherEntities();
         this.registerTileEntities();
 
-        GalaxyRegistry.registerSolarSystem(GalacticraftCore.solarSystemSol);
-        GalaxyRegistry.registerPlanet(GalacticraftCore.planetOverworld);
-        GalaxyRegistry.registerMoon(GalacticraftCore.moonMoon);
-        GalaxyRegistry.registerSatellite(GalacticraftCore.satelliteSpaceStation);
+        GalaxyRegistry.register(GalacticraftCore.solarSystemSol);
+        GalaxyRegistry.register(GalacticraftCore.planetOverworld);
+        GalaxyRegistry.register(GalacticraftCore.moonMoon);
+        GalaxyRegistry.register(GalacticraftCore.satelliteSpaceStation);
         GCDimensions.ORBIT = GalacticraftRegistry.registerDimension("Space Station", "_orbit", ConfigManagerCore.idDimensionOverworldOrbit, WorldProviderOverworldOrbit.class, false);
         if (GCDimensions.ORBIT == null)
         {
@@ -481,8 +482,8 @@ public class GalacticraftCore
         GalacticraftCore.proxy.postInit(event);
 
         ArrayList<CelestialBody> cBodyList = new ArrayList<>();
-        cBodyList.addAll(GalaxyRegistry.getRegisteredPlanets().values());
-        cBodyList.addAll(GalaxyRegistry.getRegisteredMoons().values());
+        cBodyList.addAll(GalaxyRegistry.getPlanets());
+        cBodyList.addAll(GalaxyRegistry.getMoons());
 
         for (CelestialBody body : cBodyList)
         {
@@ -517,6 +518,8 @@ public class GalacticraftCore
         NetworkRegistry.INSTANCE.registerGuiHandler(GalacticraftCore.instance, new GuiHandler());
         MinecraftForge.EVENT_BUS.register(new TickHandlerServer());
         GalaxyRegistry.refreshGalaxies();
+
+        TranslateUtil.generateMaps();
 
         GalacticraftRegistry.registerScreen(new GameScreenText()); // Screen API
         // demo
@@ -584,8 +587,8 @@ public class GalacticraftCore
         WorldUtil.registerSpaceStations(event.getServer(), new File(worldFolder, "galacticraft"));
 
         ArrayList<CelestialBody> cBodyList = new ArrayList<>();
-        cBodyList.addAll(GalaxyRegistry.getRegisteredPlanets().values());
-        cBodyList.addAll(GalaxyRegistry.getRegisteredMoons().values());
+        cBodyList.addAll(GalaxyRegistry.getPlanets());
+        cBodyList.addAll(GalaxyRegistry.getMoons());
 
         for (CelestialBody body : cBodyList)
         {
@@ -775,7 +778,7 @@ public class GalacticraftCore
     {
         // Loop through all planets to make sure it's not registered as a
         // reachable dimension first
-        for (CelestialBody body : new ArrayList<>(GalaxyRegistry.getRegisteredPlanets().values()))
+        for (CelestialBody body : new ArrayList<>(GalaxyRegistry.getPlanets()))
         {
             if (body instanceof Planet && name.equals(body.getName()))
             {
@@ -788,7 +791,7 @@ public class GalacticraftCore
 
         Planet planet = new Planet(name).setParentSolarSystem(system);
         planet.setBodyIcon(new ResourceLocation(Constants.ASSET_PREFIX, "textures/gui/celestialbodies/" + name + ".png"));
-        GalaxyRegistry.registerPlanet(planet);
+        GalaxyRegistry.register(planet);
         return planet;
     }
 

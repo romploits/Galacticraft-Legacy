@@ -167,7 +167,7 @@ public class MarsModule implements IPlanetsModule
         MarsModule.planetMars.addMobInfo(new Biome.SpawnListEntry(EntityEvolvedEnderman.class, 10, 1, 4));
         MarsModule.planetMars.addChecklistKeys("equip_oxygen_suit", "thermal_padding");
 
-        GalaxyRegistry.registerPlanet(MarsModule.planetMars);
+        GalaxyRegistry.register(MarsModule.planetMars);
         GalacticraftRegistry.registerTeleportType(WorldProviderMars.class, new TeleportTypeMars());
         GalacticraftRegistry.registerRocketGui(WorldProviderMars.class, new ResourceLocation(GalacticraftPlanets.ASSET_PREFIX, "textures/gui/mars_rocket_gui.png"));
         GalacticraftRegistry.addDungeonLoot(2, new ItemStack(MarsItems.schematic, 1, 0));

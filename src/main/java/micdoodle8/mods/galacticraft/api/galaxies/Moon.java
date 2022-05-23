@@ -1,16 +1,14 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
-import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 
-public class Moon extends CelestialBody implements IChildBody
+public class Moon extends CelestialBody implements IChildBody, ICelestial<Moon>
 {
-
     protected Planet parentPlanet = null;
 
     public Moon(String moonName)
     {
-        super(moonName);
+        super(Prefix.MOON, moonName);
     }
 
     public Moon setParentPlanet(Planet planet)
@@ -20,29 +18,22 @@ public class Moon extends CelestialBody implements IChildBody
     }
 
     @Override
-    public int getID()
-    {
-        return GalaxyRegistry.getMoonID(this.bodyName);
-    }
-
-    @Override
-    public String getTranslationKeyPrefix()
-    {
-        return "moon";
-    }
-
-    @Override
     public Planet getParentPlanet()
     {
         return this.parentPlanet;
     }
 
     @Override
+    public Moon get()
+    {
+        return this;
+    }
+
+    @Override
     @Deprecated
-    @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("getTranslationKeyPrefix()")
+    @ReplaceWith("getPrefix()")
     public String getUnlocalizedNamePrefix()
     {
-        return getTranslationKeyPrefix();
+        return this.getPrefix();
     }
 }

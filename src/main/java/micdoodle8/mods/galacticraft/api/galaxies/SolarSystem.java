@@ -1,46 +1,35 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
 import java.util.Locale;
-import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
+import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody.Prefix;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
+import micdoodle8.mods.galacticraft.core.util.TranslateUtil;
 import net.minecraft.util.text.translation.I18n;
 
-public class SolarSystem
+@SuppressWarnings("deprecation")
+public class SolarSystem extends CelestialObject implements ICelestial<SolarSystem>
 {
 
-    protected final String systemName;
-    protected String translationKey;
-    protected Vector3 mapPosition = null;
-    protected Star mainStar = null;
-    protected String unlocalizedGalaxyName;
+    protected Vector3      mapPosition = null;
+    protected Star         mainStar    = null;
+    protected String       unlocalizedGalaxyName;
 
     public SolarSystem(String solarSystem, String parentGalaxy)
     {
-        this.systemName = solarSystem.toLowerCase(Locale.ENGLISH);
-        this.translationKey = solarSystem;
+        super(solarSystem.toLowerCase(Locale.ENGLISH), Prefix.SOLARSYSTEM);
         this.unlocalizedGalaxyName = parentGalaxy;
     }
 
-    public String getName()
+    @Override
+    public void setOwnerId(String ownerId)
     {
-        return this.systemName;
-    }
-
-    public final int getID()
-    {
-        return GalaxyRegistry.getSolarSystemID(this.systemName);
+        super.setOwnerId(ownerId);
     }
 
     public String getTranslatedName()
     {
-        String s = this.getTranslationKey();
-        return s == null ? "" : I18n.translateToLocal(s);
-    }
-
-    public String getTranslationKey()
-    {
-        return "solarsystem." + this.translationKey;
+        return I18n.translateToLocal(this.getTranslationKey());
     }
 
     public Vector3 getMapPosition()
@@ -50,7 +39,7 @@ public class SolarSystem
 
     public SolarSystem setMapPosition(Vector3 mapPosition)
     {
-        mapPosition.scale(500D);
+    	mapPosition.scale(500D);
         this.mapPosition = mapPosition;
         return this;
     }
@@ -68,8 +57,7 @@ public class SolarSystem
 
     public String getTranslatedParentGalaxyName()
     {
-        String s = this.getParentGalaxyTranslationKey();
-        return s == null ? "" : I18n.translateToLocal(s);
+        return TranslateUtil.getInstance().translate(this.getTranslationKey());
     }
 
     public String getParentGalaxyTranslationKey()
@@ -77,10 +65,15 @@ public class SolarSystem
         return "galaxy." + this.unlocalizedGalaxyName;
     }
 
+    @Override
+    public SolarSystem get()
+    {
+        return this;
+    }
+
     // DEPRECATED METHODS
 
     @Deprecated
-    @ForRemoval(deadline = "4.1.0")
     @ReplaceWith("getTranslationKey()")
     public String getUnlocalizedName()
     {
@@ -88,7 +81,6 @@ public class SolarSystem
     }
 
     @Deprecated
-    @ForRemoval(deadline = "4.1.0")
     @ReplaceWith("getTranslatedName()")
     public String getLocalizedName()
     {
@@ -96,7 +88,6 @@ public class SolarSystem
     }
 
     @Deprecated
-    @ForRemoval(deadline = "4.1.0")
     @ReplaceWith("getTranslatedParentGalaxyName()")
     public String getLocalizedParentGalaxyName()
     {
@@ -104,10 +95,9 @@ public class SolarSystem
     }
 
     @Deprecated
-    @ForRemoval(deadline = "4.1.0")
     @ReplaceWith("getParentGalaxyTranslationKey()")
     public String getUnlocalizedParentGalaxyName()
     {
-        return getParentGalaxyTranslationKey();
+        return "galaxy." + this.unlocalizedGalaxyName;
     }
 }

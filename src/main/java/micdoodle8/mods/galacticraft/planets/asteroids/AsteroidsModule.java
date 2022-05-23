@@ -163,7 +163,7 @@ public class AsteroidsModule implements IPlanetsModule
         AsteroidsModule.planetAsteroids.setAtmosphere(new AtmosphereInfo(false, false, false, -1.5F, 0.05F, 0.0F));
         AsteroidsModule.planetAsteroids.addChecklistKeys("equip_oxygen_suit", "craft_grapple_hook", "thermal_padding");
 
-        GalaxyRegistry.registerPlanet(AsteroidsModule.planetAsteroids);
+        GalaxyRegistry.register(AsteroidsModule.planetAsteroids);
         GalacticraftRegistry.registerTeleportType(WorldProviderAsteroids.class, new TeleportTypeAsteroids());
 
         GalacticraftRegistry.registerGear(Constants.GEAR_ID_THERMAL_PADDING_T1_HELMET, EnumExtendedInventorySlot.THERMAL_HELMET, new ItemStack(AsteroidsItems.thermalPadding, 1, 0));
