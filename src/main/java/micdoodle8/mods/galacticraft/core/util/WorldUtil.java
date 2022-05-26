@@ -3,7 +3,7 @@ package micdoodle8.mods.galacticraft.core.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ReferenceMap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Field;
@@ -533,7 +533,7 @@ public class WorldUtil
                                     Class sponge = Class.forName("org.spongepowered.common.world.WorldManager");
                                     Field dtDI = sponge.getDeclaredField("dimensionTypeByDimensionId");
                                     dtDI.setAccessible(true);
-                                    Int2ObjectMap<DimensionType> result = (Int2ObjectMap<DimensionType>) dtDI.get(null);
+                                    Int2ReferenceMap<DimensionType> result = (Int2ReferenceMap<DimensionType>) dtDI.get(null);
                                     if (result != null)
                                     {
                                         result.put(registeredID, WorldUtil.getDimensionTypeById(providerID));
