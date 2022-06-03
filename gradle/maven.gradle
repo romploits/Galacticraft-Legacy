@@ -40,7 +40,7 @@ publishing {
             artifactId 'galacticraft-legacy'
             version version
 
-            artifact jar
+            artifact deobfJar
             artifact sourcesJar
             
             pom {
