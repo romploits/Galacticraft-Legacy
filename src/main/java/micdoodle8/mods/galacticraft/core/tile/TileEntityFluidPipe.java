@@ -2,6 +2,8 @@ package micdoodle8.mods.galacticraft.core.tile;
 
 import mekanism.api.gas.Gas;
 import mekanism.api.gas.GasStack;
+import mekanism.api.gas.IGasHandler;
+import mekanism.common.capabilities.Capabilities;
 import micdoodle8.mods.galacticraft.api.tile.IColorable;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.grid.IGridNetwork;
@@ -30,10 +32,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntityFluidPipe extends TileEntityFluidTransmitter implements IColorable
+@Interface(iface = "mekanism.api.gas.IGasHandler", modid = "mekanism")
+public class TileEntityFluidPipe extends TileEntityFluidTransmitter implements IColorable, IGasHandler
 {
 
     public FluidTankGC buffer = new FluidTankGC(1000, this);
@@ -404,7 +408,7 @@ public class TileEntityFluidPipe extends TileEntityFluidTransmitter implements I
 
         if (EnergyUtil.checkMekGasHandler(capability))
         {
-            return (T) this;
+            return Capabilities.GAS_HANDLER_CAPABILITY.cast(this);
         }
 
         return super.getCapability(capability, facing);

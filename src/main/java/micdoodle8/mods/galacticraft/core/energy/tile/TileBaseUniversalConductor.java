@@ -1,6 +1,7 @@
 package micdoodle8.mods.galacticraft.core.energy.tile;
 
 import buildcraft.api.mj.IMjConnector;
+import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyEmitter;
@@ -34,9 +35,10 @@ import net.minecraftforge.fml.common.eventhandler.Event;
     @Interface(iface = "ic2.api.energy.tile.IEnergyAcceptor", modid = CompatibilityManager.modidIC2),
     @Interface(iface = "ic2.api.energy.tile.IEnergyEmitter", modid = CompatibilityManager.modidIC2),
     @Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = CompatibilityManager.modidIC2),
-    @Interface(iface = "mekanism.api.energy.IStrictEnergyAcceptor", modid = CompatibilityManager.modidMekanism)
+    @Interface(iface = "mekanism.api.energy.IStrictEnergyAcceptor", modid = CompatibilityManager.modidMekanism),
+    @Interface(iface = "buildcraft.api.mj.IMjReceiver", modid = CompatibilityManager.modBCraftEnergy)
 })
-public abstract class TileBaseUniversalConductor extends TileBaseConductor implements IEnergyStorage, ITickable, IEnergyAcceptor, IEnergyEmitter, IEnergySink, IStrictEnergyAcceptor
+public abstract class TileBaseUniversalConductor extends TileBaseConductor implements IEnergyStorage, ITickable, IMjReceiver, IEnergyAcceptor, IEnergyEmitter, IEnergySink, IStrictEnergyAcceptor
 {
 
     protected boolean isAddedToEnergyNet;
@@ -53,6 +55,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return EnergyUtil.getAdjacentPowerConnections(this);
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public void update()
     {
@@ -125,6 +128,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         }
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public double getDemandedEnergy()
     {
@@ -148,6 +152,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return 0D;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public double injectEnergy(EnumFacing directionFrom, double amount, double voltage)
     {
@@ -172,12 +177,14 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return 0D;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public int getSinkTier()
     {
         return 3;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side)
     {
@@ -203,6 +210,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return true;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public boolean emitsEnergyTo(IEnergyAcceptor receiver, EnumFacing side)
     {
@@ -283,6 +291,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
+    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long getPowerRequested()
     {
@@ -295,6 +304,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
+    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long receivePower(long microJoules, boolean simulate)
     {
@@ -308,6 +318,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
+    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public boolean canConnect(@Nonnull IMjConnector other)
     {
@@ -377,6 +388,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return amount - this.getNetwork().produce((float) amount * EnergyConfigHandler.MEKANISM_RATIO, true, 1, this) / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public double acceptEnergy(EnumFacing side, double amount, boolean simulate)
     {
@@ -393,6 +405,7 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return amount - this.getNetwork().produce((float) amount * EnergyConfigHandler.MEKANISM_RATIO, !simulate, 1, this) / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canReceiveEnergy(EnumFacing side)
     {

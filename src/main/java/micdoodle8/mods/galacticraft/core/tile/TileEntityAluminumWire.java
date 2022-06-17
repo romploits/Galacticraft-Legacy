@@ -1,9 +1,13 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import buildcraft.api.mj.IMjReceiver;
 import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseUniversalConductor;
+import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Optional.Interface;
 
-public class TileEntityAluminumWire extends TileBaseUniversalConductor
+@Interface(iface = "buildcraft.api.mj.IMjReceiver", modid = CompatibilityManager.modBCraftEnergy)
+public class TileEntityAluminumWire extends TileBaseUniversalConductor implements IMjReceiver
 {
 
     public int tier;
@@ -48,5 +52,12 @@ public class TileEntityAluminumWire extends TileBaseUniversalConductor
     public int getTierGC()
     {
         return this.tier;
+    }
+
+    @Override
+    public long getPowerRequested()
+    {
+        // TODO Auto-generated method stub
+        return super.getPowerRequested();
     }
 }

@@ -30,7 +30,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassTransformer
 {
 
-    HashMap<String, ObfuscationEntry> nodemap = new HashMap<String, ObfuscationEntry>();
+    HashMap<String, ObfuscationEntry> nodemap = new HashMap<>();
     private boolean deobfuscated = true;
     private boolean optifinePresent;
     private boolean isServer;
@@ -288,17 +288,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                 "(L" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY) + ";DL" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ICAMERA) + ";IZ)V"));
             this.nodemap.put(MicdoodleTransformer.KEY_METHOD_GET_EYE_HEIGHT, new MethodObfuscationEntry("getEyeHeight", "by", "()F"));
             this.nodemap.put(MicdoodleTransformer.KEY_METHOD_ENABLE_ALPHA, new MethodObfuscationEntry("enableAlpha", "e", "()V"));
-            this.nodemap.put(MicdoodleTransformer.KEY_METHOD_VALIDATE, new MethodObfuscationEntry("validate", "func_145829_t", "()V")); // SRG
-                                                                                                                                        // name
-                                                                                                                                        // for
-                                                                                                                                        // obfuscated
-                                                                                                                                        // because
-                                                                                                                                        // it's
-                                                                                                                                        // inside
-                                                                                                                                        // a
-                                                                                                                                        // Forge
-                                                                                                                                        // mod
-                                                                                                                                        // class
+            this.nodemap.put(MicdoodleTransformer.KEY_METHOD_VALIDATE, new MethodObfuscationEntry("validate", "func_145829_t", "()V"));
             this.nodemap.put(MicdoodleTransformer.KEY_METHOD_BIPED_SET_ROTATION,
                 new MethodObfuscationEntry("setRotationAngles", "a", "(FFFFFFL" + this.getNameDynamic(MicdoodleTransformer.KEY_CLASS_ENTITY) + ";)V"));
             this.nodemap.put(MicdoodleTransformer.KEY_METHOD_RRCB_GET_WORLD_RENDERER,
@@ -1154,15 +1144,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                     if (test.getOpcode() == Opcodes.INVOKESTATIC && ((MethodInsnNode) test).name.equals("max")) // Math.max
                     {
                         final AbstractInsnNode target = method.instructions.get(count + 1);
-                        if (target.getOpcode() == Opcodes.DSTORE && ((VarInsnNode) target).var == 10) // DSTORE
-                                                                                                      // 10
-                                                                                                      // is
-                                                                                                      // armorDamage
-                                                                                                      // (check
-                                                                                                      // in
-                                                                                                      // any
-                                                                                                      // future
-                                                                                                      // updates)
+                        if (target.getOpcode() == Opcodes.DSTORE && ((VarInsnNode) target).var == 10)
                         {
                             InsnList toAdd = new InsnList();
                             toAdd.add(new VarInsnNode(Opcodes.ALOAD, 0));
@@ -1239,7 +1221,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
         MicdoodleTransformer.injectionCount = 0;
 
         final Iterator<MethodNode> methods = node.methods.iterator();
-        List<String> ignoredMods = new ArrayList<String>();
+        List<String> ignoredMods = new ArrayList<>();
 
         while (methods.hasNext())
         {
@@ -1251,7 +1233,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                 {
                     if (annotation.desc.equals("L" + MicdoodleTransformer.CLASS_RUNTIME_INTERFACE + ";"))
                     {
-                        List<String> desiredInterfaces = new ArrayList<String>();
+                        List<String> desiredInterfaces = new ArrayList<>();
                         String modID = "";
                         String deobfName = "";
 
@@ -1648,15 +1630,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                 if (m.instructions.get(count).getOpcode() == invokeStatic)
                 {
                     MethodInsnNode mn = (MethodInsnNode) m.instructions.get(count);
-                    if (mn.owner.equals(intCache1) || mn.owner.equals(intCache2)) // Vanilla
-                                                                                  // uses
-                                                                                  // obf
-                                                                                  // name,
-                                                                                  // mods
-                                                                                  // use
-                                                                                  // deobf
-                                                                                  // class
-                                                                                  // name
+                    if (mn.owner.equals(intCache1) || mn.owner.equals(intCache2))
                     {
                         mn.owner = CLASS_INTCACHE_VARIANT;
                     }

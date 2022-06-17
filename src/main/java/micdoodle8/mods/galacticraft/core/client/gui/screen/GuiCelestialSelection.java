@@ -343,7 +343,6 @@ public class GuiCelestialSelection extends GuiScreen
                 {
                     this.zoom = this.preSelectZoom;
                     this.ticksSinceUnselectionF = -1;
-                    //this.ticksSinceUnselection = -1;
                     this.doneZooming = true;
                 }
 
@@ -378,7 +377,6 @@ public class GuiCelestialSelection extends GuiScreen
                 if (f0 >= 0.999999F)
                 {
                     this.ticksSinceUnselectionF = 0;
-                    //this.ticksSinceUnselection = 0;
                 }
                 return this.lerpVec2(this.position, this.preSelectPosition, f0);
             }
@@ -520,7 +518,6 @@ public class GuiCelestialSelection extends GuiScreen
     {
         this.selectionState = EnumSelection.UNSELECTED;
         this.ticksSinceUnselectionF = 0;
-        //this.ticksSinceUnselection = 0;
         this.lastSelectedBody = this.selectedBody;
         this.selectedBody = null;
         this.doneZooming = false;
@@ -531,27 +528,9 @@ public class GuiCelestialSelection extends GuiScreen
     @Override
     public void updateScreen()
     {
-        //this.ticksSinceMenuOpen++;
-        //this.ticksSinceMenuOpenF++;
-        //this.ticksTotal++;
-        //this.ticksTotalF++;
-
-        if (/* this.ticksSinceMenuOpen < 20 && */ this.ticksSinceMenuOpenF < 20)
+        if (this.ticksSinceMenuOpenF < 20)
         {
             Mouse.setGrabbed(false);
-        }
-
-        if (this.selectedBody != null)
-        {
-            //this.ticksSinceSelection++;
-            //this.ticksSinceSelectionF++;
-        }
-
-        if (this.selectedBody == null
-            && /* this.ticksSinceUnselection >= 0 && */ this.ticksSinceUnselectionF >= 0)
-        {
-            //this.ticksSinceUnselection++;
-            //this.ticksSinceUnselectionF++;
         }
 
         if (!this.renamingSpaceStation && (this.selectedBody == null || !this.isZoomed()))
@@ -580,8 +559,6 @@ public class GuiCelestialSelection extends GuiScreen
                 translation.y += 2.0F;
             }
         }
-
-        GalacticraftCore.logger.info("{}  |  {}", position.getX(), position.getY());
     }
 
     protected void teleportToSelectedBody()
@@ -737,7 +714,6 @@ public class GuiCelestialSelection extends GuiScreen
                                 this.preSelectZoom = this.zoom;
                                 this.preSelectPosition = this.position;
                                 this.ticksSinceSelectionF = 0;
-                                //this.ticksSinceSelection = 0;
                                 this.doneZooming = false;
                             }
                             return;
@@ -911,12 +887,10 @@ public class GuiCelestialSelection extends GuiScreen
 
             this.selectedBody = (CelestialBody) this.selectedParent;
             this.ticksSinceSelectionF = 0;
-            //this.ticksSinceSelection = 0;
             this.selectionState = EnumSelection.values()[this.selectionState.ordinal() + 1];
             if (this.isZoomed() && !planetZoomedMoon)
             {
                 this.ticksSinceMenuOpenF = 0;
-                //this.ticksSinceMenuOpen = 0;
             }
             clickHandled = true;
         }
@@ -947,7 +921,6 @@ public class GuiCelestialSelection extends GuiScreen
 
                 this.selectedBody = (CelestialBody) this.selectedParent;
                 this.ticksSinceSelectionF = 0;
-                //this.ticksSinceSelection = 0;
                 this.selectionState = EnumSelection.values()[this.selectionState.ordinal() + 1];
             }
             clickHandled = true;
@@ -1033,7 +1006,6 @@ public class GuiCelestialSelection extends GuiScreen
 
                         this.selectedBody = bodyClicked;
                         this.ticksSinceSelectionF = 0;
-                        //this.ticksSinceSelection = 0;
                         this.selectionState = EnumSelection.values()[this.selectionState.ordinal() + 1];
 
                         if (bodyClicked instanceof IChildBody)
@@ -1044,7 +1016,6 @@ public class GuiCelestialSelection extends GuiScreen
                         if (this.isZoomed())
                         {
                             this.ticksSinceMenuOpenF = 0;
-                            //this.ticksSinceMenuOpen = 0;
                         }
 
                         // Auto select if it's a spacestation and there is only
@@ -1128,13 +1099,11 @@ public class GuiCelestialSelection extends GuiScreen
 
                 this.selectedBody = body;
                 this.ticksSinceSelectionF = 0;
-                //this.ticksSinceSelection = 0;
                 if (grandchild)
                     this.selectionState = EnumSelection.ZOOMED;
                 if (this.isZoomed())
                 {
                     this.ticksSinceMenuOpenF = 0;
-                    //this.ticksSinceMenuOpen = 0;
                 }
                 this.animateGrandchildren = 0;
                 return true;

@@ -74,7 +74,7 @@ public class SpaceRace
         {
             NBTTagCompound tagAt = tagList.getCompoundTagAt(i);
 
-            CelestialBody body = GalaxyRegistry.getCelestialBodyFromUnlocalizedName(tagAt.getString("CelestialBodyName"));
+            CelestialBody body = GalaxyRegistry.getPlanetOrMoonFromTranslationkey(tagAt.getString("CelestialBodyName"));
 
             if (body != null)
             {

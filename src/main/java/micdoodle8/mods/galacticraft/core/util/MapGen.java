@@ -76,7 +76,7 @@ public class MapGen extends BiomeProvider implements Runnable
         {
             for (int k = -2; k <= 2; ++k)
             {
-                float f = 10.0F / MathHelper.sqrt((float) (j * j + k * k) + 0.2F);
+                float f = 10.0F / MathHelper.sqrt(j * j + k * k + 0.2F);
                 parabolicField[j + 2 + (k + 2) * 5] = f;
             }
         }
@@ -237,7 +237,7 @@ public class MapGen extends BiomeProvider implements Runnable
         // effective
         try
         {
-            Thread.currentThread().sleep(90);
+            Thread.sleep(90);
         } catch (InterruptedException e)
         {
         }
@@ -254,7 +254,7 @@ public class MapGen extends BiomeProvider implements Runnable
                 {
                     // Sleep for a bit, next time around maybe will not be
                     // paused?
-                    Thread.currentThread().sleep(1211);
+                    Thread.sleep(1211);
                 } catch (InterruptedException e)
                 {
                 }
@@ -503,7 +503,7 @@ public class MapGen extends BiomeProvider implements Runnable
 
     public void getHeightMap(int cx, int cz)
     {
-        rand.setSeed((long) cx * 341873128712L + (long) cz * 132897987541L);
+        rand.setSeed(cx * 341873128712L + cz * 132897987541L);
         biomesGridHeights = this.getBiomesForGeneration(biomesGridHeights, cx * 4 - 2, cz * 4 - 2, 10, 10);
         this.generateHeightMap(cx * 4, 0, cz * 4);
 
@@ -602,16 +602,16 @@ public class MapGen extends BiomeProvider implements Runnable
         float f = this.settings.coordinateScale;
         float f1 = this.settings.heightScale;
         depthRegion =
-            noiseGen4.generateNoiseOctaves(depthRegion, cx, cz, 5, 5, (double) this.settings.depthNoiseScaleX, (double) this.settings.depthNoiseScaleZ, (double) this.settings.depthNoiseScaleExponent);
-        mainNoiseRegion = noiseGen3.generateNoiseOctaves(mainNoiseRegion, cx, cy, cz, 5, 33, 5, (double) (f / this.settings.mainNoiseScaleX), (double) (f1 / this.settings.mainNoiseScaleY),
-            (double) (f / this.settings.mainNoiseScaleZ));
-        minLimitRegion = noiseGen1.generateNoiseOctaves(minLimitRegion, cx, cy, cz, 5, 33, 5, (double) f, (double) f1, (double) f);
-        maxLimitRegion = noiseGen2.generateNoiseOctaves(maxLimitRegion, cx, cy, cz, 5, 33, 5, (double) f, (double) f1, (double) f);
+            noiseGen4.generateNoiseOctaves(depthRegion, cx, cz, 5, 5, this.settings.depthNoiseScaleX, this.settings.depthNoiseScaleZ, this.settings.depthNoiseScaleExponent);
+        mainNoiseRegion = noiseGen3.generateNoiseOctaves(mainNoiseRegion, cx, cy, cz, 5, 33, 5, f / this.settings.mainNoiseScaleX, f1 / this.settings.mainNoiseScaleY,
+            f / this.settings.mainNoiseScaleZ);
+        minLimitRegion = noiseGen1.generateNoiseOctaves(minLimitRegion, cx, cy, cz, 5, 33, 5, f, f1, f);
+        maxLimitRegion = noiseGen2.generateNoiseOctaves(maxLimitRegion, cx, cy, cz, 5, 33, 5, f, f1, f);
         boolean amplified = this.worldType == WorldType.AMPLIFIED;
-        double minLimitScale = (double) this.settings.lowerLimitScale;
-        double maxLimitScale = (double) this.settings.upperLimitScale;
-        double stretchY = (double) this.settings.stretchY * 128.0D / 256.0D;
-        double baseSize = (double) this.settings.baseSize;
+        double minLimitScale = this.settings.lowerLimitScale;
+        double maxLimitScale = this.settings.upperLimitScale;
+        double stretchY = this.settings.stretchY * 128.0D / 256.0D;
+        double baseSize = this.settings.baseSize;
         int i = 2; // start at 2 and later skip 19-33 - because these heightMap
                    // entries are never referenced in our code in this class
         int j = 0;
@@ -688,15 +688,15 @@ public class MapGen extends BiomeProvider implements Runnable
                 }
 
                 ++j;
-                double d8 = (double) f3;
-                double d9 = (double) f2;
+                double d8 = f3;
+                double d9 = f2;
                 d8 = d8 + d7 * 0.2D;
                 d8 = d8 * baseSize / 8.0D;
                 double d0 = baseSize + d8 * 4.0D;
 
                 for (int j2 = 2; j2 < 19; ++j2)
                 {
-                    double d1 = ((double) j2 - d0) * stretchY / d9;
+                    double d1 = (j2 - d0) * stretchY / d9;
                     if (d1 < 0.0D)
                     {
                         d1 *= 4.0D;

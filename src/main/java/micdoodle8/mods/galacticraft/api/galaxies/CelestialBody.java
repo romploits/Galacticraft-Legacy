@@ -2,7 +2,6 @@ package micdoodle8.mods.galacticraft.api.galaxies;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -22,14 +21,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-public abstract class CelestialBody implements Comparable<CelestialBody>
+@SuppressWarnings("deprecation")
+public abstract class CelestialBody extends CelestialObject implements Comparable<CelestialBody>
 {
 
-    protected final String bodyName;
-    protected String translationKey;
-
     protected float relativeSize = 1.0F;
-    protected ScalableDistance relativeDistanceFromCenter = new ScalableDistance(1.0F, 1.0F);
+    protected ScalableDistance relativeDistanceFromCenter = new ScalableDistance(1.0F);
     protected float relativeOrbitTime = 1.0F;
     protected float phaseShift = 0.0F;
     protected int dimensionID = -1;
@@ -54,37 +51,24 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
 
     protected ArrayList<String> checklistKeys = new ArrayList<>();
 
-    public CelestialBody(String bodyName)
+    public CelestialBody(Prefix prefix, String bodyName)
     {
-        this.bodyName = bodyName.toLowerCase(Locale.ENGLISH);
-        this.translationKey = bodyName;
+        super(bodyName, prefix);
     }
 
-    public abstract int getID();
-
-    public abstract String getTranslationKeyPrefix();
-
-    public String getName()
+    @Override
+    public void setOwnerId(String ownerId)
     {
-        return this.bodyName;
-    }
-
-    public String getTranslationKey()
-    {
-        return this.getTranslationKeyPrefix() + "." + this.translationKey;
+        super.setOwnerId(ownerId);
     }
 
     public String getTranslatedName()
     {
-        String s = this.getTranslationKey();
-        s = s == null ? "" : I18n.translateToLocal(s);
-        int comment = s.indexOf('#');
-        return (comment > 0) ? s.substring(0, comment).trim() : s;
+        return I18n.translateToLocal(getTranslationKey());
     }
 
     /**
-     * Used for rendering planet's location on the map. <p> Value of 2.0F would
-     * result in the planet being rendered twice as large as earth.
+     * Used for rendering planet's location on the map. <p> Value of 2.0F would result in the planet being rendered twice as large as earth.
      *
      * @return Size of the planet/moon relative to earth.
      */
@@ -94,8 +78,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     }
 
     /**
-     * Used for rendering planet's location on the map. <p> Value of 2.0F would
-     * result in an ellipse with twice the radius of the overworld.
+     * Used for rendering planet's location on the map. <p> Value of 2.0F would result in an ellipse with twice the radius of the overworld.
      *
      * @return Distance from the center of the map relative to earth.
      */
@@ -105,10 +88,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     }
 
     /**
-     * Used for rendering planet's location on the map. <p> Value of 1π would
-     * result in the planet being rendered directly accross from the original
-     * position <p> Value of 2π is a full rotation and therefore would be
-     * rendered at the same spot as the original position
+     * Used for rendering planet's location on the map. <p> Value of 1π would result in the planet being rendered directly accross from the original position <p> Value of 2π is a full rotation and therefore would be rendered at the same spot as the original position
      *
      * @return Phase shift of planet for planet's revolution around the sun.
      */
@@ -118,10 +98,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     }
 
     /**
-     * Multiplier for length of time relative to earth that this planet takes to
-     * orbit fully. <p> Value of 2.0F would result in the planet rotating twice
-     * as slow (and therefore take twice as long) as the earth takes to revolve
-     * around the sun.
+     * Multiplier for length of time relative to earth that this planet takes to orbit fully. <p> Value of 2.0F would result in the planet rotating twice as slow (and therefore take twice as long) as the earth takes to revolve around the sun.
      *
      * @return Multiple value for planet's revolution around the sun.
      */
@@ -189,7 +166,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     {
         return this.autoRegisterDimension;
     }
-
+    
     public int getDimensionID()
     {
         return this.dimensionID;
@@ -206,25 +183,13 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
     }
 
     /*
-     * Use this to list the atmospheric gases on the celestial body, starting
-     * with the most abundant Do not include trace gases (anything less than
-     * 0.25%) (Do not use for stars!)
+     * Use this to list the atmospheric gases on the celestial body, starting with the most abundant
+     * Do not include trace gases (anything less than 0.25%)
+     * (Do not use for stars!)
      */
     public CelestialBody atmosphereComponent(EnumAtmosphericGas gas)
     {
         this.atmosphere.composition.add(gas);
-        return this;
-    }
-
-    public CelestialBody atmosphereComponents(EnumAtmosphericGas... gasses)
-    {
-        this.atmosphere.composition.addAll(Arrays.asList(gasses));
-        return this;
-    }
-
-    public CelestialBody atmosphereComponents(Collection<EnumAtmosphericGas> collection)
-    {
-        this.atmosphere.composition.addAll(collection);
         return this;
     }
 
@@ -310,7 +275,6 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
 
     public static class ScalableDistance
     {
-
         public final float unScaledDistance;
         public final float scaledDistance;
 
@@ -319,12 +283,17 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
             this.unScaledDistance = unScaledDistance;
             this.scaledDistance = scaledDistance;
         }
+
+        public ScalableDistance(float distance)
+        {
+            this(distance, distance);
+        }
     }
 
-    public void setUnreachable()
-    {
-        this.isReachable = false;
-    }
+	public void setUnreachable()
+	{
+		this.isReachable = false;
+	}
 
     public String getDimensionSuffix()
     {
@@ -336,7 +305,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
         this.dimensionSuffix = dimensionSuffix;
     }
 
-    public void setBiomeInfo(Biome... biomes)
+    public void setBiomeInfo(Biome ...  biomes)
     {
         this.biomeInfo = new LinkedList<>();
         this.biomesToGenerate = new LinkedList<>();
@@ -345,11 +314,12 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
         for (Biome b : biomes)
         {
             this.biomeInfo.add(b);
-            if (b instanceof BiomeGenBaseGC && ((BiomeGenBaseGC) b).isAdaptiveBiome)
+            if (b instanceof BiomeGenBaseGC && ((BiomeGenBaseGC)b).isAdaptiveBiome)
             {
                 this.biomesToGenerate.add(BiomeAdaptive.register(index++, (BiomeGenBaseGC) b));
                 adaptiveBiomes.add((BiomeGenBaseGC) b);
-            } else
+            }
+            else
             {
                 this.biomesToGenerate.add(b);
             }
@@ -379,7 +349,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
             {
                 if (biome instanceof IMobSpawnBiome)
                 {
-                    ((IMobSpawnBiome) biome).initialiseMobLists(this.mobInfo);
+                    ((IMobSpawnBiome)biome).initialiseMobLists(this.mobInfo);
                 }
             }
         }
@@ -391,7 +361,7 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
         {
             try
             {
-                return ((IGalacticraftWorldProvider) this.providerClass.newInstance()).getSurfaceBlocks();
+                return ((IGalacticraftWorldProvider)this.providerClass.newInstance()).getSurfaceBlocks();
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -400,13 +370,33 @@ public abstract class CelestialBody implements Comparable<CelestialBody>
         return null;
     }
 
+    public enum Prefix
+    {
+
+        SATELLITE, MOON, PLANET, STAR, SOLARSYSTEM;
+
+        public String get()
+        {
+            return this.toString().toLowerCase(Locale.ENGLISH) + ".";
+        }
+
+        public static List<String> prefixs()
+        {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < Prefix.values().length; i++)
+            {
+                list.add(Prefix.values()[i].get());
+            }
+            return list;
+        }
+    }
+
     // DEPRECIATED METHODS
 
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
     @ReplaceWith("getTranslationKeyPrefix()")
     public abstract String getUnlocalizedNamePrefix();
-
 
     @Deprecated
     @ForRemoval(deadline = "4.1.0")

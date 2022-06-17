@@ -16,7 +16,7 @@ jobs:
     - uses: actions/stale@v4.1.0
       with:
         repo-token: ${{ github.token }}
-        stale-issue-message: 'Issue has been marked stale because it has been open 30 days with no activity. Issue will be closed in 24 hours if not updated'
+        stale-issue-message: 'Issue has been marked stale because it has been open 7 days with no activity. Issue will be closed in 24 hours if not updated'
         close-issue-message: 'Issue closed due to no updates or activity after the previous Stale notification'
         days-before-stale: 7
         days-before-close: 1

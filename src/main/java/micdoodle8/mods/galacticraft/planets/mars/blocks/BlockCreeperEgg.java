@@ -118,6 +118,7 @@ public class BlockCreeperEgg extends BlockDragonEgg implements IShiftDescription
         return stack.getItem() == MarsItems.deshPickSlime;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public float getPlayerRelativeBlockHardness(IBlockState state, EntityPlayer player, World worldIn, BlockPos pos)
     {
@@ -127,7 +128,7 @@ public class BlockCreeperEgg extends BlockDragonEgg implements IShiftDescription
             return 0.2F;
         }
 
-        return state.getPlayerRelativeBlockHardness(player, worldIn, pos);
+        return super.getPlayerRelativeBlockHardness(state, player, worldIn, pos);
     }
 
     @Override

@@ -10,6 +10,7 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'eclipse'
     id 'org.ajoberstar.reckon' version '0.13.2'
     id 'org.ajoberstar.grgit' version '4.1.1'
     id 'io.freefair.lombok' version '6.4.1'
@@ -30,11 +31,40 @@ archivesBaseName = "Galacticraft"
 
 repositories {
     mavenCentral()
-    maven { url 'https://maven.galacticraft.dev/releases' }
-    maven { url 'https://www.cursemaven.com' }
-    maven { url 'https://mod-buildcraft.com/maven/' }
-    maven { url 'https://maven.ic2.player.to' }
-    maven { url 'https://dvs1.progwml6.com/files/maven' }
+    maven {
+        name 'galacticraft'
+        url 'https://repo.galacticraft.net/repository/maven' 
+    }
+    maven { 
+        name 'buildcraft'
+        url 'https://mod-buildcraft.com/maven/' 
+        content { includeGroup 'com.mod-buildcraft' }
+    }
+    maven {
+        name 'ic2'
+        url 'https://maven.ic2.player.to'
+        content { includeGroup 'net.industrial-craft' }
+    }
+    maven {
+        name 'prog'
+        url 'https://dvs1.progwml6.com/files/maven'
+        content { includeGroup 'mezz.jei' }
+    }
+    maven {
+        name 'opencomputers'
+        url 'https://maven.cil.li/'
+        content { includeGroup 'li.cil.oc' }
+    }
+    maven {
+        name 'BlameJared - Crafttweaker'
+        url 'https://maven.blamejared.com/'
+        content { includeGroup 'CraftTweaker2' }
+    }
+    maven {
+        name 'cc-tweaked'
+        url 'https://squiddev.cc/maven/'
+        content { includeGroup 'org.squiddev' }
+    }
     
     all {
         ArtifactRepository repo ->
@@ -49,16 +79,28 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    implementation fg.deobf('curse.maven:bop-7.0.1.2444-220318:2842510')
-    implementation fg.deobf('curse.maven:mekanism-9.8.3.390-268560:2835175')
-    implementation fg.deobf('curse.maven:ae2-rv6-stable-7-223794:2747063')
-    implementation fg.deobf('curse.maven:redstoneflux-1.1.1-270789:2920436')
-    implementation fg.deobf('curse.maven:actuallyadditions-r152-228404:3117927')
-    implementation fg.deobf('curse.maven:playerapi-1.1-449521:3212872')
-    compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
-    runtimeOnly fg.deobf('com.mod-buildcraft:buildcraft-main:7.99.24.8')
+    
+    implementation fg.deobf('mod.dependency:biomes-o-plenty:7.0.1.2445')
+    implementation fg.deobf('mod.dependency:mekanism:9.8.3.390')
+    implementation fg.deobf('mod.dependency:appliedenergistics2:rv6-stable-7')
+    implementation fg.deobf('mod.dependency:redstoneflux:2.1.1.1')
+    implementation fg.deobf('mod.dependency:actuallyadditions:r152')
+    implementation fg.deobf('mod.dependency:playerapi:1.1')
     implementation fg.deobf('net.industrial-craft:industrialcraft-2:2.8.221-ex112')
+    implementation fg.deobf('org.squiddev:cc-tweaked-1.12.2:1.89.2')
+    
+    implementation fg.deobf('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.675') {
+        exclude module: "asm-debug-all"
+    }
+    implementation ('CraftTweaker2:CraftTweaker2-API:4.1.20.675') {
+        exclude module: "asm-debug-all"
+    }
+    
+    compileOnly fg.deobf('li.cil.oc:OpenComputers:MC1.12.2-1.7.5.218:api')
+    compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
     compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
+    
+    runtimeOnly fg.deobf('com.mod-buildcraft:buildcraft-main:7.99.24.8')
     runtimeOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
 }
 
@@ -123,14 +165,25 @@ jar {
 
 jar.finalizedBy('reobfJar')
 
-task sourcesJar(type: Jar) {
+task sourcesJar(type: Jar, dependsOn: classes) {
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     archiveClassifier.set('sources')
     archiveVersion.set("${mc_version}-${version}")
     from sourceSets.main.allSource    
 }
 
+// This will be the main jar that will be available via Maven
+// so projects do not have to pass it through ForgeGradle's 
+// deobfuscator configuration since (iirc) there is no way
+// to exclude miccore's classes
+task deobfJar(type: Jar) {
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
+    archiveVersion.set("${mc_version}-${version}-deobf")
+    from sourceSets.main.output
+}
+
 artifacts {
+    archives deobfJar
     archives sourcesJar
 }
 

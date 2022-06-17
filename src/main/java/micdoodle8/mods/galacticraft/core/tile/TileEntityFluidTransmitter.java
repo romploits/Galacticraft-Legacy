@@ -24,7 +24,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -253,7 +253,7 @@ public abstract class TileEntityFluidTransmitter extends TileEntityAdvanced impl
         return false;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = "mekanism")
     public int receiveGas(EnumFacing side, GasStack stack, boolean doTransfer)
     {
         if (!stack.getGas().getName().equals("oxygen"))
@@ -263,37 +263,37 @@ public abstract class TileEntityFluidTransmitter extends TileEntityAdvanced impl
         return stack.amount - (int) Math.floor(((IOxygenNetwork) this.getNetwork()).produce(stack.amount, this));
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = "mekanism")
     public int receiveGas(EnumFacing side, GasStack stack)
     {
         return this.receiveGas(side, stack, true);
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = "mekanism")
     public GasStack drawGas(EnumFacing side, int amount, boolean doTransfer)
     {
         return null;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = "mekanism")
     public GasStack drawGas(EnumFacing side, int amount)
     {
         return null;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = "mekanism")
     public boolean canDrawGas(EnumFacing side, Gas type)
     {
         return false;
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = "mekanism")
     public boolean canReceiveGas(EnumFacing side, Gas type)
     {
         return type.getName().equals("oxygen");
     }
 
-    @Optional.Method(modid = "mekanism")
+    @Method(modid = "mekanism")
     public boolean canTubeConnect(EnumFacing side)
     {
         return this.canConnect(side, NetworkType.FLUID);
