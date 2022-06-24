@@ -11,20 +11,21 @@ buildscript {
 plugins {
     id 'java'
     id 'eclipse'
-    id 'org.ajoberstar.reckon' version '0.13.2'
-    id 'org.ajoberstar.grgit' version '4.1.1'
-    id 'io.freefair.lombok' version '6.4.1'
+    id 'org.ajoberstar.reckon' version '0.16.1'
+    id 'org.ajoberstar.grgit' version '5.0.0'
+    id 'io.freefair.lombok' version '6.4.3'
     id 'wtf.gofancy.fancygradle' version '1.+'
+}
+
+reckon {
+    snapshots()
+    scopeCalc = calcScopeFromProp().or(calcScopeFromCommitMessages())
+    stageCalc = calcStageFromProp()
+    defaultInferredScope = 'patch'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
-
-reckon {
-    scopeFromProp()
-    stageFromProp('rc', 'final')
-    snapshotFromProp()
-}
 
 group = "micdoodle8.mods.galacticraft"
 archivesBaseName = "Galacticraft"
@@ -88,6 +89,7 @@ dependencies {
     implementation fg.deobf('mod.dependency:playerapi:1.1')
     implementation fg.deobf('net.industrial-craft:industrialcraft-2:2.8.221-ex112')
     implementation fg.deobf('org.squiddev:cc-tweaked-1.12.2:1.89.2')
+    implementation fg.deobf('mod.dependency:journeymap:5.7.1')
     
     implementation fg.deobf('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.675') {
         exclude module: "asm-debug-all"
