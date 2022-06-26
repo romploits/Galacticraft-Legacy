@@ -20,7 +20,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 
 public class PlayerServer implements IPlayerServer
 {
@@ -125,8 +127,12 @@ public class PlayerServer implements IPlayerServer
     }
 
     @Override
-    public void knockBack(EntityPlayerMP player, Entity p_70653_1_, float p_70653_2_, double impulseX, double impulseZ)
+    public void knockBack(EntityPlayerMP player, Entity entity, float strength, double impulseX, double impulseZ)
     {
+        LivingKnockBackEvent event = ForgeHooks.onLivingKnockBack(player, entity, strength, impulseX, impulseZ);
+        if (event.isCanceled())
+            return;
+
         int deshCount = 0;
         if (player.inventory != null && GalacticraftCore.isPlanetsLoaded)
         {
