@@ -40,7 +40,7 @@ jobs:
         run: echo "RELEASE=true" >> $GITHUB_ENV
 
       - name: 'Build'
-        run: ./gradlew build --max-workers 1
+        run: ./gradlew build
 
       - name: 'Create GitHub release'
         id: create_release
