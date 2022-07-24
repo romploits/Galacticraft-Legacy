@@ -1,7 +1,11 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
-        mavenCentral()
-        maven { url = 'https://gitlab.com/api/v4/projects/26758973/packages/maven' }
+		mavenLocal()
+		maven {
+			url = 'https://repo.galacticraft.net/repository/common-proxy/'
+		}
+		maven {
+			url = 'https://repo.galacticraft.net/repository/maven-common/'
+		}
     }
 }

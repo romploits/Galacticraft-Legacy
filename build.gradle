@@ -1,8 +1,4 @@
 buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
-    }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
@@ -13,7 +9,7 @@ plugins {
     id 'eclipse'
     id 'org.ajoberstar.reckon' version '0.16.1'
     id 'org.ajoberstar.grgit' version '5.0.0'
-    id 'io.freefair.lombok' version '6.4.3'
+    id 'io.freefair.lombok' version '6.5.0.2'
     id 'wtf.gofancy.fancygradle' version '1.+'
 }
 
@@ -78,29 +74,34 @@ repositories {
     }
 }
 
+configurations {
+    compileOnly.extendsFrom compileMod
+}
+
+
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     
-    implementation fg.deobf('mod.dependency:biomes-o-plenty:7.0.1.2445')
-    implementation fg.deobf('mod.dependency:mekanism:9.8.3.390')
-    implementation fg.deobf('mod.dependency:appliedenergistics2:rv6-stable-7')
-    implementation fg.deobf('mod.dependency:redstoneflux:2.1.1.1')
-    implementation fg.deobf('mod.dependency:actuallyadditions:r152')
-    implementation fg.deobf('mod.dependency:playerapi:1.1')
-    implementation fg.deobf('net.industrial-craft:industrialcraft-2:2.8.221-ex112')
-    implementation fg.deobf('org.squiddev:cc-tweaked-1.12.2:1.89.2')
-    implementation fg.deobf('mod.dependency:journeymap:5.7.1')
+    compileMod fg.deobf('mod.dependency:biomes-o-plenty:7.0.1.2445')
+    compileMod fg.deobf('mod.dependency:mekanism:9.8.3.390')
+    compileMod fg.deobf('mod.dependency:appliedenergistics2:rv6-stable-7')
+    compileMod fg.deobf('mod.dependency:redstoneflux:2.1.1.1')
+    compileMod fg.deobf('mod.dependency:actuallyadditions:r152')
+    compileMod fg.deobf('mod.dependency:playerapi:1.1')
+    compileMod fg.deobf('mod.dependency:industrialcraft-2:2.8.222-ex112')
+    compileMod fg.deobf('mod.dependency:journeymap:5.7.1')
+    compileMod fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
     
-    implementation fg.deobf('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.675') {
+    compileOnly fg.deobf('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.675') {
         exclude module: "asm-debug-all"
     }
-    implementation ('CraftTweaker2:CraftTweaker2-API:4.1.20.675') {
+    compileOnly ('CraftTweaker2:CraftTweaker2-API:4.1.20.675') {
         exclude module: "asm-debug-all"
     }
     
     compileOnly fg.deobf('li.cil.oc:OpenComputers:MC1.12.2-1.7.5.218:api')
-    compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
-    compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
+    compileOnly fg.deobf('org.squiddev:cc-tweaked-1.12.2:1.89.2')
+    compileMod fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
     
     runtimeOnly fg.deobf('com.mod-buildcraft:buildcraft-main:7.99.24.8')
     runtimeOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
