@@ -30,6 +30,7 @@ public class GalacticraftAsteroidsJEI extends BlankModPlugin
         registry.addRecipes(Tier3RocketRecipeMaker.getRecipesList(), RecipeCategories.ROCKET_T3_ID);
         registry.addRecipes(GalacticraftRegistry.getAstroMinerRecipes(), RecipeCategories.ASTRO_MINER_ID);
         registry.addRecipeCatalyst(new ItemStack(GCBlocks.nasaWorkbench), RecipeCategories.ROCKET_T3_ID, RecipeCategories.ASTRO_MINER_ID);
+        registry.addRecipeCatalyst(new ItemStack(GCBlocks.compactNasaWorkbench), RecipeCategories.ROCKET_T3_ID, RecipeCategories.ASTRO_MINER_ID);
     }
 
     @Override

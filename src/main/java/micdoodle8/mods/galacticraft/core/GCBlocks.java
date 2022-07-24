@@ -25,6 +25,7 @@ import micdoodle8.mods.galacticraft.core.blocks.BlockBrightBreathableAir;
 import micdoodle8.mods.galacticraft.core.blocks.BlockBrightLamp;
 import micdoodle8.mods.galacticraft.core.blocks.BlockCargoLoader;
 import micdoodle8.mods.galacticraft.core.blocks.BlockCheese;
+import micdoodle8.mods.galacticraft.core.blocks.BlockCompactNasaWorkbench;
 import micdoodle8.mods.galacticraft.core.blocks.BlockConcealedDetector;
 import micdoodle8.mods.galacticraft.core.blocks.BlockConcealedRedstone;
 import micdoodle8.mods.galacticraft.core.blocks.BlockConcealedRepeater;
@@ -131,6 +132,7 @@ public class GCBlocks
     public static Block oxygenSealer;
     public static Block oxygenDetector;
     public static Block nasaWorkbench;
+    public static Block compactNasaWorkbench;
     public static Block fallenMeteor;
     public static Block basicBlock;
     public static Block airLockFrame;
@@ -211,6 +213,7 @@ public class GCBlocks
         GCBlocks.oxygenPipePull = new BlockFluidPipe("fluid_pipe_pull", BlockFluidPipe.EnumPipeMode.PULL);
         GCBlocks.oxygenCollector = new BlockOxygenCollector("collector");
         GCBlocks.nasaWorkbench = new BlockNasaWorkbench("rocket_workbench");
+        GCBlocks.compactNasaWorkbench = new BlockCompactNasaWorkbench("compact_workbench");
         GCBlocks.fallenMeteor = new BlockFallenMeteor("fallen_meteor");
         GCBlocks.basicBlock = new BlockBasic("basic_block_core");
         GCBlocks.airLockFrame = new BlockAirLockFrame("air_lock_frame");
@@ -600,21 +603,16 @@ public class GCBlocks
         registerBlock(GCBlocks.fuelLoader, ItemBlockDesc.class);
         registerBlock(GCBlocks.cargoLoader, ItemBlockCargoLoader.class);
         registerBlock(GCBlocks.nasaWorkbench, ItemBlockNasaWorkbench.class);
+        registerBlock(GCBlocks.compactNasaWorkbench, ItemBlockDesc.class);
         registerBlock(GCBlocks.basicBlock, ItemBlockBase.class);
         registerBlock(GCBlocks.airLockFrame, ItemBlockAirLock.class);
         registerBlock(GCBlocks.airLockSeal, ItemBlockGC.class);
         registerBlock(GCBlocks.spaceGlassClear, ItemBlockGlassGC.class);
         registerBlock(GCBlocks.spaceGlassVanilla, ItemBlockGlassGC.class);
         registerBlock(GCBlocks.spaceGlassStrong, ItemBlockGlassGC.class);
-        registerBlock(GCBlocks.spaceGlassTinClear, null); // The corresponding
-        // item is already
-        // registered
-        registerBlock(GCBlocks.spaceGlassTinVanilla, null); // The corresponding
-        // item is already
-        // registered
-        registerBlock(GCBlocks.spaceGlassTinStrong, null); // The corresponding
-        // item is already
-        // registered
+        registerBlock(GCBlocks.spaceGlassTinClear, null); // The corresponding item is already registered
+        registerBlock(GCBlocks.spaceGlassTinVanilla, null); // The corresponding item is already registered
+        registerBlock(GCBlocks.spaceGlassTinStrong, null); // The corresponding item is already registered
         registerBlock(GCBlocks.crafting, ItemBlockDesc.class);
         registerBlock(GCBlocks.sealableBlock, ItemBlockEnclosed.class);
         registerBlock(GCBlocks.spaceStationBase, ItemBlockGC.class);

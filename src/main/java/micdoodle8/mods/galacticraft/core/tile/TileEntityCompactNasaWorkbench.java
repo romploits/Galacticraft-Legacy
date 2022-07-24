@@ -1,0 +1,20 @@
+package micdoodle8.mods.galacticraft.core.tile;
+
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import micdoodle8.mods.galacticraft.core.client.gui.GuiIdsCore;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+
+public class TileEntityCompactNasaWorkbench extends TileEntity
+{
+
+    public TileEntityCompactNasaWorkbench()
+    {
+    }
+
+    public boolean onActivated(EntityPlayer entityPlayer)
+    {
+        entityPlayer.openGui(GalacticraftCore.instance, GuiIdsCore.NASA_WORKBENCH_ROCKET, this.world, this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
+        return true;
+    }
+}

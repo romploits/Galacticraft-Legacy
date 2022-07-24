@@ -3,42 +3,60 @@ package micdoodle8.mods.galacticraft.api.galaxies;
 import java.util.Locale;
 import java.util.function.Predicate;
 import lombok.Setter;
-import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody.Prefix;
+import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
+import micdoodle8.mods.galacticraft.core.util.TranslateUtil;
 
-public class CelestialObject
+public abstract class CelestialObject implements ICelestial
 {
 
-    public final String name;
-    public final Prefix prefix;
-    public final String translationKey;
+    protected final String bodyName;
+    @Setter
+    private CelestialType type;
     @Setter
     public String ownerId;
 
-    public CelestialObject(String name, Prefix prefix)
+    public CelestialObject(CelestialType type, String bodyName)
     {
-        this.name = name.toLowerCase(Locale.ENGLISH);
-        this.translationKey = name;
-        this.prefix = prefix;
+        this(bodyName);
+        this.type = type;
     }
 
+    public CelestialObject(String bodyName)
+    {
+        this.bodyName = bodyName.toLowerCase(Locale.ENGLISH);
+    }
+
+    @Override
     public String getName()
     {
-        return this.name;
+        return this.bodyName;
     }
 
     public String getTranslationKey()
     {
-        return this.getPrefix() + translationKey;
+        return this.getCelestialType().getPrefix() + bodyName;
     }
 
-    public String getPrefix()
+    @Deprecated
+    @ReplaceWith("getCelestialType().getPrefix()")
+    public String getTranslationKeyPrefix()
     {
-        return this.prefix.get();
+        return this.getCelestialType().getPrefix();
+    }
+
+    public CelestialType getCelestialType()
+    {
+        return this.type;
     }
 
     public String getOwnerId()
     {
         return this.ownerId;
+    }
+
+    public String getTranslatedName()
+    {
+        return TranslateUtil.getInstance().translate(this.getTranslationKey());
     }
 
     public static Predicate<CelestialObject> filter(String modId)

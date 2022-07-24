@@ -185,12 +185,13 @@ public class GalaxyRegistry
         return getPlanetOrMoonFromTranslationkey(unlocalizedName);
     }
 
+    @SuppressWarnings("deprecation")
     public static <T> void register(T object)
     {
         if (object instanceof SolarSystem)
         {
             SolarSystem solarSystem = (SolarSystem) object;
-            RegisterEvent<SolarSystem> registerEvent = new RegisterEvent<>(solarSystem, Loader.instance().activeModContainer());
+            RegisterEvent registerEvent = new RegisterEvent(solarSystem, Loader.instance().activeModContainer());
             solarSystems.add(solarSystem);
             objects.add(solarSystem);
             MinecraftForge.EVENT_BUS.post(registerEvent);
@@ -199,7 +200,7 @@ public class GalaxyRegistry
         if (object instanceof Planet)
         {
             Planet planet = (Planet) object;
-            RegisterEvent<Planet> registerEvent = new RegisterEvent<>(planet, Loader.instance().activeModContainer());
+            RegisterEvent registerEvent = new RegisterEvent(planet, Loader.instance().activeModContainer());
             planets.add(planet);
             objects.add(planet);
             MinecraftForge.EVENT_BUS.post(registerEvent);
@@ -208,7 +209,7 @@ public class GalaxyRegistry
         if (object instanceof Moon)
         {
             Moon moon = (Moon) object;
-            RegisterEvent<Moon> registerEvent = new RegisterEvent<>(moon, Loader.instance().activeModContainer());
+            RegisterEvent registerEvent = new RegisterEvent(moon, Loader.instance().activeModContainer());
             moons.add(moon);
             objects.add(moon);
             MinecraftForge.EVENT_BUS.post(registerEvent);
@@ -217,9 +218,24 @@ public class GalaxyRegistry
         if (object instanceof Satellite)
         {
             Satellite satellite = (Satellite) object;
-            RegisterEvent<Satellite> registerEvent = new RegisterEvent<>(satellite, Loader.instance().activeModContainer());
+            RegisterEvent registerEvent = new RegisterEvent(satellite, Loader.instance().activeModContainer());
             satellites.add(satellite);
             objects.add(satellite);
+            MinecraftForge.EVENT_BUS.post(registerEvent);
+        }
+        
+        if (object instanceof CelestialBody)
+        {
+            CelestialBody celestialType = (CelestialBody) object;
+            String unlocalizedPrefix = ((CelestialBody) object).getUnlocalizedNamePrefix();
+
+            if (!unlocalizedPrefix.equals("unset"))
+            {
+                ((CelestialBody) object).setType(CelestialType.create(unlocalizedPrefix));
+            }
+
+            RegisterEvent registerEvent = new RegisterEvent(celestialType, Loader.instance().activeModContainer());
+            objects.add(celestialType);
             MinecraftForge.EVENT_BUS.post(registerEvent);
         }
     }

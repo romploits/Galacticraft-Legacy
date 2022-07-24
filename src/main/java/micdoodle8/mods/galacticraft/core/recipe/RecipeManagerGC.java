@@ -35,7 +35,6 @@ import micdoodle8.mods.galacticraft.planets.venus.VenusItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
@@ -43,13 +42,11 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 
 public class RecipeManagerGC
 {
 
-    public static ArrayList<ItemStack> aluminumIngots = new ArrayList<ItemStack>();
+    public static ArrayList<ItemStack> aluminumIngots = new ArrayList<>();
     private static boolean configSaved_RequireGCmetals = true;
     private static boolean configSaved_QuickMode = false;
     private static String configSaved_Silicon = "-";
@@ -81,7 +78,8 @@ public class RecipeManagerGC
 
     public static void addUniversalRecipes()
     {
-        RecipeSorter.register("galacticraftcore:shapedore", OreRecipeUpdatable.class, Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
+        // Look im just following orders here
+        //RecipeSorter.register("galacticraftcore:shapedore", OreRecipeUpdatable.class, Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
 
         Object meteoricIronIngot = new ItemStack(GCItems.itemBasicMoon, 1, 0);
         Object meteoricIronPlate = new ItemStack(GCItems.itemBasicMoon, 1, 1);
@@ -130,43 +128,43 @@ public class RecipeManagerGC
 
         for (ItemStack woodChest : woodChests)
         {
-            input2 = new HashMap<Integer, ItemStack>(input);
+            input2 = new HashMap<>(input);
             input2.put(15, woodChest);
             input2.put(16, ItemStack.EMPTY);
             input2.put(17, ItemStack.EMPTY);
             RecipeUtil.addRocketBenchRecipe(new ItemStack(GCItems.rocketTier1, 1, 1), input2);
 
-            input2 = new HashMap<Integer, ItemStack>(input);
+            input2 = new HashMap<>(input);
             input2.put(15, ItemStack.EMPTY);
             input2.put(16, woodChest);
             input2.put(17, ItemStack.EMPTY);
             RecipeUtil.addRocketBenchRecipe(new ItemStack(GCItems.rocketTier1, 1, 1), input2);
 
-            input2 = new HashMap<Integer, ItemStack>(input);
+            input2 = new HashMap<>(input);
             input2.put(15, ItemStack.EMPTY);
             input2.put(16, ItemStack.EMPTY);
             input2.put(17, woodChest);
             RecipeUtil.addRocketBenchRecipe(new ItemStack(GCItems.rocketTier1, 1, 1), input2);
 
-            input2 = new HashMap<Integer, ItemStack>(input);
+            input2 = new HashMap<>(input);
             input2.put(15, woodChest);
             input2.put(16, woodChest);
             input2.put(17, ItemStack.EMPTY);
             RecipeUtil.addRocketBenchRecipe(new ItemStack(GCItems.rocketTier1, 1, 2), input2);
 
-            input2 = new HashMap<Integer, ItemStack>(input);
+            input2 = new HashMap<>(input);
             input2.put(15, woodChest);
             input2.put(16, ItemStack.EMPTY);
             input2.put(17, woodChest);
             RecipeUtil.addRocketBenchRecipe(new ItemStack(GCItems.rocketTier1, 1, 2), input2);
 
-            input2 = new HashMap<Integer, ItemStack>(input);
+            input2 = new HashMap<>(input);
             input2.put(15, ItemStack.EMPTY);
             input2.put(16, woodChest);
             input2.put(17, woodChest);
             RecipeUtil.addRocketBenchRecipe(new ItemStack(GCItems.rocketTier1, 1, 2), input2);
 
-            input2 = new HashMap<Integer, ItemStack>(input);
+            input2 = new HashMap<>(input);
             input2.put(15, woodChest);
             input2.put(16, woodChest);
             input2.put(17, woodChest);
@@ -175,7 +173,7 @@ public class RecipeManagerGC
 
         //
 
-        input = new HashMap<Integer, ItemStack>();
+        input = new HashMap<>();
         input.put(1, new ItemStack(GCItems.heavyPlatingTier1));
         input.put(2, new ItemStack(GCItems.heavyPlatingTier1));
         input.put(3, new ItemStack(GCItems.heavyPlatingTier1));
@@ -197,50 +195,50 @@ public class RecipeManagerGC
         input.put(19, ItemStack.EMPTY);
         RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 0), input);
 
-        input2 = new HashMap<Integer, ItemStack>(input);
+        input2 = new HashMap<>(input);
         input2.put(17, new ItemStack(GCItems.partBuggy, 1, 2));
         input2.put(18, ItemStack.EMPTY);
         input2.put(19, ItemStack.EMPTY);
         RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 1), input2);
 
-        input2 = new HashMap<Integer, ItemStack>(input);
+        input2 = new HashMap<>(input);
         input2.put(17, ItemStack.EMPTY);
         input2.put(18, new ItemStack(GCItems.partBuggy, 1, 2));
         input2.put(19, ItemStack.EMPTY);
         RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 1), input2);
 
-        input2 = new HashMap<Integer, ItemStack>(input);
+        input2 = new HashMap<>(input);
         input2.put(17, ItemStack.EMPTY);
         input2.put(18, ItemStack.EMPTY);
         input2.put(19, new ItemStack(GCItems.partBuggy, 1, 2));
         RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 1), input2);
 
-        input2 = new HashMap<Integer, ItemStack>(input);
+        input2 = new HashMap<>(input);
         input2.put(17, new ItemStack(GCItems.partBuggy, 1, 2));
         input2.put(18, new ItemStack(GCItems.partBuggy, 1, 2));
         input2.put(19, ItemStack.EMPTY);
         RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 2), input2);
 
-        input2 = new HashMap<Integer, ItemStack>(input);
+        input2 = new HashMap<>(input);
         input2.put(17, new ItemStack(GCItems.partBuggy, 1, 2));
         input2.put(18, ItemStack.EMPTY);
         input2.put(19, new ItemStack(GCItems.partBuggy, 1, 2));
         RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 2), input2);
 
-        input2 = new HashMap<Integer, ItemStack>(input);
+        input2 = new HashMap<>(input);
         input2.put(17, ItemStack.EMPTY);
         input2.put(18, new ItemStack(GCItems.partBuggy, 1, 2));
         input2.put(19, new ItemStack(GCItems.partBuggy, 1, 2));
         RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 2), input2);
 
-        input2 = new HashMap<Integer, ItemStack>(input);
+        input2 = new HashMap<>(input);
         input2.put(17, new ItemStack(GCItems.partBuggy, 1, 2));
         input2.put(18, new ItemStack(GCItems.partBuggy, 1, 2));
         input2.put(19, new ItemStack(GCItems.partBuggy, 1, 2));
         RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 3), input2);
 
         aluminumIngots.addAll(OreDictionary.getOres("ingotAluminum"));
-        ArrayList<ItemStack> addedList = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> addedList = new ArrayList<>();
         for (ItemStack ingotNew : OreDictionary.getOres("ingotAluminium"))
         {
             boolean flag = false;
@@ -278,7 +276,7 @@ public class RecipeManagerGC
             aluminumIngots.addAll(addedList);
         }
 
-        final HashMap<Object, Integer> spaceStationRequirements = new HashMap<Object, Integer>(4, 1.0F);
+        final HashMap<Object, Integer> spaceStationRequirements = new HashMap<>(4, 1.0F);
         spaceStationRequirements.put("ingotTin", 32);
         spaceStationRequirements.put(aluminumIngots, 16);
         spaceStationRequirements.put(new ItemStack(GCItems.basicItem, 1, ItemBasic.WAFER_ADVANCED), 1);
@@ -410,7 +408,7 @@ public class RecipeManagerGC
             if (needNewList)
             {
                 List<ItemStack> newList = new ArrayList<>(1 + silicons.size());
-                newList.add((ItemStack) siliconGC);
+                newList.add(siliconGC);
                 if (silicons.size() > 0)
                     newList.addAll(silicons);
                 silicons = newList;
@@ -512,7 +510,7 @@ public class RecipeManagerGC
                 for (int i = BlockEnclosed.EnumEnclosedBlockType.BC_ITEM_STONEPIPE.getMeta(); i <= BlockEnclosed.EnumEnclosedBlockType.BC_FLUIDS_COBBLESTONEPIPE.getMeta(); i++)
                 {
                     String pipeName = EnumEnclosedBlockType.values()[i].getBCPipeType();
-                    Object pipeItemBC = (Item) CompatibilityManager.classBCTransport.getField(pipeName).get(null);
+                    Object pipeItemBC = CompatibilityManager.classBCTransport.getField(pipeName).get(null);
                     RecipeUtil.addRecipe(new ItemStack(GCBlocks.sealableBlock, 1, i), new Object[]
                     {"XYX", 'Y', pipeItemBC, 'X', new ItemStack(GCBlocks.basicBlock, 1, 4)});
                 }

@@ -1,6 +1,5 @@
 package micdoodle8.mods.galacticraft.core;
 
-import api.player.server.ServerPlayerAPI;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,7 +70,6 @@ import micdoodle8.mods.galacticraft.core.entities.EntityParachest;
 import micdoodle8.mods.galacticraft.core.entities.EntitySkeletonBoss;
 import micdoodle8.mods.galacticraft.core.entities.EntityTier1Rocket;
 import micdoodle8.mods.galacticraft.core.entities.player.GCCapabilities;
-import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerBaseMP;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerHandler;
 import micdoodle8.mods.galacticraft.core.event.EventHandlerGC;
 import micdoodle8.mods.galacticraft.core.event.LootHandlerGC;
@@ -96,6 +94,7 @@ import micdoodle8.mods.galacticraft.core.tile.TileEntityCargoLoader;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCargoUnloader;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCircuitFabricator;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCoalGenerator;
+import micdoodle8.mods.galacticraft.core.tile.TileEntityCompactNasaWorkbench;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityCrafting;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityDeconstructor;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityDish;
@@ -175,6 +174,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -199,8 +199,7 @@ import net.minecraftforge.server.permission.PermissionAPI;
 @Mod(modid = Constants.MOD_ID_CORE,
     name = GalacticraftCore.NAME,
     version = Constants.VERSION,
-    dependencies = "required-after:forge@[14.23.5.2847,);",
-    useMetadata = true,
+    dependencies = "required-after:forge@[14.23.5.2860,);",
     acceptedMinecraftVersions = "[1.12, 1.13)",
     guiFactory = "micdoodle8.mods.galacticraft.core.client.gui.screen.ConfigGuiFactoryCore")
 public class GalacticraftCore
@@ -262,6 +261,7 @@ public class GalacticraftCore
     public void preInit(FMLPreInitializationEvent event)
     {
         GCCoreSource = event.getSourceFile();
+        this.initModInfo(event.getModMetadata());
         GCCapabilities.register();
 
         isPlanetsLoaded = Loader.isModLoaded(Constants.MOD_ID_PLANETS);
@@ -292,11 +292,6 @@ public class GalacticraftCore
         GalacticraftCore.galacticraftItemsTab = new CreativeTabGC(CreativeTabs.getNextID(), "galacticraft_items", null, null);
 
         GCFluids.registerOilandFuel();
-
-        if (CompatibilityManager.PlayerAPILoaded)
-        {
-            ServerPlayerAPI.register(Constants.MOD_ID_CORE, GCPlayerBaseMP.class);
-        }
 
         GCBlocks.initBlocks();
         GCItems.initItems();
@@ -594,7 +589,7 @@ public class GalacticraftCore
         {
             if (body.shouldAutoRegister())
             {
-                if (!WorldUtil.registerPlanet(body.getDimensionID(), body.getReachable(), 0))
+                if (!WorldUtil.registerPlanet(body.getDimensionID(), body.isReachable(), 0))
                 {
                     body.setUnreachable();
                 }
@@ -695,6 +690,7 @@ public class GalacticraftCore
         register(TileEntityAirLock.class, "gc_air_lock_frame");
         register(TileEntityRefinery.class, "gc_refinery");
         register(TileEntityNasaWorkbench.class, "gc_nasa_workbench");
+        register(TileEntityCompactNasaWorkbench.class, "gc_nasa_workbench_compact");
         register(TileEntityDeconstructor.class, "gc_deconstructor");
         register(TileEntityOxygenCompressor.class, "gc_air_compressor");
         register(TileEntityFuelLoader.class, "gc_fuel_loader");
@@ -882,5 +878,15 @@ public class GalacticraftCore
                 GCSounds.registerSounds(event.getRegistry());
             }
         }
+    }
+
+    private void initModInfo(ModMetadata info)
+    {
+        info.modId = Constants.MOD_ID_CORE;
+        info.name = Constants.MOD_NAME_SIMPLE;
+        info.version = Constants.VERSION;
+        info.description = "An advanced space travel mod for Minecraft!";
+        info.authorList = Arrays.asList("micdoodle8", "radfast", "EzerArch", "fishtaco", "SpaceViking", "SteveKunG", "ROMVoid95");
+        info.logoFile = "assets/galacticraftplanets/logo.png";
     }
 }

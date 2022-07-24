@@ -34,7 +34,6 @@ public class BlockNasaWorkbench extends BlockContainer implements ITileEntityPro
     public BlockNasaWorkbench(String assetName)
     {
         super(Material.IRON);
-//        this.setBlockBounds(-0.3F, 0.0F, -0.3F, 1.3F, 0.5F, 1.3F);
         this.setHardness(2.5F);
         this.setSoundType(SoundType.METAL);
         this.setTranslationKey(assetName);

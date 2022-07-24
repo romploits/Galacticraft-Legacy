@@ -42,6 +42,7 @@ public class GalacticraftMarsJEI extends BlankModPlugin
         registry.addRecipes(MethaneSynthRecipeMaker.getRecipesList(), RecipeCategories.METHANE_SYNTHESIZER_ID);
 
         registry.addRecipeCatalyst(new ItemStack(GCBlocks.nasaWorkbench), RecipeCategories.ROCKET_T2_ID, RecipeCategories.ROCKET_CARGO_ID);
+        registry.addRecipeCatalyst(new ItemStack(GCBlocks.compactNasaWorkbench), RecipeCategories.ROCKET_T2_ID, RecipeCategories.ROCKET_CARGO_ID);
         registry.addRecipeCatalyst(new ItemStack(MarsBlocks.machineT2), RecipeCategories.GAS_LIQUEFIER_ID);
         registry.addRecipeCatalyst(new ItemStack(MarsBlocks.machineT2, 1, 4), RecipeCategories.METHANE_SYNTHESIZER_ID);
     }

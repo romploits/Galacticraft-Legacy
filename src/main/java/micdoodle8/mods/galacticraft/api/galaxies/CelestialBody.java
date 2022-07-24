@@ -2,9 +2,9 @@ package micdoodle8.mods.galacticraft.api.galaxies;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
@@ -15,7 +15,6 @@ import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.api.world.IMobSpawnBiome;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
@@ -51,20 +50,30 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
 
     protected ArrayList<String> checklistKeys = new ArrayList<>();
 
-    public CelestialBody(Prefix prefix, String bodyName)
+    public CelestialBody(String bodyName)
     {
-        super(bodyName, prefix);
+        super(bodyName);
+    }
+
+    public CelestialBody(String type, String bodyName)
+    {
+        this(CelestialType.create(type), bodyName);
+    }
+
+    public CelestialBody(CelestialType type, String bodyName)
+    {
+        super(type, bodyName);
+    }
+
+    public int getID()
+    {
+        return dimensionID;
     }
 
     @Override
     public void setOwnerId(String ownerId)
     {
         super.setOwnerId(ownerId);
-    }
-
-    public String getTranslatedName()
-    {
-        return I18n.translateToLocal(getTranslationKey());
     }
 
     /**
@@ -166,7 +175,7 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
     {
         return this.autoRegisterDimension;
     }
-    
+
     public int getDimensionID()
     {
         return this.dimensionID;
@@ -177,15 +186,31 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
         return this.providerClass;
     }
 
-    public boolean getReachable()
+    public boolean isReachable()
     {
         return this.isReachable;
     }
 
     /*
-     * Use this to list the atmospheric gases on the celestial body, starting with the most abundant
-     * Do not include trace gases (anything less than 0.25%)
-     * (Do not use for stars!)
+     * Use this to list the atmospheric gases on the celestial body, starting with the most abundant Do not include trace gases (anything less than 0.25%) (Do not use for stars!)
+     */
+    public CelestialBody atmosphereComponents(EnumAtmosphericGas... gasses)
+    {
+        this.atmosphere.composition.addAll(Arrays.asList(gasses));
+        return this;
+    }
+
+    /*
+     * Use this to list the atmospheric gases on the celestial body, starting with the most abundant Do not include trace gases (anything less than 0.25%) (Do not use for stars!)
+     */
+    public CelestialBody atmosphereComponents(Collection<EnumAtmosphericGas> collection)
+    {
+        this.atmosphere.composition.addAll(collection);
+        return this;
+    }
+
+    /*
+     * Use this to list the atmospheric gases on the celestial body, starting with the most abundant Do not include trace gases (anything less than 0.25%) (Do not use for stars!)
      */
     public CelestialBody atmosphereComponent(EnumAtmosphericGas gas)
     {
@@ -275,6 +300,7 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
 
     public static class ScalableDistance
     {
+
         public final float unScaledDistance;
         public final float scaledDistance;
 
@@ -290,10 +316,10 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
         }
     }
 
-	public void setUnreachable()
-	{
-		this.isReachable = false;
-	}
+    public void setUnreachable()
+    {
+        this.isReachable = false;
+    }
 
     public String getDimensionSuffix()
     {
@@ -305,7 +331,7 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
         this.dimensionSuffix = dimensionSuffix;
     }
 
-    public void setBiomeInfo(Biome ...  biomes)
+    public void setBiomeInfo(Biome... biomes)
     {
         this.biomeInfo = new LinkedList<>();
         this.biomesToGenerate = new LinkedList<>();
@@ -314,12 +340,11 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
         for (Biome b : biomes)
         {
             this.biomeInfo.add(b);
-            if (b instanceof BiomeGenBaseGC && ((BiomeGenBaseGC)b).isAdaptiveBiome)
+            if (b instanceof BiomeGenBaseGC && ((BiomeGenBaseGC) b).isAdaptiveBiome)
             {
                 this.biomesToGenerate.add(BiomeAdaptive.register(index++, (BiomeGenBaseGC) b));
                 adaptiveBiomes.add((BiomeGenBaseGC) b);
-            }
-            else
+            } else
             {
                 this.biomesToGenerate.add(b);
             }
@@ -349,7 +374,7 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
             {
                 if (biome instanceof IMobSpawnBiome)
                 {
-                    ((IMobSpawnBiome)biome).initialiseMobLists(this.mobInfo);
+                    ((IMobSpawnBiome) biome).initialiseMobLists(this.mobInfo);
                 }
             }
         }
@@ -361,7 +386,7 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
         {
             try
             {
-                return ((IGalacticraftWorldProvider)this.providerClass.newInstance()).getSurfaceBlocks();
+                return ((IGalacticraftWorldProvider) this.providerClass.newInstance()).getSurfaceBlocks();
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -370,33 +395,23 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
         return null;
     }
 
-    public enum Prefix
-    {
-
-        SATELLITE, MOON, PLANET, STAR, SOLARSYSTEM;
-
-        public String get()
-        {
-            return this.toString().toLowerCase(Locale.ENGLISH) + ".";
-        }
-
-        public static List<String> prefixs()
-        {
-            List<String> list = new ArrayList<>();
-            for (int i = 0; i < Prefix.values().length; i++)
-            {
-                list.add(Prefix.values()[i].get());
-            }
-            return list;
-        }
-    }
-
     // DEPRECIATED METHODS
 
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("getTranslationKeyPrefix()")
-    public abstract String getUnlocalizedNamePrefix();
+    @ReplaceWith("isReachable()")
+    public boolean getReachable()
+    {
+        return isReachable();
+    }
+
+    @Deprecated
+    @ForRemoval(deadline = "4.1.0")
+    @ReplaceWith("getType().getName()")
+    public String getUnlocalizedNamePrefix()
+    {
+        return "unset";
+    }
 
     @Deprecated
     @ForRemoval(deadline = "4.1.0")

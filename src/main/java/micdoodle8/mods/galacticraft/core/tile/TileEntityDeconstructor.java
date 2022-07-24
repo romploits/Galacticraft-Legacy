@@ -61,25 +61,17 @@ public class TileEntityDeconstructor extends TileBaseElectricBlock implements II
     {
         if (GalacticraftCore.isPlanetsLoaded)
         {
-            addSalvage(new ItemStack(AsteroidsItems.basicItem, 1, 5)); // T3
-                                                                       // plate
-            addSalvage(new ItemStack(AsteroidsItems.basicItem, 1, 6)); // Compressed
-                                                                       // titanium
-            addSalvage(new ItemStack(AsteroidsItems.basicItem, 1, 0)); // Titanium
-                                                                       // ingot
-            addSalvage(new ItemStack(MarsItems.marsItemBasic, 1, 3)); // T2
-                                                                      // plate
-            addSalvage(new ItemStack(MarsItems.marsItemBasic, 1, 5)); // Compressed
-                                                                      // desh
-            addSalvage(new ItemStack(MarsItems.marsItemBasic, 1, 2)); // Desh
-                                                                      // ingot
+            addSalvage(new ItemStack(AsteroidsItems.basicItem, 1, 5)); // T3 plate
+            addSalvage(new ItemStack(AsteroidsItems.basicItem, 1, 6)); // Compressed titanium
+            addSalvage(new ItemStack(AsteroidsItems.basicItem, 1, 0)); // Titanium ingot
+            addSalvage(new ItemStack(MarsItems.marsItemBasic, 1, 3)); // T2 plate
+            addSalvage(new ItemStack(MarsItems.marsItemBasic, 1, 5)); // Compressed desh
+            addSalvage(new ItemStack(MarsItems.marsItemBasic, 1, 2)); // Desh ingot
         }
         addSalvage(new ItemStack(GCItems.flagPole));
         addSalvage(new ItemStack(GCItems.heavyPlatingTier1));
-        addSalvage(new ItemStack(GCItems.itemBasicMoon, 1, 1)); // Compressed
-                                                                // meteoric iron
-        addSalvage(new ItemStack(GCItems.itemBasicMoon, 1, 0)); // Meteoric iron
-                                                                // ingot
+        addSalvage(new ItemStack(GCItems.itemBasicMoon, 1, 1)); // Compressed meteoric iron
+        addSalvage(new ItemStack(GCItems.itemBasicMoon, 1, 0)); // Meteoric iron ingot
         addSalvage(new ItemStack(GCItems.basicItem, 1, 9)); // Compressed steel
         addSalvage(new ItemStack(GCItems.basicItem, 1, 10)); // Compressed
                                                              // bronze
@@ -308,7 +300,7 @@ public class TileEntityDeconstructor extends TileBaseElectricBlock implements II
     {
         for (INasaWorkbenchRecipe recipe : knownRecipes)
         {
-            ItemStack test = (ItemStack) recipe.getRecipeOutput();
+            ItemStack test = recipe.getRecipeOutput();
             if (ItemStack.areItemsEqual(test, stack) && test.getCount() == 1)
             {
                 return toItemStackList(recipe.getRecipeInput().values());

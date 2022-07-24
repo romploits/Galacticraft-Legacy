@@ -33,16 +33,6 @@ public class TileEntityMulti extends TileEntity
         this.mainBlockPosition = mainBlockPosition;
     }
 
-    // public void setMainBlock(BlockPos mainBlock)
-//    {
-//        this.mainBlockPosition = mainBlock;
-//
-//        if (!this.world.isRemote)
-//        {
-//            this.world.notifyBlockUpdate(this.getPos());
-//        }
-//    }
-
     public void onBlockRemoval()
     {
         if (this.mainBlockPosition != null)

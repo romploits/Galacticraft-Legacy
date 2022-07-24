@@ -300,7 +300,7 @@ public class WorldUtil
 
         for (CelestialBody cBody : celestialBodyList)
         {
-            if (cBody.getReachable())
+            if (cBody.isReachable())
             {
                 if (cBody.getDimensionID() == id)
                 {
@@ -321,7 +321,7 @@ public class WorldUtil
 
         for (CelestialBody cBody : celestialBodyList)
         {
-            if (cBody.getReachable())
+            if (cBody.isReachable())
             {
                 if (cBody.getName().equals(name))
                 {
@@ -436,7 +436,7 @@ public class WorldUtil
 
         for (CelestialBody body : cBodyList)
         {
-            if (!body.getReachable())
+            if (!body.isReachable())
             {
                 map.put(body.getTranslatedName() + "*", body.getDimensionID());
             }
@@ -1563,7 +1563,7 @@ public class WorldUtil
 
     private static void insertChecklistEntries(CelestialBody body, List<CelestialBody> bodiesDone, List<List<String>> checklistValues)
     {
-        if (body.getReachable())
+        if (body.isReachable())
         {
             int insertPos = 0;
             for (CelestialBody prevBody : bodiesDone)

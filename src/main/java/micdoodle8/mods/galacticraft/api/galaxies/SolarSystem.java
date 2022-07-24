@@ -2,22 +2,19 @@ package micdoodle8.mods.galacticraft.api.galaxies;
 
 import java.util.Locale;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
-import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody.Prefix;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.util.TranslateUtil;
-import net.minecraft.util.text.translation.I18n;
 
-@SuppressWarnings("deprecation")
-public class SolarSystem extends CelestialObject implements ICelestial<SolarSystem>
+public class SolarSystem extends CelestialObject
 {
 
-    protected Vector3      mapPosition = null;
-    protected Star         mainStar    = null;
-    protected String       unlocalizedGalaxyName;
+    protected Vector3 mapPosition = null;
+    protected Star mainStar = null;
+    protected String unlocalizedGalaxyName;
 
     public SolarSystem(String solarSystem, String parentGalaxy)
     {
-        super(solarSystem.toLowerCase(Locale.ENGLISH), Prefix.SOLARSYSTEM);
+        super(CelestialType.SOLARSYSTEM, solarSystem.toLowerCase(Locale.ENGLISH));
         this.unlocalizedGalaxyName = parentGalaxy;
     }
 
@@ -27,11 +24,6 @@ public class SolarSystem extends CelestialObject implements ICelestial<SolarSyst
         super.setOwnerId(ownerId);
     }
 
-    public String getTranslatedName()
-    {
-        return I18n.translateToLocal(this.getTranslationKey());
-    }
-
     public Vector3 getMapPosition()
     {
         return this.mapPosition;
@@ -39,7 +31,7 @@ public class SolarSystem extends CelestialObject implements ICelestial<SolarSyst
 
     public SolarSystem setMapPosition(Vector3 mapPosition)
     {
-    	mapPosition.scale(500D);
+        mapPosition.scale(500D);
         this.mapPosition = mapPosition;
         return this;
     }
@@ -63,12 +55,6 @@ public class SolarSystem extends CelestialObject implements ICelestial<SolarSyst
     public String getParentGalaxyTranslationKey()
     {
         return "galaxy." + this.unlocalizedGalaxyName;
-    }
-
-    @Override
-    public SolarSystem get()
-    {
-        return this;
     }
 
     // DEPRECATED METHODS

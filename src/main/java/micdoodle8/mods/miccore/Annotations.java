@@ -24,13 +24,6 @@ public interface Annotations
         {};
     }
 
-//	@Retention(RetentionPolicy.RUNTIME)
-//	@Target(ElementType.METHOD)
-//	public @interface AltForVersion
-//	{
-//		String version();
-//	}
-
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
     public @interface NetworkedField
@@ -38,11 +31,4 @@ public interface Annotations
 
         Side targetSide();
     }
-
-//    @Retention(RetentionPolicy.RUNTIME)
-//    @Target(ElementType.METHOD)
-//    public @interface VersionSpecific
-//    {
-//        String version();
-//    }
 }

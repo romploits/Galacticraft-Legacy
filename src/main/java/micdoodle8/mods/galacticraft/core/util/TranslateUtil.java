@@ -1,12 +1,14 @@
 package micdoodle8.mods.galacticraft.core.util;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.annotation.ParametersAreNonnullByDefault;
-import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
+import micdoodle8.mods.galacticraft.api.galaxies.CelestialType;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.util.text.translation.LanguageMap;
 
@@ -27,16 +29,20 @@ public class TranslateUtil
             populateMap(ASMUtil.getPrivateValue(LanguageMap.class, langMapInstance.get(), "languageList"));
         } catch (Exception e)
         {
-
+            GalacticraftCore.logger.error(e, "An error occured when trying to retreive LanguageMap");
         }
     }
 
     private void populateMap(Map<String, String> map)
     {
-        map.entrySet().stream().filter(e -> CelestialBody.Prefix.prefixs().contains(e.getKey())).collect(Collectors.toSet()).forEach(e ->
+        Collection<String> names = CelestialType.getAllNames();
+        for (String type : names)
         {
-            celestialKeys.put(e.getKey().toLowerCase(), e.getValue());
-        });
+            map.entrySet().stream().filter(e -> e.getKey().startsWith(type)).collect(Collectors.toSet()).forEach(e ->
+            {
+                celestialKeys.put(e.getKey().toLowerCase(), e.getValue());
+            });
+        }
     }
 
     public static void generateMaps()
@@ -57,7 +63,7 @@ public class TranslateUtil
     {
         for (Entry<String, String> s : celestialKeys.entrySet())
         {
-            if (s.getKey().equals(translationKey))
+            if (s.getKey().startsWith(translationKey))
             {
                 return s.getValue();
             }

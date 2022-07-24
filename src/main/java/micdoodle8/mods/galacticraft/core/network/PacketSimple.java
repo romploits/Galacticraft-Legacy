@@ -1208,7 +1208,7 @@ public class PacketSimple extends PacketBase implements Packet<INetHandler>
                 {
                     if (!clientObjects.contains(celestialObject))
                     {
-                        missingObjects = missingObjects.concat(celestialObject.translationKey + "\n");
+                        missingObjects = missingObjects.concat(celestialObject.getName() + "\n");
                     }
                 }
 

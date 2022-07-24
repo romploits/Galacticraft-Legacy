@@ -1,15 +1,13 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
-import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
-
-public class Star extends CelestialBody implements ICelestial<Star>
+public class Star extends CelestialBody
 
 {
     protected SolarSystem parentSolarSystem = null;
 
     public Star(String planetName)
     {
-        super(Prefix.STAR, planetName);
+        super(CelestialType.STAR, planetName);
     }
 
     public SolarSystem getParentSolarSystem()
@@ -21,19 +19,5 @@ public class Star extends CelestialBody implements ICelestial<Star>
     {
         this.parentSolarSystem = galaxy;
         return this;
-    }
-
-    @Override
-    public Star get()
-    {
-        return this;
-    }
-
-    @Deprecated
-    @Override
-    @ReplaceWith("getPrefix()")
-    public String getUnlocalizedNamePrefix()
-    {
-        return this.getPrefix();
     }
 }

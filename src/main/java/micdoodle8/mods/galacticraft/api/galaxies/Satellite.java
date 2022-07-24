@@ -1,16 +1,15 @@
 package micdoodle8.mods.galacticraft.api.galaxies;
 
-import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import net.minecraft.world.WorldProvider;
 
-public class Satellite extends CelestialBody implements IChildBody, ICelestial<Satellite>
+public class Satellite extends CelestialBody implements IChildBody
 {
     protected Planet parentCelestialBody = null;
     protected int dimensionIdStatic = 0;
 
     public Satellite(String satelliteName)
     {
-        super(Prefix.SATELLITE, satelliteName);
+        super(CelestialType.SATELLITE, satelliteName);
     }
 
     @Override
@@ -34,20 +33,6 @@ public class Satellite extends CelestialBody implements IChildBody, ICelestial<S
     public int getDimensionIdStatic()
     {
         return dimensionIdStatic;
-    }
-
-    @Override
-    public Satellite get()
-    {
-        return this;
-    }
-
-    @Override
-    @Deprecated
-    @ReplaceWith("getPrefix()")
-    public String getUnlocalizedNamePrefix()
-    {
-        return this.getPrefix();
     }
 
     @Override

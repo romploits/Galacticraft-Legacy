@@ -484,7 +484,7 @@ public class GuiCelestialSelection extends GuiScreen
             return false;
         }
 
-        if (!atBody.getReachable() || (this.possibleBodies != null && !this.possibleBodies.contains(atBody)))
+        if (!atBody.isReachable() || (this.possibleBodies != null && !this.possibleBodies.contains(atBody)))
         {
             // If parent body is unreachable, the satellite is also unreachable
             return false;
@@ -565,7 +565,7 @@ public class GuiCelestialSelection extends GuiScreen
     {
         if (this.selectedBody != null)
         {
-            if (this.selectedBody.getReachable() && this.possibleBodies != null && this.possibleBodies.contains(this.selectedBody))
+            if (this.selectedBody.isReachable() && this.possibleBodies != null && this.possibleBodies.contains(this.selectedBody))
             {
                 try
                 {
@@ -1875,7 +1875,7 @@ public class GuiCelestialSelection extends GuiScreen
                 if (this.selectedBody.getTierRequirement() >= 0 && (!(this.selectedBody instanceof Satellite)))
                 {
                     boolean canReach;
-                    if (!this.selectedBody.getReachable() || (this.possibleBodies != null && !this.possibleBodies.contains(this.selectedBody)))
+                    if (!this.selectedBody.isReachable() || (this.possibleBodies != null && !this.possibleBodies.contains(this.selectedBody)))
                     {
                         canReach = false;
                         GL11.glColor4f(1.0F, 0.0F, 0.0F, 1);
@@ -1906,7 +1906,7 @@ public class GuiCelestialSelection extends GuiScreen
 
                 if (!this.mapMode)
                 {
-                    if (!this.selectedBody.getReachable() || (this.possibleBodies != null && !this.possibleBodies.contains(this.selectedBody)) || (this.selectedBody instanceof Satellite && this.selectedStationOwner.equals("")))
+                    if (!this.selectedBody.isReachable() || (this.possibleBodies != null && !this.possibleBodies.contains(this.selectedBody)) || (this.selectedBody instanceof Satellite && this.selectedStationOwner.equals("")))
                     {
                         GL11.glColor4f(1.0F, 0.0F, 0.0F, 1);
                     } else
@@ -2021,7 +2021,7 @@ public class GuiCelestialSelection extends GuiScreen
 
             this.mc.renderEngine.bindTexture(GuiCelestialSelection.guiMain0);
             float brightness = child.equals(this.selectedBody) ? 0.2F : 0.0F;
-            if (child.getReachable())
+            if (child.isReachable())
             {
                 GL11.glColor4f(0.0F, 0.6F + brightness, 0.0F, scale / 95.0F);
             } else

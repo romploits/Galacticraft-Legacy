@@ -105,7 +105,7 @@ public abstract class EntityTieredRocket extends EntityAutoRocket implements IRo
                 {
                     continue;
                 }
-                if (planet.getReachable() && planet.getTierRequirement() <= this.getRocketTier() && !planet.getTranslationKey().equals("planet.asteroids"))
+                if (planet.isReachable() && planet.getTierRequirement() <= this.getRocketTier() && !planet.getTranslationKey().equals("planet.asteroids"))
                 {
                     toPreGen.add(planet.getDimensionID());
                 }
