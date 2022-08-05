@@ -1,6 +1,5 @@
 pluginManagement {
     repositories {
-		mavenLocal()
 		maven {
 			url = 'https://repo.galacticraft.net/repository/common-proxy/'
 		}
