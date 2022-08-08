@@ -6,11 +6,13 @@ import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Planet;
+import micdoodle8.mods.galacticraft.api.galaxies.Satellite;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
 import micdoodle8.mods.galacticraft.api.world.AtmosphereInfo;
 import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import micdoodle8.mods.galacticraft.core.dimension.TeleportTypeOrbit;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedCreeper;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedEnderman;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSkeleton;
@@ -20,8 +22,10 @@ import micdoodle8.mods.galacticraft.core.event.EventHandlerGC;
 import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
 import micdoodle8.mods.galacticraft.core.items.ItemBucketGC;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
+import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+import micdoodle8.mods.galacticraft.core.world.gen.BiomeOrbit;
 import micdoodle8.mods.galacticraft.planets.GCPlanetDimensions;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.GuiIdsPlanets;
@@ -30,6 +34,7 @@ import micdoodle8.mods.galacticraft.planets.mars.blocks.BlockSludge;
 import micdoodle8.mods.galacticraft.planets.mars.blocks.MarsBlocks;
 import micdoodle8.mods.galacticraft.planets.mars.dimension.TeleportTypeMars;
 import micdoodle8.mods.galacticraft.planets.mars.dimension.WorldProviderMars;
+import micdoodle8.mods.galacticraft.planets.mars.dimension.WorldProviderMarsSpacestation;
 import micdoodle8.mods.galacticraft.planets.mars.entities.EntityCargoRocket;
 import micdoodle8.mods.galacticraft.planets.mars.entities.EntityCreeperBoss;
 import micdoodle8.mods.galacticraft.planets.mars.entities.EntityLandingBalloons;
@@ -91,13 +96,25 @@ public class MarsModule implements IPlanetsModule
     public static Material sludgeMaterial = new MaterialLiquid(MapColor.FOLIAGE);
 
     public static Planet planetMars;
+    public static Satellite marsSpaceStation;
 
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        MarsModule.planetMars = (Planet) new Planet("mars").setParentSolarSystem(GalacticraftCore.solarSystemSol).setRingColorRGB(0.67F, 0.1F, 0.1F).setPhaseShift(0.1667F).setRelativeSize(0.5319F)
-            .setRelativeDistanceFromCenter(new CelestialBody.ScalableDistance(1.25F, 1.25F)).setRelativeOrbitTime(1.8811610076670317634173055859803F);
-
+        //@noformat
+        MarsModule.planetMars = (Planet) new Planet("mars").setParentSolarSystem(GalacticraftCore.solarSystemSol)
+            .setRingColorRGB(0.67F, 0.1F, 0.1F)
+            .setPhaseShift(0.1667F)
+            .setRelativeSize(0.5319F)
+            .setRelativeDistanceFromCenter(new CelestialBody.ScalableDistance(1.25F, 1.25F))
+            .setRelativeOrbitTime(1.8811610076670317634173055859803F);
+        
+        MarsModule.marsSpaceStation = (Satellite) new Satellite("spacestation.mars").setParentBody(MarsModule.planetMars)
+            .setRelativeSize(0.2667F)
+            .setRelativeDistanceFromCenter(new CelestialBody.ScalableDistance(9F, 9F))
+            .setRelativeOrbitTime(1 / 0.05F);
+        
+        //@format
         MinecraftForge.EVENT_BUS.register(new EventHandlerMars());
 
         if (!FluidRegistry.isFluidRegistered("bacterialsludge"))
@@ -126,11 +143,7 @@ public class MarsModule implements IPlanetsModule
 
         if (MarsBlocks.blockSludge != null)
         {
-            FluidRegistry.addBucketForFluid(sludge); // Create a Universal
-            // Bucket AS WELL AS our
-            // type, this is needed to
-            // pull fluids out of other
-            // mods tanks
+            FluidRegistry.addBucketForFluid(sludge); // Create a Universal Bucket AS WELL AS our type, this is needed to pull fluids out of other mods tanks
             MarsItems.bucketSludge = new ItemBucketGC(MarsBlocks.blockSludge, sludge).setTranslationKey("bucket_sludge");
             MarsItems.registerItem(MarsItems.bucketSludge);
             EventHandlerGC.bucketList.put(MarsBlocks.blockSludge, MarsItems.bucketSludge);
@@ -139,6 +152,7 @@ public class MarsModule implements IPlanetsModule
         MarsBlocks.initBlocks();
         MarsItems.initItems();
 
+        MarsModule.marsSpaceStation.setBiomeInfo(BiomeOrbit.space);
         MarsModule.planetMars.setBiomeInfo(BiomeMars.marsFlat);
     }
 
@@ -167,9 +181,27 @@ public class MarsModule implements IPlanetsModule
         MarsModule.planetMars.addMobInfo(new Biome.SpawnListEntry(EntityEvolvedEnderman.class, 10, 1, 4));
         MarsModule.planetMars.addChecklistKeys("equip_oxygen_suit", "thermal_padding");
 
+        MarsModule.marsSpaceStation.setDimensionInfo(ConfigManagerMars.dimensionIDMarsSpacestation, ConfigManagerMars.dimensionIDMarsSpacestationStatic, WorldProviderMarsSpacestation.class).setTierRequired(2);
+        MarsModule.marsSpaceStation.setBodyIcon(new ResourceLocation(Constants.ASSET_PREFIX, "textures/gui/celestialbodies/space_station.png"));
+        MarsModule.marsSpaceStation.setAtmosphere(new AtmosphereInfo(false, false, false, 0.0F, 0.1F, 0.02F));
+        MarsModule.marsSpaceStation.addChecklistKeys("equip_oxygen_suit", "create_grapple");
+
         GalaxyRegistry.register(MarsModule.planetMars);
+        GalaxyRegistry.register(MarsModule.marsSpaceStation);
+        GCPlanetDimensions.MARS_SPACESTATION = GalacticraftRegistry.registerDimension("Mars Space Station", "mars_orbit", ConfigManagerMars.dimensionIDMarsSpacestation, WorldProviderMarsSpacestation.class, false);
+        if (GCPlanetDimensions.MARS_SPACESTATION == null)
+        {
+            GalacticraftCore.logger.error("Failed to register space station dimension type with ID " + ConfigManagerMars.dimensionIDMarsSpacestation);
+        }
+        GCPlanetDimensions.MARS_SPACESTATION_KEEPLOADED = GalacticraftRegistry.registerDimension("Mars Space Station", "mars_orbit", ConfigManagerCore.idDimensionOverworldOrbitStatic, WorldProviderMarsSpacestation.class, true);
+        if (GCPlanetDimensions.MARS_SPACESTATION_KEEPLOADED == null)
+        {
+            GalacticraftCore.logger.error("Failed to register space station dimension type with ID " + ConfigManagerMars.dimensionIDMarsSpacestationStatic);
+        }
         GalacticraftRegistry.registerTeleportType(WorldProviderMars.class, new TeleportTypeMars());
         GalacticraftRegistry.registerRocketGui(WorldProviderMars.class, new ResourceLocation(GalacticraftPlanets.ASSET_PREFIX, "textures/gui/mars_rocket_gui.png"));
+        GalacticraftRegistry.registerTeleportType(WorldProviderMarsSpacestation.class, new TeleportTypeOrbit());
+        GalacticraftRegistry.registerRocketGui(WorldProviderMarsSpacestation.class, new ResourceLocation(Constants.ASSET_PREFIX, "textures/gui/overworld_rocket_gui.png"));
         GalacticraftRegistry.addDungeonLoot(2, new ItemStack(MarsItems.schematic, 1, 0));
         GalacticraftRegistry.addDungeonLoot(2, new ItemStack(MarsItems.schematic, 1, 1));
         GalacticraftRegistry.addDungeonLoot(2, new ItemStack(MarsItems.schematic, 1, 2));
@@ -181,7 +213,10 @@ public class MarsModule implements IPlanetsModule
     public void postInit(FMLPostInitializationEvent event)
     {
         RecipeManagerMars.loadCompatibilityRecipes();
+        RecipeManagerMars.addSpaceStationRecipes();
         GCPlanetDimensions.MARS = WorldUtil.getDimensionTypeById(ConfigManagerMars.dimensionIDMars);
+        GCPlanetDimensions.MARS_SPACESTATION = WorldUtil.getDimensionTypeById(ConfigManagerMars.dimensionIDMarsSpacestation);
+        GCPlanetDimensions.MARS_SPACESTATION_KEEPLOADED = WorldUtil.getDimensionTypeById(ConfigManagerMars.dimensionIDMarsSpacestationStatic);
         ItemSchematicTier2.registerSchematicItems();
     }
 

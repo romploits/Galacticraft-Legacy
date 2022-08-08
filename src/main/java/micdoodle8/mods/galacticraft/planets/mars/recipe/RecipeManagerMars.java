@@ -1,8 +1,14 @@
 package micdoodle8.mods.galacticraft.planets.mars.recipe;
 
 import java.util.HashMap;
+import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
+import micdoodle8.mods.galacticraft.api.recipe.SpaceStationRecipe;
+import micdoodle8.mods.galacticraft.api.world.SpaceStationType;
 import micdoodle8.mods.galacticraft.core.GCItems;
+import micdoodle8.mods.galacticraft.core.items.ItemBasic;
+import micdoodle8.mods.galacticraft.core.recipe.RecipeManagerGC;
+import micdoodle8.mods.galacticraft.planets.mars.ConfigManagerMars;
 import micdoodle8.mods.galacticraft.planets.mars.blocks.MarsBlocks;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
 import micdoodle8.mods.galacticraft.planets.mars.util.MarsUtil;
@@ -18,6 +24,16 @@ public class RecipeManagerMars
 
     public static void loadCompatibilityRecipes()
     {
+    }
+
+    public static void addSpaceStationRecipes()
+    {
+        final HashMap<Object, Integer> spaceStationRequirements = new HashMap<>(4, 1.0F);
+        spaceStationRequirements.put("ingotTin", 32);
+        spaceStationRequirements.put(RecipeManagerGC.aluminumIngots, 16);
+        spaceStationRequirements.put(new ItemStack(GCItems.basicItem, 1, ItemBasic.WAFER_ADVANCED), 1);
+        spaceStationRequirements.put(Items.IRON_INGOT, 24);
+        GalacticraftRegistry.registerSpaceStation(new SpaceStationType(ConfigManagerMars.dimensionIDMarsSpacestation, ConfigManagerMars.dimensionIDMars, new SpaceStationRecipe(spaceStationRequirements)));
     }
 
     public static void addUniversalRecipes()

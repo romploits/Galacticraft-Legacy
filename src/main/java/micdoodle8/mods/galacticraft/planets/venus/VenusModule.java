@@ -5,11 +5,13 @@ import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Planet;
+import micdoodle8.mods.galacticraft.api.galaxies.Satellite;
 import micdoodle8.mods.galacticraft.api.item.EnumExtendedInventorySlot;
 import micdoodle8.mods.galacticraft.api.world.AtmosphereInfo;
 import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import micdoodle8.mods.galacticraft.core.dimension.TeleportTypeOrbit;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedCreeper;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedEnderman;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSkeleton;
@@ -21,13 +23,16 @@ import micdoodle8.mods.galacticraft.core.items.ItemBucketGC;
 import micdoodle8.mods.galacticraft.core.util.ColorUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+import micdoodle8.mods.galacticraft.core.world.gen.BiomeOrbit;
 import micdoodle8.mods.galacticraft.planets.GCPlanetDimensions;
 import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.GuiIdsPlanets;
 import micdoodle8.mods.galacticraft.planets.IPlanetsModule;
+import micdoodle8.mods.galacticraft.planets.mars.ConfigManagerMars;
 import micdoodle8.mods.galacticraft.planets.venus.blocks.BlockSulphuricAcid;
 import micdoodle8.mods.galacticraft.planets.venus.dimension.TeleportTypeVenus;
 import micdoodle8.mods.galacticraft.planets.venus.dimension.WorldProviderVenus;
+import micdoodle8.mods.galacticraft.planets.venus.dimension.WorldProviderVenusSpacestation;
 import micdoodle8.mods.galacticraft.planets.venus.entities.EntityEntryPodVenus;
 import micdoodle8.mods.galacticraft.planets.venus.entities.EntityJuicer;
 import micdoodle8.mods.galacticraft.planets.venus.entities.EntitySpiderQueen;
@@ -77,6 +82,7 @@ public class VenusModule implements IPlanetsModule
 {
 
     public static Planet planetVenus;
+    public static Satellite venusSpaceStation;
     public static Fluid sulphuricAcid;
     public static Fluid sulphuricAcidGC;
     public static Material acidMaterial = new MaterialLiquid(MapColor.EMERALD);
@@ -86,6 +92,9 @@ public class VenusModule implements IPlanetsModule
     {
         VenusModule.planetVenus = (Planet) new Planet("venus").setParentSolarSystem(GalacticraftCore.solarSystemSol).setRingColorRGB(0.1F, 0.9F, 0.6F).setPhaseShift(2.0F)
             .setRelativeDistanceFromCenter(new CelestialBody.ScalableDistance(0.75F, 0.75F)).setRelativeOrbitTime(0.61527929901423877327491785323111F);
+
+        VenusModule.venusSpaceStation = (Satellite) new Satellite("spacestation.venus").setParentBody(VenusModule.planetVenus).setRelativeSize(0.2667F).setRelativeDistanceFromCenter(new CelestialBody.ScalableDistance(9F, 9F)).setRelativeOrbitTime(1 / 0.05F);
+
         MinecraftForge.EVENT_BUS.register(new EventHandlerVenus());
 
         if (!FluidRegistry.isFluidRegistered("sulphuricacid"))
@@ -123,6 +132,7 @@ public class VenusModule implements IPlanetsModule
         VenusBlocks.initBlocks();
         VenusItems.initItems();
 
+        VenusModule.venusSpaceStation.setBiomeInfo(BiomeOrbit.space);
         VenusModule.planetVenus.setBiomeInfo(BiomeVenus.venusFlat, BiomeVenus.venusMountain, BiomeVenus.venusValley);
     }
 
@@ -149,9 +159,28 @@ public class VenusModule implements IPlanetsModule
         VenusModule.planetVenus.addMobInfo(new SpawnListEntry(EntityEvolvedEnderman.class, 10, 1, 4));
         VenusModule.planetVenus.addChecklistKeys("equip_oxygen_suit", "equip_shield_controller", "thermal_padding_t2");
 
+        VenusModule.venusSpaceStation.setDimensionInfo(ConfigManagerMars.dimensionIDMarsSpacestation, ConfigManagerMars.dimensionIDMarsSpacestationStatic, WorldProviderVenusSpacestation.class).setTierRequired(3);
+        VenusModule.venusSpaceStation.setBodyIcon(new ResourceLocation(Constants.ASSET_PREFIX, "textures/gui/celestialbodies/space_station.png"));
+        VenusModule.venusSpaceStation.setAtmosphere(new AtmosphereInfo(false, false, false, 0.0F, 0.1F, 0.02F));
+        VenusModule.venusSpaceStation.addChecklistKeys("equip_oxygen_suit", "create_grapple");
+
         GalaxyRegistry.register(VenusModule.planetVenus);
         GalacticraftRegistry.registerTeleportType(WorldProviderVenus.class, new TeleportTypeVenus());
         GalacticraftRegistry.registerRocketGui(WorldProviderVenus.class, new ResourceLocation(GalacticraftPlanets.ASSET_PREFIX, "textures/gui/venus_rocket_gui.png"));
+        GalaxyRegistry.register(VenusModule.venusSpaceStation);
+        GCPlanetDimensions.VENUS_SPACESTATION = GalacticraftRegistry.registerDimension("Venus Space Station", "venus_orbit", ConfigManagerVenus.dimensionIDVenusSpacestation, WorldProviderVenusSpacestation.class, false);
+        if (GCPlanetDimensions.VENUS_SPACESTATION == null)
+        {
+            GalacticraftCore.logger.error("Failed to register space station dimension type with ID " + ConfigManagerVenus.dimensionIDVenusSpacestation);
+        }
+        GCPlanetDimensions.VENUS_SPACESTATION_KEEPLOADED = GalacticraftRegistry.registerDimension("Venus Space Station", "venus_orbit", ConfigManagerVenus.dimensionIDVenusSpacestationStatic, WorldProviderVenusSpacestation.class, true);
+        if (GCPlanetDimensions.VENUS_SPACESTATION_KEEPLOADED == null)
+        {
+            GalacticraftCore.logger.error("Failed to register space station dimension type with ID " + ConfigManagerVenus.dimensionIDVenusSpacestationStatic);
+        }
+        GalacticraftRegistry.registerTeleportType(WorldProviderVenusSpacestation.class, new TeleportTypeOrbit());
+        GalacticraftRegistry.registerRocketGui(WorldProviderVenusSpacestation.class, new ResourceLocation(Constants.ASSET_PREFIX, "textures/gui/overworld_rocket_gui.png"));
+
         GalacticraftRegistry.addDungeonLoot(3, new ItemStack(VenusItems.volcanicPickaxe, 1, 0));
         GalacticraftRegistry.addDungeonLoot(3, new ItemStack(VenusItems.basicItem, 1, 0));
 
@@ -170,8 +199,10 @@ public class VenusModule implements IPlanetsModule
     public void postInit(FMLPostInitializationEvent event)
     {
         RecipeManagerVenus.loadCompatibilityRecipes();
-
+        RecipeManagerVenus.addSpaceStationRecipes();
         GCPlanetDimensions.VENUS = WorldUtil.getDimensionTypeById(ConfigManagerVenus.dimensionIDVenus);
+        GCPlanetDimensions.MARS_SPACESTATION = WorldUtil.getDimensionTypeById(ConfigManagerVenus.dimensionIDVenusSpacestation);
+        GCPlanetDimensions.MARS_SPACESTATION_KEEPLOADED = WorldUtil.getDimensionTypeById(ConfigManagerVenus.dimensionIDVenusSpacestationStatic);
     }
 
     @Override

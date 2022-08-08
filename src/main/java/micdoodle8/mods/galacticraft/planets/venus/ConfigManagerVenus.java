@@ -12,7 +12,7 @@ public class ConfigManagerVenus
 
     public static boolean loaded;
 
-    static Configuration config;
+    static Configuration  config;
 
     public ConfigManagerVenus(File file)
     {
@@ -33,7 +33,9 @@ public class ConfigManagerVenus
     }
 
     // DIMENSIONS
-    public static int dimensionIDVenus;
+    public static int     dimensionIDVenus;
+    public static int     dimensionIDVenusSpacestation;
+    public static int     dimensionIDVenusSpacestationStatic;
 
     public static boolean disableAmbientLightning;
 
@@ -70,6 +72,18 @@ public class ConfigManagerVenus
                 propCopy.setRequiresMcRestart(prop.requiresMcRestart());
             }
             dimensionIDVenus = prop.getInt();
+            GalacticraftPlanets.finishProp(prop, Constants.CONFIG_CATEGORY_DIMENSIONS);
+
+            prop = config.get(Constants.CONFIG_CATEGORY_DIMENSIONS, "dimensionIDVenusSpacestation", -35);
+            prop.setComment("WorldProvider ID for Venus Space Stations (advanced: do not change unless you have conflicts)");
+            prop.setLanguageKey("gc.configgui.id_dimension_venus_spacestation").setRequiresMcRestart(true);
+            dimensionIDVenusSpacestation = prop.getInt();
+            GalacticraftPlanets.finishProp(prop, Constants.CONFIG_CATEGORY_DIMENSIONS);
+
+            prop = config.get(Constants.CONFIG_CATEGORY_DIMENSIONS, "dimensionIDVenusSpacestationStatic", -34);
+            prop.setComment("WorldProvider ID for Static Space Stations (advanced: do not change unless you have conflicts)");
+            prop.setLanguageKey("gc.configgui.id_dimension_venus_spacestation_static").setRequiresMcRestart(true);
+            dimensionIDVenusSpacestationStatic = prop.getInt();
             GalacticraftPlanets.finishProp(prop, Constants.CONFIG_CATEGORY_DIMENSIONS);
 
             boolean oldLightning = false;

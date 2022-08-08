@@ -9,7 +9,7 @@ import net.minecraftforge.common.config.Property;
 public class ConfigManagerMars
 {
 
-    public static boolean loaded;
+    public static boolean       loaded;
 
     public static Configuration config;
 
@@ -23,11 +23,13 @@ public class ConfigManagerMars
     }
 
     // DIMENSIONS
-    public static int dimensionIDMars;
+    public static int     dimensionIDMars;
+    public static int     dimensionIDMarsSpacestation;
+    public static int     dimensionIDMarsSpacestationStatic;
 
     // SCHEMATIC
-    public static int idSchematicRocketT2;
-    public static int idSchematicCargoRocket;
+    public static int     idSchematicRocketT2;
+    public static int     idSchematicCargoRocket;
 
     // GENERAL
     public static boolean launchControllerChunkLoad;
@@ -54,6 +56,18 @@ public class ConfigManagerMars
             prop.setComment("Dimension ID for Mars");
             prop.setLanguageKey("gc.configgui.dimension_id_mars").setRequiresMcRestart(true);
             dimensionIDMars = prop.getInt();
+            GalacticraftPlanets.finishProp(prop, Constants.CONFIG_CATEGORY_DIMENSIONS);
+
+            prop = config.get(Constants.CONFIG_CATEGORY_DIMENSIONS, "dimensionIDMarsSpacestation", -32);
+            prop.setComment("WorldProvider ID for Mars Space Stations (advanced: do not change unless you have conflicts)");
+            prop.setLanguageKey("gc.configgui.id_dimension_mars_spacestation").setRequiresMcRestart(true);
+            dimensionIDMarsSpacestation = prop.getInt();
+            GalacticraftPlanets.finishProp(prop, Constants.CONFIG_CATEGORY_DIMENSIONS);
+
+            prop = config.get(Constants.CONFIG_CATEGORY_DIMENSIONS, "dimensionIDMarsSpacestationStatic", -33);
+            prop.setComment("WorldProvider ID for Static Space Stations (advanced: do not change unless you have conflicts)");
+            prop.setLanguageKey("gc.configgui.id_dimension_mars_spacestation_static").setRequiresMcRestart(true);
+            dimensionIDMarsSpacestation = prop.getInt();
             GalacticraftPlanets.finishProp(prop, Constants.CONFIG_CATEGORY_DIMENSIONS);
 
             //
