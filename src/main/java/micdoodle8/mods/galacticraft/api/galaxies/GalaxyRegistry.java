@@ -7,9 +7,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.event.celestial.RegisterEvent;
+import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.util.list.CelestialCollector;
 import micdoodle8.mods.galacticraft.core.util.list.CelestialList;
 import micdoodle8.mods.galacticraft.core.util.list.ImmutableCelestialList;
+import micdoodle8.mods.galacticraft.planets.mars.ConfigManagerMars;
+import micdoodle8.mods.galacticraft.planets.venus.ConfigManagerVenus;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
@@ -218,10 +221,22 @@ public class GalaxyRegistry
         if (object instanceof Satellite)
         {
             Satellite satellite = (Satellite) object;
-            RegisterEvent registerEvent = new RegisterEvent(satellite, Loader.instance().activeModContainer());
-            satellites.add(satellite);
-            objects.add(satellite);
-            MinecraftForge.EVENT_BUS.post(registerEvent);
+            if (checkParent(satellite, ConfigManagerMars.dimensionIDMars) || checkParent(satellite, ConfigManagerVenus.dimensionIDVenus))
+            {
+                if (Loader.instance().activeModContainer().getModId().equals(Constants.MOD_ID_PLANETS))
+                {
+                    RegisterEvent registerEvent = new RegisterEvent(satellite, Loader.instance().activeModContainer());
+                    satellites.add(satellite);
+                    objects.add(satellite);
+                    MinecraftForge.EVENT_BUS.post(registerEvent);
+                }
+            } else
+            {
+                RegisterEvent registerEvent = new RegisterEvent(satellite, Loader.instance().activeModContainer());
+                satellites.add(satellite);
+                objects.add(satellite);
+                MinecraftForge.EVENT_BUS.post(registerEvent);
+            }
         }
         
         if (object instanceof CelestialBody)
@@ -238,6 +253,11 @@ public class GalaxyRegistry
             objects.add(celestialType);
             MinecraftForge.EVENT_BUS.post(registerEvent);
         }
+    }
+
+    private static boolean checkParent(Satellite satellite, int id)
+    {
+        return satellite.getParentPlanet().dimensionID == id;
     }
 
     /**

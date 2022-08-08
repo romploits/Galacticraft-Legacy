@@ -14,7 +14,10 @@ import micdoodle8.mods.galacticraft.api.recipe.SpaceStationRecipe;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.api.world.ITeleportType;
 import micdoodle8.mods.galacticraft.api.world.SpaceStationType;
+import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import micdoodle8.mods.galacticraft.planets.mars.ConfigManagerMars;
+import micdoodle8.mods.galacticraft.planets.venus.ConfigManagerVenus;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,36 +25,36 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldProviderSurface;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GalacticraftRegistry
 {
 
-    private static Map<Class<? extends WorldProvider>, ITeleportType> teleportTypeMap = new HashMap<Class<? extends WorldProvider>, ITeleportType>();
-    private static List<SpaceStationType> spaceStations = new ArrayList<SpaceStationType>();
-    private static List<INasaWorkbenchRecipe> rocketBenchT1Recipes = new ArrayList<INasaWorkbenchRecipe>();
-    private static List<INasaWorkbenchRecipe> buggyBenchRecipes = new ArrayList<INasaWorkbenchRecipe>();
-    private static List<INasaWorkbenchRecipe> rocketBenchT2Recipes = new ArrayList<INasaWorkbenchRecipe>();
-    private static List<INasaWorkbenchRecipe> cargoRocketRecipes = new ArrayList<INasaWorkbenchRecipe>();
-    private static List<INasaWorkbenchRecipe> rocketBenchT3Recipes = new ArrayList<INasaWorkbenchRecipe>();
-    private static List<INasaWorkbenchRecipe> astroMinerRecipes = new ArrayList<INasaWorkbenchRecipe>();
-    private static Map<Class<? extends WorldProvider>, ResourceLocation> rocketGuiMap = new HashMap<Class<? extends WorldProvider>, ResourceLocation>();
-    private static Map<Integer, List<ItemStack>> dungeonLootMap = new HashMap<Integer, List<ItemStack>>();
-    private static List<Integer> dimensionTypeIDs = new ArrayList<Integer>();
-    private static List<IGameScreen> gameScreens = new ArrayList<IGameScreen>();
-    private static int maxScreenTypes;
-    private static Map<Integer, List<Object>> gearMap = new HashMap<>();
-    private static Map<Integer, List<EnumExtendedInventorySlot>> gearSlotMap = new HashMap<>();
-    private static Method gratingRegister = null;
+    private static Map<Class<? extends WorldProvider>, ITeleportType>    teleportTypeMap      = new HashMap<>();
+    private static List<SpaceStationType>                                spaceStations        = new ArrayList<>();
+    private static List<INasaWorkbenchRecipe>                            rocketBenchT1Recipes = new ArrayList<>();
+    private static List<INasaWorkbenchRecipe>                            buggyBenchRecipes    = new ArrayList<>();
+    private static List<INasaWorkbenchRecipe>                            rocketBenchT2Recipes = new ArrayList<>();
+    private static List<INasaWorkbenchRecipe>                            cargoRocketRecipes   = new ArrayList<>();
+    private static List<INasaWorkbenchRecipe>                            rocketBenchT3Recipes = new ArrayList<>();
+    private static List<INasaWorkbenchRecipe>                            astroMinerRecipes    = new ArrayList<>();
+    private static Map<Class<? extends WorldProvider>, ResourceLocation> rocketGuiMap         = new HashMap<>();
+    private static Map<Integer, List<ItemStack>>                         dungeonLootMap       = new HashMap<>();
+    private static List<Integer>                                         dimensionTypeIDs     = new ArrayList<>();
+    private static List<IGameScreen>                                     gameScreens          = new ArrayList<>();
+    private static int                                                   maxScreenTypes;
+    private static Map<Integer, List<Object>>                            gearMap              = new HashMap<>();
+    private static Map<Integer, List<EnumExtendedInventorySlot>>         gearSlotMap          = new HashMap<>();
+    private static Method                                                gratingRegister      = null;
 
     /**
      * Register a new Teleport type for the world provider passed
      *
-     * @param clazz the world provider class that you wish to customize
-     *        teleportation for
-     * @param type an ITeleportType-implemented class that will be used for the
-     *        provided world type
+     * @param clazz the world provider class that you wish to customize teleportation for
+     * @param type  an ITeleportType-implemented class that will be used for the provided world type
      */
     public static void registerTeleportType(Class<? extends WorldProvider> clazz, ITeleportType type)
     {
@@ -62,10 +65,9 @@ public class GalacticraftRegistry
     }
 
     /**
-     * Link a world provider to a gui texture. This texture will be shown on the
-     * left-side of the screen while the player is in the rocket.
+     * Link a world provider to a gui texture. This texture will be shown on the left-side of the screen while the player is in the rocket.
      *
-     * @param clazz The World Provider class
+     * @param clazz     The World Provider class
      * @param rocketGui Resource Location for the gui texture
      */
     public static void registerRocketGui(Class<? extends WorldProvider> clazz, ResourceLocation rocketGui)
@@ -77,11 +79,9 @@ public class GalacticraftRegistry
     }
 
     /**
-     * Add loot to the list of items that can possibly spawn in dungeon chests,
-     * but it is guaranteed that one will always spawn
+     * Add loot to the list of items that can possibly spawn in dungeon chests, but it is guaranteed that one will always spawn
      *
-     * @param tier Tier of dungeon chest to add loot to. For example Moon is 1
-     *        and Mars is 2
+     * @param tier Tier of dungeon chest to add loot to. For example Moon is 1 and Mars is 2
      * @param loot The itemstack to add to the possible list of items
      */
     public static void addDungeonLoot(int tier, ItemStack loot)
@@ -94,7 +94,7 @@ public class GalacticraftRegistry
             dungeonStacks.add(loot);
         } else
         {
-            dungeonStacks = new ArrayList<ItemStack>();
+            dungeonStacks = new ArrayList<>();
             dungeonStacks.add(loot);
         }
 
@@ -202,6 +202,20 @@ public class GalacticraftRegistry
 
     public static void registerSpaceStation(SpaceStationType type)
     {
+        if (checkParent(type.getWorldToOrbitID()))
+        {
+            if (Loader.instance().activeModContainer().getModId().equals(Constants.MOD_ID_PLANETS) || Loader.instance().activeModContainer().getModId().equals(Constants.MOD_ID_CORE))
+            {
+                GalacticraftRegistry.registerSpaceStation1(type);
+            }
+        } else
+        {
+            GalacticraftRegistry.registerSpaceStation1(type);
+        }
+    }
+
+    private static void registerSpaceStation1(SpaceStationType type)
+    {
         for (SpaceStationType type1 : GalacticraftRegistry.spaceStations)
         {
             if (type1.getWorldToOrbitID() == type.getWorldToOrbitID())
@@ -211,6 +225,11 @@ public class GalacticraftRegistry
         }
 
         GalacticraftRegistry.spaceStations.add(type);
+    }
+
+    private static boolean checkParent(int id)
+    {
+        return ConfigManagerMars.dimensionIDMars == id || ConfigManagerVenus.dimensionIDVenus == id;
     }
 
     public static void replaceSpaceStationRecipe(int spaceStationID, HashMap<Object, Integer> obj)
@@ -231,7 +250,21 @@ public class GalacticraftRegistry
 
     public static List<SpaceStationType> getSpaceStationData()
     {
-        return GalacticraftRegistry.spaceStations;
+        if (!Loader.instance().hasReachedState(LoaderState.AVAILABLE))
+        {
+            List<SpaceStationType> templist = new ArrayList<>();
+            for (SpaceStationType t : GalacticraftRegistry.spaceStations)
+            {
+                if (!checkParent(t.getWorldToOrbitID()))
+                {
+                    templist.add(t);
+                }
+            }
+            GalacticraftCore.logger.info("SpaceStation Size: " + templist.size());
+            return templist;
+        }
+        GalacticraftCore.logger.info("SpaceStation Size: " + spaceStations.size());
+        return spaceStations;
     }
 
     public static List<INasaWorkbenchRecipe> getRocketT1Recipes()
@@ -315,8 +348,9 @@ public class GalacticraftRegistry
     /**
      * Register an IGameScreen so the Display Screen can access it
      * 
-     * @param screen The IGameScreen to be registered
-     * @return The type ID assigned to this screen type
+     * @param  screen The IGameScreen to be registered
+     * 
+     * @return        The type ID assigned to this screen type
      */
     public static int registerScreen(IGameScreen screen)
     {
@@ -342,17 +376,11 @@ public class GalacticraftRegistry
     }
 
     /**
-     * Adds a custom item for 'extended inventory' slots
+     * Adds a custom item for 'extended inventory' slots Gear IDs must be unique, and should be configurable for user convenience Please do not use values less than 100, to avoid conflicts with future Galacticraft core additions
      *
-     * Gear IDs must be unique, and should be configurable for user convenience
-     *
-     * Please do not use values less than 100, to avoid conflicts with future
-     * Galacticraft core additions
-     *
-     * @param gearID Unique ID for this gear item, please use values greater
-     *        than 100
-     * @param type Slot this item can be placed in
-     * @param item Item to register, not metadata-sensitive
+     * @param gearID Unique ID for this gear item, please use values greater than 100
+     * @param type   Slot this item can be placed in
+     * @param item   Item to register, not metadata-sensitive
      */
     public static void registerGear(int gearID, EnumExtendedInventorySlot type, Item item)
     {
@@ -360,16 +388,10 @@ public class GalacticraftRegistry
     }
 
     /**
-     * Adds a custom item for 'extended inventory' slots
+     * Adds a custom item for 'extended inventory' slots Gear IDs must be unique, and should be configurable for user convenience Please do not use values less than 100, to avoid conflicts with future Galacticraft core additions
      *
-     * Gear IDs must be unique, and should be configurable for user convenience
-     *
-     * Please do not use values less than 100, to avoid conflicts with future
-     * Galacticraft core additions
-     *
-     * @param gearID Unique ID for this gear item, please use values greater
-     *        than 100
-     * @param type Slot this item can be placed in
+     * @param gearID    Unique ID for this gear item, please use values greater than 100
+     * @param type      Slot this item can be placed in
      * @param itemStack ItemStack to register, metadata-sensitive
      */
     public static void registerGear(int gearID, EnumExtendedInventorySlot type, ItemStack itemStack)
@@ -470,9 +492,7 @@ public class GalacticraftRegistry
 
     @Deprecated
     /**
-     * Grating will now register fluids automatically if they extend
-     * BlockFluidBase
-     * 
+     * Grating will now register fluids automatically if they extend BlockFluidBase
      */
     public static void registerGratingFluid(Block fluidBlock)
     {
