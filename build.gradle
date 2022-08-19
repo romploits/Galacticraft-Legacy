@@ -193,6 +193,9 @@ license {
         name = 'Team Galacticraft'
         year = Calendar.getInstance().get(Calendar.YEAR);
     }
+    if(System.getenv().GITHUB_ACTIONS) {
+        ignoreFailures = true
+    }
     include '**/*.java'
 }
 
