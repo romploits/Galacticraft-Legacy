@@ -33,7 +33,7 @@ jobs:
       if: steps.unlock_gpg.outcome == 'success'
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: publishGalacticraftPublicationToSnapshotsRepository -Psigning.keyId=${{secrets.GPG_PRIVATE_KEY}} -Psigning.password=${{secrets.GPG_PRIVATE_KEY_PASSPHRASE}} -Psigning.secretKeyRingFile="./secring.gpg"
+        arguments: publishGalacticraftPublicationToSnapshotsRepository -Psigning.keyId=${{secrets.GPG_PRIVATE_KEY}} -Psigning.password=${{secrets.GPG_PRIVATE_KEY_PASSPHRASE}} -Psigning.secretKeyRingFile=secring.gpg
 
     - name: Capture build artifacts
       if: steps.deploy.outcome == 'success'
