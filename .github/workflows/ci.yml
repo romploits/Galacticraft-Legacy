@@ -7,6 +7,8 @@ on:
 
 jobs:
   build:
+    env:
+      RINGFILE: "${GITHUB_WORKSPACE}/secring.gpg"
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -25,15 +27,15 @@ jobs:
       id: unlock_gpg
       if: steps.run_check.outcome == 'success'
       run: |
-        echo "${{secrets.SIGNING_SECRET_KEY_RING_FILE}}" > ~/.gradle/secring.gpg.b64
-        base64 -d ~/.gradle/secring.gpg.b64 > ~/.gradle/secring.gpg
+        echo "${{secrets.SIGNING_SECRET_KEY_RING_FILE}}" >> "${RINGFILE}.b64"
+        base64 -d "$RINGFILE.b64"> "$RINGFILE"
 
     - name: 'Deploy to Nexus'
       id: deploy
       if: steps.unlock_gpg.outcome == 'success'
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: publishGalacticraftPublicationToSnapshotsRepository -Psigning.keyId=${{secrets.GPG_PRIVATE_KEY}} -Psigning.password=${{secrets.GPG_PRIVATE_KEY_PASSPHRASE}} -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gpg)
+        arguments: publishGalacticraftPublicationToSnapshotsRepository -Psigning.keyId=${{secrets.GPG_PRIVATE_KEY}} -Psigning.password=${{secrets.GPG_PRIVATE_KEY_PASSPHRASE}} -Psigning.secretKeyRingFile=${RINGFILE}
 
     - name: Capture build artifacts
       if: steps.deploy.outcome == 'success'
