@@ -22,20 +22,23 @@ jobs:
       id: run_check
       with:
         arguments: check
+        
+    - name: 'Variables'
+      run: echo "RINGFILE=${WORKSPACE}/secring.gpg" >> $GITHUB_ENV
 
     - name: 'Decode GPG'
       id: unlock_gpg
       if: steps.run_check.outcome == 'success'
       run: |
         echo "${{secrets.SIGNING_SECRET_KEY_RING_FILE}}" >> "${RINGFILE}.b64"
-        base64 -d "$RINGFILE.b64"> "$RINGFILE"
+        base64 -d "${RINGFILE}.b64" >> "${RINGFILE}"
 
     - name: 'Deploy to Nexus'
       id: deploy
       if: steps.unlock_gpg.outcome == 'success'
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: publishGalacticraftPublicationToSnapshotsRepository -Psigning.keyId=${{secrets.GPG_PRIVATE_KEY}} -Psigning.password=${{secrets.GPG_PRIVATE_KEY_PASSPHRASE}} -Psigning.secretKeyRingFile=${RINGFILE}
+        arguments: publishGalacticraftPublicationToSnapshotsRepository -Psigning.keyId=${{secrets.GPG_PRIVATE_KEY}} -Psigning.password=${{secrets.GPG_PRIVATE_KEY_PASSPHRASE}} -Psigning.secretKeyRingFile="${RINGFILE}"
 
     - name: Capture build artifacts
       if: steps.deploy.outcome == 'success'
