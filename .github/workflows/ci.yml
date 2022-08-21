@@ -7,8 +7,6 @@ on:
 
 jobs:
   build:
-    env:
-      RINGFILE: "${GITHUB_WORKSPACE}/secring.gpg"
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +22,7 @@ jobs:
         arguments: check
         
     - name: 'Variables'
-      run: echo "RINGFILE=${WORKSPACE}/secring.gpg" >> $GITHUB_ENV
+      run: echo RINGFILE="./secring.gpg" >> $GITHUB_ENV
 
     - name: 'Decode GPG'
       id: unlock_gpg
