@@ -6,27 +6,30 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.annotation.ParametersAreNonnullByDefault;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialType;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.util.text.translation.LanguageMap;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings("deprecation")
-@ParametersAreNonnullByDefault
+@SideOnly(Side.CLIENT)
 public class TranslateUtil
 {
 
-    private static TranslateUtil instance = getInstance();
+    private static TranslateUtil instance      = getInstance();
 
-    private Map<String, String> celestialKeys = new HashMap<>();
+    private Map<String, String>  celestialKeys = new HashMap<>();
 
     private TranslateUtil()
     {
         try
         {
             Optional<LanguageMap> langMapInstance = ASMUtil.getStaticObject(LanguageMap.class, "instance");
-            populateMap(ASMUtil.getPrivateValue(LanguageMap.class, langMapInstance.get(), "languageList"));
+            if (langMapInstance.isPresent())
+            {
+                populateMap(ASMUtil.getPrivateValue(LanguageMap.class, langMapInstance.get(), "languageList"));
+            }
         } catch (Exception e)
         {
             GalacticraftCore.logger.error(e, "An error occured when trying to retreive LanguageMap");
