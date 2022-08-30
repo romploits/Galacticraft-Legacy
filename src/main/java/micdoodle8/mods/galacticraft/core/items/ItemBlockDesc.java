@@ -58,7 +58,7 @@ public class ItemBlockDesc extends ItemBlockGC
     {
         if (this.getBlock() instanceof IShiftDescription && ((IShiftDescription) this.getBlock()).showDescription(stack.getItemDamage()))
         {
-            if (GameSettings.isKeyDown(FMLClientHandler.instance().getClient().gameSettings.keyBindSneak))
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
             {
                 info.addAll(FMLClientHandler.instance().getClient().fontRenderer.listFormattedStringToWidth(((IShiftDescription) this.getBlock()).getShiftDescription(stack.getItemDamage()), 150));
             } else
@@ -86,7 +86,7 @@ public class ItemBlockDesc extends ItemBlockGC
                         }
                     }
                 }
-                info.add(GCCoreUtil.translateWithFormat("item_desc.shift.name", GameSettings.getKeyDisplayString(FMLClientHandler.instance().getClient().gameSettings.keyBindSneak.getKeyCode())));
+                info.add(GCCoreUtil.translateWithFormat("item_desc.shift.name", GameSettings.getKeyDisplayString(Keyboard.KEY_LSHIFT)));
             }
         }
     }
