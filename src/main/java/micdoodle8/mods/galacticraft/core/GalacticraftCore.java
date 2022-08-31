@@ -139,7 +139,6 @@ import micdoodle8.mods.galacticraft.core.util.CreativeTabGC;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.GalacticLog;
 import micdoodle8.mods.galacticraft.core.util.MapUtil;
-import micdoodle8.mods.galacticraft.core.util.TranslateUtil;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
 import micdoodle8.mods.galacticraft.core.world.gen.BiomeMoon;
@@ -513,8 +512,6 @@ public class GalacticraftCore
         NetworkRegistry.INSTANCE.registerGuiHandler(GalacticraftCore.instance, new GuiHandler());
         MinecraftForge.EVENT_BUS.register(new TickHandlerServer());
         GalaxyRegistry.refreshGalaxies();
-
-        TranslateUtil.generateMaps();
 
         GalacticraftRegistry.registerScreen(new GameScreenText()); // Screen API
         // demo
