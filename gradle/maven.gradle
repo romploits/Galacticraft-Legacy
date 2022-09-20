@@ -31,28 +31,30 @@ publishing {
             groupId 'dev.galacticraft'
             artifactId 'galacticraft-legacy'
             version version
-
+            
             artifact deobfJar
             artifact sourcesJar
+            
+            pom.withXml {
+                def depsNode  = asNode().appendNode('dependencies')
+                project.configurations.compileMod.allDependencies.each { dep ->
+                    if(dep.name != null && dep.group != null && dep.version != null) {
+                        def depNode = depsNode.appendNode('dependency')
 
-            pom {
-                name = 'Galacticraft'
-                description = 'An advanced space exploration mod for Minecraft'
-                url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy'
-                scm {
-                    url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy'
-                    connection = 'scm:git:git://github.com/TeamGalacticraft/Galacticraft-Legacy.git'
-                    developerConnection = 'scm:git:git@github.com:TeamGalacticraft/Galacticraft-Legacy.git'
+                        depNode.appendNode('groupId', dep.getGroup())
+                        depNode.appendNode('artifactId', dep.getName())
+                        depNode.appendNode('version', dep.getVersion().replace('_mapped_stable_39-1.12', ''))
+                        depNode.appendNode('scope', 'compile')
+                    }
                 }
-                issueManagement {
-                    system = 'github'
-                    url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy/issues'
-                }
+                project.configurations.runtimeOnly.allDependencies.each { dep ->
+                    if(dep.name != null && dep.group != null && dep.version != null) {
+                        def depNode = depsNode.appendNode('dependency')
 
-                licenses {
-                    license {
-                        name = 'custom'
-                        url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy/blob/master/LICENSE.txt'
+                        depNode.appendNode('groupId', dep.getGroup())
+                        depNode.appendNode('artifactId', dep.getName())
+                        depNode.appendNode('version', dep.getVersion().replace('_mapped_stable_39-1.12', ''))
+                        depNode.appendNode('scope', 'runtime')
                     }
                 }
             }

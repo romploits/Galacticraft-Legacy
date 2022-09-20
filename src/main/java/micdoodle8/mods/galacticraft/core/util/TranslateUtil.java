@@ -10,10 +10,7 @@ import micdoodle8.mods.galacticraft.api.galaxies.CelestialType;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.util.text.translation.LanguageMap;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class TranslateUtil
 {
 
