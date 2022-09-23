@@ -17,8 +17,9 @@ publishing {
             name 'Snapshots'
             url 'https://maven.galacticraft.net/repository/maven-snapshots/'
             credentials {
-                username = project.hasProperty('NEXUS_USER') ? project.NEXUS_USER : ''
-                password = project.hasProperty('NEXUS_PASSWORD') ? project.NEXUS_PASSWORD : ''
+                
+                username = System.getenv().NEXUS_USER == null ? project.hasProperty('NEXUS_USER') ? project.NEXUS_USER : '' : System.getenv().NEXUS_USER
+                password = System.getenv().NEXUS_PASSWORD == null ? project.hasProperty('NEXUS_PASSWORD') ? project.NEXUS_PASSWORD : '' : System.getenv().NEXUS_PASSWORD
             }
         }
         maven {
