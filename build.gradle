@@ -24,7 +24,7 @@ repositories {
     mavenCentral()
     maven {
         name 'galacticraft'
-        url 'https://repo.galacticraft.net/repository/maven' 
+        url 'https://maven.galacticraft.net/repository/maven' 
     }
     maven { 
         name 'buildcraft'
@@ -68,36 +68,19 @@ repositories {
     }
 }
 
-configurations {
-    compileOnly.extendsFrom compileMod
-}
-
-
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     
-    compileMod fg.deobf('mod.dependency:biomes-o-plenty:7.0.1.2445')
-    compileMod fg.deobf('mod.dependency:mekanism:9.8.3.390')
-    compileMod fg.deobf('mod.dependency:appliedenergistics2:rv6-stable-7')
-    compileMod fg.deobf('mod.dependency:redstoneflux:2.1.1.1')
-    compileMod fg.deobf('mod.dependency:actuallyadditions:r152')
-    compileMod fg.deobf('mod.dependency:playerapi:1.1')
-    compileMod fg.deobf('mod.dependency:industrialcraft-2:2.8.222-ex112')
-    compileMod fg.deobf('mod.dependency:journeymap:5.7.1')
-    compileMod fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
-    
-    compileOnly fg.deobf('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.675') {
-        exclude module: "asm-debug-all"
-    }
-    compileOnly ('CraftTweaker2:CraftTweaker2-API:4.1.20.675') {
-        exclude module: "asm-debug-all"
-    }
-    
-    compileOnly fg.deobf('li.cil.oc:OpenComputers:MC1.12.2-1.7.5.218:api')
-    compileOnly fg.deobf('org.squiddev:cc-tweaked-1.12.2:1.89.2')
-    compileMod fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
-    
-    runtimeOnly fg.deobf('com.mod-buildcraft:buildcraft-main:7.99.24.8')
+    compileOnly fg.deobf('mod.dependency:biomes-o-plenty:7.0.1.2445')
+    compileOnly fg.deobf('mod.dependency:mekanism:9.8.3.390')
+    compileOnly fg.deobf('mod.dependency:appliedenergistics2:rv6-stable-7')
+    compileOnly fg.deobf('mod.dependency:redstoneflux:2.1.1.1')
+    compileOnly fg.deobf('mod.dependency:actuallyadditions:r152')
+    compileOnly fg.deobf('mod.dependency:playerapi:1.1')
+    compileOnly fg.deobf('mod.dependency:industrialcraft-2:2.8.222-ex112')
+    compileOnly fg.deobf('mod.dependency:journeymap:5.7.1')
+    compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
+    compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
     runtimeOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
 }
 
@@ -169,18 +152,29 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource    
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
+    archiveClassifier.set('javadoc')
+    archiveVersion.set("${mc_version}-${version}")
+    from javadoc.destinationDir
+}
+
 // This will be the main jar that will be available via Maven
 // so projects do not have to pass it through ForgeGradle's 
 // deobfuscator configuration since (iirc) there is no way
 // to exclude miccore's classes
 task deobfJar(type: Jar) {
     duplicatesStrategy(DuplicatesStrategy.FAIL)
-    archiveVersion.set("${mc_version}-${version}-deobf")
+    archiveClassifier.set('deobf')
+    archiveVersion.set("${mc_version}-${version}")
     from sourceSets.main.output
+    from sourceSets.main.allJava
+    manifest(setManifest)
 }
 
 artifacts {
     archives deobfJar
+    archives javadocJar
     archives sourcesJar
 }
 

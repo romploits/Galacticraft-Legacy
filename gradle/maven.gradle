@@ -17,8 +17,8 @@ publishing {
             name 'Snapshots'
             url 'https://maven.galacticraft.net/repository/maven-snapshots/'
             credentials {
-                username = System.getenv().NEXUS_USER
-                password = System.getenv().NEXUS_PASSWORD
+                username = project.hasProperty('NEXUS_USER') ? project.NEXUS_USER : ''
+                password = project.hasProperty('NEXUS_PASSWORD') ? project.NEXUS_PASSWORD : ''
             }
         }
         maven {
@@ -27,37 +27,15 @@ publishing {
         }
     }
     publications {
-        Galacticraft(MavenPublication) {
+        galacticraft(MavenPublication) {
             groupId 'dev.galacticraft'
             artifactId 'galacticraft-legacy'
             version version
             
+            artifact jar
             artifact deobfJar
+            artifact javadocJar
             artifact sourcesJar
-            
-            pom.withXml {
-                def depsNode  = asNode().appendNode('dependencies')
-                project.configurations.compileMod.allDependencies.each { dep ->
-                    if(dep.name != null && dep.group != null && dep.version != null) {
-                        def depNode = depsNode.appendNode('dependency')
-
-                        depNode.appendNode('groupId', dep.getGroup())
-                        depNode.appendNode('artifactId', dep.getName())
-                        depNode.appendNode('version', dep.getVersion().replace('_mapped_stable_39-1.12', ''))
-                        depNode.appendNode('scope', 'compile')
-                    }
-                }
-                project.configurations.runtimeOnly.allDependencies.each { dep ->
-                    if(dep.name != null && dep.group != null && dep.version != null) {
-                        def depNode = depsNode.appendNode('dependency')
-
-                        depNode.appendNode('groupId', dep.getGroup())
-                        depNode.appendNode('artifactId', dep.getName())
-                        depNode.appendNode('version', dep.getVersion().replace('_mapped_stable_39-1.12', ''))
-                        depNode.appendNode('scope', 'runtime')
-                    }
-                }
-            }
         }
     }
     signing {
