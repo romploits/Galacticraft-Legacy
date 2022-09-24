@@ -1,9 +1,14 @@
+/*
+ * Copyright (c) 2022 Team Galacticraft
+ *
+ * Licensed under the MIT license.
+ * See LICENSE file in the project root for details.
+ */
+
 package micdoodle8.mods.galacticraft.core.energy.tile;
 
 import buildcraft.api.mj.MjAPI;
 import ic2.api.energy.tile.IEnergyAcceptor;
-import ic2.api.energy.tile.IEnergyEmitter;
-import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
@@ -12,7 +17,6 @@ import ic2.api.item.ISpecialElectricItem;
 import java.util.EnumSet;
 import mekanism.api.energy.EnergizedItemManager;
 import mekanism.api.energy.IEnergizedItem;
-import mekanism.api.energy.IStrictEnergyStorage;
 import micdoodle8.mods.galacticraft.api.item.ElectricItemHelper;
 import micdoodle8.mods.galacticraft.api.item.IItemElectric;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
@@ -30,17 +34,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fml.common.Optional.Interface;
-import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.common.Optional.Method;
 
-// @noformat
-@InterfaceList(value = {
-    @Interface(iface = "ic2.api.energy.tile.IEnergyEmitter", modid = CompatibilityManager.modidIC2), 
-    @Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = CompatibilityManager.modidIC2),
-    @Interface(iface = "mekanism.api.energy.IStrictEnergyStorage", modid = CompatibilityManager.modidMekanism)
-})
-public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversalElectrical implements IEnergyEmitter, IEnergySource, IStrictEnergyStorage
+public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversalElectrical
 {
 
     public TileBaseUniversalElectricalSource(String tileName)
@@ -144,12 +140,12 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
                 {
                     ISpecialElectricItem specialElectricItem = (ISpecialElectricItem) item;
                     IElectricItemManager manager = specialElectricItem.getManager(itemStack);
-                    double result = manager.charge(itemStack, (double) (energyToCharge * EnergyConfigHandler.TO_IC2_RATIO), this.tierGC + 1, false, false);
+                    double result = manager.charge(itemStack, energyToCharge * EnergyConfigHandler.TO_IC2_RATIO, this.tierGC + 1, false, false);
                     float energy = (float) result / EnergyConfigHandler.TO_IC2_RATIO;
                     this.storage.extractEnergyGC(energy, false);
                 } else if (item instanceof IElectricItem)
                 {
-                    double result = ElectricItem.manager.charge(itemStack, (double) (energyToCharge * EnergyConfigHandler.TO_IC2_RATIO), this.tierGC + 1, false, false);
+                    double result = ElectricItem.manager.charge(itemStack, energyToCharge * EnergyConfigHandler.TO_IC2_RATIO, this.tierGC + 1, false, false);
                     float energy = (float) result / EnergyConfigHandler.TO_IC2_RATIO;
                     this.storage.extractEnergyGC(energy, false);
                 }
@@ -222,12 +218,14 @@ public abstract class TileBaseUniversalElectricalSource extends TileBaseUniversa
         return this.storage.getEnergyStoredGC() * EnergyConfigHandler.TO_MEKANISM_RATIO;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public double getMaxEnergy()
     {
         return this.storage.getCapacityGC() * EnergyConfigHandler.TO_MEKANISM_RATIO;
     }
 
+    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public void setEnergy(double energy)
     {

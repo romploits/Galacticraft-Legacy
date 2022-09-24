@@ -24,8 +24,7 @@ import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Interface(iface = "ic2.api.tile.IWrenchable", modid = CompatibilityManager.modidIC2, striprefs = true)
-public abstract class TileBaseElectricBlock extends TileBaseUniversalElectrical implements IDisableableMachine, IConnector, IWrenchable
+public abstract class TileBaseElectricBlock extends TileBaseUniversalElectrical implements IDisableableMachine, IConnector
 {
 
     @NetworkedField(targetSide = Side.CLIENT)

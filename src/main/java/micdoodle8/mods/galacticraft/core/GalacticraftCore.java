@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2022 Team Galacticraft
+ *
+ * Licensed under the MIT license.
+ * See LICENSE file in the project root for details.
+ */
+
 package micdoodle8.mods.galacticraft.core;
 
 import java.io.File;
@@ -198,7 +205,8 @@ import net.minecraftforge.server.permission.PermissionAPI;
 @Mod(modid = Constants.MOD_ID_CORE,
     name = GalacticraftCore.NAME,
     version = Constants.VERSION,
-    dependencies = "required-after:forge@[14.23.5.2860,);",
+    dependencies = Constants.DEPENDENCIES_FORGE + Constants.DEPENDENCIES_MICCORE,
+    useMetadata = false,
     acceptedMinecraftVersions = "[1.12, 1.13)",
     guiFactory = "micdoodle8.mods.galacticraft.core.client.gui.screen.ConfigGuiFactoryCore")
 public class GalacticraftCore
@@ -884,6 +892,6 @@ public class GalacticraftCore
         info.version = Constants.VERSION;
         info.description = "An advanced space travel mod for Minecraft!";
         info.authorList = Arrays.asList("micdoodle8", "radfast", "EzerArch", "fishtaco", "SpaceViking", "SteveKunG", "ROMVoid95");
-        info.logoFile = "assets/galacticraftplanets/logo.png";
+        info.logoFile = "assets/galacticraftplanets/core-logo.png";
     }
 }

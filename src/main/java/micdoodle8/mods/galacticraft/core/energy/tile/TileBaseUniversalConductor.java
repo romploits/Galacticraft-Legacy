@@ -1,15 +1,12 @@
 package micdoodle8.mods.galacticraft.core.energy.tile;
 
 import buildcraft.api.mj.IMjConnector;
-import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyEmitter;
-import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergyTile;
 import javax.annotation.Nonnull;
-import mekanism.api.energy.IStrictEnergyAcceptor;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConductor;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IElectrical;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
@@ -18,27 +15,15 @@ import micdoodle8.mods.galacticraft.core.energy.EnergyUtil;
 import micdoodle8.mods.galacticraft.core.util.CompatibilityManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fml.common.Optional.Interface;
-import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-// @noformat
-@InterfaceList(value = {
-    @Interface(iface = "net.minecraft.util.ITickable", modid = CompatibilityManager.modidIC2), 
-    @Interface(iface = "ic2.api.energy.tile.IEnergyAcceptor", modid = CompatibilityManager.modidIC2),
-    @Interface(iface = "ic2.api.energy.tile.IEnergyEmitter", modid = CompatibilityManager.modidIC2),
-    @Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = CompatibilityManager.modidIC2),
-    @Interface(iface = "mekanism.api.energy.IStrictEnergyAcceptor", modid = CompatibilityManager.modidMekanism),
-    @Interface(iface = "buildcraft.api.mj.IMjReceiver", modid = CompatibilityManager.modBCraftEnergy)
-})
-public abstract class TileBaseUniversalConductor extends TileBaseConductor implements IEnergyStorage, ITickable, IMjReceiver, IEnergyAcceptor, IEnergyEmitter, IEnergySink, IStrictEnergyAcceptor
+public abstract class TileBaseUniversalConductor extends TileBaseConductor implements IEnergyStorage
 {
 
     protected boolean isAddedToEnergyNet;
@@ -55,7 +40,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return EnergyUtil.getAdjacentPowerConnections(this);
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public void update()
     {
@@ -128,7 +112,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         }
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public double getDemandedEnergy()
     {
@@ -152,7 +135,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return 0D;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public double injectEnergy(EnumFacing directionFrom, double amount, double voltage)
     {
@@ -177,14 +159,12 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return 0D;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public int getSinkTier()
     {
         return 3;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side)
     {
@@ -210,7 +190,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return true;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public boolean emitsEnergyTo(IEnergyAcceptor receiver, EnumFacing side)
     {
@@ -291,7 +270,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
-    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long getPowerRequested()
     {
@@ -304,7 +282,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
-    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long receivePower(long microJoules, boolean simulate)
     {
@@ -318,7 +295,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
     }
 
     // Buildcraft 7
-    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public boolean canConnect(@Nonnull IMjConnector other)
     {
@@ -388,7 +364,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return amount - this.getNetwork().produce((float) amount * EnergyConfigHandler.MEKANISM_RATIO, true, 1, this) / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public double acceptEnergy(EnumFacing side, double amount, boolean simulate)
     {
@@ -405,7 +380,6 @@ public abstract class TileBaseUniversalConductor extends TileBaseConductor imple
         return amount - this.getNetwork().produce((float) amount * EnergyConfigHandler.MEKANISM_RATIO, !simulate, 1, this) / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canReceiveEnergy(EnumFacing side)
     {

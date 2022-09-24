@@ -3,9 +3,7 @@ package micdoodle8.mods.galacticraft.core.energy.tile;
 import buildcraft.api.mj.IMjConnector;
 import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
-import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyEmitter;
-import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
@@ -14,8 +12,6 @@ import java.util.EnumSet;
 import javax.annotation.Nonnull;
 import mekanism.api.energy.EnergizedItemManager;
 import mekanism.api.energy.IEnergizedItem;
-import mekanism.api.energy.IStrictEnergyAcceptor;
-import mekanism.api.energy.IStrictEnergyOutputter;
 import micdoodle8.mods.galacticraft.api.item.ElectricItemHelper;
 import micdoodle8.mods.galacticraft.api.item.IItemElectric;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IConductor;
@@ -32,20 +28,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.common.Optional.Interface;
-import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-// @noformat
-@InterfaceList(value = {
-    @Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = CompatibilityManager.modidIC2), 
-    @Interface(iface = "ic2.api.energy.tile.IEnergyAcceptor", modid = CompatibilityManager.modidIC2),
-    @Interface(iface = "buildcraft.api.mj.IMjReceiver", modid = CompatibilityManager.modBCraftEnergy),
-    @Interface(iface = "mekanism.api.energy.IStrictEnergyOutputter", modid = CompatibilityManager.modidMekanism),
-    @Interface(iface = "mekanism.api.energy.IStrictEnergyAcceptor", modid = CompatibilityManager.modidMekanism)
-})
-public abstract class TileBaseUniversalElectrical extends EnergyStorageTile implements IEnergySink, IEnergyAcceptor, IMjReceiver, IStrictEnergyOutputter, IStrictEnergyAcceptor
+public abstract class TileBaseUniversalElectrical extends EnergyStorageTile
 {
 
     protected boolean isAddedToEnergyNet;
@@ -257,7 +244,6 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
         }
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public double getDemandedEnergy()
     {
@@ -286,7 +272,6 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
         return 0D;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidIC2)
     public double injectEnergy(EnumFacing direction, double amount, double voltage)
     {
@@ -315,14 +300,12 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
     }
 
     @Method(modid = CompatibilityManager.modidIC2)
-    @Override
     public int getSinkTier()
     {
         return 3;
     }
 
     @Method(modid = CompatibilityManager.modidIC2)
-    @Override
     public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing direction)
     {
         if (this.tileEntityInvalid)
@@ -337,14 +320,12 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
     }
 
     // BuildCraft
-    @Override
     public boolean canReceive()
     {
         return !EnergyConfigHandler.disableBuildCraftInput;
     }
 
     // Buildcraft 7
-    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long getPowerRequested()
     {
@@ -359,7 +340,6 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
     }
 
     // Buildcraft 7
-    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public long receivePower(long microJoules, boolean simulate)
     {
@@ -373,7 +353,6 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
     }
 
     // Buildcraft 7
-    @Override
     @Method(modid = CompatibilityManager.modBCraftEnergy)
     public boolean canConnect(@Nonnull IMjConnector other)
     {
@@ -426,14 +405,12 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
         return this.receiveElectricity(from, (float) amount * EnergyConfigHandler.MEKANISM_RATIO, 1, true) / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canReceiveEnergy(EnumFacing side)
     {
         return this.getElectricalInputDirections().contains(side);
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public double acceptEnergy(EnumFacing side, double amount, boolean simulate)
     {
@@ -472,13 +449,12 @@ public abstract class TileBaseUniversalElectrical extends EnergyStorageTile impl
         return this.getMaxEnergyStoredGC() / EnergyConfigHandler.MEKANISM_RATIO;
     }
 
-    @Override
+    @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canOutputEnergy(EnumFacing side)
     {
         return this.getElectricalOutputDirections().contains(side);
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public double pullEnergy(EnumFacing side, double amount, boolean simulate)
     {

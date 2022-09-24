@@ -1,17 +1,22 @@
+/*
+ * Copyright (c) 2022 Team Galacticraft
+ *
+ * Licensed under the MIT license.
+ * See LICENSE file in the project root for details.
+ */
+
 package micdoodle8.mods.galacticraft.core.tile;
 
 import java.util.EnumSet;
 import mekanism.api.gas.Gas;
 import mekanism.api.gas.GasStack;
-import mekanism.api.gas.IGasHandler;
-import mekanism.api.gas.ITubeConnection;
-import mekanism.common.capabilities.Capabilities;
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IOxygenReceiver;
 import micdoodle8.mods.galacticraft.api.transmission.tile.IOxygenStorage;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.GCFluids;
 import micdoodle8.mods.galacticraft.core.energy.EnergyConfigHandler;
+import micdoodle8.mods.galacticraft.core.energy.EnergyUtil;
 import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseElectricBlock;
 import micdoodle8.mods.galacticraft.core.fluid.FluidNetwork;
 import micdoodle8.mods.galacticraft.core.fluid.NetworkHelper;
@@ -27,15 +32,10 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.common.Optional.Interface;
-import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.relauncher.Side;
-@InterfaceList({
-    @Interface(iface = "mekanism.api.gas.IGasHandler", modid = CompatibilityManager.modidMekanism),
-    @Interface(iface = "mekanism.api.gas.ITubeConnection", modid = CompatibilityManager.modidMekanism)
-})
-public abstract class TileEntityOxygen extends TileBaseElectricBlock implements IOxygenReceiver, IOxygenStorage, IFluidHandlerWrapper, IGasHandler, ITubeConnection
+
+public abstract class TileEntityOxygen extends TileBaseElectricBlock implements IOxygenReceiver, IOxygenStorage, IFluidHandlerWrapper
 {
 
     public int oxygenPerTick;
@@ -56,11 +56,8 @@ public abstract class TileEntityOxygen extends TileBaseElectricBlock implements 
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             return true;
 
-        if (CompatibilityManager.isMekanismLoaded())
-        {
-            if (capability == Capabilities.GAS_HANDLER_CAPABILITY)
-                return true;
-        }
+        if (EnergyUtil.checkMekGasHandler(capability))
+            return true;
 
         return super.hasCapability(capability, facing);
     }
@@ -73,12 +70,9 @@ public abstract class TileEntityOxygen extends TileBaseElectricBlock implements 
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new FluidHandlerWrapper(this, facing));
         }
 
-        if (CompatibilityManager.isMekanismLoaded())
+        if (EnergyUtil.checkMekGasHandler(capability))
         {
-            if (capability == Capabilities.GAS_HANDLER_CAPABILITY)
-            {
-                return Capabilities.GAS_HANDLER_CAPABILITY.cast(this);
-            }
+            return (T) this;
         }
 
         return super.getCapability(capability, facing);
@@ -363,7 +357,6 @@ public abstract class TileEntityOxygen extends TileBaseElectricBlock implements 
         return 0;
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public int receiveGas(EnumFacing side, GasStack stack, boolean doTransfer)
     {
@@ -380,7 +373,6 @@ public abstract class TileEntityOxygen extends TileBaseElectricBlock implements 
         return this.receiveGas(side, stack, true);
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public GasStack drawGas(EnumFacing side, int amount, boolean doTransfer)
     {
@@ -393,14 +385,12 @@ public abstract class TileEntityOxygen extends TileBaseElectricBlock implements 
         return this.drawGas(side, amount, true);
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canReceiveGas(EnumFacing side, Gas type)
     {
         return type.getName().equals("oxygen") && this.getOxygenInputDirections().contains(side);
     }
 
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canDrawGas(EnumFacing side, Gas type)
     {
@@ -408,7 +398,6 @@ public abstract class TileEntityOxygen extends TileBaseElectricBlock implements 
     }
 
     @Deprecated
-    @Override
     @Method(modid = CompatibilityManager.modidMekanism)
     public boolean canTubeConnect(EnumFacing side)
     {
