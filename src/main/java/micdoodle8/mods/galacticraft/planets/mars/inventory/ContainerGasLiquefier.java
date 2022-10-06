@@ -34,9 +34,9 @@ public class ContainerGasLiquefier extends Container
         // Input slot
         this.addSlotToContainer(new Slot(tileEntity, 1, 7, 7));
 
-        // 2 output slots
+        // 1 output slot
         this.addSlotToContainer(new Slot(tileEntity, 2, 132, 7));
-        this.addSlotToContainer(new Slot(tileEntity, 3, 153, 7));
+
         int var3;
 
         for (var3 = 0; var3 < 3; ++var3)
@@ -69,30 +69,30 @@ public class ContainerGasLiquefier extends Container
     }
 
     /**
-     * Called to transfer a stack from one inventory to the other eg. when shift
-     * clicking.
+     * Called to transfer a stack from one inventory to the other eg. when shift clicking.
      */
     @Override
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par1)
     {
-        ItemStack var2 = ItemStack.EMPTY;
+        ItemStack itemStack1 = ItemStack.EMPTY;
         final Slot slot = this.inventorySlots.get(par1);
 
         if (slot != null && slot.getHasStack())
         {
             final ItemStack var4 = slot.getStack();
-            var2 = var4.copy();
+            itemStack1 = var4.copy();
 
-            if (par1 < 4)
+            if (par1 < this.tileEntity.getSizeInventory())
             {
-                if (!this.mergeItemStack(var4, 4, 40, true))
+
+                if (!this.mergeItemStack(var4, this.tileEntity.getSizeInventory(), this.tileEntity.getSizeInventory() + 36, true))
                 {
                     return ItemStack.EMPTY;
                 }
 
                 if (par1 == 2)
                 {
-                    slot.onSlotChange(var4, var2);
+                    slot.onSlotChange(var4, itemStack1);
                 }
             } else
             {
@@ -105,13 +105,7 @@ public class ContainerGasLiquefier extends Container
                 } else
                 {
                     boolean outputTankSlotsSuccess = false;
-                    if (FluidUtil.isEmptyContainerFor(var4, this.tileEntity.liquidTank2.getFluid()))
-                    {
-                        if (this.mergeItemStack(var4, 3, 4, false))
-                        {
-                            outputTankSlotsSuccess = true;
-                        }
-                    }
+
                     if (!outputTankSlotsSuccess && FluidUtil.isEmptyContainerFor(var4, this.tileEntity.liquidTank.getFluid()))
                     {
                         if (this.mergeItemStack(var4, 2, 3, false))
@@ -130,7 +124,8 @@ public class ContainerGasLiquefier extends Container
                             }
                         } else if (par1 < 31)
                         {
-                            if (!this.mergeItemStack(var4, 31, 40, false))
+
+                            if (!this.mergeItemStack(var4, 31, 39, false))
                             {
                                 return ItemStack.EMPTY;
                             }
@@ -150,7 +145,7 @@ public class ContainerGasLiquefier extends Container
                 slot.onSlotChanged();
             }
 
-            if (var4.getCount() == var2.getCount())
+            if (var4.getCount() == itemStack1.getCount())
             {
                 return ItemStack.EMPTY;
             }
@@ -158,6 +153,6 @@ public class ContainerGasLiquefier extends Container
             slot.onTake(par1EntityPlayer, var4);
         }
 
-        return var2;
+        return itemStack1;
     }
 }
