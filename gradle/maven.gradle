@@ -67,7 +67,7 @@ publishing {
                     repoNode.appendNode('url', 'https://maven.galacticraft.net/repository/legacy-common/')
 
                     def depsNode = asNode().appendNode('dependencies')
-                    project.configurations.compileOnly.allDependencies.each { dep ->
+                    project.configurations.compileMod.allDependencies.each { dep ->
                         def depNode = depsNode.appendNode('dependency')
 
                         depNode.appendNode('groupId', dep.getGroup())
