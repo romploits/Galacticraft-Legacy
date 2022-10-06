@@ -7,7 +7,7 @@ publishing {
     repositories {
         maven {
             name 'Releases'
-            url 'https://maven.galacticraft.net/repository/maven-releases/'
+            url 'https://maven.galacticraft.net/repository/legacy-releases/'
             credentials {
                 username = project.hasProperty('NEXUS_USER') ? project.NEXUS_USER : ''
                 password = project.hasProperty('NEXUS_PASSWORD') ? project.NEXUS_PASSWORD : ''
@@ -15,9 +15,9 @@ publishing {
         }
         maven {
             name 'Snapshots'
-            url 'https://maven.galacticraft.net/repository/maven-snapshots/'
+            url 'https://maven.galacticraft.net/repository/legacy-snapshots/'
             credentials {
-                
+
                 username = System.getenv().NEXUS_USER == null ? project.hasProperty('NEXUS_USER') ? project.NEXUS_USER : '' : System.getenv().NEXUS_USER
                 password = System.getenv().NEXUS_PASSWORD == null ? project.hasProperty('NEXUS_PASSWORD') ? project.NEXUS_PASSWORD : '' : System.getenv().NEXUS_PASSWORD
             }
@@ -32,11 +32,51 @@ publishing {
             groupId 'dev.galacticraft'
             artifactId 'galacticraft-legacy'
             version version
-            
+
             artifact jar
             artifact deobfJar
             artifact javadocJar
             artifact sourcesJar
+
+            pom {
+                name = 'Galacticraft'
+                description = 'An advanced space exploration mod for Minecraft'
+                url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy'
+                scm {
+                    url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy'
+                    connection = 'scm:git:git://github.com/TeamGalacticraft/Galacticraft-Legacy.git'
+                    developerConnection = 'scm:git:git@github.com:TeamGalacticraft/Galacticraft-Legacy.git'
+                }
+                issueManagement {
+                    system = 'github'
+                    url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy/issues'
+                }
+
+                licenses {
+                    license {
+                        name = 'custom'
+                        url = 'https://github.com/TeamGalacticraft/Galacticraft-Legacy/blob/master/LICENSE.txt'
+                    }
+                }
+                withXml {
+                    def reposNode = asNode().appendNode('repositories')
+                    def repoNode = reposNode.appendNode('repository')
+
+                    repoNode.appendNode('id', 'legacy-common')
+                    repoNode.appendNode('name', 'Legacy Common')
+                    repoNode.appendNode('url', 'https://maven.galacticraft.net/repository/legacy-common/')
+
+                    def depsNode = asNode().appendNode('dependencies')
+                    project.configurations.compileOnly.allDependencies.each { dep ->
+                        def depNode = depsNode.appendNode('dependency')
+
+                        depNode.appendNode('groupId', dep.getGroup())
+                        depNode.appendNode('artifactId', dep.getName())
+                        depNode.appendNode('version', dep.getVersion().replace('_mapped_stable_39-1.12', ''))
+                        depNode.appendNode('scope', 'compile')
+                    }
+                }
+            }
         }
     }
     signing {

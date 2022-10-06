@@ -24,7 +24,7 @@ repositories {
     mavenCentral()
     maven {
         name 'galacticraft'
-        url 'https://maven.galacticraft.net/repository/maven' 
+        url 'https://maven.galacticraft.net/repository/legacy-common/' 
     }
     maven { 
         name 'buildcraft'
@@ -79,9 +79,9 @@ dependencies {
     compileOnly fg.deobf('mod.dependency:playerapi:1.1')
     compileOnly fg.deobf('mod.dependency:industrialcraft-2:2.8.222-ex112')
     compileOnly fg.deobf('mod.dependency:journeymap:5.7.1')
-    compileOnly fg.deobf('com.mod-buildcraft:buildcraft-api:7.99.24.8')
-    compileOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302:api')
-    runtimeOnly fg.deobf('mezz.jei:jei_1.12.2:4.16.1.302')
+    compileOnly fg.deobf('mod.dependency:buildcraft-api:7.99.24.8')
+    compileOnly fg.deobf('mod.dependency:jei:4.16.1.302:api')
+    runtimeOnly fg.deobf('mod.dependency:jei:4.16.1.302')
 }
 
 minecraft {
@@ -126,7 +126,7 @@ def setManifest = { Manifest manifest->
             'Implementation-Title'        : 'Galacticraft',
             'Implementation-Version'      : "${version}",
             'Implementation-Vendor'       : 'TeamGalacticraft',
-            'Implementation-Timestamp'    : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            'Implementation-Build-Date'    : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             'FMLAT'                       : 'accesstransformer.cfg',
             'FMLCorePluginContainsFMLMod' : 'true',
             'FMLCorePlugin'               : 'micdoodle8.mods.miccore.MicdoodlePlugin',
