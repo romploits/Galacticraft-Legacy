@@ -9,7 +9,9 @@ package micdoodle8.mods.galacticraft.core.items;
 
 import java.util.List;
 import javax.annotation.Nullable;
+import micdoodle8.mods.galacticraft.core.util.ClientUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -18,7 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 
 public abstract class ItemDesc extends Item implements IShiftDescription
 {
@@ -29,12 +30,12 @@ public abstract class ItemDesc extends Item implements IShiftDescription
     {
         if (this.showDescription(stack.getItemDamage()))
         {
-            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+            if (ClientUtil.isKeyPressed(Minecraft.getMinecraft().gameSettings.keyBindSneak))
             {
                 info.addAll(FMLClientHandler.instance().getClient().fontRenderer.listFormattedStringToWidth(this.getShiftDescription(stack.getItemDamage()), 150));
             } else
             {
-                info.add(GCCoreUtil.translateWithFormat("item_desc.shift.name", GameSettings.getKeyDisplayString(Keyboard.KEY_LSHIFT)));
+                info.add(GCCoreUtil.translateWithFormat("item_desc.shift.name", GameSettings.getKeyDisplayString(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())));
             }
         }
     }
