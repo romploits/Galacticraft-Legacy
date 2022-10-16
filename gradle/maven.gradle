@@ -33,9 +33,8 @@ publishing {
             artifactId 'galacticraft-legacy'
             version version
 
-            artifact jar
+            artifact mavenJar
             artifact deobfJar
-            artifact javadocJar
             artifact sourcesJar
 
             pom {

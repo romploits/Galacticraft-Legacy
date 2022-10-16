@@ -76,3 +76,4 @@ nb-configuration.xml
 *.launch
 /.nb-gradle/
 /.gradle/
+!etc/replace/IntCache.class

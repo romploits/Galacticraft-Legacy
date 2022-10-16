@@ -156,17 +156,6 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource    
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    duplicatesStrategy(DuplicatesStrategy.FAIL)
-    archiveClassifier.set('javadoc')
-    archiveVersion.set("${mc_version}-${version}")
-    from javadoc.destinationDir
-}
-
-// This will be the main jar that will be available via Maven
-// so projects do not have to pass it through ForgeGradle's 
-// deobfuscator configuration since (iirc) there is no way
-// to exclude miccore's classes
 task deobfJar(type: Jar) {
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     archiveClassifier.set('deobf')
@@ -176,10 +165,23 @@ task deobfJar(type: Jar) {
     manifest(setManifest)
 }
 
+task mavenJar(type: Jar) {
+    duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+    manifest(setManifest)
+    archiveVersion.set("${mc_version}-${version}-maven")
+    from(sourceSets.main.output) {
+        exclude 'micdoodle8/mods/miccore/IntCache.*'
+    }
+    from("${projectDir}/etc/replace") {
+        include 'IntCache.class'
+        into 'micdoodle8/mods/miccore'
+    }
+}
+
 artifacts {
     archives deobfJar
-    archives javadocJar
     archives sourcesJar
+    archives mavenJar
 }
 
 apply from: 'gradle/maven.gradle'
@@ -191,9 +193,7 @@ license {
         company = 'Team Galacticraft'
         year = Calendar.getInstance().get(Calendar.YEAR);
     }
-    if(System.getenv().GITHUB_ACTIONS) {
-        ignoreFailures = true
-    }
+    ignoreFailures = true
     include '**/*.java'
 }
 
