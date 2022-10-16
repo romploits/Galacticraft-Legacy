@@ -63,6 +63,7 @@ public class EnergyUtil
     private static boolean isRF1Loaded = EnergyConfigHandler.isRFAPIv1Loaded();
     private static boolean isRF2Loaded = EnergyConfigHandler.isRFAPIv2Loaded();
     private static boolean isIC2Loaded = EnergyConfigHandler.isIndustrialCraft2Loaded();
+    private static boolean isIC2ClassicLoaded = CompatibilityManager.isIc2ClassicLoaded();
     private static boolean isIC2TileLoaded = false;
     private static boolean isBCReallyLoaded = EnergyConfigHandler.isBuildcraftLoaded();
 
@@ -181,7 +182,7 @@ public class EnergyUtil
                 continue;
             }
 
-            if (isIC2Loaded)
+            if (isIC2Loaded && !isIC2ClassicLoaded)
             {
                 if (tileEntity instanceof IEnergyConductor)
                 {
@@ -505,7 +506,7 @@ public class EnergyUtil
         {
             IMjReceiver bcReceiver = getCapability(tileAdj, MjAPI.CAP_RECEIVER, inputAdj);
             long toSendBC = Math.min((long) (toSend * EnergyConfigHandler.TO_BC_RATIO), bcReceiver.getPowerRequested());
-            float sent = (float) (toSendBC - bcReceiver.receivePower(toSendBC, simulate)) / EnergyConfigHandler.TO_BC_RATIO;
+            float sent = (toSendBC - bcReceiver.receivePower(toSendBC, simulate)) / EnergyConfigHandler.TO_BC_RATIO;
             return sent;
         } else if (isRF2Loaded && !EnergyConfigHandler.disableRFOutput && tileAdj instanceof IEnergyReceiver)
         {
@@ -570,7 +571,7 @@ public class EnergyUtil
         {
             IMjPassiveProvider bcEmitter = getCapability(tileAdj, MjAPI.CAP_PASSIVE_PROVIDER, inputAdj);
             long toSendBC = (long) (toPull * EnergyConfigHandler.TO_BC_RATIO);
-            float sent = (float) bcEmitter.extractPower(toSendBC, toSendBC, simulate) / EnergyConfigHandler.TO_BC_RATIO;
+            float sent = bcEmitter.extractPower(toSendBC, toSendBC, simulate) / EnergyConfigHandler.TO_BC_RATIO;
             return sent;
         } else if (isRF2Loaded && !EnergyConfigHandler.disableRFInput && tileAdj instanceof IEnergyProvider)
         {
