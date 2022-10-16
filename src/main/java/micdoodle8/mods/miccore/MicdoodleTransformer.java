@@ -951,7 +951,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
                         updateFogColorMethod.instructions.insertBefore(updateFogColorMethod.instructions.get(count + 2), toAdd);
                         MicdoodleTransformer.injectionCount++;
                         
-                            System.out.println("bll.updateFogColor - getFogColor (no Optifine) done");
+                        this.printLog("bll.updateFogColor - getFogColor (no Optifine) done");
                     } else if (this.methodMatches(MicdoodleTransformer.KEY_METHOD_GET_SKY_COLOR, nodeAt))
                     {
                         InsnList toAdd = new InsnList();
@@ -1767,7 +1767,7 @@ public class MicdoodleTransformer implements net.minecraft.launchwrapper.IClassT
             }
         } catch (NullPointerException e)
         {
-            System.err.println("Could not find key: " + keyName);
+            this.printLog("Could not find key: " + keyName);
             throw e;
         }
     }
