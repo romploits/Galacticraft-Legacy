@@ -29,7 +29,7 @@ public final class CelestialType
 
     public static CelestialType create(String name)
     {
-        return new CelestialType(name);
+        return new CelestialType(name.toLowerCase());
     }
 
     private CelestialType(String name)
