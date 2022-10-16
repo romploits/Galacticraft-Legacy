@@ -37,13 +37,3 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         arguments: publishGalacticraftPublicationToSnapshotsRepository -Psigning.keyId=${{secrets.GPG_PRIVATE_KEY}} -Psigning.password=${{secrets.GPG_PRIVATE_KEY_PASSPHRASE}} -Psigning.secretKeyRingFile=secring.gpg
-
-    - name: Capture build artifacts
-      if: steps.deploy.outcome == 'success'
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: Galacticraft-Legacy_snapshot-preview
-        path: |
-          build/libs/
-          !build/libs/*-deobf.jar
-          !build/libs/*-sources.jar
