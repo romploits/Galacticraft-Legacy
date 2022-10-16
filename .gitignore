@@ -58,7 +58,6 @@ Thumbs.db
 ###########
 .classpath
 .externalToolBuilders
-.gradle
 .idea
 .project
 .settings
@@ -76,4 +75,4 @@ nb-configuration.xml
 /.apt_generated/
 *.launch
 /.nb-gradle/
-gradle.properties
+/.gradle/
