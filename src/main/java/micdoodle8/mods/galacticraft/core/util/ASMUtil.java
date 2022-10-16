@@ -396,6 +396,8 @@ public class ASMUtil {
         public static class UnknownConstructorException extends RuntimeException
         {
 
+            private static final long serialVersionUID = 1L;
+
             public UnknownConstructorException(final String message)
             {
                 super(message);

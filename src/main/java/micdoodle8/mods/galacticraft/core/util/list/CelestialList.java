@@ -15,6 +15,8 @@ import micdoodle8.mods.galacticraft.api.galaxies.CelestialObject;
 
 public class CelestialList<T extends CelestialObject> extends ArrayList<T>
 {
+
+    private static final long serialVersionUID = 1L;
     private Map<String, T>    celestialListMap;
 
     public static <E extends CelestialObject> CelestialList<E> create()

@@ -192,7 +192,6 @@ public class GalaxyRegistry
         return getPlanetOrMoonFromTranslationkey(unlocalizedName);
     }
 
-    @SuppressWarnings("deprecation")
     public static <T> void register(T object)
     {
         if (object instanceof SolarSystem)

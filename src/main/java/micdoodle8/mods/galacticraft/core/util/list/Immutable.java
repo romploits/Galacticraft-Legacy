@@ -20,7 +20,7 @@ import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.Predicate;
 
-public abstract class Immutable<E> extends ArrayList<E> implements Serializable
+abstract class Immutable<E> extends ArrayList<E> implements Serializable
 {
 
     private static final long serialVersionUID            = -3175142460104260006L;
