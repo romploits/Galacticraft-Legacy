@@ -2,11 +2,10 @@ name: "CodeQL Analysis"
 
 on:
   push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches: [ master-1.12 ]
   schedule:
-    - cron: '26 8 * * 5'
+    - cron: '0 0 * * *'
 
 jobs:
   analyze:
@@ -29,9 +28,9 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-
+        
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
-
+        
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
