@@ -3,12 +3,11 @@ on: [push, pull_request]
 jobs:
   build:
     env:
-      COMMIT_MSG: ${{ github.event.head_commit.message }}
       RELEASE: ${{ false }}
       VERSION_SUFFIX: -SNAPSHOT
     name: Build
     runs-on: ubuntu-latest
-    if: "!startsWith(${{ env.COMMIT_MSG }}, 'ci') || !contains(${{ env.COMMIT_MSG }}, '(github)')"
+    if: ${{!startsWith(github.event.head_commit.message, 'ci')}}
     steps:
     - if: startsWith(github.ref, 'refs/tags/')
       run: |
