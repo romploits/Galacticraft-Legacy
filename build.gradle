@@ -1,17 +1,15 @@
 plugins {
     id 'java'
     id 'eclipse'
-    id 'io.freefair.lombok' version '6.5.0.2'
     id 'org.cadixdev.licenser' version '0.6.1'
-    id 'net.galacticraft.internal.maven' version '1.0.0'
+    id 'net.galacticraft.token' version '1.0.0'
     id 'net.galacticraft.internal.legacy.defaults' version '1.0.0'
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
-group = "micdoodle8.mods.galacticraft"
+group = "dev.galacticraft"
 archivesBaseName = "Galacticraft"
-
 version = "${mod_version}${version_suffix}"
 
 repositories {
@@ -40,9 +38,22 @@ dependencies {
     compileOnly fg.deobf('mod.dependency:journeymap:5.7.1')
     compileOnly fg.deobf('mod.dependency:jei:4.16.1.302:api')
     runtimeOnly fg.deobf('mod.dependency:jei:4.16.1.302')
+    
+    // Project lombok
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
-apply from: 'gradle/resources.gradle'
+tasks.withType(Copy).all {
+    duplicatesStrategy 'EXCLUDE'
+}
+
+tokens {
+    replaceIn("micdoodle8/mods/galacticraft/core/Constants.java")
+    replace([ gcVersion: version ])
+}
 
 license {
     header = project.file('etc/HEADER')
