@@ -3,7 +3,6 @@ on: [push, pull_request]
 jobs:
   build:
     env:
-      RELEASE: ${{ false }}
       VERSION_SUFFIX: -SNAPSHOT
     name: Build
     runs-on: ubuntu-latest
@@ -44,4 +43,4 @@ jobs:
       with:
         arguments: |
           publishToGalacticMaven
-          -pversion_suffix=${{ env.VERSION_SUFFIX }}
+          -Pversion_suffix=${{ env.VERSION_SUFFIX }}
