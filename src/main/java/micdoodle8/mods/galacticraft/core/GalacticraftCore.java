@@ -781,7 +781,7 @@ public class GalacticraftCore
         // reachable dimension first
         for (CelestialBody body : new ArrayList<>(GalaxyRegistry.getPlanets()))
         {
-            if (body instanceof Planet && name.equals(body.getName()))
+            if (body instanceof Planet && name.equalsIgnoreCase(body.getName()))
             {
                 if (((Planet) body).getParentSolarSystem() == system)
                 {
