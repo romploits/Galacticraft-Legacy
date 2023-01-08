@@ -88,6 +88,8 @@ modpublishing {
 	changelogPath(changelog.changelogFile)
 
     curseforge('364345') {
+    	if (System.getenv().CI)
+    		apiKey = 'none'
 	    relations {
 	        optional('mekanism', 'jei', 'journeymap', 'playerapi', 
 	        	'actually-additions', 'redstone-flux', 
@@ -98,6 +100,8 @@ modpublishing {
 	}
 
 	modrinth('ZnmdXAk2') {
+		if (System.getenv().CI)
+    		token('none')
 		dependencies {
 			// Mekanism
 			optional.version 'KIzASRO5'
