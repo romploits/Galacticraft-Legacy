@@ -32,6 +32,9 @@ jobs:
       uses: softprops/action-gh-release@v1
     - uses: gradle/gradle-build-action@v2
       id: build
+      env:
+        CURSE_TOKEN: ${{ secrets.CURSE_TOKEN }}
+        MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
       with:
         arguments: build
     - name: 'Deploy to Nexus'
