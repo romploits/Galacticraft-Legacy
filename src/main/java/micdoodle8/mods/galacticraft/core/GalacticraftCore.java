@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Team Galacticraft
+ * Copyright (c) 2023 Team Galacticraft
  *
  * Licensed under the MIT license.
  * See LICENSE file in the project root for details.
@@ -126,6 +126,7 @@ import micdoodle8.mods.galacticraft.core.entities.EntityParachest;
 import micdoodle8.mods.galacticraft.core.entities.EntitySkeletonBoss;
 import micdoodle8.mods.galacticraft.core.entities.EntityTier1Rocket;
 import micdoodle8.mods.galacticraft.core.entities.player.GCCapabilities;
+import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerBaseMP;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerHandler;
 import micdoodle8.mods.galacticraft.core.event.EventHandlerGC;
 import micdoodle8.mods.galacticraft.core.event.LootHandlerGC;
@@ -205,6 +206,8 @@ import micdoodle8.mods.galacticraft.planets.GalacticraftPlanets;
 import micdoodle8.mods.galacticraft.planets.asteroids.recipe.RecipeManagerAsteroids;
 import micdoodle8.mods.galacticraft.planets.mars.recipe.RecipeManagerMars;
 import micdoodle8.mods.galacticraft.planets.venus.recipe.RecipeManagerVenus;
+
+import api.player.server.ServerPlayerAPI;
 
 //@noformat
 @Mod(
@@ -310,6 +313,11 @@ public class GalacticraftCore
         GalacticraftCore.galacticraftItemsTab = new CreativeTabGC(CreativeTabs.getNextID(), "galacticraft_items", null, null);
 
         GCFluids.registerOilandFuel();
+
+        if (CompatibilityManager.PlayerAPILoaded)
+        {
+            ServerPlayerAPI.register(Constants.MOD_ID_CORE, GCPlayerBaseMP.class);
+        }
 
         GCBlocks.initBlocks();
         GCItems.initItems();
@@ -618,9 +626,11 @@ public class GalacticraftCore
     {
         File oldCoreConfig = new File(event.getModConfigurationDirectory(), Constants.OLD_CONFIG_FILE);
         File oldPowerConfig = new File(event.getModConfigurationDirectory(), Constants.OLD_POWER_CONFIG_FILE);
+        File oldChunkLoaderConfig = new File(event.getModConfigurationDirectory(), Constants.OLD_CHUNKLOADER_CONFIG_FILE);
 
         File coreConfig = new File(event.getModConfigurationDirectory(), Constants.CONFIG_FILE);
         File powerConfig = new File(event.getModConfigurationDirectory(), Constants.POWER_CONFIG_FILE);
+        File chunkLoaderConfig = new File(event.getModConfigurationDirectory(), Constants.CHUNKLOADER_CONFIG_FILE);
 
         if (oldCoreConfig.exists())
         {
@@ -632,8 +642,14 @@ public class GalacticraftCore
             oldPowerConfig.renameTo(powerConfig);
         }
 
+        if (oldChunkLoaderConfig.exists())
+        {
+            oldChunkLoaderConfig.renameTo(chunkLoaderConfig);
+        }
+
         ConfigManagerCore.initialize(coreConfig);
         EnergyConfigHandler.setDefaultValues(powerConfig);
+        ChunkLoadingCallback.loadConfig(chunkLoaderConfig);
     }
 
     private void moveLegacyGCFileLocations(File worldFolder)

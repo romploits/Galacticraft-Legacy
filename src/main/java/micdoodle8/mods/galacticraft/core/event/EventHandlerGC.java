@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Team Galacticraft
+ * Copyright (c) 2023 Team Galacticraft
  *
  * Licensed under the MIT license.
  * See LICENSE file in the project root for details.
@@ -7,7 +7,6 @@
 
 package micdoodle8.mods.galacticraft.core.event;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -75,6 +74,9 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.ChunkDataEvent;
+import net.minecraftforge.event.world.ChunkEvent.Load;
+import net.minecraftforge.event.world.WorldEvent.Save;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -111,11 +113,13 @@ import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.tick.TickHandlerServer;
+import micdoodle8.mods.galacticraft.core.util.ASMUtil;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.DamageSourceGC;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.OxygenUtil;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
+import micdoodle8.mods.galacticraft.core.world.ChunkLoadingCallback;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
 import micdoodle8.mods.galacticraft.planets.asteroids.AsteroidsModule;
 import micdoodle8.mods.galacticraft.planets.mars.network.PacketSimpleMars;
@@ -125,6 +129,27 @@ public class EventHandlerGC
 
     public static Map<Block, Item> bucketList = new HashMap<>(4, 1F);
     public static boolean          bedActivated;
+
+    @SubscribeEvent
+    public void onWorldSave(Save event)
+    {
+        ChunkLoadingCallback.save((WorldServer) event.getWorld());
+    }
+
+    @SubscribeEvent
+    public void onChunkDataLoad(ChunkDataEvent.Load event)
+    {
+        ChunkLoadingCallback.load((WorldServer) event.getWorld());
+    }
+
+    @SubscribeEvent
+    public void onWorldLoad(Load event)
+    {
+        if (!event.getWorld().isRemote)
+        {
+            ChunkLoadingCallback.load((WorldServer) event.getWorld());
+        }
+    }
 
     @SubscribeEvent
     public void playerJoinWorld(EntityJoinWorldEvent event)
@@ -882,9 +907,6 @@ public class EventHandlerGC
 
     private List<SoundPlayEntry> soundPlayList = new ArrayList<>();
 
-    private static Field         volumeField;
-    private static Field         pitchField;
-
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onSoundPlayed(PlaySoundEvent event)
@@ -923,36 +945,10 @@ public class EventHandlerGC
                         float volume = 1.0F;
                         float pitch = 1.0F;
 
-                        if (volumeField == null)
+                        if (event.getSound() instanceof PositionedSound)
                         {
-                            try
-                            {
-                                volumeField = PositionedSound.class.getDeclaredField(GCCoreUtil.isDeobfuscated() ? "volume" : "field_147662_b"); // TODO
-                                                                                                                                                 // Obfuscated
-                                                                                                                                                 // environment
-                                                                                                                                                 // support
-                                volumeField.setAccessible(true);
-                                pitchField = PositionedSound.class.getDeclaredField(GCCoreUtil.isDeobfuscated() ? "pitch" : "field_147663_c"); // TODO
-                                                                                                                                               // Obfuscated
-                                                                                                                                               // environment
-                                                                                                                                               // support
-                                pitchField.setAccessible(true);
-                            } catch (Exception e)
-                            {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (volumeField != null && pitchField != null)
-                        {
-                            try
-                            {
-                                volume = event.getSound() instanceof PositionedSound ? (float) volumeField.get(event.getSound()) : 1.0F;
-                                pitch = event.getSound() instanceof PositionedSound ? (float) pitchField.get(event.getSound()) : 1.0F;
-                            } catch (IllegalAccessException e)
-                            {
-                                e.printStackTrace();
-                            }
+                            volume = ASMUtil.getPrivateValue(PositionedSound.class, (PositionedSound) event.getSound(), "volume", "field_147662_b");
+                            pitch = ASMUtil.getPrivateValue(PositionedSound.class, (PositionedSound) event.getSound(), "pitch", "field_147663_c");
                         }
 
                         // First check for duplicate firing of PlaySoundEvent17
