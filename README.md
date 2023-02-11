@@ -5,51 +5,58 @@
   <a href="https://github.com/TeamGalacticraft/Galacticraft-Legacy/commit/"><img src="https://img.shields.io/github/commits-since/TeamGalacticraft/Galacticraft-Legacy/first-commit" alt="GitHub commits"/></a>
   <img src="https://img.shields.io/github/languages/code-size/TeamGalacticraft/Galacticraft-Legacy.svg" alt="Code size"/>
   <img src="https://img.shields.io/github/repo-size/TeamGalacticraft/Galacticraft-Legacy.svg" alt="GitHub repo size"/>
-  <img src="https://img.shields.io/tokei/lines/github/TeamGalacticraft/Galacticraft-Legacy?label=Lines%20of%20Code&style=plastic" alt="Lines of Code"/>
+  <img src="https://tokei.rs/b1/github/cabaletta/baritone?category=code" alt="Lines of Code"/>
+</p>
+<p align="center">
+  <a href="https://www.curseforge.com/minecraft/mc-mods/galacticraft-legacy"><img alt="curseforge" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/curseforge_vector.svg">
+  <a href="https://modrinth.com/mod/galacticraft-legacy"><img alt="modrinth" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg">
+</p>
+<p align="center"> 
+  <a href="https://discord.galacticraft.net/"><img alt="discord-plural" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-plural_vector.svg"></a>
+  <a href="https://patreon.com/teamgalacticraft"><img alt="patreon-plural" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/patreon-plural_vector.svg"></a>
 </p>
 
-Galacticraft [![Join our Discord!](https://img.shields.io/discord/449966345665249290.svg?color=blue&label=Discord&logo=discord&style=flat-square)](https://discord.gg/YBVne7R) [![Support the devs!](https://img.shields.io/badge/Patreon-Support-orange.svg?style=flat-square)](https://www.patreon.com/micdoodle8)
+Galacticraft-Legacy
 ============
 
-An advanced space exploration mod for Minecraft.
-
-------
-
-## Download Galacticraft-Legacy
-
-Download the latest version for Minecraft 1.12.2 [on CurseForge](https://www.curseforge.com/minecraft/mc-mods/galacticraft-legacy)
-
-------
-
-## Contributing
-
-### Reporting issues
-
-Before reporting an issue, please read [Notes for Contributors](https://github.com/micdoodle8/Galacticraft/blob/master/CONTRIBUTING.md) and follow the six guidelines given.
-
-------
-### Pull Requests
-
-Pull Requests to help with Galacticraft development are extremely welcome. [Guide to making a PR](https://gist.github.com/radfast/7ea7577fe2c0fdae1ac90d4b26d6198c)
-
-For Pull Requests to help with translation, see [Notes for Contributors](https://github.com/micdoodle8/Galacticraft/blob/master/CONTRIBUTING.md)
+The 1.12.2 version of Galacticraft that receives updates, forked from the original [Repository](https://github.com/micdoodle8/Galacticraft). If you're wondering why this repository shows to be behind in commits. The original only receives updates to its Capes list, this repository does not contain a capes list.
 
 ------
 
 ## Mod Developers
 
-API and deobfuscated version for developers is available through our [downloads](https://micdoodle8.com/mods/galacticraft/downloads) page.  Detailed information on how to set up a development environment for the source code - if you want to use either the Galacticraft API or the full sources - is [here](https://wiki.micdoodle8.com/wiki/GC3_API)
+To import the mod into your IDE environment, It's best to use artifacts published to our [Maven Repository](https://maven.galacticraft.net/).
+```gradle
+repositories {
+    maven {
+        url "https://maven.galacticraft.net/repository/legacy/"
+    }
+}
 
-To build, run the command `gradlew build packCoreJar packPlanetsJar packMicCoreJar`
+dependencies {
+    compileOnly fg.deobf("dev.galacticraft:galacticraft-legacy:${version}")
+}
+```
+> *Note: a 'deobf' version is still distributed, But it is only advisable to use this classifier is your already using mappings: `stable_39-1.12`. To avoid any issues it is best to use the main artifact*
 
-------
+## Addon Developers
 
-## Modpacks
+While you can still import Galacticraft into your IDE using the above method. A special-use Gradle Plugin has been developed that handles all the setup for you. 
 
-We welcome inclusion of Galacticraft in modpacks.  [Modpack permission and setup tips](https://wiki.micdoodle8.com/wiki/Modpack_Permission)
+Get the plugin on [Gradle Plugin Repository](https://plugins.gradle.org/plugin/net.galacticraft.addon) or check out the [galacticraft-addon-template](https://github.com/TeamGalacticraft/galacticraft-addon-template) repository
 
-------
+## Developing Galacticraft-Legacy
 
-## License
+### Prerequisites
+* Java 8 JDK
+* An IDE with a compatible [Project Lombok plugin](https://projectlombok.org/download)
 
-Galacticraft is open source and free for everyone for non-commercial use.  (But distribution of Galacticraft in modified form is not permitted.)  Full license can be found [here](https://github.com/micdoodle8/Galacticraft/blob/master/LICENSE.txt)
+>Should you encounter any weird errors concerning missing getter or setter methods, it's probably because your code has not been processed by Project Lombok's processor.
+
+### Clone
+
+`git clone https://github.com/TeamGalacticraft/Galacticraft-Legacy.git`
+
+### Import
+
+After all Prerequisites and cloning is finished, simply import the project into your IDE.
