@@ -430,7 +430,7 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
 
     @Deprecated
     @ForRemoval(deadline = "4.1.0")
-    @ReplaceWith("getType().getName()")
+    @ReplaceWith("getCelestialType().getName()")
     public String getUnlocalizedNamePrefix()
     {
         return "unset";
