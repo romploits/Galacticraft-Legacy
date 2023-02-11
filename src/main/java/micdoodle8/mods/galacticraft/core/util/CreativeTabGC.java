@@ -58,9 +58,8 @@ public class CreativeTabGC extends CreativeTabs
             try
             {
                 Collections.sort(list, tabSorter);
-            } catch (Exception e)
+            } catch (Exception ingored)
             {
-                e.printStackTrace();
             }
         }
     }
