@@ -48,8 +48,8 @@ jobs:
       if: steps.build.outcome == 'success'
       uses: gradle/gradle-build-action@v2
       env:
-        GC_NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
-        GC_NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+        NEXUS_USER: ${{ secrets.NEXUS_USER }}
+        NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
       with:
         arguments: |
           publishToGalacticMaven
