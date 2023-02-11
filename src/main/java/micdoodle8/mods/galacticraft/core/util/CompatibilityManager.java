@@ -10,9 +10,7 @@ package micdoodle8.mods.galacticraft.core.util;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import micdoodle8.mods.galacticraft.core.GCBlocks;
-import micdoodle8.mods.galacticraft.core.GalacticraftCore;
-import micdoodle8.mods.galacticraft.core.blocks.BlockEnclosed;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 //import cpw.mods.fml.common.Loader;
@@ -22,7 +20,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.gen.ChunkProviderServer;
+
 import net.minecraftforge.fml.common.Loader;
+
+import micdoodle8.mods.galacticraft.core.GCBlocks;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import micdoodle8.mods.galacticraft.core.blocks.BlockEnclosed;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class CompatibilityManager
