@@ -12,6 +12,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
+
+import net.minecraft.block.Block;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.WorldProvider;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.SpawnListEntry;
+
 import micdoodle8.mods.galacticraft.annotations.ForRemoval;
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeAdaptive;
@@ -20,11 +28,7 @@ import micdoodle8.mods.galacticraft.api.world.BiomeGenBaseGC;
 import micdoodle8.mods.galacticraft.api.world.EnumAtmosphericGas;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.api.world.IMobSpawnBiome;
-import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.WorldProvider;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.SpawnListEntry;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 public abstract class CelestialBody extends CelestialObject implements Comparable<CelestialBody>
@@ -320,6 +324,19 @@ public abstract class CelestialBody extends CelestialObject implements Comparabl
         {
             this(distance, distance);
         }
+    }
+
+    public static Predicate<CelestialBody> filterReachable()
+    {
+        return new Predicate<CelestialBody>()
+        {
+
+            @Override
+            public boolean test(CelestialBody celestialObject)
+            {
+                return celestialObject.isReachable();
+            }
+        };
     }
 
     public void setUnreachable()
