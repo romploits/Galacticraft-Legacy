@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 public class GCLog
 {
 
-    private static Logger log = LogManager.getFormatterLogger("Depreciated-GCLog");
+    private static Logger log = LogManager.getFormatterLogger("Deprecated-GCLog");
 
     public static void info(String message)
     {
