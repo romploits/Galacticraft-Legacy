@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.ModContainer;
 
 import micdoodle8.mods.galacticraft.annotations.ReplaceWith;
 import micdoodle8.mods.galacticraft.api.event.celestial.RegisterEvent;
-import micdoodle8.mods.galacticraft.api.util.stream.Accumulators;
+import micdoodle8.mods.galacticraft.api.util.stream.CelestialCollector;
 import micdoodle8.mods.galacticraft.core.util.list.CelestialList;
 import micdoodle8.mods.galacticraft.core.util.list.ImmutableCelestialList;
 
@@ -173,7 +173,7 @@ public class GalaxyRegistry
         return null;
     }
 
-    public static <T> boolean register(T object)
+    public static <T> void register(T object)
     {
         if (object instanceof SolarSystem)
         {
@@ -181,7 +181,7 @@ public class GalaxyRegistry
             RegisterEvent registerEvent = new RegisterEvent(solarSystem, Loader.instance().activeModContainer());
             solarSystems.add(solarSystem);
             objects.add(solarSystem);
-            return MinecraftForge.EVENT_BUS.post(registerEvent);
+            MinecraftForge.EVENT_BUS.post(registerEvent);
         }
         if (object instanceof Planet)
         {
@@ -189,7 +189,7 @@ public class GalaxyRegistry
             RegisterEvent registerEvent = new RegisterEvent(planet, Loader.instance().activeModContainer());
             planets.add(planet);
             objects.add(planet);
-            return MinecraftForge.EVENT_BUS.post(registerEvent);
+            MinecraftForge.EVENT_BUS.post(registerEvent);
         }
         if (object instanceof Moon)
         {
@@ -197,7 +197,7 @@ public class GalaxyRegistry
             RegisterEvent registerEvent = new RegisterEvent(moon, Loader.instance().activeModContainer());
             moons.add(moon);
             objects.add(moon);
-            return MinecraftForge.EVENT_BUS.post(registerEvent);
+            MinecraftForge.EVENT_BUS.post(registerEvent);
         }
         if (object instanceof Satellite)
         {
@@ -205,7 +205,7 @@ public class GalaxyRegistry
             RegisterEvent registerEvent = new RegisterEvent(satellite, Loader.instance().activeModContainer());
             satellites.add(satellite);
             objects.add(satellite);
-            return MinecraftForge.EVENT_BUS.post(registerEvent);
+            MinecraftForge.EVENT_BUS.post(registerEvent);
         }
         if (object instanceof CelestialBody)
         {
@@ -217,7 +217,7 @@ public class GalaxyRegistry
             }
             RegisterEvent registerEvent = new RegisterEvent(celestialType, Loader.instance().activeModContainer());
             objects.add(celestialType);
-            return MinecraftForge.EVENT_BUS.post(registerEvent);
+            MinecraftForge.EVENT_BUS.post(registerEvent);
         }
         throw new GalacticraftRegistryException("Unable to register " + object);
     }
@@ -233,6 +233,9 @@ public class GalaxyRegistry
         }
     }
 
+    /**
+     * Returns a read-only list containing all registered CelestialObjects
+     */
     public static ImmutableCelestialList<CelestialObject> getAllRegisteredObjects()
     {
         return ImmutableCelestialList.of(objects);
@@ -263,18 +266,21 @@ public class GalaxyRegistry
     }
 
     /**
-     * Returns a read-only list containing all registered Solar Systems
+     * Returns a read-only list containing all registered Satellites
      */
     public static ImmutableCelestialList<Satellite> getSatellites()
     {
         return ImmutableCelestialList.of(satellites);
     }
 
+    /**
+     * Returns a read-only list containing all CelestialObjects that are reachable
+     */
     public static ImmutableCelestialList<CelestialBody> getAllReachableBodies()
     {//@noformat
         return ImmutableCelestialList.from(
-            planets.stream().filter(CelestialBody.filterReachable()).collect(Accumulators.celestialList()),
-            moons.stream().filter(CelestialBody.filterReachable()).collect(Accumulators.celestialList())
+            planets.stream().filter(CelestialBody.filterReachable()).collect(CelestialCollector.toList()),
+            moons.stream().filter(CelestialBody.filterReachable()).collect(CelestialCollector.toList())
         );
     }
 
@@ -291,7 +297,7 @@ public class GalaxyRegistry
      */
     public static ImmutableCelestialList<CelestialObject> getCelestialObjectsFromMod(String modId)
     {
-        return objects.stream().filter(CelestialObject.filter(modId)).collect(Accumulators.toImmutableCelestialList());
+        return objects.stream().filter(CelestialObject.filter(modId)).collect(CelestialCollector.toList()).toUnmodifiableList();
     }
 
     public static String[] getAllTransltionKeys()
@@ -318,7 +324,8 @@ public class GalaxyRegistry
     @ReplaceWith("GalaxyRegistry.register(T object)")
     public static boolean registerSolarSystem(SolarSystem solarSystem)
     {
-        return GalaxyRegistry.register(solarSystem);
+        GalaxyRegistry.register(solarSystem);
+        return solarSystems.contains(solarSystem);
     }
 
     /**
@@ -328,7 +335,8 @@ public class GalaxyRegistry
     @ReplaceWith("GalaxyRegistry.register(T object)")
     public static boolean registerPlanet(Planet planet)
     {
-        return GalaxyRegistry.register(planet);
+        GalaxyRegistry.register(planet);
+        return planets.contains(planet);
     }
 
     /**
@@ -338,7 +346,8 @@ public class GalaxyRegistry
     @ReplaceWith("GalaxyRegistry.register(T object)")
     public static boolean registerMoon(Moon moon)
     {
-        return GalaxyRegistry.register(moon);
+        GalaxyRegistry.register(moon);
+        return moons.contains(moon);
     }
 
     /**
@@ -348,7 +357,8 @@ public class GalaxyRegistry
     @ReplaceWith("GalaxyRegistry.register(T object)")
     public static boolean registerSatellite(Satellite satellite)
     {
-        return GalaxyRegistry.register(satellite);
+        GalaxyRegistry.register(satellite);
+        return satellites.contains(satellite);
     }
 
     /**
