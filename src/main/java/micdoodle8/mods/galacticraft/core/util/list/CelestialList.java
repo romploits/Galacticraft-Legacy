@@ -75,4 +75,9 @@ public class CelestialList<T extends CelestialObject> extends ArrayList<T>
     {
         return ImmutableMap.copyOf(this.celestialListMap);
     }
+    
+    public ImmutableCelestialList<T> toUnmodifiableList()
+    {
+        return ImmutableCelestialList.unmodifiable(this);
+    }
 }
