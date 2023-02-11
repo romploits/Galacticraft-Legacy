@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>micdoodle8.mods.galacticraft.core.tile.TileEntityAirLockController</OriginalElement>
+  <nodes>
+    <node x="381.1846746136864" y="-1469.810023225077">micdoodle8.mods.galacticraft.core.tile.TileEntityFluidPipe</node>
+    <node x="-123.91546362913914" y="-942.0962650076292">micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenCollector</node>
+    <node x="1009.6208582922736" y="-1665.7186981990953">micdoodle8.mods.galacticraft.core.tile.TileEntityParaChest</node>
+    <node x="-134.91546362913914" y="-1095.1809516555763">micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDistributor</node>
+    <node x="1009.6208582922736" y="-1138.6772483235968">micdoodle8.mods.galacticraft.core.tile.TileEntityCoalGenerator</node>
+    <node x="1009.6208582922736" y="-1255.797570518152">micdoodle8.mods.galacticraft.core.tile.TileEntityScreen</node>
+    <node x="1009.6208582922736" y="-1197.2374094208744">micdoodle8.mods.galacticraft.core.tile.TileEntityFallenMeteor</node>
+    <node x="1009.6208582922736" y="-1314.3577316154297">micdoodle8.mods.galacticraft.core.tile.TileEntityTreasureChest</node>
+    <node x="1009.6208582922736" y="-728.7561206426541">micdoodle8.mods.galacticraft.core.tile.TileEntityRefinery</node>
+    <node x="1009.6208582922736" y="-787.3162817399316">micdoodle8.mods.galacticraft.core.tile.TileEntityCircuitFabricator</node>
+    <node x="1009.6208582922736" y="-1724.0995604126824">micdoodle8.mods.galacticraft.core.tile.TileEntityAirLock</node>
+    <node x="352.1846746136865" y="-1372.9178927127073">micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTransmitter</node>
+    <node x="244.1143048759384" y="-1124.0415230078584">micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen</node>
+    <node x="1009.6208582922736" y="-670.1959595453766">micdoodle8.mods.galacticraft.core.tile.TileEntityFuelLoader</node>
+    <node x="-164.91546362913914" y="-1197.2374094208744">micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDecompressor</node>
+    <node x="1009.6208582922736" y="-1080.1170872263192">micdoodle8.mods.galacticraft.core.tile.TileEntityCargoUnloader</node>
+    <node x="1009.6208582922736" y="-1021.5569261290416">micdoodle8.mods.galacticraft.core.tile.TileEntityElectricIngotCompressor</node>
+    <node x="-169.91546362913914" y="-1044.1527227729273">micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenStorageModule</node>
+    <node x="1009.6208582922736" y="-1548.5983760045401">micdoodle8.mods.galacticraft.core.tile.TileEntityEnergyStorageModule</node>
+    <node x="1009.6208582922736" y="-962.9967650317641">micdoodle8.mods.galacticraft.core.tile.TileEntityDish</node>
+    <node x="-146.91546362913914" y="-993.1244938902782">micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenCompressor</node>
+    <node x="1009.6208582922736" y="-1431.4780538099849">micdoodle8.mods.galacticraft.core.tile.TileEntityDungeonSpawner</node>
+    <node x="483.6316030304637" y="-1176.550555543611">micdoodle8.mods.galacticraft.core.tile.TileEntityInventory</node>
+    <node x="1009.6208582922736" y="-904.4366039344866">micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTank</node>
+    <node x="1009.6208582922736" y="-1372.9178927127073">micdoodle8.mods.galacticraft.core.tile.TileEntityPainter</node>
+    <node x="1009.6208582922736" y="-1490.0382149072625">micdoodle8.mods.galacticraft.core.tile.TileEntityElectricFurnace</node>
+    <node x="-100.91546362913914" y="-1146.2091805382254">micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenSealer</node>
+    <node x="1009.6208582922736" y="-1607.1585371018177">micdoodle8.mods.galacticraft.core.tile.TileEntityCargoLoader</node>
+    <node x="1009.6208582922736" y="-845.8764428372091">micdoodle8.mods.galacticraft.core.tile.TileEntityDeconstructor</node>
+    <node x="1351.4093081289186" y="-1724.0995604126824">micdoodle8.mods.galacticraft.core.tile.TileEntityAirLockController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityDeconstructor" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-114.99985829227364" y="4.428372091069832E-4" />
+      <point x="845.0" y="-831.876" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityAirLockController" target="micdoodle8.mods.galacticraft.core.tile.TileEntityAirLock" relationship="GENERALIZATION">
+      <point x="-127.5" y="0.0" />
+      <point x="1099.1208582922736" y="-1710.0995604126824" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityEnergyStorageModule" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-140.8910789764334" y="2.0221606932816485" />
+      <point x="845.0" y="-1532.5762153112585" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityElectricFurnace" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-118.99985829227364" y="2.149072624888504E-4" />
+      <point x="845.0" y="-1476.038" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityParaChest" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-99.49985829227364" y="-3.0180090470821597E-4" />
+      <point x="845.0" y="-1651.719" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTank" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-96.99985829227364" y="-3.960655134278568E-4" />
+      <point x="845.0" y="-890.437" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenStorageModule" target="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen" relationship="GENERALIZATION">
+      <point x="147.50046362913912" y="-2.7722707272914704E-4" />
+      <point x="185.0" y="-1030.153" />
+      <point x="185.0" y="-1110.042" />
+      <point x="-90.50030487593838" y="-4.769921415572753E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityDish" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-76.99985829227364" y="-2.349682358726568E-4" />
+      <point x="845.0" y="-948.997" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityRefinery" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-91.49985829227364" y="1.2064265411027009E-4" />
+      <point x="845.0" y="-714.756" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityCircuitFabricator" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-124.49985829227364" y="2.8173993155178323E-4" />
+      <point x="845.0" y="-773.316" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityPainter" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-82.89107897643237" y="1.1265655462607356" />
+      <point x="845.0" y="-1357.7913271664465" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityTreasureChest" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-112.57205795038374" y="0.43437417260338407" />
+      <point x="845.0" y="-1299.9233574428263" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityFallenMeteor" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-106.57205795038374" y="0.23097039924005003" />
+      <point x="845.0" y="-1183.0064390216344" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityCargoLoader" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-110.49985829227364" y="-4.628981823771028E-4" />
+      <point x="845.0" y="-1593.159" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenSealer" target="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen" relationship="GENERALIZATION">
+      <point x="113.00046362913913" y="1.8053822532237973E-4" />
+      <point x="185.0" y="-1132.209" />
+      <point x="185.0" y="-1110.042" />
+      <point x="-90.50030487593838" y="-4.769921415572753E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenCollector" target="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen" relationship="GENERALIZATION">
+      <point x="124.50046362913913" y="2.6500762919567933E-4" />
+      <point x="185.0" y="-928.096" />
+      <point x="185.0" y="-1110.042" />
+      <point x="-90.50030487593838" y="-4.769921415572753E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityCoalGenerator" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-115.4340158982867" y="0.7197579995342949" />
+      <point x="845.0" y="-1123.9574903240625" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDistributor" target="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen" relationship="GENERALIZATION">
+      <point x="130.00046362913912" y="-4.8344423703383654E-5" />
+      <point x="185.0" y="-1081.181" />
+      <point x="185.0" y="-1110.042" />
+      <point x="-90.50030487593838" y="-4.769921415572753E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTransmitter" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="104.94692841677715" y="14.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityFluidPipe" target="micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTransmitter" relationship="GENERALIZATION">
+      <point x="1.1368683772161603E-13" y="14.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-0.5563778656156728" y="14.293266711164506" />
+      <point x="334.0579270103227" y="-1016.488403694482" />
+      <point x="566.1316030304637" y="-1016.488403694482" />
+      <point x="-15.0" y="-14.0" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityAirLock" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-89.49985829227364" y="-4.3958731748716673E-4" />
+      <point x="845.0" y="-1710.1" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityCargoUnloader" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-116.75303692433522" y="2.3895245737799087" />
+      <point x="845.0" y="-1063.7275626525393" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDecompressor" target="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen" relationship="GENERALIZATION">
+      <point x="145.00046362913912" y="4.094208743481431E-4" />
+      <point x="185.0" y="-1183.237" />
+      <point x="185.0" y="-1110.042" />
+      <point x="-90.50030487593838" y="-4.769921415572753E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityDungeonSpawner" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-142.75303692433522" y="0.6377779459664907" />
+      <point x="845.0" y="-1416.8402758640184" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityScreen" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-81.21010000248089" y="0.9231617728974015" />
+      <point x="845.0" y="-1240.8744087452546" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenCompressor" target="micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen" relationship="GENERALIZATION">
+      <point x="136.00046362913912" y="4.938902782214427E-4" />
+      <point x="185.0" y="-979.124" />
+      <point x="185.0" y="-1110.042" />
+      <point x="-90.50030487593838" y="-4.769921415572753E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityFuelLoader" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-102.49985829227364" y="-4.0454623444929894E-5" />
+      <point x="845.0" y="-656.196" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+    <edge source="micdoodle8.mods.galacticraft.core.tile.TileEntityElectricIngotCompressor" target="micdoodle8.mods.galacticraft.core.tile.TileEntityInventory" relationship="GENERALIZATION">
+      <point x="-153.25303692433567" y="1.6973332001221024" />
+      <point x="845.0" y="-1005.8595929289195" />
+      <point x="845.0" y="-1162.551" />
+      <point x="97.50039696953627" y="-4.444563890046993E-4" />
+    </edge>
+  </edges>
+  <settings layout="Orthogonal Groups" zoom="0.34683089964719743" showDependencies="false" x="778.696510703038" y="-1183.1407003691088" />
+  <SelectedNodes>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityAirLock</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityDungeonSpawner</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenStorageModule</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityCoalGenerator</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityCargoLoader</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenCompressor</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityPainter</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityAirLockController</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityOxygen</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTransmitter</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityElectricFurnace</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityDish</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityDeconstructor</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityCircuitFabricator</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityRefinery</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenSealer</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDistributor</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityCargoUnloader</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityFluidPipe</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityFluidTank</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenDecompressor</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityOxygenCollector</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityParaChest</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityEnergyStorageModule</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityInventory</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityScreen</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityFuelLoader</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityTreasureChest</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityElectricIngotCompressor</node>
+    <node>micdoodle8.mods.galacticraft.core.tile.TileEntityFallenMeteor</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
