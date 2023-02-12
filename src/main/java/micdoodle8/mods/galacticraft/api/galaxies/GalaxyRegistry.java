@@ -173,7 +173,7 @@ public class GalaxyRegistry
         return null;
     }
 
-    public static <T> void register(T object)
+    public static void register(Object object)
     {
         if (object instanceof SolarSystem)
         {
