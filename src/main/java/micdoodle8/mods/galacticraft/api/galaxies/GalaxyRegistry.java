@@ -219,18 +219,6 @@ public class GalaxyRegistry
             objects.add(celestialType);
             MinecraftForge.EVENT_BUS.post(registerEvent);
         }
-        throw new GalacticraftRegistryException("Unable to register " + object);
-    }
-
-    public static class GalacticraftRegistryException extends RuntimeException
-    {
-
-        private static final long serialVersionUID = -6874512550357215087L;
-
-        public GalacticraftRegistryException(String message)
-        {
-            super(message);
-        }
     }
 
     /**
