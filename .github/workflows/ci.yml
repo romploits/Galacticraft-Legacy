@@ -46,10 +46,14 @@ jobs:
       run: cp ${{ steps.decode.outputs.filePath }} .
 
     - uses: gradle/gradle-build-action@v2
+      if:  ${{ !startsWith(github.ref, 'refs/tags/') }}
       id: build
-      env:
-        CURSE_TOKEN: ${{ secrets.CURSE_TOKEN }}
-        MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+      with:
+        arguments: build
+
+    - uses: gradle/gradle-build-action@v2
+      if: startsWith(github.ref, 'refs/tags/')
+      id: build
       with:
         arguments: build createChangelog
 
