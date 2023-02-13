@@ -1,18 +1,18 @@
 plugins {
     id 'java'
     id 'eclipse'
-    id 'io.freefair.lombok' version '6.5.0.2'
     id 'org.cadixdev.licenser' version '0.6.1'
-    id 'net.galacticraft.internal.maven' version '1.0.0'
-    id 'net.galacticraft.internal.legacy.defaults' version '1.0.0'
+    id 'com.diffplug.spotless' version '6.13.0'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'net.galacticraft.internal.legacy' version '1.0.0'
+    id 'net.galacticraft.internal.maven' version '1.0.1'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
-
-group = "micdoodle8.mods.galacticraft"
+group = "dev.galacticraft"
 archivesBaseName = "Galacticraft"
-
 version = "${mod_version}${version_suffix}"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 repositories {
     mavenCentral()
@@ -22,16 +22,12 @@ repositories {
     }
 }
 
-configurations {
-    compileOnly.extendsFrom compileRequire
-}
-
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    compileRequire fg.deobf('mod.dependency:mekanism:9.8.3.390')
-    compileRequire fg.deobf('mod.dependency:industrialcraft-2:2.8.222-ex112')
-    compileRequire fg.deobf('mod.dependency:buildcraft-api:7.99.24.8')
+    compileRequired fg.deobf('mod.dependency:mekanism:9.8.3.390')
+    compileRequired fg.deobf('mod.dependency:industrialcraft-2:2.8.222-ex112')
+    compileRequired fg.deobf('mod.dependency:buildcraft-api:7.99.24.8')
     compileOnly fg.deobf('mod.dependency:biomes-o-plenty:7.0.1.2445')
     compileOnly fg.deobf('mod.dependency:appliedenergistics2:rv6-stable-7')
     compileOnly fg.deobf('mod.dependency:redstoneflux:2.1.1.1')
@@ -40,9 +36,24 @@ dependencies {
     compileOnly fg.deobf('mod.dependency:journeymap:5.7.1')
     compileOnly fg.deobf('mod.dependency:jei:4.16.1.302:api')
     runtimeOnly fg.deobf('mod.dependency:jei:4.16.1.302')
+    
+    // Project lombok
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
-apply from: 'gradle/resources.gradle'
+spotless {
+	enforceCheck false
+    java {
+        target 'src/*/java/micdoodle8/mods/**/*.java'
+        endWithNewline()
+        trimTrailingWhitespace()
+        removeUnusedImports()
+        indentWithSpaces()
+    }
+}
 
 license {
     header = project.file('etc/HEADER')
@@ -64,4 +75,67 @@ clean {
         }
     }
     setDelete(filteredDelete)
+}
+
+tokens {
+    withToken('version', version)
+    classes("Constants.java")
+    resources("mcmod.info")
+}
+
+changelog {
+	fromTag('4.0.4')
+}
+
+maven {
+	excludeDependencies('forge', 'jei')
+	artifacts(mavenJar, deobfJar, sourcesJar)
+}
+
+
+modpublishing {
+
+	changelogPath(changelog.changelogFile)
+
+    curseforge('364345') {
+    	if (System.getenv().CI)
+    		apiKey = 'none'
+	    relations {
+	        optional(
+	        	'mekanism',
+	        	'jei', 
+	        	'journeymap',
+	        	'playerapi', 
+	        	'actually-additions',
+	        	'redstone-flux', 
+	        	'applied-energistics-2',
+	        	'biomes-o-plenty', 
+	        	'buildcraft',
+	        	'industrial-craft'
+	        )
+	        incompatible(
+	        	'betterportals' ,
+	        	'vics-modern-warfare-mod'
+	        )
+	    }
+	}
+
+	modrinth('ZnmdXAk2') {
+		if (System.getenv().CI)
+    		token('none')
+		dependencies {
+			// Mekanism
+			optional.version 'KIzASRO5'
+			// JourneyMap
+			optional.version 'vacvhRKp'
+		}
+	}
+}
+
+tasks.withType(GenerateModuleMetadata).configureEach {
+    enabled = false
+}
+
+build {
+    mustRunAfter(clean)
 }
