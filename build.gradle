@@ -84,7 +84,7 @@ tokens {
 }
 
 changelog {
-	fromTag('4.0.4')
+	fromTag('4.0.5')
 }
 
 maven {
