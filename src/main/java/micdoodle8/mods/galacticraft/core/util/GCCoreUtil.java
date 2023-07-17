@@ -282,7 +282,7 @@ public class GCCoreUtil
         }
         if (langDisable)
             return;
-        String      langFile = "assets/" + assetPrefix + "/lang/" + langIdentifier.substring(0, 3).toLowerCase() + langIdentifier.substring(3).toLowerCase() + ".lang";
+        String      langFile = "assets/" + assetPrefix + "/lang/" + langIdentifier + ".lang";
         InputStream stream = null;
         ZipFile zip = null;
         try
