@@ -3,9 +3,9 @@ plugins {
     id 'eclipse'
     id 'org.cadixdev.licenser' version '0.6.1'
     id 'com.diffplug.spotless' version '6.13.0'
-    id 'net.minecraftforge.gradle' version '5.1.+'
-    id 'net.galacticraft.internal.legacy' version '1.0.0'
-    id 'net.galacticraft.internal.maven' version '1.0.1'
+    id 'net.minecraftforge.gradle' version '6.+'
+    id 'net.galacticraft.internal.legacy' version '1.0.1'
+    id 'nexus-publishing' version '2.1'
 }
 
 group = "dev.galacticraft"
@@ -78,9 +78,7 @@ clean {
 }
 
 tokens {
-    withToken('version', version)
-    classes("Constants.java")
-    resources("mcmod.info")
+    replace('version', version)
 }
 
 changelog {
