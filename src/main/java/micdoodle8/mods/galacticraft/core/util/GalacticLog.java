@@ -40,7 +40,7 @@ public class GalacticLog
     public void debug(String msg, Object... params)
     {
         if(ConfigManagerCore.enableDebug) {
-            this.logger.debug(msg, params);
+            this.logger.info("[GCDebug] " + msg, params);
         }
     }
 

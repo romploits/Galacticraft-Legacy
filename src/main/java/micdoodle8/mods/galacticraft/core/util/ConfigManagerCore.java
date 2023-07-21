@@ -18,9 +18,6 @@ import java.util.TreeMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
 
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.ConfigElement;
@@ -30,7 +27,6 @@ import net.minecraftforge.fml.client.config.IConfigElement;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import micdoodle8.mods.galacticraft.api.vector.BlockTuple;
 import micdoodle8.mods.galacticraft.core.Constants;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.energy.EnergyConfigHandler;
@@ -66,8 +62,6 @@ public class ConfigManagerCore
     public static boolean                    disableLander;
     public static boolean                    recipesRequireGCAdvancedMetals = true;
     public static boolean                    allowLiquidGratings;
-    //    public static int mapfactor;
-    //    public static int mapsize;
 
     // DIMENSIONS
     public static int                        idDimensionOverworld;
@@ -732,7 +726,7 @@ public class ConfigManagerCore
     {
         if (propOrder.get(currentCat) == null)
         {
-            propOrder.put(currentCat, new ArrayList<String>());
+            propOrder.put(currentCat, new ArrayList<>());
         }
         propOrder.get(currentCat).add(prop.getName());
     }
@@ -871,69 +865,6 @@ public class ConfigManagerCore
         list.addAll(new ConfigElement(config.getCategory(Constants.CONFIG_CATEGORY_ENTITIES)).getChildElements());
 
         return list;
-    }
-
-    public static BlockTuple stringToBlock(String s, String caller, boolean logging)
-    {
-        int lastColon = s.lastIndexOf(':');
-        int meta = -1;
-        String name;
-
-        if (lastColon > 0)
-        {
-            try
-            {
-                meta = Integer.parseInt(s.substring(lastColon + 1, s.length()));
-            } catch (NumberFormatException ex)
-            {}
-        }
-
-        if (meta == -1)
-        {
-            name = s;
-        }
-        else
-        {
-            name = s.substring(0, lastColon);
-        }
-
-        Block block = Block.getBlockFromName(name);
-        if (block == null)
-        {
-            Item item = Item.REGISTRY.getObject(new ResourceLocation(name));
-            if (item instanceof ItemBlock)
-            {
-                block = ((ItemBlock) item).getBlock();
-            }
-            if (block == null)
-            {
-                if (logging)
-                {
-                    GalacticraftCore.logger.error("[config] " + caller + ": unrecognised block name '" + s + "'.");
-                }
-                return null;
-            }
-        }
-        try
-        {
-            Integer.parseInt(name);
-            String bName = Block.REGISTRY.getNameForObject(block).toString();
-            if (logging)
-            {
-                GalacticraftCore.logger.info("[config] " + caller + ": the use of numeric IDs is discouraged, please use " + bName + " instead of " + name);
-            }
-        } catch (NumberFormatException ex)
-        {}
-        if (Blocks.AIR == block)
-        {
-            if (logging)
-            {
-                GalacticraftCore.logger.info("[config] " + caller + ": not a good idea to specify air, skipping that!");
-            }
-            return null;
-        }
-
-        return new BlockTuple(block, meta);
     }
 
     public static List<Object> getServerConfigOverride()
