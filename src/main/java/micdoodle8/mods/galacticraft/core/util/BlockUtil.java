@@ -187,7 +187,7 @@ public class BlockUtil
 
         private void setMetaValue(String meta)
         {
-            this.rawInput = meta.isBlank() ? rawInput : rawInput + ":" + meta;
+            this.rawInput = meta.isEmpty() ? rawInput : rawInput + ":" + meta;
             this.meta = (meta.equals("*")) ? OreDictionary.WILDCARD_VALUE : safeParse(meta);
         }
 
