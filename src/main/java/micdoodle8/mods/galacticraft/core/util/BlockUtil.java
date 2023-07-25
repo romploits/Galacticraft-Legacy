@@ -13,13 +13,11 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 
 import micdoodle8.mods.galacticraft.api.vector.BlockTuple;
@@ -80,7 +78,7 @@ public class BlockUtil
         Block oldFormat = parseBlockFromOldConfigFormat(string);
         if (oldFormat != null)
         {
-            GalacticraftCore.logger.info("oldFormat: " + string);
+            GalacticraftCore.logger.debug("oldFormat: " + string);
             return new BlockTuple(oldFormat, parseMetaFromOldConfigFormat(string));
         }
         
@@ -89,12 +87,12 @@ public class BlockUtil
     }
 
     @Nullable
-    public static Block parseBlockFromOldConfigFormat(String string)
+    private static Block parseBlockFromOldConfigFormat(String string)
     {
         return Block.getBlockFromName(string);
     }
 
-    public static int parseMetaFromOldConfigFormat(String string)
+    private static int parseMetaFromOldConfigFormat(String string)
     {
         int lastColon = string.lastIndexOf(':');
         int meta      = -1;
@@ -117,8 +115,9 @@ public class BlockUtil
 
     private static void addToBlockStackList(Resloc resloc, NonNullList<ItemStack> nnl)
     {
-        Block block = ForgeRegistries.BLOCKS.getValue(resloc);
-        if (!Block.isEqualTo(block, Blocks.AIR))
+        GalacticraftCore.logger.debug("Attempting to locate Block with ResourceLocation: " + resloc.toString() + " | Input: " + resloc.rawInput);
+        Block block = Block.REGISTRY.getObject(resloc);
+        if (resloc.isBlock(block))
         {
             ItemStack i = resloc.toItemStack(block);
             if (resloc.isWildcard() && i.getHasSubtypes())
@@ -128,8 +127,10 @@ public class BlockUtil
             {
                 nnl.add(i);
             }
+        } else
+        {
+            GalacticraftCore.logger.error("No block with ResourceLocation (" + resloc.rawInput + ") could be located. Skipping");
         }
-        GalacticraftCore.logger.error("No block with ResourceLocation: (" + resloc.rawInput + ") could be located. Skipping");
     }
 
     private static ItemStack getItemStackFromResloc(Resloc resloc)
@@ -189,6 +190,11 @@ public class BlockUtil
         {
             this.rawInput = meta.isEmpty() ? rawInput : rawInput + ":" + meta;
             this.meta = (meta.equals("*")) ? OreDictionary.WILDCARD_VALUE : safeParse(meta);
+        }
+
+        public boolean isBlock(Block block)
+        {
+            return block.getRegistryName().equals(this);
         }
 
         private int safeParse(String str)

@@ -39,7 +39,8 @@ public class GalacticLog
 
     public void debug(String msg, Object... params)
     {
-        if(ConfigManagerCore.enableDebug) {
+        if (ConfigManagerCore.enableDebug || GCCoreUtil.isDeobfuscated())
+        {
             this.logger.info("[GCDebug] " + msg, params);
         }
     }

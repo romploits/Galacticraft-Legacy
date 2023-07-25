@@ -466,8 +466,9 @@ public class ConfigManagerCore
 
             try
             {
-                prop = getConfig(Constants.CONFIG_CATEGORY_COMPATIBILITY, "External Sealable IDs", new String[] {Block.REGISTRY.getNameForObject(Blocks.GLASS_PANE) + ":0"});
-                prop.setComment("List non-opaque blocks from other mods (for example, special types of glass) that the Oxygen Sealer should recognize as solid seals. Format is BlockName or BlockName:metadata");
+                prop = getConfig(Constants.CONFIG_CATEGORY_COMPATIBILITY, "External Sealable IDs", new String[] {"glass_pane"});
+                prop.setComment(
+                    "List non-opaque blocks from other mods (for example, special types of glass) that the Oxygen Sealer should recognize as solid seals. Format is 'modid:blockname:meta'\n'modid' is optional but will default to 'minecraft'\n'meta' can be '*' and will be all variants of that block if any");
                 prop.setLanguageKey("gc.configgui.sealable_i_ds").setRequiresMcRestart(true);
                 sealableIDs = prop.getStringList();
                 finishProp(prop);
@@ -478,7 +479,7 @@ public class ConfigManagerCore
 
             prop = getConfig(Constants.CONFIG_CATEGORY_COMPATIBILITY, "External Detectable IDs", new String[] {Block.REGISTRY.getNameForObject(Blocks.COAL_ORE).getPath(), Block.REGISTRY.getNameForObject(Blocks.DIAMOND_ORE).getPath(), Block.REGISTRY.getNameForObject(Blocks.GOLD_ORE)
                 .getPath(), Block.REGISTRY.getNameForObject(Blocks.IRON_ORE).getPath(), Block.REGISTRY.getNameForObject(Blocks.LAPIS_ORE).getPath(), Block.REGISTRY.getNameForObject(Blocks.REDSTONE_ORE).getPath(), Block.REGISTRY.getNameForObject(Blocks.LIT_REDSTONE_ORE).getPath()});
-            prop.setComment("List blocks from other mods that the Sensor Glasses should recognize as solid blocks. Format is BlockName or BlockName:metadata.");
+            prop.setComment("List blocks from other mods that the Sensor Glasses should recognize as solid blocks. Format is 'modid:blockname:meta'\n'modid' is optional but will default to 'minecraft'\n'meta' can be '*' and will be all variants of that block if any");
             prop.setLanguageKey("gc.configgui.detectable_i_ds").setRequiresMcRestart(true);
             detectableIDs = prop.getStringList();
             finishProp(prop);
