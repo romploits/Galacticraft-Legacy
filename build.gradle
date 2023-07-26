@@ -96,7 +96,7 @@ modpublishing {
 
 	changelogPath(changelog.changelogFile)
 
-    curseforge('364345') {
+    curseforge('564236') {
     	if (System.getenv().CI)
     		apiKey = 'none'
 	    relations {
