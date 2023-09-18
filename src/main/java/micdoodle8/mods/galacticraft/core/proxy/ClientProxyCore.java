@@ -318,17 +318,7 @@ public class ClientProxyCore extends CommonProxyCore implements ISelectiveResour
     @Override
     public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate)
     {
-        String lang = net.minecraft.client.Minecraft.getMinecraft().gameSettings.language;
-        GalacticraftCore.logger.debug("Reloading entity names for language " + lang);
-        if (lang == null)
-        {
-            lang = "en_us";
-        }
-        GalacticraftCore.instance.loadLanguageCore(lang);
-        if (!GCCoreUtil.langDisable)
-        {
-            GalacticraftPlanets.instance.loadLanguagePlanets(lang);
-        }
+        //NOOP
     }
 
     @Override
